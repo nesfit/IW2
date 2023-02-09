@@ -8,12 +8,13 @@
       - [**Formát IPv6 adres**](#formát-ipv6-adres)
       - [**Směrování IPv6 adres**](#směrování-ipv6-adres)
       - [**Přenos dat na linkové vrstvě**](#přenos-dat-na-linkové-vrstvě)
+- [AutomatedLab](#automatedlab)
 - [Úkoly](#úkoly)
   - [**Lektorské úkoly**](#lektorské-úkoly)
   - [**Lab L00 -- konfigurace virtuálních stanic**](#lab-l00----konfigurace-virtuálních-stanic)
     - [**Lab L01 -- Možnosti konfigurace IPv4 a IPv6**](#lab-l01----možnosti-konfigurace-ipv4-a-ipv6)
     - [**Lab L02 -- Příprava základní topologie sítě**](#lab-l02----příprava-základní-topologie-sítě)
-    - [\*\*Lab L03 -- Wireshark \[^8\]](#lab-l03----wireshark-8)
+    - [**Lab L03 -- Wireshark** \[^8\]](#lab-l03----wireshark-8)
     - [**Lab L04 -- Zavedení IPv6 ve vytvořené síti**](#lab-l04----zavedení-ipv6-ve-vytvořené-síti)
   - [**Studentské úkoly**](#studentské-úkoly)
 
@@ -482,15 +483,48 @@ tabulkách mají omezenou dobu platnosti a jsou periodicky mazány.
 
 ---
 
+# AutomatedLab
+
+```pwsh
+$labName = 'E01'
+
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+Set-LabInstallationCredential -Username root -Password root4lab
+
+Add-LabVirtualNetworkDefinition -Name none
+
+Add-LabVirtualNetworkDefinition -Name Private1 
+Add-LabVirtualNetworkDefinition -Name Private2
+Add-LabVirtualNetworkDefinition -Name Private3
+Add-LabVirtualNetworkDefinition -Name Private4
+
+
+$w11_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch none
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch none 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+)
+
+Add-LabMachineDefinition -Name w11   -Memory 2GB -NetworkAdapter $w11_network -OperatingSystem 'Windows 11 Pro'
+
+$w2022_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch none
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private4 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch none 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+)
+
+Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+Install-Lab 
+
+Show-LabDeploymentSummary -Detailed
+```
+
 # Úkoly
 
 ## **Lektorské úkoly**
-
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
-
--   Přístupové údaje na server file: **nepal\\hstudent** heslo: **aaa**
 
 ## **Lab L00 -- konfigurace virtuálních stanic**
 
@@ -662,7 +696,7 @@ Obrázek 12. Schéma základní topologie sítě
 
 10. Na **w10-base** ověřte konektivitu příkazem `ping 192.168.23.10`
 
-### **Lab L03 -- Wireshark [^8]
+### **Lab L03 -- Wireshark** [^8]
 
 > **Cíl cvičení**
 >

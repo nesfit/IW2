@@ -184,6 +184,48 @@ vnější síti.
 ```pwsh
 $labName = 'E02'
 
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+Set-LabInstallationCredential -Username root -Password root4lab
+
+Add-LabVirtualNetworkDefinition -Name none
+Add-LabVirtualNetworkDefinition -Name 'Default Switch'
+
+Add-LabVirtualNetworkDefinition -Name Private1 
+Add-LabVirtualNetworkDefinition -Name Private2
+Add-LabVirtualNetworkDefinition -Name Private3
+Add-LabVirtualNetworkDefinition -Name Private4
+
+
+$w11_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch none
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch none 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+)
+
+Add-LabMachineDefinition -Name w11   -Memory 2GB -NetworkAdapter $w11_network -OperatingSystem 'Windows 11 Pro'
+
+$w2022_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch none
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private4 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch none 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+)
+
+Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+$w2022_core_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch 'Default Switch'
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch Private4 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+)
+
+Add-LabMachineDefinition -Name w2022-core -Memory 2GB -NetworkAdapter $w2022_core_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation'
+
+Install-Lab 
+
+Show-LabDeploymentSummary -Detailed
 
 ```
 

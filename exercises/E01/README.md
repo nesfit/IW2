@@ -498,7 +498,6 @@ Add-LabVirtualNetworkDefinition -Name Private2
 Add-LabVirtualNetworkDefinition -Name Private3
 Add-LabVirtualNetworkDefinition -Name Private4
 
-
 $w11_network = @(
     New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch none
     New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1 
@@ -523,6 +522,11 @@ Show-LabDeploymentSummary -Detailed
 ```
 
 # Úkoly
+
+-   Rozsah IP adres přidělených z *Default switch* se může od níže
+    uvedeného rozsahu lišit.
+
+-   Nepřipojené síťové daptéry je doporučeno zakázat uvnitř VM.
 
 ## **Lektorské úkoly**
 

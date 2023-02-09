@@ -651,14 +651,19 @@ pro tento server, který již zná odpověď a vrátí lokálnímu **DNS**
 serveru odpovídající IP adresu. Lokální **DNS** server nakonec zašle
 tuto informaci **DNS** klientovi.
 
+---
+
+# AutomatedLab
+
+```pwsh
+$labName = 'E02'
+
+
+```
+
+---
+
 **Společné úkoly**
-
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
-
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
 
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.

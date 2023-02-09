@@ -110,14 +110,19 @@ schopni získat IPv4 adresu od **DHCP** serveru, zatímco jiní klienti za
 směrovačem bez podpory **DHCP relay** ne, jelikož jejich požadavky se
 nedostanou k **DHCP** serveru.
 
+---
+
+# AutomatedLab
+
+```pwsh
+$labName = 'E02'
+
+
+```
+
+---
+
 **Společné úkoly**
-
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
-
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
 
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.

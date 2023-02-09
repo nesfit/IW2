@@ -148,17 +148,24 @@ přístup do sítě VPN, a Web Application Proxy umožňující zpřístupnit
 vybrané HTTP/HTTPS aplikace z vnitřní sítě do klientským zařízením ve
 vnější síti.
 
+---
+
+# AutomatedLab
+
+```pwsh
+$labName = 'E02'
+
+
+```
+
+---
+
 # **Společné úkoly**
-
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
-
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
 
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
+
+-   Nepřipojené síťové daptéry je doporučeno zakázat uvnitř VM.
 
 ## **Lab LS00 -- konfigurace virtuálních stanic**
 

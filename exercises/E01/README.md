@@ -532,14 +532,14 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
 | ------------------------ | -------------- | -------------- | -------------- | -------------- |
-| **w10-base**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
+| **w11**                  | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **w2022**                | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
 | **router-1**             | Private1       | Private2       | Private3       | Nepřipojeno    |
 | **router-2**             | Private2       | Private4       | Nepřipojeno    | Nepřipojeno    |
 | **router-3**             | Private3       | Private4       | Nepřipojeno    | Nepřipojeno    |
 
 -   v případech, kdy je potřeba přistupovat na externí síť
-    z **w10-base** a **w2016-base**, připojte adaptér **LAN1** k
+    z **w11** a **w2022**, připojte adaptér **LAN1** k
     přepínači *Default switch*.
 
 ### **Lab L01 -- Možnosti konfigurace IPv4 a IPv6**
@@ -560,9 +560,9 @@ vše lze konfigurovat přes příkazový řádek pomocí utility **netsh**
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
@@ -575,7 +575,7 @@ vše lze konfigurovat přes příkazový řádek pomocí utility **netsh**
 
 Obrázek 12. Schéma základní topologie sítě
 
-1.  Na **w10-base** nastavte pomocí grafického rozhraní příslušnou *IPv4
+1.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv4
     adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na
     obrázku 12
 
@@ -600,7 +600,7 @@ Obrázek 12. Schéma základní topologie sítě
 
     f.  Potvrďte OK
 
-2.  Na **w2016-base** nastavte pomocí příkazové řádky příslušnou *IPv4
+2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv4
     adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na
     obrázku 12
 
@@ -652,7 +652,7 @@ Obrázek 12. Schéma základní topologie sítě
     c.  Spusťte příkaz `/ip address add interface=ether2
         address=192.168.23.2/24`
 
-7.  Z **w10-base** se připojte pomocí **WinBoxu** na **router-1** a
+7.  Z **w11** se připojte pomocí **WinBoxu** na **router-1** a
     nastavte směrovací tabulky
 
     a.  Spusťte webový prohlížeč a zadejte adresu **192.168.1.1**
@@ -668,7 +668,7 @@ Obrázek 12. Schéma základní topologie sítě
 
     f.  Potvrďte OK
 
-8.  Z **w2016-base** se připojte pomocí **WinBoxu** na **router-2** a
+8.  Z **w2022** se připojte pomocí **WinBoxu** na **router-2** a
     nastavte směrovací tabulky
 
     a.  Spusťte webový prohlížeč a zadejte adresu **192.168.23.2**
@@ -687,14 +687,14 @@ Obrázek 12. Schéma základní topologie sítě
 
     f.  Potvrďte OK
 
-9.  Na **w2016-base** povolte ping pro IPv4
+9.  Na **w2022** povolte ping pro IPv4
 
     a.  Spusťte **Windows Firewall with Advanced Security**
 
     b.  V Inbound Rules povolte pravidlo File And Printer Sharing (Echo
         Request - ICMPv4-In)
 
-10. Na **w10-base** ověřte konektivitu příkazem `ping 192.168.23.10`
+10. Na **w11** ověřte konektivitu příkazem `ping 192.168.23.10`
 
 ### **Lab L03 -- Wireshark** [^8]
 
@@ -704,12 +704,12 @@ Obrázek 12. Schéma základní topologie sítě
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
 
-Na **w2016-base** nainstalujte[^8] **Wireskark** a
+Na **w2022** nainstalujte[^8] **Wireskark** a
 předveďte jeho možnosti. Ukažte jak vybrat rozhraní, na kterých se mají
 data zachytávat. Zmiňte taky, že *user-friendly* zobrazení zachycených
 dat obstarávají *parsery*. Vysvětlete rozdíl mezi *capture* a
@@ -719,7 +719,7 @@ Instalaci na virtuální stroj proveďte pomocí `winget install -e --id Wiresha
 
 1. Vytvořte session pro zachytávání dat na rozhraní **LAN2**
 
-2. Následně z **w10-base** pingněte **w2016-base** a ukončete zachytávání.
+2. Následně z **w11** pingněte **w2022** a ukončete zachytávání.
 Projděte zachycená data a demonstrujte použití filtrů (např. **IPv4**,
 **ICMP**, **IPv4.Address == 192.168.1.10, ...**). Předveďte detaily,
 Message Stack a jednotlivé vrstvy, ...
@@ -733,9 +733,9 @@ Message Stack a jednotlivé vrstvy, ...
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base** (w10-base)
+> **w11** (w11)
 >
-> **w2016-base** (w2016-base FIT)
+> **w2022** (w2022 FIT)
 >
 > **Další prerekvizity**
 >
@@ -746,7 +746,7 @@ Message Stack a jednotlivé vrstvy, ...
 
 Obrázek 13. Schéma základní topologie sítě pro IPv6
 
-1.  Na **w10-base** nastavte pomocí grafického rozhraní příslušnou *IPv6
+1.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv6
     adresu* a *prefix* na základě schématu na obrázku 13
 
     a.  Otevřete okno **Network Connections**, zvolte LAN2 a pak
@@ -775,7 +775,7 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
 
     e.  Potvrďte OK
 
-2.  Na **w2016-base** nastavte pomocí příkazové řádky příslušnou *IPv6
+2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv6
     adresu* a *prefix* podle schématu na obrázku 13
 
     a.  Spusťte následující příkaz `netsh interface ipv6 set address
@@ -794,7 +794,7 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
         (*active*), výchozí nastavení je platnost napořád
         (*persistent*).
 
-1.  Z **w10-base** se připojte pomocí **WinBoxu** na **router-1** a
+1.  Z **w11** se připojte pomocí **WinBoxu** na **router-1** a
     nastavte tam IPv6 adresy a směrovací tabulky
 
     a.  Zvolte IPv6 -\> Addresses, pak add (červené plus)
@@ -813,7 +813,7 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
 
     g.  Potvrďte OK
 
-2.  Z **w2016-base** se připojte pomocí **WinBoxu** na **router-2** a
+2.  Z **w2022** se připojte pomocí **WinBoxu** na **router-2** a
     nastavte tam opět IPv6 adresy a směrovací tabulky
 
     a.  Zvolte IPv6 -\> Addresses, pak add (červené plus)
@@ -832,14 +832,14 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
 
     g.  Potvrďte OK
 
-3.  Na **w2016-base** povolte ping pro IPv6
+3.  Na **w2022** povolte ping pro IPv6
 
     a.  Spusťte **Windows Firewall with Advanced Security**
 
     b.  V Inbound Rules povolte pravidlo File And Printer Sharing (Echo
         Request - ICMPv6-In)
 
-4.  Na **w10-base** ověřte konektivitu příkazem `ping -6 2001:23::10`
+4.  Na **w11** ověřte konektivitu příkazem `ping -6 2001:23::10`
 
 5.  Ověřte správnou funkčnost IPv6
 
@@ -849,7 +849,7 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
     -   Síťové rozhraní pro zachytávání musí odpovídat *Private1*,
         standardně to je **LAN2**
 
-    b.  Z **w10-base** pingněte **w2016-base** příkazem z bodu 6
+    b.  Z **w11** pingněte **w2022** příkazem z bodu 6
 
     c.  Zastavte zachytávání a ověřte, že komunikace opravdu probíhá přes
         IPv6
@@ -867,28 +867,28 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
 | ------------------------ | -------------- | -------------- | -------------- | -------------- |
-| **w10-base**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
+| **w11**                  | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **w2022**                | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
 | **router-1**             | Private1       | Private2       | Private3       | Nepřipojeno    |
 | **router-2**             | Private2       | Private4       | Nepřipojeno    | Nepřipojeno    |
 | **router-3**             | Private3       | Private4       | Nepřipojeno    | Nepřipojeno    |
 
 -   v případech, kdy je potřeba přistupovat na externí síť
-    z **w10-base** a **w2016-base**, připojte adaptér **LAN1** k
+    z **w11** a **w2022**, připojte adaptér **LAN1** k
     přepínači *Default switch*.
 
 **Lab S01 -- Nastavení priority cest pro směrování**
 
 > **Cíl cvičení**
 >
-> Vytvořit druhou komunikační cestu mezi **w10-base** a **w2016-base** a
+> Vytvořit druhou komunikační cestu mezi **w11** a **w2022** a
 > naučit se nastavovat priority jednotlivých cest pomocí metrik.
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base** (w10-base)
+> **w11** (W11)
 >
-> **w2016-base** (w2016-base FIT)
+> **w2022** (W2022)
 >
 > **Další prerekvizity**
 >
@@ -913,7 +913,7 @@ Obrázek 14. Schéma úplné topologie sítě
     c.  Spusťte příkaz `/ip address add interface=ether2
         address=192.168.23.3/24`
 
-3.  Z **w10-base** se připojte pomocí **WinBoxu** na **router-1** a
+3.  Z **w11** se připojte pomocí **WinBoxu** na **router-1** a
     nastavte *IPv4 adresu*, *masku podsítě* a směrovací tabulky
 
     a.  Spusťte **WinBox**
@@ -936,7 +936,7 @@ Obrázek 14. Schéma úplné topologie sítě
 
     i.  Potvrďte OK
 
-4.  Z **w2016-base** se připojte pomocí **WinBoxu** na **router-3** a
+4.  Z **w2022** se připojte pomocí **WinBoxu** na **router-3** a
     nastavte směrovací tabulky
 
     a.  Spusťte **WinBox**
@@ -951,11 +951,11 @@ Obrázek 14. Schéma úplné topologie sítě
     e.  Potvrďte OK
 
 
-5.  Z **w10-base** proveďte trasování cesty příkazem `tracert
+5.  Z **w11** proveďte trasování cesty příkazem `tracert
     192.168.23.10` a ověřte, že komunikace probíhá skrz **router-1**
     a **router-2**
 
-6.  Z **w10-base** se připojte pomocí **WinBoxu** na **router-1** a
+6.  Z **w11** se připojte pomocí **WinBoxu** na **router-1** a
     změňte metriky cest
 
     a.  Zvolte IP -\> Routes
@@ -969,7 +969,7 @@ Obrázek 14. Schéma úplné topologie sítě
 
     e.  Potvrďte OK
 
-7.  Z **w10-base** opět proveďte trasování cesty příkazem **tracert
+7.  Z **w11** opět proveďte trasování cesty příkazem **tracert
     192.168.23.10** a ověřte, že tentokrát probíhá komunikace skrz
     **router-1** a **router-3**
 
@@ -982,7 +982,7 @@ Obrázek 14. Schéma úplné topologie sítě
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 
 1.  Vypište informace o rozhraní **LAN2** příkazem `ipconfig /all`
 
@@ -1013,7 +1013,7 @@ Obrázek 14. Schéma úplné topologie sítě
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
@@ -1056,7 +1056,7 @@ Obrázek 14. Schéma úplné topologie sítě
         Services \\ tcpip6 \\ Parameters \\ DisabledComponents typu DWORD
         a nastavte mu hodnotu **0xFF**
 
-    c.  Restartujte **w2016-base**
+    c.  Restartujte **w2022**
 
 
 7.  Ověřte IPv6 konektivitu na lokální počítač, příkaz `ping -6 ::1`
@@ -1099,7 +1099,7 @@ Obrázek 14. Schéma úplné topologie sítě
 
 [^8]: Link [Wireshark](https://www.wireshark.org)
 
-[^9]: Pro přenos lze využít rozšířenou session k w2016-base a přenos pomocí kopírovat-vložit
+[^9]: Pro přenos lze využít rozšířenou session k w2022 a přenos pomocí kopírovat-vložit
 
 [^10]: Link https://docs.microsoft.com/en-us/message-analyzer/configuring-a-remote-capture?redirectedfrom=MSDN#BKMK_PromiscuousMode
 

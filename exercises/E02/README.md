@@ -1,3 +1,32 @@
+- [**Microsoft Windows Server**](#microsoft-windows-server)
+  - [**Vývojové kanály Windows Server**](#vývojové-kanály-windows-server)
+    - [**Long-Term Servicing Channel (LTSC)**](#long-term-servicing-channel-ltsc)
+    - [**Semi-Annual Channel (SAC)**](#semi-annual-channel-sac)
+  - [**Edice**](#edice)
+    - [**Core**](#core)
+    - [**Nano**](#nano)
+  - [**Možnosti administrace Windows Server**](#možnosti-administrace-windows-server)
+    - [**Server Manager**](#server-manager)
+    - [**MMC**](#mmc)
+    - [**PowerShell**](#powershell)
+    - [**Remote Server Administration Tools**](#remote-server-administration-tools)
+    - [**Windows Admin Center**](#windows-admin-center)
+    - [**Role Remote Access Server**](#role-remote-access-server)
+- [AutomatedLab](#automatedlab)
+- [**Společné úkoly**](#společné-úkoly)
+  - [**Lab LS00 -- konfigurace virtuálních stanic**](#lab-ls00----konfigurace-virtuálních-stanic)
+- [**Lektorské úkoly**](#lektorské-úkoly)
+  - [**Lab L01 -- Server Manager a MMC**](#lab-l01----server-manager-a-mmc)
+- [**Studentské úkoly**](#studentské-úkoly)
+  - [**Lab S01 -- dokončení základní instalace Windows Server Core**](#lab-s01----dokončení-základní-instalace-windows-server-core)
+  - [**Lab S02 -- místní správa Windows Server Core**](#lab-s02----místní-správa-windows-server-core)
+  - [**Lab S03 --** **Příprava základní topologie sítě**](#lab-s03----příprava-základní-topologie-sítě)
+  - [**Lab S06 -- vzdálená správa Windows Server pomocí UI**](#lab-s06----vzdálená-správa-windows-server-pomocí-ui)
+  - [**Lab S07 -- instalace role RAS na vzdálený server**](#lab-s07----instalace-role-ras-na-vzdálený-server)
+  - [**Lab S08 -- Instalace nástrojů vzdálené správy Remote Server Administration Tools**](#lab-s08----instalace-nástrojů-vzdálené-správy-remote-server-administration-tools)
+  - [**Lab S09 -- Konfigurace serveru jako NAT**](#lab-s09----konfigurace-serveru-jako-nat)
+
+
 # **Microsoft Windows Server**
 
 ## **Vývojové kanály Windows Server**

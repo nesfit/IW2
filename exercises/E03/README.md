@@ -1,4 +1,18 @@
-**Systém DHCP**
+- [**Systém DHCP**](#systém-dhcp)
+  - [**Služba DHCP**](#služba-dhcp)
+  - [**Přidělování IPv4 adres pomocí DHCP**](#přidělování-ipv4-adres-pomocí-dhcp)
+  - [**DHCP relay**](#dhcp-relay)
+- [AutomatedLab](#automatedlab)
+- [**Společné úkoly**](#společné-úkoly)
+- [**Lektorské úkoly**](#lektorské-úkoly)
+  - [**Lab L01 -- Instalace a základní nastavení DHCP serveru**](#lab-l01----instalace-a-základní-nastavení-dhcp-serveru)
+  - [**Lab L02 -- Pokročilé nastavení DHCP serveru**](#lab-l02----pokročilé-nastavení-dhcp-serveru)
+- [**Studentské úkoly**](#studentské-úkoly)
+  - [**Lab S01 -- Vytvoření rezervace pro DHCP klienta**](#lab-s01----vytvoření-rezervace-pro-dhcp-klienta)
+  - [**Lab S02 -- Aplikace nastavení DHCP na základě user class**](#lab-s02----aplikace-nastavení-dhcp-na-základě-user-class)
+
+
+# **Systém DHCP**
 
 Zajištění konektivity mezi počítači v malé (např. domácí) síti je celkem
 jednoduché, stačí manuálně nastavit jednotlivá síťová rozhraní. Často to
@@ -22,7 +36,7 @@ byl schopen přidělovat jen IPv4 adresu, masku podsítě, adresu **TFTP**
 obraz, a cestu k tomuto obrazu. Protože **DHCP** je rozšíření protokolu
 **BOOTP**, je s ním také zpětně kompatibilní.
 
-**Služba DHCP**
+## **Služba DHCP**
 
 Stejně jako v případě **DNS** lze i zde **službu** **DHCP** rozdělit na
 dvě části. První část tvoří **DHCP** server, jenž obsahuje informace o
@@ -36,7 +50,7 @@ jenž běží na protokolem **UDP** na portech **67** (server) a **68**
 (*broadcast*), jelikož ten jediný lze použít i v případě, že rozhraní
 ještě nemá přidělenou IP adresu.
 
-**Přidělování IPv4 adres pomocí DHCP**
+## **Přidělování IPv4 adres pomocí DHCP**
 
 Princip přidělování IPv4 adres je znázorněn na obrázku 4 níže. Postup
 lze shrnout do následujících několika kroků:
@@ -90,7 +104,7 @@ Pokud se **DHCP** klientovi vůbec nepodaří prodloužit výpůjčku do
 vypršení její doby platnosti, znovu zažádá po vypršení o novou IPv4
 adresu.
 
-**DHCP relay**
+## **DHCP relay**
 
 Hlavní nevýhodou **DHCP** je jeho závislost na všesměrovém vysílání
 (*broadcast*), **DHCP** zprávy tedy nelze standardně šířit za hranice
@@ -122,7 +136,7 @@ $labName = 'E02'
 
 ---
 
-**Společné úkoly**
+# **Společné úkoly**
 
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
@@ -144,9 +158,9 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 **\
 **
 
-**Lektorské úkoly**
+# **Lektorské úkoly**
 
-**Lab L01 -- Instalace a základní nastavení DHCP serveru**
+## **Lab L01 -- Instalace a základní nastavení DHCP serveru**
 
 > **Cíl cvičení**
 >
@@ -279,7 +293,7 @@ Spusťte příkaz **ipconfig /renew**
 Ověřte, že **w10-base** obdržel od **DHCP** serveru IPv4 adresu z
 nastaveného rozsahu
 
-**Lab L02 -- Pokročilé nastavení DHCP serveru**
+## **Lab L02 -- Pokročilé nastavení DHCP serveru**
 
 > **Cíl cvičení**
 >
@@ -304,9 +318,9 @@ rozsahy a ukažte, kde se dají nastavit. Nakonec proberte filtry, které
 lze využít pro výběr klientů, kterým bude daný DHCP server poskytovat
 své služby, mají na to pak bodovaný úkol.
 
-**Studentské úkoly**
+# **Studentské úkoly**
 
-**Lab S01 -- Vytvoření rezervace pro DHCP klienta**
+## **Lab S01 -- Vytvoření rezervace pro DHCP klienta**
 
 > **Cíl cvičení**
 >
@@ -408,7 +422,7 @@ své služby, mají na to pak bodovaný úkol.
     -   Nastavení na úrovni jednotlivých rezervací mají vždy přednost
         před stejnými nastaveními na ostatních úrovních
 
-**Lab S02 -- Aplikace nastavení DHCP na základě user class**
+## **Lab S02 -- Aplikace nastavení DHCP na základě user class**
 
 > **Cíl cvičení**
 >

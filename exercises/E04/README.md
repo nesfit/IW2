@@ -1,4 +1,23 @@
-**Systém DNS**
+- [**Systém DNS**](#systém-dns)
+  - [**Hierarchie DNS**](#hierarchie-dns)
+  - [**Služba DNS**](#služba-dns)
+  - [**DNS server**](#dns-server)
+    - [**DNS záznamy**](#dns-záznamy)
+    - [**Přenos zón**](#přenos-zón)
+      - [**Výhody integrace DNS serveru v Active Directory**](#výhody-integrace-dns-serveru-v-active-directory)
+  - [**DNS klient**](#dns-klient)
+  - [**Zóna globálních jmen**](#zóna-globálních-jmen)
+  - [**DNS dotazy**](#dns-dotazy)
+- [AutomatedLab](#automatedlab)
+- [**Společné úkoly**](#společné-úkoly)
+  - [**Lab LS00 -- konfigurace virtuálních stanic**](#lab-ls00----konfigurace-virtuálních-stanic)
+- [**Lektorské úkoly**](#lektorské-úkoly)
+  - [**Lab L01 -- Konfigurace síťových rozhraní**](#lab-l01----konfigurace-síťových-rozhraní)
+  - [**Lab L02 -- Instalace a základní nastavení DNS serveru**](#lab-l02----instalace-a-základní-nastavení-dns-serveru)
+  - [**Lab S02 -- Vytvoření zóny globálních jmen**](#lab-s02----vytvoření-zóny-globálních-jmen)
+
+
+# **Systém DNS**
 
 **DNS** (*Domain Name System*) je systém pro překlad doménových jmen
 (DN, *Domain name*) na IP adresy a opačně. Umožňuje jednoznačně
@@ -27,7 +46,7 @@ několika serveru, pořád by mělo existovat dost dalších, které jsou
 schopny poskytnout požadované informace. Robustnost je pro systém jako
 je **DNS** klíčová vlastnost.
 
-**Hierarchie DNS**
+## **Hierarchie DNS**
 
 Systém **DNS** je hierarchický, prostor doménových jmen (*Domain Name
 Space*) tvoří obecný strom. Příklad části takovéhoto stromu lze vidět na
@@ -102,7 +121,7 @@ Například IPv4 adrese **147.229.9.23** bude ve stromu pro reverzní
 mapování IPv4 adres odpovídat záznam **23.9.229.147.in-addr.arpa.**, kde
 **in-addr.arpa.** je speciální doména druhého řádu.
 
-**Služba DNS**
+## **Služba DNS**
 
 Službu **DNS** lze rozdělit na dvě části. První část tvoří **DNS
 server**, jenž obsahuje záznamy potřebné pro překlad doménového jména na
@@ -116,7 +135,7 @@ transportní vrstvě protokol **UDP**, jelikož poskytuje vyšší rychlost
 přenosu, což je v případě **DNS** klíčové. Protokol **TCP** se používá
 hlavně pro tzv. *zone transfer*, o kterém bude řeč později.
 
-**DNS server**
+## **DNS server**
 
 **DNS server** zajišťuje samotný překlad doménových jmen na IP adresy a
 opačně. Každý **DNS server** se stará pouze o část prostoru doménových
@@ -209,7 +228,7 @@ třeba primárním serverem pro doménu **fit.vutbr.cz.** a zároveň
 sekundárním serverem pro doménu **feec.vutbr.cz.**, což je celkem častá
 situace.
 
-**DNS záznamy**
+### **DNS záznamy**
 
 **DNS** server ukládá informace potřebné pro překlad doménových jmen a
 IP adres ve formě **DNS záznamů**. Existují různé typy **DNS záznamů**,
@@ -360,7 +379,7 @@ záznamu v zónovém souboru.
 
 Tabulka 1. Nejpoužívanější typy DNS záznamů
 
-**Přenos zón**
+### **Přenos zón**
 
 Jedna zóna může být obecně na více než jednom **DNS** serveru. Umístění
 jedné zóny na více **DNS** serverů přináší větší spolehlivost, pokud
@@ -406,7 +425,7 @@ Samotný přenos zón pak může probíhat dvěma způsoby:
 -   **Inkrementálním přenosem zóny** (IXFR), kdy se přenesou pouze změny
     > oproti některé dřívější verzi zónového souboru.
 
-**Výhody integrace DNS serveru v Active Directory**
+#### **Výhody integrace DNS serveru v Active Directory**
 
 Jak již bylo zmíněno dříve, primární zóny mohou být integrovány v Active
 Directory. Tato integrace s sebou přináší několik výhod.
@@ -434,7 +453,7 @@ updates*), kdy klienti z Active Directory mohou automaticky ukládat
 informace o překladu svých doménových jmen na odpovídající IP adresy a
 naopak do databáze **DNS** serveru.
 
-**DNS klient**
+## **DNS klient**
 
 **DNS klient** (tzv. *resolver*) zprostředkovává překlad doménových jmen
 a IP adres běžícím aplikacím. V případě systému Windows je **klient
@@ -578,7 +597,7 @@ vyrovnávacích pamětí (*cache*), které **ne**poskytují autoritativní
 odpovědi. Od Windows 7 a Windows Server 2012 probíhá obvykle překlad
 **LLMNR** a **NetBIOS** paralelně.
 
-**Zóna globálních jmen**
+## **Zóna globálních jmen**
 
 Zóna globálních jmen (GNZ, *Global Names Zones*) je částečná náhrada
 **WINS** serverů představená ve Windows Server 2008. Tato zóna musí být
@@ -589,7 +608,7 @@ Replikace této zóny musí být nastavena na celý les (*forest*) Active
 Directory (seskupení doménových stromů) a zóna samotná musí být povolena
 na každém řadiči domény v celém lese.
 
-**DNS dotazy**
+## **DNS dotazy**
 
 Jak již bylo řečeno dříve, systém **DNS** je založen na modelu
 klient-server. Klient tedy zasílá serveru požadavky a server se jim
@@ -663,14 +682,14 @@ $labName = 'E02'
 
 ---
 
-**Společné úkoly**
+# **Společné úkoly**
 
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
 
 -   Nepřipojené síťové daptéry je doporučeno zakázat uvnitř VM.
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+## **Lab LS00 -- konfigurace virtuálních stanic**
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
@@ -687,9 +706,9 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 **\
 **
 
-**Lektorské úkoly**
+# **Lektorské úkoly**
 
-**Lab L01 -- Konfigurace síťových rozhraní**
+## **Lab L01 -- Konfigurace síťových rozhraní**
 
 > **Cíl cvičení**
 >
@@ -764,7 +783,7 @@ DHCP.
 **\
 **
 
-**Lab L02 -- Instalace a základní nastavení DNS serveru**
+## **Lab L02 -- Instalace a základní nastavení DNS serveru**
 
 > **Cíl cvičení**
 >
@@ -978,7 +997,7 @@ na to pak bodovaný úkol, a dynamické aktualizace.
             reverzní mapování IPv4 adres na odpovídající doménová jména,
             může tedy zjistit název serveru z jeho IPv4 adresy
 
-**Lab S02 -- Vytvoření zóny globálních jmen**
+## **Lab S02 -- Vytvoření zóny globálních jmen**
 
 > **Cíl cvičení**
 >

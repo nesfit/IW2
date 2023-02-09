@@ -1,11 +1,11 @@
-**Microsoft Windows Server**
+# **Microsoft Windows Server**
 
-**Vývojové kanály Windows Server**
+## **Vývojové kanály Windows Server**
 
 Od vydání Windows Server 2016 došlo ke sjednocení způsobu vývoje mezi
 klientskými a serverovými systémy Windows.
 
-**Long-Term Servicing Channel (LTSC)**
+### **Long-Term Servicing Channel (LTSC)**
 
 Kanál „Long-term servicing channel" je zaměřena na situace, kde je
 kladen důraz na maximální stabilitu, dlouhou životnost a minimální změny
@@ -17,7 +17,7 @@ stabilní funkce. Kritické bezpečnostní záplaty jsou garantovány po dobu
 
 Dříve označován jako Long-Term Servicing Branch.
 
-**Semi-Annual Channel (SAC)**
+### **Semi-Annual Channel (SAC)**
 
 Systémy Windows Server vydané pod Semi-Annual Channel vychází přibližně
 každého půl roku a jsou podporovány pouze po dobu 18 měsíců. V tomto se
@@ -28,7 +28,7 @@ Server, version 1809.
 
 Vyhází ze staršího Current Branch for Business.
 
-**Edice**
+## **Edice**
 
 Windows Server je dostupný ve dvou edicích - Standard a Datacenter,
 lišících se především licenčním modelem a některými pokročilými funkcemi
@@ -37,7 +37,7 @@ lišících se především licenčním modelem a některými pokročilými funk
 Systém Windows Server můžete nainstalovat v režimu with Desktop
 Experience, s plnohodnotným grafickým rozhraním, nebo v režimu Core.
 
-**Core**
+### **Core**
 
 Režim instalace Core znamená instalaci systému s převážně textovým
 rozhraním a pouze s několika základními grafickými nástroji. Uvedení
@@ -48,7 +48,7 @@ PowerShellu, nástrojem sconfig a dalšími nástroji pro příkazový řádek.
 
 Od Windows Server 2016 se jedná o výchozí režim instalace.
 
-**Nano**
+### **Nano**
 
 Windows Server Nano[^3] je zcela samostatná minimalistická verze
 vycházející z režimu Core s úplně odstraněnou možností lokálního
@@ -59,13 +59,13 @@ Containers a Docker), kdy je obraz systému poskládán z jednotlivých
 komponent a požadované aplikace. Aktualizace systému probíhá vytvořením
 nového obrazu systému s novější verzí komponent.
 
-**Možnosti administrace Windows Server**
+## **Možnosti administrace Windows Server**
 
 Windows Server lze spravovat několika způsoby[^5] -- grafickými (MMC,
 Server Manager), textovými, (PowerShell, příkazový řádek) a nejnověji i
 webovými nástroji.
 
-**Server Manager**
+### **Server Manager**
 
 Server Manager je grafický nástroj poskytující přehledné informace o
 jednom nebo více[^6] systémech Windows Server. Využívá se pro správu
@@ -79,7 +79,7 @@ roli.
 
 Na samotnou správu rolí pak většinou využívá níže uvedené MMC.
 
-**MMC**
+### **MMC**
 
 Microsoft Management Console je framework pro pokročilou správu systémů
 Windows v grafickém režimu. Skládá se ze tří podoken -- navigačního
@@ -91,7 +91,7 @@ MMC lze přidat jednotlivé konfigurační komponenty, tzv. snap-iny
 přidávat do mmc.exe, nebo je volat samostatně ve formě \*.msc souborů
 (např. compmgmt.msc, devmgmt.msc, ...)
 
-**PowerShell**
+### **PowerShell**
 
 PowerShell lze použít jak k lokální, tak i k vzdálené správě systémů
 Windows s využitím WS-Management a WMI.
@@ -102,7 +102,7 @@ Další možností je vzdálené spuštění příkazu nebo skriptu pomocí
 Invoke-Command. Poslední možností je vytvoření interaktivního sezené
 pomocí Enter-PSSession.
 
-**Remote Server Administration Tools**
+### **Remote Server Administration Tools**
 
 Remote Server Administration Tools (RSAT)[^7] je sada nástrojů (MMC a
 powershell modulů) určených pro vzdálenou správu jednotlivých rolí
@@ -116,7 +116,7 @@ a následně aktivovat požadované nástroje průvodcem Turn Windows features
 on or off, od verze 1810 je RSAT zahrnut přímo ve Windows 10 jako
 Feature on demand.
 
-**Windows Admin Center**
+### **Windows Admin Center**
 
 Windows Admin Center[^9] (WAC, dříve známý pod názvem Project Honolulu)
 je nová variace na Server Manager a různé MMC konzole, dostupná přes
@@ -138,7 +138,7 @@ k jednotlivým spravovaným serverům pomocí PowerShell Remoting, WinRM.
 V současné době WAC nenahrazuje veškerou funkcionalitu/možnosti
 nastavení známé z MMC.
 
-**Role Remote Access Server**
+### **Role Remote Access Server**
 
 Jedná se o jednu z nejstarších a základních rolí Windows Server, dříve
 označovanou jako Routing and Remote Access Services. Skládá se ze tří
@@ -148,7 +148,7 @@ přístup do sítě VPN, a Web Application Proxy umožňující zpřístupnit
 vybrané HTTP/HTTPS aplikace z vnitřní sítě do klientským zařízením ve
 vnější síti.
 
-**Společné úkoly**
+# **Společné úkoly**
 
 -   Pro přístup na server **file** (a jiné) přes síťové rozhraní
     *Default switch* je nutné použít jeho plně kvalifikované doménové
@@ -160,7 +160,7 @@ vnější síti.
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+## **Lab LS00 -- konfigurace virtuálních stanic**
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
@@ -180,9 +180,9 @@ OOBE**.
 **\
 **
 
-**Lektorské úkoly**
+# **Lektorské úkoly**
 
-**Lab L01 -- Server Manager a MMC**
+## **Lab L01 -- Server Manager a MMC**
 
 > **Cíl cvičení**
 >
@@ -235,9 +235,9 @@ OOBE**.
 **\
 **
 
-**Studentské úkoly**
+# **Studentské úkoly**
 
-**Lab S01 -- dokončení základní instalace Windows Server Core**
+## **Lab S01 -- dokončení základní instalace Windows Server Core**
 
 > **Cíl cvičení**
 >
@@ -285,7 +285,7 @@ OOBE**.
     d.  Zobrazí se dialog, zda chceme server rovnou restartovat, zvolte
         Yes
 
-**Lab S02 -- místní správa Windows Server Core**
+## **Lab S02 -- místní správa Windows Server Core**
 
 > **Cíl cvičení**
 >
@@ -394,7 +394,7 @@ OOBE**.
         následně volbu **1** (Enable Remote Management). Potvrzovacím
         dialog zavřete tlačítkem OK.
 
-**Lab S03 --** **Příprava základní topologie sítě**
+## **Lab S03 --** **Příprava základní topologie sítě**
 
 > **Cíl cvičení**
 >
@@ -581,7 +581,7 @@ spravované stanici**
 Pozn: některé snap-iny vyžadují i další konfiguraci jako spuštění
 některých služeb apod.
 
-**Lab S06 -- vzdálená správa Windows Server pomocí UI**
+## **Lab S06 -- vzdálená správa Windows Server pomocí UI**
 
 > **Cíl cvičení**
 >
@@ -644,7 +644,7 @@ některých služeb apod.
         serveru **w2019-core**. Obdobně lze připojit téměř jakoukoliv
         MMC
 
-**Lab S07 -- instalace role RAS na vzdálený server**
+## **Lab S07 -- instalace role RAS na vzdálený server**
 
 > **Cíl cvičení**
 >
@@ -731,8 +731,7 @@ některých služeb apod.
 9.  **Get-WindowsFeature \| where-object {\$\_.InstallState -eq
     \"Installed\"}**
 
-**Lab S08 -- Instalace nástrojů vzdálené správy Remote Server
-Administration Tools**
+## **Lab S08 -- Instalace nástrojů vzdálené správy Remote Server Administration Tools**
 
 > **Cíl cvičení**
 >
@@ -776,7 +775,7 @@ Administration Tools**
     h.  Okno průvodce můžete zavřít pomocí Close, a vyčkejte na
         dokončení instalace
 
-**Lab S09 -- Konfigurace serveru jako NAT**
+## **Lab S09 -- Konfigurace serveru jako NAT**
 
 > **Cíl cvičení**
 >
@@ -893,19 +892,6 @@ Administration Tools**
 
 **\
 **
-
-**Bodované úkoly**
-
-**Úkol 1**
-
--   Mějme rozsah IP adres 143.135.176.0 / 21. Rozdělte síť na několik
-    menších rozsahů, tak abyste splnili následující požadavky:
-
-    a.  síť A, alespoň 412 stanic
-
-    b.  síť B, alespoň 169 stanic
-
-    c.  síť C, alespoň 763 stanic
 
 
 [^1]: https://docs.microsoft.com/en-us/windows-server/get-started/2016-edition-comparison

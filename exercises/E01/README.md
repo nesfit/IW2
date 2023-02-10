@@ -527,6 +527,7 @@ Show-LabDeploymentSummary -Detailed
     uvedeného rozsahu lišit.
 
 -   Nepřipojené síťové daptéry je doporučeno zakázat uvnitř VM.
+-   Odpojte na všech VM `none` interface. Nastavte je na `Not Connected`.
 
 ## **Lektorské úkoly**
 
@@ -570,7 +571,7 @@ vše lze konfigurovat přes příkazový řádek pomocí utility **netsh**
 >
 > **Další prerekvizity**
 >
-> Obraz operačního systému pro směrovače **Mikrotik RouterOS 7.7**,
+> Obraz operačního systému pro směrovače **Mikrotik Cloud Hosted Router**,
 > jenž je k dispozici lokálně na jednotlivých stanicích nebo lze stáhnout ze stránek výrobce
 > (**http://www.mikrotik.com/download**)
 
@@ -614,17 +615,7 @@ Obrázek 12. Schéma základní topologie sítě
     -   Název **name** musí odpovídat síťovému rozhraní *Private4*,
         standardně to je **LAN2**
 
-3.  Nainstalujte **Mikrotik RouterOS** do **router-1**
-
-    a.  Připojte **mikrotik-*.iso** do virtuálního stroje
-        **router-1**
-
-    b.  Spusťte virtuální stroj, po najetí zvolte **a** pro výběr všech
-        balíčků a potom **i** pro spuštění instalace
-
-    c.  Dvakrát potvrďte instalaci pomocí **y**
-
-    d.  Vyčkejte na dokončení instalace
+3.  Vytvořte VM **router-1** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 
 4.  Na **router-1** nastavte pomocí konzolového rozhraní **Mikrotik
     RouterOS** příslušné *IPv4 adresy* a *masky podsítě* na základě
@@ -639,8 +630,7 @@ Obrázek 12. Schéma základní topologie sítě
     c.  Spusťte příkaz `/ip address add interface=ether2
         address=192.168.12.1/24`
 
-5.  Nainstalujte **Mikrotik RouterOS** do **router-2** podle postupu z
-    bodu 3
+5.  Vytvořte VM **router-ě** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 
 6.  Na **router-2** nastavte pomocí konzolového rozhraní **Mikrotik
     RouterOS** příslušné *IPv4 adresy* a *masky podsítě* na základě
@@ -900,8 +890,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 ![](./img/media/image14.png)
 Obrázek 14. Schéma úplné topologie sítě
 
-1.  Nainstalujte **Mikrotik RouterOS** do **router-3** podle postupu z
-    bodu 3 z **Lab L02**
+1.  Vytvořte VM **router-3** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku. z předchozího Labu.
 
 2.  Na **router-3** nastavte pomocí konzolového rozhraní **Mikrotik
     RouterOS** příslušné *IPv4 adresy* a *masky podsítě* na základě

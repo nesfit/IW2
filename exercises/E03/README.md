@@ -138,13 +138,13 @@ Add-LabVirtualNetworkDefinition -Name Private1
 
 
 $w11_network = @(
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName Ethernet -VirtualSwitch Private1
 )
 
 Add-LabMachineDefinition -Name w11   -Memory 2GB -NetworkAdapter $w11_network -OperatingSystem 'Windows 11 Pro'
 
 $w2022_network = @(
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName Ethernet -VirtualSwitch Private1
 )
 
 Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
@@ -168,16 +168,13 @@ Show-LabDeploymentSummary -Detailed
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **w11**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2022**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **Adaptér (MAC suffix)** | **Ethernet (1)** |
+| ------------------------ | ---------------- |
+| **w11**                  | Private1         |
+| **w2022**                | Private1         |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
-
-**\
-**
 
 # **Lektorské úkoly**
 
@@ -195,123 +192,111 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 >
 > **w2022**
 
-Přihlaste se k **w2022** jako uživatel **administrator** s heslem
-**aaa**
+1. Přihlaste se k **w2022** jako uživatel **root** s heslem **root4lab**
 
-Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
+2. Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
 
-Otevřete okno **Network Connections** (Settings -- Network & Internet --
-Ethernet -- Change adapter options), zvolte LAN2 a pak Properties
+    a.  Otevřete okno **Network Connections** (Settings -- Network & Internet --
+    Ethernet -- Change adapter options), zvolte Ethernet a pak Properties
 
-Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
+    b.  Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je Ethernet
 
-Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte Properties
+    b.  Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte Properties
 
-Zvolte Use the following IP address a jako IP address zadejte
-**192.168.1.1**
+    c.  Zvolte Use the following IP address a jako IP address zadejte
+    **192.168.1.1**
 
-Klikněte do zadávacího pole u Subnet mask, maska podsítě
-**255.255.255.0** bude doplněna automaticky
+    d.  Klikněte do zadávacího pole u Subnet mask, maska podsítě
+    **255.255.255.0** bude doplněna automaticky
 
-Potvrďte OK
+    e.  Potvrďte OK
 
-Spusťte **Server Manager**
+3. Spusťte **Server Manager**
 
-Start → **Server Manager**
+    a. Start → **Server Manager**
 
-Doporučení: automaticky spuštěný server manager nejdříve zavřít (jinak
-si průvodce přidáním DHCP může stěžovat na chybějící statickou IP)
+    -  Doporučení: automaticky spuštěný server manager nejdříve zavřít (jinak
+    si průvodce přidáním DHCP může stěžovat na chybějící statickou IP)
 
-Nainstalujte roli **DHCP** server
+4. Nainstalujte roli **DHCP** server
 
-Vyberte Add Roles and Features z nabídky Manage
+   a. Vyberte Add Roles and Features z nabídky Manage
 
-Pokračujte Next \>
+   b. Pokračujte Next \>
 
-Vyberte Role-based or feature-based installation a pokračujte Next \>
+   c. Vyberte Role-based or feature-based installation a pokračujte Next \>
 
-Vyberte aktuální server a pokračujte Next \>
+   d. Vyberte aktuální server a pokračujte Next \>
 
-V seznamu rolí vyberte DHCP Server, potvrďte přidání potřebných funkcí
-Add Features a pokračujte třikrát Next \>
+   e. V seznamu rolí vyberte DHCP Server, potvrďte přidání potřebných funkcí
+    Add Features a pokračujte třikrát Next \>
 
-Potvrďte instalaci Install
+   f. Potvrďte instalaci Install
 
-Trvá cca 3 minuty (restart není potřeba)
+    - Trvá cca 3 minuty (restart není potřeba)
 
-Po dokončení instalace najdete v notifikacích Server Manageru odkaz na
-Post-deployment Configuration DHCP serveru (Complete DHCP configuration)
+   g. Po dokončení instalace najdete v notifikacích Server Manageru odkaz na
+    Post-deployment Configuration DHCP serveru (Complete DHCP configuration)
 
-V poinstalační průvodci potvrďte bezpečnostní skupiny pomocí Commit a
-následně Close
+   h. V poinstalační průvodci potvrďte bezpečnostní skupiny pomocí Commit a
+    následně Close
 
-Nakonfigurujte **DHCP server** - vytvořte nový rozsah **192.168.1.10 --
+5. Nakonfigurujte **DHCP server** - vytvořte nový rozsah **192.168.1.10 --
 192.168.1.100** pro přidělování IPv4 adres klientům (rozhraním)
 
-Spusťte DHCP Manager
+    a. Spusťte DHCP Manager
 
-Poznámka: od 2012 již není průvodce konfigurací při instalaci role
+    - Poznámka: od 2012 již není průvodce konfigurací při instalaci role
 
-Buď z nabídky Tools -- DHCP nebo vyberte v levém sloupci roli DHCP a
-z kontextové nabídky nad jménem serveru zvolte DHCP Manager
+    - Buď z nabídky Tools -- DHCP nebo vyberte v levém sloupci roli DHCP a
+        z kontextové nabídky nad jménem serveru zvolte DHCP Manager
 
-V DHCP konzoli zvolte Add/Remove Bindings... z nabídky nad
-**w2022**
+    b. V DHCP konzoli zvolte Add/Remove Bindings... z nabídky nad
+    **w2022**
+    > :warning: Nastavení slouží k navázání **DHCP** serveru na
+    konkrétní rozhraní, na kterém bude naslouchat na příchozí **DHCP**
+    zprávy (následně okno zavřete)
 
-Zmiňte, že toto nastavení slouží k navázání **DHCP** serveru na
-konkrétní rozhraní, na kterém bude naslouchat na příchozí **DHCP**
-zprávy (následně okno zavřete)
+    c. V DHCP konzoli rozbalte uzel **w2022 -- IPv4**
 
-V DHCP konzoli rozbalte uzel **w2022 -- IPv4**
+    d.  Z kontextové nabídky nad **IPv4** zvolte New scope
 
-Z kontextové nabídky nad **IPv4** zvolte New scope
+      1. U Scope name zvolte název **Private1**, pokračujte Next \>
 
-U Scope name zvolte název **Private1**, pokračujte Next \>
+      2. Start IP address nastavte na **192.168.1.10** a End IP address na  **192.168.1.100**
 
-Start IP address nastavte na **192.168.1.10** a End IP address na
-**192.168.1.100**
+      3. Zkontrolujte, že automaticky vyplněné pole Subnet mask obsahuje správnou masku podsítě **255.255.255.0**, pokračujte Next \>
 
-Zkontrolujte, že automaticky vyplněné pole Subnet mask obsahuje správnou
-masku podsítě **255.255.255.0**, pokračujte Next \>
+      4. Zmiňte, k čemu slouží Exclusions a pokračujte Next \>
 
-Zmiňte, k čemu slouží Exclusions a pokračujte Next \>
+      5. Nastavte Lease Duration na **8 hodin** (zmiňte, k čemu slouží, kdy je dobré nastavit kratší interval apod.), pokračujte Next \>
 
-Nastavte Lease Duration na **8 hodin** (zmiňte, k čemu slouží, kdy je
-dobré nastavit kratší interval apod.), pokračujte Next \>
+      6. V nastavení Configure DHCP Options vysvětlete, k čemu slouží, zvolte Yes,... a Next \>
 
-V nastavení Configure DHCP Options vysvětlete, k čemu slouží, zvolte
-Yes,... a Next \>
+      7. Default Gateway nenastavujte, Next \>
 
-Default Gateway nenastavujte, Next \>
+         -   Nastavuje se později ve studentském úkolu.
 
-Nastavuje se později ve studentském úkolu.
+      8. V nastavení Domain Name and DNS Servers zadejte jako Parent Domain
+        doménu **testing2.local** a do DNS server IP address adresu
+        **192.168.1.1** a pokračujte Next \>
 
-V nastavení Domain Name and DNS Servers zadejte jako Parent Domain
-doménu **testing2.local** a do DNS server IP address adresu
-**192.168.1.1** a pokračujte Next \>
+            > :warning: Tyto informace jsou zaslány spolu s IPv4 adresou **DHCP** klientovi a slouží k nastavení **DNS** serverů a **DNS** *suffixů* pro dané síťové rozhraní, **DNS** server bude nainstalován později v rámci jiného úkolu
 
-Tyto informace jsou zaslány spolu s IPv4 adresou **DHCP** klientovi a
-slouží k nastavení **DNS** serverů a **DNS** *suffixů* pro dané síťové
-rozhraní, **DNS** server bude nainstalován později v rámci jiného úkolu
+            > :warning: Proběhne validace (ověření konektivity na DNS server) a upozornění, že na zadané IP není DNS server, přesto jej přidáme Yes
 
-Proběhne validace (ověření konektivity na DNS server) a upozornění, že
-na zadané IP není DNS server, přesto jej přidáme Yes
+      9. V části WINS Servers nic nenastavujte a pokračujte Next \>
 
-V části WINS Servers nic nenastavujte a pokračujte Next \>
+      10.  Zvolte Yes, I want to activate this scope now pro aktivaci vytvořeného rozsahu a pokračujte Next \> a Finish
+      > :warning: Zmiňte, že rozsah (*scope*) je potřeba aktivovat, aby začal poskytovat IPv4 adresy
 
-Zvolte Yes, I want to activate this scope now pro aktivaci vytvořeného
-rozsahu a pokračujte Next \> a Finish
+1. Přihlaste se k **w11** jako uživatel **student** s heslem **root4lab**
 
-Zmiňte, že rozsah (*scope*) je potřeba aktivovat, aby začal poskytovat
-IPv4 adresy
+2. Na **w11** vynuťte obnovení IPv4 adresy
 
-Přihlaste se k **w11** jako uživatel **student** s heslem **aaa**
+    a. Spusťte příkaz **ipconfig /renew**
 
-Na **w11** vynuťte obnovení IPv4 adresy
-
-Spusťte příkaz **ipconfig /renew**
-
-Ověřte, že **w11** obdržel od **DHCP** serveru IPv4 adresu z
+3. Ověřte, že **w11** obdržel od **DHCP** serveru IPv4 adresu z
 nastaveného rozsahu
 
 ## **Lab L02 -- Pokročilé nastavení DHCP serveru**
@@ -380,26 +365,21 @@ své služby, mají na to pak bodovaný úkol.
         adresu **192.168.1.2**
 
 2.  Na **w11** obnovte přidělenou IPv4 adresu pomocí příkazu
-    **ipconfig /renew**
-
+    `ipconfig /renew`
     -   Obnovení IPv4 adresy zároveň obnoví veškerá nastavení, jenž při
         přidělování poskytuje **DHCP** server klientům
 
 3.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
-    **192.168.1.2**
-
+    `192.168.1.2`
     -   Nastavení na úrovni *rozsahu* mají vždy přednost před
         nastaveními na úrovni *serveru*
 
 4.  Vytvořte pro **w11** rezervaci u **DHCP** serveru
 
-    a.  Na **w11** zjistěte pomocí příkazu **ipconfig /all**
-        fyzickou (MAC) adresu rozhraní LAN2
-
-        -   Síťové rozhraní musí odpovídat *Private1*, standardně to je
-            LAN2
-
-        -   (00-10-01-00-00-02)
+    a.  Na **w11** zjistěte pomocí příkazu `ipconfig /all`
+        fyzickou (MAC) adresu rozhraní Ethernet
+       -   Síťové rozhraní musí odpovídat *Private1*, standardně to je     Ethernet
+       -   (00-10-01-00-00-02)
 
     b.  Na **w2022** otevřete **DHCP**
 
@@ -409,11 +389,8 @@ své služby, mají na to pak bodovaný úkol.
 
     e.  Jako IP address zvolte **192.168.1.50** a do MAC address zadejte
         zjištěnou fyzickou adresu
-
-        -   Cílová IP adresa musí být samozřejmě vždy z rozsahu
-            poskytovaných IPv4 adres
-
-        -   Fyzickou (MAC) adresu lze zadat s i bez pomlček, interně se
+      - Cílová IP adresa musí být samozřejmě vždy z rozsahu           poskytovaných IPv4 adres
+      -   Fyzickou (MAC) adresu lze zadat s i bez pomlček, interně se
             ukládá bez
 
     f.  Přidejte rezervaci pomocí Add
@@ -432,7 +409,7 @@ své služby, mají na to pak bodovaný úkol.
     d.  Potvrďte OK
 
 6.  Na **w11** opět obnovte přidělenou IPv4 adresu pomocí příkazu
-    **ipconfig /renew**
+    `ipconfig /renew`
 
 7.  Ověřte, že **w11** má přidělenou IPv4 adresu **192.168.1.50** a
     nastavenou výchozí bránu **192.168.1.3**
@@ -460,51 +437,40 @@ své služby, mají na to pak bodovaný úkol.
 >
 > Dokončeny úkol **Lab S01**
 
-Na **w2022** vytvořte novou *user* *class* s názvem **ugtest**
+1. Na **w2022** vytvořte novou *user* *class* s názvem **ugtest**
 
-Spusťte **DHCP**
+    a. Spusťte **DHCP**
+    
+    b. Klikněte pravým na IPv4 a zvolte Define User Classes...
 
-Klikněte pravým na IPv4 a zvolte Define User Classes...
+    c. Zvolte Add
+    
+    d. Do Display Name a části ASCII zadejte **ugtest** (Binary část bude automaticky doplněna)
+    e. Potvrďte vytvoření pomocí OK
+    f. Zavřete okno DHC User Classes
 
-Zvolte Add
-
-Do Display Name a části ASCII zadejte **ugtest** (Binary část bude
-automaticky doplněna)
-
-Potvrďte vytvoření pomocí OK
-
-Zavřete okno DHC User Classes
-
-Nastavte adresu **192.168.1.4** jako výchozí bránu pro klienta s *user
+2. Nastavte adresu **192.168.1.4** jako výchozí bránu pro klienta s *user
 class* **ugtest**
 
-V **DHCP** klikněte pravým na rezervaci **w11** a zvolte Configure
-Options...
+    a. V **DHCP** klikněte pravým na rezervaci **w11** a zvolte Configure
+    Options...
 
-V záložce Advanced zvolte u User class **ugtest** a zaškrtněte možnost
-003 Router
+    b. V záložce Advanced zvolte u User class **ugtest** a zaškrtněte možnost
+    003 Router
 
-Do IP address zadejte **192.168.1.4** a zvolte Add
+    c. Do IP address zadejte **192.168.1.4** a zvolte Add
 
-Potvrďte OK
+    d. Potvrďte OK
 
-Přidejte síťové rozhraní LAN2 na **w11** do *user class* **ugtest**
+3. Přidejte síťové rozhraní Ethernet na **w11** do *user class* **ugtest**
+    > :warning: Síťové rozhraní musí odpovídat *Private1*, standardně to je Ethernet
 
-Síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
+    a.  Na **w11** spusťte v příkazovém řádku s administrátosrkými
+    oprávněními příkaz `ipconfig /setclassid \"Ethernet\" ugtest`
+    - Nastavení *user class* pro dané rozhraní vyžaduje administrátorské oprávnění
 
-a.  Na **w11** spusťte v příkazovém řádku s administrátosrkými
-    oprávněními příkaz **ipconfig /setclassid \"LAN2\" ugtest**
-
-    -   Nastavení *user class* pro dané rozhraní vyžaduje
-        administrátorské oprávnění
-
-```{=html}
-<!-- -->
-```
-3.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
+4.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
     **192.168.1.4**
-
     -   Nastavení pro konkrétní *user class* má vždy přednost před
-        nastavením pro všechny**\
-        **
+        nastavením pro všechny
 

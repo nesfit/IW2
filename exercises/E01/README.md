@@ -570,9 +570,8 @@ vše lze konfigurovat přes příkazový řádek pomocí utility **netsh**
 >
 > **Další prerekvizity**
 >
-> Obraz operačního systému pro směrovače **Mikrotik RouterOS 4.17**[^7],
-> jenž je k dispozici lokálně na jednotlivých stanicích
-> (**I:\\ISO\\mikrotik-4.17.iso**) nebo lze stáhnout ze stránek výrobce
+> Obraz operačního systému pro směrovače **Mikrotik RouterOS 7.7**,
+> jenž je k dispozici lokálně na jednotlivých stanicích nebo lze stáhnout ze stránek výrobce
 > (**http://www.mikrotik.com/download**)
 
 ![](./img/media/image12.png)
@@ -617,7 +616,7 @@ Obrázek 12. Schéma základní topologie sítě
 
 3.  Nainstalujte **Mikrotik RouterOS** do **router-1**
 
-    a.  Připojte **mikrotik-4.17.iso** do virtuálního stroje
+    a.  Připojte **mikrotik-*.iso** do virtuálního stroje
         **router-1**
 
     b.  Spusťte virtuální stroj, po najetí zvolte **a** pro výběr všech
@@ -743,7 +742,7 @@ Message Stack a jednotlivé vrstvy, ...
 >
 > **Další prerekvizity**
 >
-> Nainstalovaný **Mikrotik RouterOS 4.17** na **router-1** a
+> Nainstalovaný **Mikrotik RouterOS *** na **router-1** a
 > **router-2**, stažený **WinBox** (viz. úkol **L02**)
 
 ![](./img/media/image13.png)
@@ -1099,7 +1098,7 @@ Obrázek 14. Schéma úplné topologie sítě
 [^6]: Tento typ adresy se povinný pro směrovače, v praxi lze jako
     výběrové adresy použít také individuální adresy
 
-[^7]: mikrotik v. 4.x -- novější verze nad hyper-v nefungují
+[^7]:
 
 [^8]: Link [Wireshark](https://www.wireshark.org)
 

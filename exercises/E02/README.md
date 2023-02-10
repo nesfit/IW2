@@ -18,7 +18,6 @@
 - [**Lektorské úkoly**](#lektorské-úkoly)
   - [**Lab L01 -- Server Manager a MMC**](#lab-l01----server-manager-a-mmc)
 - [**Studentské úkoly**](#studentské-úkoly)
-  - [**Lab S01 -- dokončení základní instalace Windows Server Core**](#lab-s01----dokončení-základní-instalace-windows-server-core)
   - [**Lab S02 -- místní správa Windows Server Core**](#lab-s02----místní-správa-windows-server-core)
   - [**Lab S03 --** **Příprava základní topologie sítě**](#lab-s03----příprava-základní-topologie-sítě)
   - [**Lab S06 -- vzdálená správa Windows Server pomocí UI**](#lab-s06----vzdálená-správa-windows-server-pomocí-ui)
@@ -244,15 +243,15 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
 |------------------|--------------|--------------|--------------|--------------|
-| **w10-base**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
-| **w2019-core**           | Default Switch | Private1       | Private4       | Nepřipojeno    |
+| **w11**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **w2022**           | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
+| **w2022-core**           | Default Switch | Private1       | Private4       | Nepřipojeno    |
 
 -   v případech, kdy je potřeba přistupovat na externí síť
-    z **w10-base** a **w2016-base**, připojte adaptér **LAN1** k
+    z **w11** a **w2022**, připojte adaptér **LAN1** k
     přepínači *Default switch*.
 
-Pro urychlení úkolu S01 spusťte na začátku cvičení VM **w2019-core
+Pro urychlení úkolu S01 spusťte na začátku cvičení VM **w2022-core
 OOBE**.
 
 **\
@@ -268,10 +267,9 @@ OOBE**.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 
-1.  Přihlaste se k **w2016-base** jako uživatel **administrator** s
-    > heslem **aaa**
+1.  Přihlaste se k **w2022** jako uživatel `root` s heslem `root4lab`
 
 2.  Popište základy rozhraní a snahu o správu více serverů z jednoho
     > místa
@@ -314,7 +312,7 @@ OOBE**.
 **
 
 # **Studentské úkoly**
-
+<!-- 
 ## **Lab S01 -- dokončení základní instalace Windows Server Core**
 
 > **Cíl cvičení**
@@ -323,19 +321,19 @@ OOBE**.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2019-core** (w2019-core OOBE)
+> **w2022-core** (w2022-core OOBE)
 
 > **Další prerekvizity**
 >
 > Virtuální disk s Windows Server 2019 Standard Core vzniklý aplikací
 > bitové kopie skriptem Convert-WindowsImage.ps1
 
-1.  Spusťte VM **w2019-core OOBE** a počkejte na dokončení konfigurace
+1.  Spusťte VM **w2022-core OOBE** a počkejte na dokončení konfigurace
     HW a následný restart
 
     -   trvá asi 3 minuty.
 
-2.  Budete vyzváni k nastavení hesla uživatele **administrator**
+2.  Budete vyzváni k nastavení hesla uživatele **root**
 
     a.  Zvolte OK a potvrďte klávesou Enter
 
@@ -358,10 +356,10 @@ OOBE**.
 
     b.  Zvolte volbu **2** Enter
 
-    c.  Zadejte nové jméno **w2019-core** a potvrďte Enter
+    c.  Zadejte nové jméno **w2022-core** a potvrďte Enter
 
     d.  Zobrazí se dialog, zda chceme server rovnou restartovat, zvolte
-        Yes
+        Yes -->
 
 ## **Lab S02 -- místní správa Windows Server Core**
 
@@ -371,13 +369,13 @@ OOBE**.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2019-core** (w2019-core OOBE)
+> **w2022-core** (w2022-core OOBE)
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol S01.
 
-1.  Přihlaste se k **w2019-core** jako uživatel **administrator** s
+1.  Přihlaste se k **w2022-core** jako uživatel **root** s
     heslem **aaaAAA111**
 
 2.  Zavřete okno příkazového řádku
@@ -481,20 +479,20 @@ OOBE**.
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
-> **w2019-core** (w2019-core OOBE)
+> **w2022-core** (w2022-core OOBE)
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol S02
 
-1.  Přihlaste se k **w10-base** jako uživatel **student** s heslem
-    **aaa**
+1.  Přihlaste se k **w11** jako uživatel **student** s heslem
+    **root4lab**
 
-2.  Na **w10-base** nastavte pomocí grafického rozhraní příslušnou *IPv4
+2.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv4
     > adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na
     > obrázku 1
 
@@ -523,10 +521,10 @@ height="2.4895833333333335in"}
 
 Obrázek 1. Schéma základní topologie sítě
 
-1.  Přihlaste se k **w2016-base** jako uživatel **administrator** s
-    heslem **aaa**
+1.  Přihlaste se k **w2022** jako uživatel **root** s
+    heslem **root4lab**
 
-2.  Na **w2016-base** nastavte pomocí příkazové řádky příslušnou *IPv4
+2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv4
     > adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na
     > obrázku 1
 
@@ -542,10 +540,10 @@ Obrázek 1. Schéma základní topologie sítě
 
     a.  Spusťte **PowerShell**
 
-        -   w2019-core: v příkazové řádce zadejte příkaz **start
+        -   w2022-core: v příkazové řádce zadejte příkaz **start
             powershell**
 
-        -   w10-base: spustit jako **administrátor**
+        -   w11: spustit jako **administrátor**
 
     b.  Zadejte příkaz: **Get-NetFirewallRule \| where-object
         {\$\_.DisplayName -like\
@@ -564,21 +562,21 @@ na stanici, odkud budeme spravovat**
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol S03.
 
-1.  Přihlaste se k **w2016-base** jako uživatel **administrator** s
-    heslem **aaa**
+1.  Přihlaste se k **w2022** jako uživatel **root** s
+    heslem **root4lab**
 
 2.  Do souboru **C:\\Windows\\System32\\drivers\\etc\\hosts** přidejte
-    záznam odkazující na server **w2019-core** a soubor uložte:
+    záznam odkazující na server **w2022-core** a soubor uložte:
 
-> **192.168.200.1 w2019-core**
+> **192.168.200.1 w2022-core**
 
-3.  Přidejte server **w2019-core** mezi důvěryhodné servery vzdálené
+3.  Přidejte server **w2022-core** mezi důvěryhodné servery vzdálené
     > správy
 
     -   bylo by to nutné i v případě místního serveru v doméně a
@@ -589,10 +587,10 @@ na stanici, odkud budeme spravovat**
 ```
 a.  Spusťe **PowerShell** a zadejte příkaz:
 
-> **Set-Item wsman:\\localhost\\Client\\TrustedHosts w2019-core
+> **Set-Item wsman:\\localhost\\Client\\TrustedHosts w2022-core
 > -Concatenate -force**
 
-4.  Uložte alternativní přístupové údaje k serveru **w2019-core**
+4.  Uložte alternativní přístupové údaje k serveru **w2022-core**
 
     -   v případě serverů v doméně není nutné
 
@@ -601,7 +599,7 @@ a.  Spusťe **PowerShell** a zadejte příkaz:
 ```
 a.  V příkazovém řádku nebo v **PowerShellu** zadejte:
 
-> **cmdkey /add:w2019-core /user:w2019-core\\administrator
+> **cmdkey /add:w2022-core /user:w2022-core\\administrator
 > /pass:aaaAAA111**
 
 -   pokud vypustíte parametr /pass:, jednotlivé nástroje by se měly na
@@ -617,9 +615,9 @@ spravované stanici**
 >
 > **Potřebné virtuální stroje**
 >
-> **w2019-core**
+> **w2022-core**
 
-1.  Přihlaste se k **w2019-core** jako uživatel **administrator** s
+1.  Přihlaste se k **w2022-core** jako uživatel **root** s
     heslem **aaaAAA111**
 
 2.  Spusťte **PowerShell**
@@ -668,36 +666,36 @@ některých služeb apod.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 >
-> **w2019-core** (w2019-core OOBE)
+> **w2022-core** (w2022-core OOBE)
 >
 > **Další prerekvizity**
 >
 > Dokončené úkoly S04 a S05.
 
-1.  Přihlaste se k **w2016-base** jako uživatel **administrator** s
-    > heslem **aaa**
+1.  Přihlaste se k **w2022** jako uživatel **root** s
+    > heslem **root4lab**
 
 2.  Otevřete **Server Manager**
 
 3.  Z nabídky Manage vyberte Add Servers
 
-4.  Vyhledejte server **w2019-core** podle názvu
+4.  Vyhledejte server **w2022-core** podle názvu
 
     a.  Přepněte na panel DNS
 
-    b.  Do vyhledávacího pole zadejte **w2019-core** a dejte vyhledat
+    b.  Do vyhledávacího pole zadejte **w2022-core** a dejte vyhledat
 
     c.  Pomocí tlačítka \> přidejte nalezený server do seznamu vybraných
         a potvrďte OK
 
         -   **Server Manager** se pokusí zkontaktovat server
-            **w2019-core**
+            **w2022-core**
 
 5.  Přejděte na All Servers
 
-    a.  Ověřte, že server **w2019-core** byl přidán mezi spravované
+    a.  Ověřte, že server **w2022-core** byl přidán mezi spravované
         servery
 
 6.  Pokud se nepodařilo přihlášení stávajícím účtem nebo uloženými údaji
@@ -706,39 +704,39 @@ některých služeb apod.
     a.  Po chvíli ve sloupci Manageability naleznete informaci
         **\"Online -- access denied\"**
 
-    b.  Z kontextové nabídky nad záznamem **w2019-core** vyberte Manage
+    b.  Z kontextové nabídky nad záznamem **w2022-core** vyberte Manage
         As ...
 
     c.  Zadejte přihlašovaní údaje:
 
-> **w2019-core\\administrator** s heslem **aaaAAA111**
+> **w2022-core\\administrator** s heslem **aaaAAA111**
 
--   **Server Manager** se opět pokusí zkontaktovat server w2019-core,
+-   **Server Manager** se opět pokusí zkontaktovat server w2022-core,
     tentokrát se správnými přihlašovacími údaji
 
-7.  Z kontextové nabídky nad **w2019-core** vyberte Computer Management
+7.  Z kontextové nabídky nad **w2022-core** vyberte Computer Management
 
     a.  Dojde ke spuštění standardní MMC Computer Management připojené k
-        serveru **w2019-core**. Obdobně lze připojit téměř jakoukoliv
+        serveru **w2022-core**. Obdobně lze připojit téměř jakoukoliv
         MMC
 
 ## **Lab S07 -- instalace role RAS na vzdálený server**
 
 > **Cíl cvičení**
 >
-> Vzdáleně nainstalovat roli Remote Access Server na w2019-core
+> Vzdáleně nainstalovat roli Remote Access Server na w2022-core
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 >
-> **w2019-core** (w2019-core OOBE)
+> **w2022-core** (w2022-core OOBE)
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol S06.
 
-1.  Přihlaste se k w2016-base jako uživatel administrator s heslem aaa
+1.  Přihlaste se k w2022 jako uživatel administrator s heslem aaa
 
 2.  Spusťte **Server Manager**
 
@@ -753,7 +751,7 @@ některých služeb apod.
     c.  Vyberte Role-based or feature-based installation a pokračujte
         Next \>
 
-    d.  Vyberte server **w2019-core** a pokračujte Next \>
+    d.  Vyberte server **w2022-core** a pokračujte Next \>
 
     e.  V kroku *Server Roles* zaškrtněte **Remote Access** a pokračujte
         Next \>
@@ -786,12 +784,12 @@ některých služeb apod.
     rozkliknutí Notification (vlaječka) jako položku Feature
     installation
 
-5.  Pokud máte lokálně přihlášeného uživatele na serveru **w2019-core**,
-    nemusí dojít k automatickému restartu serveru **w2019-core**.
+5.  Pokud máte lokálně přihlášeného uživatele na serveru **w2022-core**,
+    nemusí dojít k automatickému restartu serveru **w2022-core**.
 
     a.  V **Server Manager** zvolte All Servers
 
-    b.  Z kontextové nabídky serveru **w2019-core** zvolte Restart
+    b.  Z kontextové nabídky serveru **w2022-core** zvolte Restart
         Server a dotaz potvrďte OK
 
     ```{=html}
@@ -799,8 +797,8 @@ některých služeb apod.
     ```
     a.  Vyčkejte na dokončení restartu
 
-6.  Přihlaste se lokálně na k **w2019-core** jako uživatel
-    **administrator** s heslem **aaaAAA111**
+6.  Přihlaste se lokálně na k **w2022-core** jako uživatel
+    **root** s heslem **aaaAAA111**
 
 7.  Spusťte **PowerShell**
 
@@ -813,18 +811,18 @@ některých služeb apod.
 
 > **Cíl cvičení**
 >
-> Nainstalovat nástroje správy role RAS na server w2016-base
+> Nainstalovat nástroje správy role RAS na server w2022
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončené úkoly S06.
 
-1.  Přihlaste se k **w2016-base** jako uživatel **administrator** s
-    heslem **aaa**
+1.  Přihlaste se k **w2022** jako uživatel **root** s
+    heslem **root4lab**
 
 2.  Spusťte **Server Manager**
 
@@ -839,7 +837,7 @@ některých služeb apod.
     c.  Vyberte Role-based or feature-based installation a pokračujte
         Next \>
 
-    d.  Vyberte server **w2016-base** a pokračujte Next \>
+    d.  Vyberte server **w2022** a pokračujte Next \>
 
     e.  V kroku Server Roles Pokračujte Next \>
 
@@ -857,22 +855,22 @@ některých služeb apod.
 
 > **Cíl cvičení**
 >
-> Vzdáleně nakonfigurovat NAT v roli Remote Access Server na w2019-core
+> Vzdáleně nakonfigurovat NAT v roli Remote Access Server na w2022-core
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 >
-> **w2019-core** (w2019-core OOBE)
+> **w2022-core** (w2022-core OOBE)
 >
 > **Další prerekvizity**
 >
 > Dokončené úkoly S08.
 
-4.  Přihlaste se k **w2016-base** jako uživatel **administrator** s
-    heslem **aaa**
+4.  Přihlaste se k **w2022** jako uživatel **root** s
+    heslem **root4lab**
 
-5.  Ověřte, že server **w2016-base** nemůže přistoupit na internet
+5.  Ověřte, že server **w2022** nemůže přistoupit na internet
 
     a.  Pomocí **ping 8.8.8.8**
 
@@ -882,7 +880,7 @@ některých služeb apod.
 
 7.  Zvolte Remote Access
 
-8.  Z kontextové nabídky nad **w2019-core** vyberte Remote Access
+8.  Z kontextové nabídky nad **w2022-core** vyberte Remote Access
     Management
 
     a.  V okně **Remote Access Management Console** zvolte v navigačním
@@ -895,7 +893,7 @@ některých služeb apod.
         -   Alternativně je tato konzole součástí Computer Management
             MMC pod uzlem Services And Applications
 
-9.  V MMC **Routing and Remote Access** vyberte uzel w2019-core
+9.  V MMC **Routing and Remote Access** vyberte uzel w2022-core
 
 10. Z kontextové nabídky vyberte Configure and Enable Routing and Remote
     Access
@@ -920,7 +918,7 @@ některých služeb apod.
 
     f.  Spusťte službu tlačítkem Start a potvrďte OK
 
-    g.  Zopakujte bod 12, pokud chyba nezmizí, server **w2019-core**
+    g.  Zopakujte bod 12, pokud chyba nezmizí, server **w2022-core**
         restartujte
 
 14. V průvodci zvolte Use this public interface to connect to the
@@ -942,7 +940,7 @@ některých služeb apod.
 
 19. Nastavte NAT i pro rozhraní s IP **192.168.200.1**
 
-    a.  V **Routing and Remote Access** MMC rozbalte uzel w2019-core \\
+    a.  V **Routing and Remote Access** MMC rozbalte uzel w2022-core \\
         IPv4 \\ NAT
 
     b.  Z kontextové nabídky zvolte New Interface
@@ -950,19 +948,19 @@ některých služeb apod.
     c.  Vyberte rozhraní odpovídající IP **192.168.200.1** a pokračujte
         OK
 
-        -   Pod uzlem w2019-core \\ IPv4 \\ General najdete přehled
+        -   Pod uzlem w2022-core \\ IPv4 \\ General najdete přehled
             rozhraní s jejich detaily
 
     d.  Zvolte Private interface connected to private network a potvrďte
         OK
 
-20. Ověřte, že server **w2016-base** nyní může přistoupit na internet
+20. Ověřte, že server **w2022** nyní může přistoupit na internet
 
     a.  Pomocí **ping 8.8.8.8**
 
     b.  Pomocí **tracert 8.8.8.8**
 
-21. Ověřte, že stanice **w10-base** může přistoupit na internet
+21. Ověřte, že stanice **w11** může přistoupit na internet
 
     a.  Pomocí **ping 8.8.8.8**
 

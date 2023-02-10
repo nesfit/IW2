@@ -129,8 +129,29 @@ nedostanou k **DHCP** serveru.
 # AutomatedLab
 
 ```pwsh
-$labName = 'E02'
+$labName = 'E03'
 
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+Set-LabInstallationCredential -Username root -Password root4lab
+
+Add-LabVirtualNetworkDefinition -Name Private1
+
+
+$w11_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1
+)
+
+Add-LabMachineDefinition -Name w11   -Memory 2GB -NetworkAdapter $w11_network -OperatingSystem 'Windows 11 Pro'
+
+$w2022_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1
+)
+
+Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+Install-Lab
+
+Show-LabDeploymentSummary -Detailed
 
 ```
 
@@ -149,8 +170,8 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
 |------------------|--------------|--------------|--------------|--------------|
-| **w10-base**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **w11**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **w2022**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
@@ -170,14 +191,14 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 
-Přihlaste se k **w2016-base** jako uživatel **administrator** s heslem
+Přihlaste se k **w2022** jako uživatel **administrator** s heslem
 **aaa**
 
-Na **w2016-base** nastavte statickou IPv4 adresu **192.168.1.1**
+Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
 
 Otevřete okno **Network Connections** (Settings -- Network & Internet --
 Ethernet -- Change adapter options), zvolte LAN2 a pak Properties
@@ -235,13 +256,13 @@ Buď z nabídky Tools -- DHCP nebo vyberte v levém sloupci roli DHCP a
 z kontextové nabídky nad jménem serveru zvolte DHCP Manager
 
 V DHCP konzoli zvolte Add/Remove Bindings... z nabídky nad
-**w2016-base**
+**w2022**
 
 Zmiňte, že toto nastavení slouží k navázání **DHCP** serveru na
 konkrétní rozhraní, na kterém bude naslouchat na příchozí **DHCP**
 zprávy (následně okno zavřete)
 
-V DHCP konzoli rozbalte uzel **w2016-base -- IPv4**
+V DHCP konzoli rozbalte uzel **w2022 -- IPv4**
 
 Z kontextové nabídky nad **IPv4** zvolte New scope
 
@@ -284,13 +305,13 @@ rozsahu a pokračujte Next \> a Finish
 Zmiňte, že rozsah (*scope*) je potřeba aktivovat, aby začal poskytovat
 IPv4 adresy
 
-Přihlaste se k **w10-base** jako uživatel **student** s heslem **aaa**
+Přihlaste se k **w11** jako uživatel **student** s heslem **aaa**
 
-Na **w10-base** vynuťte obnovení IPv4 adresy
+Na **w11** vynuťte obnovení IPv4 adresy
 
 Spusťte příkaz **ipconfig /renew**
 
-Ověřte, že **w10-base** obdržel od **DHCP** serveru IPv4 adresu z
+Ověřte, že **w11** obdržel od **DHCP** serveru IPv4 adresu z
 nastaveného rozsahu
 
 ## **Lab L02 -- Pokročilé nastavení DHCP serveru**
@@ -301,7 +322,7 @@ nastaveného rozsahu
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
@@ -330,20 +351,20 @@ své služby, mají na to pak bodovaný úkol.
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol **Lab L01**
 
-1.  Na **w2016-base** nastavte na úrovni *serveru* a *rozsahu*
+1.  Na **w2022** nastavte na úrovni *serveru* a *rozsahu*
     **Private1** různé výchozí brány
 
     a.  Spusťte **DHCP**
 
-    b.  V DHCP konzoli rozbalte uzel **w2016-base -- IPv4**
+    b.  V DHCP konzoli rozbalte uzel **w2022 -- IPv4**
 
     c.  Klikněte pravým na Server Options a zvolte Configure Options...
 
@@ -358,21 +379,21 @@ své služby, mají na to pak bodovaný úkol.
     h.  Zopakujte body **c** - **f** tentokrát pro Scope Options a
         adresu **192.168.1.2**
 
-2.  Na **w10-base** obnovte přidělenou IPv4 adresu pomocí příkazu
+2.  Na **w11** obnovte přidělenou IPv4 adresu pomocí příkazu
     **ipconfig /renew**
 
     -   Obnovení IPv4 adresy zároveň obnoví veškerá nastavení, jenž při
         přidělování poskytuje **DHCP** server klientům
 
-3.  Ověřte, že **w10-base** má nastavenou jako výchozí bránu IPv4 adresu
+3.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
     **192.168.1.2**
 
     -   Nastavení na úrovni *rozsahu* mají vždy přednost před
         nastaveními na úrovni *serveru*
 
-4.  Vytvořte pro **w10-base** rezervaci u **DHCP** serveru
+4.  Vytvořte pro **w11** rezervaci u **DHCP** serveru
 
-    a.  Na **w10-base** zjistěte pomocí příkazu **ipconfig /all**
+    a.  Na **w11** zjistěte pomocí příkazu **ipconfig /all**
         fyzickou (MAC) adresu rozhraní LAN2
 
         -   Síťové rozhraní musí odpovídat *Private1*, standardně to je
@@ -380,11 +401,11 @@ své služby, mají na to pak bodovaný úkol.
 
         -   (00-10-01-00-00-02)
 
-    b.  Na **w2016-base** otevřete **DHCP**
+    b.  Na **w2022** otevřete **DHCP**
 
     c.  Klikněte pravým na Reservations a zvolte New Reservation...
 
-    d.  Rezervaci pojmenujte **w10-base** (pole Reservation Name)
+    d.  Rezervaci pojmenujte **w11** (pole Reservation Name)
 
     e.  Jako IP address zvolte **192.168.1.50** a do MAC address zadejte
         zjištěnou fyzickou adresu
@@ -399,9 +420,9 @@ své služby, mají na to pak bodovaný úkol.
 
     g.  Zavřete okno New Reservation pomocí Close
 
-5.  Nastavte výchozí bránu **192.168.1.3** pro rezervaci **w10-base**
+5.  Nastavte výchozí bránu **192.168.1.3** pro rezervaci **w11**
 
-    a.  Klikněte pravým na rezervaci **w10-base** a zvolte Configure
+    a.  Klikněte pravým na rezervaci **w11** a zvolte Configure
         Options...
 
     b.  V záložce General zaškrtněte možnost 003 Router
@@ -410,10 +431,10 @@ své služby, mají na to pak bodovaný úkol.
 
     d.  Potvrďte OK
 
-6.  Na **w10-base** opět obnovte přidělenou IPv4 adresu pomocí příkazu
+6.  Na **w11** opět obnovte přidělenou IPv4 adresu pomocí příkazu
     **ipconfig /renew**
 
-7.  Ověřte, že **w10-base** má přidělenou IPv4 adresu **192.168.1.50** a
+7.  Ověřte, že **w11** má přidělenou IPv4 adresu **192.168.1.50** a
     nastavenou výchozí bránu **192.168.1.3**
 
     -   IP adresa, jenž je zarezervována pro určitého klienta, nemůže
@@ -431,15 +452,15 @@ své služby, mají na to pak bodovaný úkol.
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončeny úkol **Lab S01**
 
-Na **w2016-base** vytvořte novou *user* *class* s názvem **ugtest**
+Na **w2022** vytvořte novou *user* *class* s názvem **ugtest**
 
 Spusťte **DHCP**
 
@@ -457,7 +478,7 @@ Zavřete okno DHC User Classes
 Nastavte adresu **192.168.1.4** jako výchozí bránu pro klienta s *user
 class* **ugtest**
 
-V **DHCP** klikněte pravým na rezervaci **w10-base** a zvolte Configure
+V **DHCP** klikněte pravým na rezervaci **w11** a zvolte Configure
 Options...
 
 V záložce Advanced zvolte u User class **ugtest** a zaškrtněte možnost
@@ -467,11 +488,11 @@ Do IP address zadejte **192.168.1.4** a zvolte Add
 
 Potvrďte OK
 
-Přidejte síťové rozhraní LAN2 na **w10-base** do *user class* **ugtest**
+Přidejte síťové rozhraní LAN2 na **w11** do *user class* **ugtest**
 
 Síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
 
-a.  Na **w10-base** spusťte v příkazovém řádku s administrátosrkými
+a.  Na **w11** spusťte v příkazovém řádku s administrátosrkými
     oprávněními příkaz **ipconfig /setclassid \"LAN2\" ugtest**
 
     -   Nastavení *user class* pro dané rozhraní vyžaduje
@@ -480,7 +501,7 @@ a.  Na **w10-base** spusťte v příkazovém řádku s administrátosrkými
 ```{=html}
 <!-- -->
 ```
-3.  Ověřte, že **w10-base** má nastavenou jako výchozí bránu IPv4 adresu
+3.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
     **192.168.1.4**
 
     -   Nastavení pro konkrétní *user class* má vždy přednost před

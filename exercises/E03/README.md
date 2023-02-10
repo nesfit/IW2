@@ -11,6 +11,9 @@
   - [**Lab S01 -- Vytvoření rezervace pro DHCP klienta**](#lab-s01----vytvoření-rezervace-pro-dhcp-klienta)
   - [**Lab S02 -- Aplikace nastavení DHCP na základě user class**](#lab-s02----aplikace-nastavení-dhcp-na-základě-user-class)
 
+<style type="text/css">
+    img {background-color: white;}
+</style>
 
 # **Systém DHCP**
 
@@ -77,8 +80,7 @@ lze shrnout do následujících několika kroků:
     > rozhraní), odpoví všesměrovou (*broadcast*) zprávou **DHCP Nack**
     > a **DHCP** klient musí zažádat o novou (jinou) IPv4 adresu.
 
-![dora.png](./img/media/image1.png){width="3.7505238407699037in"
-height="3.938050087489064in"}
+![dora.png](./img/media/image1.png)
 
 Obrázek 1. Průběh přidělování IPv4 adres pomocí DHCP (DORA)
 
@@ -113,8 +115,7 @@ směrovačů do jiných (pod)sítí. **DHCP relay** slouží k přeposílání
 dané (pod)sítě na **DHCP** server v jiné (pod)síti a naopak. Funkce DHCP
 relay je ilustrována na obrázku 5 níže.
 
-![dhcp_relay.png](./img/media/image2.png){width="7.0739041994750655in"
-height="4.042230971128609in"}
+![dhcp_relay.png](./img/media/image2.png)
 
 Obrázek 2. Ilustrace funkce DHCP relay
 
@@ -466,7 +467,7 @@ class* **ugtest**
     > :warning: Síťové rozhraní musí odpovídat *Private1*, standardně to je Ethernet
 
     a.  Na **w11** spusťte v příkazovém řádku s administrátosrkými
-    oprávněními příkaz `ipconfig /setclassid \"Ethernet\" ugtest`
+    oprávněními příkaz `ipconfig /setclassid Ethernet ugtest`
     - Nastavení *user class* pro dané rozhraní vyžaduje administrátorské oprávnění
 
 4.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu

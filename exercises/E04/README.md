@@ -236,66 +236,66 @@ každý typ poskytuje specifické informace. Mezi nejčastěji používané (a
 nejdůležitější) typy patří:
 
 -   **A** (Address) záznam obsahuje mapování doménového jména na
-    > odpovídající IPv4 adresu ve formátu ***\<domémové jméno\>* IN A
-    > *\<IPv4 adresa\>***.
+    odpovídající IPv4 adresu ve formátu ***\<domémové jméno\>* IN A
+    *\<IPv4 adresa\>***.
 
 -   **AAAA** (*IPv6 Address*) záznam je obdobou **A** záznamu, jenž
-    > mapuje doménové jméno, místo na IPv4 adresu, na IPv6 adresu.
-    > Formát je ***\<domémové jméno\>* IN AAAA *\<IPv6 adresa\>***.
+    mapuje doménové jméno, místo na IPv4 adresu, na IPv6 adresu.
+    Formát je ***\<domémové jméno\>* IN AAAA *\<IPv6 adresa\>***.
 
 -   **CNAME** (*Canonical Name*) záznam, označovaný také často jako tzv.
-    > *alias*, obsahuje mapování jednoho doménového jména na jiné.
-    > Umožňuje flexibilně pojmenovávat jeden server více doménovými
-    > jmény. Stejného efektu lze docílit i použitím více **A** záznamů,
-    > ovšem v případě změny IP adresy cíle by bylo potřeba změnit
-    > veškeré tyto **A** záznamy. Při použití **CNAME** je potřeba
-    > změnit pouze jediný **A** záznam a tím dojde ke změně mapování pro
-    > všechny **CNAME** záznamy, jenž se odkazovaly na doménové jméno ve
-    > změněném **A** záznamu. Formát tohoto záznamu je ***\<zdojové
-    > domémové jméno\>* IN CNAME *\<cílové domémové jméno\>***.
+    *alias*, obsahuje mapování jednoho doménového jména na jiné.
+    Umožňuje flexibilně pojmenovávat jeden server více doménovými
+    jmény. Stejného efektu lze docílit i použitím více **A** záznamů,
+    ovšem v případě změny IP adresy cíle by bylo potřeba změnit
+    veškeré tyto **A** záznamy. Při použití **CNAME** je potřeba
+    změnit pouze jediný **A** záznam a tím dojde ke změně mapování pro
+    všechny **CNAME** záznamy, jenž se odkazovaly na doménové jméno ve
+    změněném **A** záznamu. Formát tohoto záznamu je ***\<zdojové
+    domémové jméno\>* IN CNAME *\<cílové domémové jméno\>***.
 
 -   **MX** (*Mail Exchange*) záznam obsahuje adresu a prioritu serveru
-    > pro příjem elektronické pošty pro danou doménu (zónu) ve formátu
-    > ***\<doméma\>* IN MX *\<priorita\> \<domémové jméno\>***, kde
-    > ***\<doméma\>*** identifikuje cílovou doménu, ***\<domémové
-    > jméno\>*** cílový server pro příjem pošty a ***\<priorita\>*** je
-    > nezáporné číslo určující prioritu daného serveru. Čím menší číslo,
-    > tím má server vyšší prioritu.
+    pro příjem elektronické pošty pro danou doménu (zónu) ve formátu
+    ***\<doméma\>* IN MX *\<priorita\> \<domémové jméno\>***, kde
+    ***\<doméma\>*** identifikuje cílovou doménu, ***\<domémové
+    jméno\>*** cílový server pro příjem pošty a ***\<priorita\>*** je
+    nezáporné číslo určující prioritu daného serveru. Čím menší číslo,
+    tím má server vyšší prioritu.
 
 -   **NS** (*Name Server*) záznam obsahuje doménové jméno
-    > autoritativního **DNS** serveru pro danou doménu ve formátu
-    > ***\<doméma\>* IN NS *\<domémové jméno\>***. Autoritativních
-    > **DNS** serverů pro jednu doménu může být samozřejmě více.
+    autoritativního **DNS** serveru pro danou doménu ve formátu
+    ***\<doméma\>* IN NS *\<domémové jméno\>***. Autoritativních
+    **DNS** serverů pro jednu doménu může být samozřejmě více.
 
 -   **PTR** (*Pointer*) záznam mapuje IP adresu počítače na odpovídající
-    > doménové jméno, je tedy obdobou **A** záznamu pro reverzní zóny.
-    > Formát je ***\<arpa domémové jméno\>* IN PTR *\<domémové
-    > jméno\>***, kde ***\<arpa domémové jméno\>*** je IP adresa zapsaná
-    > ve formě doménového jména z domény **in-addr.arpa.** nebo
-    > **ip6.arpa.**, tedy z domény pro reverzní mapování.
+    doménové jméno, je tedy obdobou **A** záznamu pro reverzní zóny.
+    Formát je ***\<arpa domémové jméno\>* IN PTR *\<domémové
+    jméno\>***, kde ***\<arpa domémové jméno\>*** je IP adresa zapsaná
+    ve formě doménového jména z domény **in-addr.arpa.** nebo
+    **ip6.arpa.**, tedy z domény pro reverzní mapování.
 
 -   **SOA** (*Start of Autority*) záznam obsahuje základní informace pro
-    > danou zónu, přesněji jméno primárního **DNS** serveru,
-    > elektronickou adresu správce zóny (zavináč se nahrazuje tečkou)
-    > a několik dalších údajů:
+    danou zónu, přesněji jméno primárního **DNS** serveru,
+    elektronickou adresu správce zóny (zavináč se nahrazuje tečkou)
+    a několik dalších údajů:
 
     -   **Serial** obsahuje informace o sériovém čísle dané zóny. Při
-        > každé změně obsahu zóny se navýší toho číslo o jedna.
+        každé změně obsahu zóny se navýší toho číslo o jedna.
 
     -   **Refresh** je číslo určující v jakém intervalu se bude
-        > *sekundární* server dotazovat na změny zóny *primárního*
-        > serveru.
+        *sekundární* server dotazovat na změny zóny *primárního*
+        serveru.
 
     -   **Retry** je číslo určující za jak dlouho se má *sekundární*
-        > server dotazovat na změny zóny *primárního* serveru v případě,
-        > že se nepodařilo *primární* server kontaktovat.
+        server dotazovat na změny zóny *primárního* serveru v případě,
+        že se nepodařilo *primární* server kontaktovat.
 
     -   **Expire** je číslo určující za jak dlouho *sekundární* server
-        > označí své záznamy za neaktuální a přestane vyřizovat příchozí
-        > požadavky na překlad.
+        označí své záznamy za neaktuální a přestane vyřizovat příchozí
+        požadavky na překlad.
 
     -   **TTL** (*Time To Live*) je číslo určující implicitní dobu
-        > platnosti jednotlivých DNS záznamů.
+        platnosti jednotlivých DNS záznamů.
 
 > Formát je ***\<doméma\>* IN SOA *\<primární DNS server\> \<email\>*
 > (**
@@ -402,28 +402,28 @@ zda je vůbec přenos potřeba provádět. Existují celkem dva způsoby, jak
 *slave* server zjistí, zda došlo ke změně dané zóny na *master* serveru:
 
 -   *Slave* server v pravidelných intervalech vyžaduje od *master*
-    > serveru zaslání SOA záznamu pro danou zónu. Jakmile *master*
-    > server zašle tyto informace, *slave* server ověří sériové číslo
-    > SOA záznamu a porovná ho se svým. Pokud je sériové číslo SOA
-    > záznamu *master* serveru vyšší než sériové číslo SOA záznamu
-    > *slave* serveru, došlo ke změnám zóny a *slave* server si vyžádá
-    > od *master* serveru potřebná data (provede tedy **přenos zóny**).
-    > Informace o intervalu, ve kterém se *slave* server dotazuje
-    > *master* serveru na změny jsou uloženy v SOA záznamu *slave*
-    > serveru.
+    serveru zaslání SOA záznamu pro danou zónu. Jakmile *master*
+    server zašle tyto informace, *slave* server ověří sériové číslo
+    SOA záznamu a porovná ho se svým. Pokud je sériové číslo SOA
+    záznamu *master* serveru vyšší než sériové číslo SOA záznamu
+    *slave* serveru, došlo ke změnám zóny a *slave* server si vyžádá
+    od *master* serveru potřebná data (provede tedy **přenos zóny**).
+    Informace o intervalu, ve kterém se *slave* server dotazuje
+    *master* serveru na změny jsou uloženy v SOA záznamu *slave*
+    serveru.
 
 -   *Master* server při změně zóny zašle všem *slave* serverům oznámení,
-    > že došlo ke změně zóny. *Slave* servery pak postupují stejně jako
-    > v předchozím bodě, ještě před přenosem zóny tedy provedou ověření,
-    > zda opravdu ke změně došlo.
+    že došlo ke změně zóny. *Slave* servery pak postupují stejně jako
+    v předchozím bodě, ještě před přenosem zóny tedy provedou ověření,
+    zda opravdu ke změně došlo.
 
 Samotný přenos zón pak může probíhat dvěma způsoby:
 
 -   **Úplným přenosem zóny** (AXFR), kdy dojde k přenesení celého
-    > zónového souboru.
+    zónového souboru.
 
 -   **Inkrementálním přenosem zóny** (IXFR), kdy se přenesou pouze změny
-    > oproti některé dřívější verzi zónového souboru.
+    oproti některé dřívější verzi zónového souboru.
 
 #### **Výhody integrace DNS serveru v Active Directory**
 
@@ -479,22 +479,22 @@ hostitelského jména na IP adresu následovně:
     vrátí IP adresu uloženou v této paměti.
 
     -   **Klient DNS** pro zvýšení efektivity překladu dočasně ukládá
-        > informace o dříve vykonaných překladech. Neboli ukládá každou
-        > obdrženou odpověď od **DNS serveru** do vyrovnávací paměti.
-        > Kromě toho tato paměť obsahuje také informace obsažené v
-        > souboru *hosts*, jenž je umístěn v adresáři
-        > ***\<systém\>*\\System32\\drivers\\etc**, kde *\<systém\>* je
-        > kořenová složka systému Windows. Soubor *hosts* je standardní
-        > textový soubor obsahující mapování mezi IP adresami a
-        > hostitelskými jmény ve formátu *\<IP adresa\> \<hostitelské
-        > jméno\>*. Jelikož se v těchto záznamech vyhledává dříve, než
-        > dojde ke kontaktování **DNS serveru**, lze takto přepsat
-        > cílové IP adresy pro jednotlivá hostitelská jména. Také je
-        > možné tímto způsobem zajistit překlad specifických
-        > hostitelských jmen i v případě, že nelze kontaktovat žádný
-        > **DNS server**. Obsah souboru *hosts* je načten do vyrovnávací
-        > paměti **klienta DNS** při startu systému a obsažené záznamy
-        > mají trvalou platnost (do doby než jsou znova načteny).
+        informace o dříve vykonaných překladech. Neboli ukládá každou
+        obdrženou odpověď od **DNS serveru** do vyrovnávací paměti.
+        Kromě toho tato paměť obsahuje také informace obsažené v
+        souboru *hosts*, jenž je umístěn v adresáři
+        ***\<systém\>*\\System32\\drivers\\etc**, kde *\<systém\>* je
+        kořenová složka systému Windows. Soubor *hosts* je standardní
+        textový soubor obsahující mapování mezi IP adresami a
+        hostitelskými jmény ve formátu *\<IP adresa\> \<hostitelské
+        jméno\>*. Jelikož se v těchto záznamech vyhledává dříve, než
+        dojde ke kontaktování **DNS serveru**, lze takto přepsat
+        cílové IP adresy pro jednotlivá hostitelská jména. Také je
+        možné tímto způsobem zajistit překlad specifických
+        hostitelských jmen i v případě, že nelze kontaktovat žádný
+        **DNS server**. Obsah souboru *hosts* je načten do vyrovnávací
+        paměti **klienta DNS** při startu systému a obsažené záznamy
+        mají trvalou platnost (do doby než jsou znova načteny).
 
 3.  Systém převede hostitelské jméno na doménové jméno připojením názvu
     domény, ve které se počítač nachází (nebo jiné, pokud je to
@@ -519,38 +519,38 @@ hostitelského jména na IP adresu následovně:
     do vyrovnávací paměti **LLMNR**.
 
     -   **LLMNR** je způsob překladu založený na využití (linkových)
-        > skupinových IP adres. Počítač zašle zprávu na IPv6 adresu
-        > **FF02::1:3** (všechny uzly na dané lince) nebo na IPv4 adresu
-        > **224.0.0.252** s požadavkem pro překlad zadaného
-        > hostitelského jména. Pokud některý počítač zjistí, že
-        > disponuje hledaným hostitelským jménem, vytvoří odpověď,
-        > kterou zašle zpět, tentokrát již na individuální (*unicast*)
-        > IP adresu odesilatele. Odpověď vždy obsahuje IP adresu toho
-        > rozhraní, přes které je daný počítač připojen na odpovídající
-        > linku, tedy odesilatel ho musí být schopen skrz tuto IP adresu
-        > kontaktovat. Aby bylo **LLMNR** možné použít, musí být
-        > povolena služba zjišťování sítě (*Network Discovery*).
+        skupinových IP adres. Počítač zašle zprávu na IPv6 adresu
+        **FF02::1:3** (všechny uzly na dané lince) nebo na IPv4 adresu
+        **224.0.0.252** s požadavkem pro překlad zadaného
+        hostitelského jména. Pokud některý počítač zjistí, že
+        disponuje hledaným hostitelským jménem, vytvoří odpověď,
+        kterou zašle zpět, tentokrát již na individuální (*unicast*)
+        IP adresu odesilatele. Odpověď vždy obsahuje IP adresu toho
+        rozhraní, přes které je daný počítač připojen na odpovídající
+        linku, tedy odesilatel ho musí být schopen skrz tuto IP adresu
+        kontaktovat. Aby bylo **LLMNR** možné použít, musí být
+        povolena služba zjišťování sítě (*Network Discovery*).
 
 6.  Systém prohledá vyrovnávací paměť **NetBIOS** (*local NetBIOS name
     cache*) a pokud nalezne informace potřebné pro překlad, vrátí IPv4
     adresu uloženou v této paměti.
 
     -   **NetBIOS**, neboli NetBIOS přes TCP/IP (*NBT, NetBT,
-        > NetBIOS-over-TCP/IP*), je protokol a jmenný systém používaný
-        > ve starších verzích systému Windows, jenž je stále zachováván
-        > z důvodu zpětné kompatibility s těmito verzemi. **NetBIOS** je
-        > tzv. *flat* jmenný systém, což znamená, že se nerozlišují
-        > žádné jmenné prostory jako např. domény u **DNS**. Veškerá
-        > jména jsou součástí jednoho globálního jmenného prostoru.
-        > **NetBIOS** jména musí být maximálně 15 bytů (znaků) dlouhá,
-        > obecně je sice pro jméno vyhrazeno 16 bytů, ovšem poslední
-        > bajt je rezervován pro specifikaci typu uzlu (stanice, server
-        > apod.).
+        NetBIOS-over-TCP/IP*), je protokol a jmenný systém používaný
+        ve starších verzích systému Windows, jenž je stále zachováván
+        z důvodu zpětné kompatibility s těmito verzemi. **NetBIOS** je
+        tzv. *flat* jmenný systém, což znamená, že se nerozlišují
+        žádné jmenné prostory jako např. domény u **DNS**. Veškerá
+        jména jsou součástí jednoho globálního jmenného prostoru.
+        **NetBIOS** jména musí být maximálně 15 bytů (znaků) dlouhá,
+        obecně je sice pro jméno vyhrazeno 16 bytů, ovšem poslední
+        bajt je rezervován pro specifikaci typu uzlu (stanice, server
+        apod.).
 
     -   **NetBIOS** se použije pouze tehdy, pokud je možné zadané
-        > hostitelské jméno převést na **NetBIOS** jméno, což lze pouze
-        > v případě, že hostitelské jméno není delší než 15 znaků a není
-        > ani doménovým jménem (neobsahuje tečky).
+        hostitelské jméno převést na **NetBIOS** jméno, což lze pouze
+        v případě, že hostitelské jméno není delší než 15 znaků a není
+        ani doménovým jménem (neobsahuje tečky).
 
 7.  Systém kontaktuje **WINS** (*Windows Internet Naming Service*)
     server, zašle mu požadavek pro překlad **NetBIOS** jména na IPv4
@@ -559,11 +559,11 @@ hostitelského jména na IP adresu následovně:
     zároveň tyto informace uloží do vyrovnávací paměti **NetBIOS**.
 
     -   **WINS** server je adresářová služba obsahující mapování mezi
-        > **NetBIOS** jmény a jejich IPv4 adresami. Pokud má nějaké
-        > rozhraní nastavenou IP adresu **WINS** serveru, automaticky
-        > dojde k registraci jeho IPv4 adresy u **WINS** serveru.
-        > Výhodou **WINS** serveru je možnost překladu **NetBIOS** jmen
-        > i mimo lokální (pod)síť.
+        **NetBIOS** jmény a jejich IPv4 adresami. Pokud má nějaké
+        rozhraní nastavenou IP adresu **WINS** serveru, automaticky
+        dojde k registraci jeho IPv4 adresy u **WINS** serveru.
+        Výhodou **WINS** serveru je možnost překladu **NetBIOS** jmen
+        i mimo lokální (pod)síť.
 
 8.  Systém použije všesměrové vysílání **NetBIOS** (*NetBIOS
     broadcast*). V případě, že se podaří lokalizovat počítač se zadaným
@@ -571,23 +571,23 @@ hostitelského jména na IP adresu následovně:
     informace do vyrovnávací paměti **NetBIOS**.
 
     -   Všesměrové vysílání **NetBIOS** pracuje na podobném principu
-        > jako **LLMNR** (jenž prakticky tento způsob překladu
-        > nahradilo), pracuje ovšem pouze s IPv4. Počítač rozešle zprávy
-        > na adresu pro všesměrové vysílání, a pokud některý z
-        > kontaktovaných počítačů obsahuje hledané **NetBIOS** jméno,
-        > zašle odpověď, obsahující jeho IPv4 adresu, zpět odesilateli.
-        > Nevýhodou tohoto přístupu je omezení pouze na lokální
-        > (pod)síť, jelikož dále se nemůže všesměrové vysílání
-        > (standardně) šířit.
+        jako **LLMNR** (jenž prakticky tento způsob překladu
+        nahradilo), pracuje ovšem pouze s IPv4. Počítač rozešle zprávy
+        na adresu pro všesměrové vysílání, a pokud některý z
+        kontaktovaných počítačů obsahuje hledané **NetBIOS** jméno,
+        zašle odpověď, obsahující jeho IPv4 adresu, zpět odesilateli.
+        Nevýhodou tohoto přístupu je omezení pouze na lokální
+        (pod)síť, jelikož dále se nemůže všesměrové vysílání
+        (standardně) šířit.
 
 9.  Systém prohledá soubor *lmhosts*. Pokud nalezne hledané **NetBIOS**
     jméno, vrátí odpovídající IPv4 adresu.
 
     -   Soubor *lmhosts* je standardní textový soubor, jenž obsahuje
-        > mapování **NetBIOS** jmen na odpovídající IPv4 adresy ve
-        > formátu *\<IPv4 adresa\> \<NetBIOS jméno\>*. Tento soubor je
-        > umístěn v adresáři ***\<systém\>\\*System32\\drivers\\etc**,
-        > kde *\<systém\>* je kořenová složka systému Windows.
+        mapování **NetBIOS** jmen na odpovídající IPv4 adresy ve
+        formátu *\<IPv4 adresa\> \<NetBIOS jméno\>*. Tento soubor je
+        umístěn v adresáři ***\<systém\>\\*System32\\drivers\\etc**,
+        kde *\<systém\>* je kořenová složka systému Windows.
 
 Posloupnost výše zmíněných kroků nemusí vždy probíhat v uvedeném pořadí,
 záleží na konkrétní situaci. Obecně ale systém vždy preferuje použití
@@ -618,14 +618,14 @@ dotaz (požadavek) zaslaný **DNS** serveru musí obsahovat tři hlavní
 informace:
 
 -   **Plně kvalifikované doménové jméno** (FQDN), i v případě reverzního
-    > mapování je IP adresa zapsána jako FQDN (doména **in-addr.arpa.**
-    > nebo **ip6.arpa.**).
+    mapování je IP adresa zapsána jako FQDN (doména **in-addr.arpa.**
+    nebo **ip6.arpa.**).
 
 -   **Typ dotazu**, což může být požadovaný typ záznamu (viz dále) nebo
-    > speciální typ operace.
+    speciální typ operace.
 
 -   **Třída doménového jména**, kde se prakticky používá pouze třída
-    > **IN** (*Internet*).
+    **IN** (*Internet*).
 
 Pokud se **DNS** klientovi nepodaří převést doménové jméno či IP adresu
 lokálně (např. využitím vyrovnávací paměti **DNS**), musí kontaktovat
@@ -633,15 +633,15 @@ server. Obecně existují dva typy **DNS** dotazů, jenž může klient
 použít:
 
 -   **Rekurzivní dotaz**, kdy **DNS** klient zašle dotaz na určitý
-    > záznam danému **DNS** serveru a server musí na tento dotaz
-    > odpovědět buď požadovanými daty, nebo chybovou hláškou.
+    záznam danému **DNS** serveru a server musí na tento dotaz
+    odpovědět buď požadovanými daty, nebo chybovou hláškou.
 
 -   **Iterativní dotaz**, kdy **DNS** server vrátí **DNS** klientovi
-    > nejlepší možnou odpověď, kterou může poskytnout. Dotazovaný
-    > **DNS** server se podívá do své databáze a pokud nenajde odpověď,
-    > vrátí jména a adresy **DNS** serverů, které by mohly znát
-    > požadovanou odpověď (tedy takové, jenž jsou nejblíže hledané
-    > adrese v kontextu hierarchie domén).
+    nejlepší možnou odpověď, kterou může poskytnout. Dotazovaný
+    **DNS** server se podívá do své databáze a pokud nenajde odpověď,
+    vrátí jména a adresy **DNS** serverů, které by mohly znát
+    požadovanou odpověď (tedy takové, jenž jsou nejblíže hledané
+    adrese v kontextu hierarchie domén).
 
 V obou případech dotazů uvedených výše může sám **DNS** server plnit i
 funkci **DNS** klienta a ptát se dalších **DNS** serverů na požadované
@@ -694,7 +694,7 @@ $labName = 'E02'
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
+| ------------------------ | -------------- | -------------- | -------------- | -------------- |
 | **w10-base**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
 | **w2016-base**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
 | **w10-domain**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
@@ -703,8 +703,6 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
-**\
-**
 
 # **Lektorské úkoly**
 
@@ -732,56 +730,54 @@ DHCP.
         Internet -- Ethernet -- Change adapter options), zvolte LAN2 a
         pak Properties
 
-        Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to
+    - Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to
         je LAN2
 
-        Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte
+    b. Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte
         Properties
 
-        Zvolte Use the following IP address a jako IP address zadejte
+    c. Zvolte Use the following IP address a jako IP address zadejte
         **192.168.1.1**
 
-        Klikněte do zadávacího pole u Subnet mask, maska podsítě
+    d. Klikněte do zadávacího pole u Subnet mask, maska podsítě
         **255.255.255.0** bude doplněna automaticky
 
-        Potvrďte OK
+    e.  Potvrďte OK
 
-        Přihlaste se k **w10-base** jako uživatel **student** s heslem
+3. Přihlaste se k **w10-base** jako uživatel **student** s heslem
         **aaa**
 
-        Na **w10-base** nastavte statickou IPv4 adresu **192.168.1.10**
+4.  Na **w10-base** nastavte statickou IPv4 adresu **192.168.1.10**
 
-        Otevřete okno **Network Connections** (Settings -- Network &
+    a. Otevřete okno **Network Connections** (Settings -- Network &
         Internet -- Ethernet -- Change adapter options), zvolte LAN2 a
         pak Properties
 
-        Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to
+    b. Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to
         je LAN2
 
-        Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte
+    c. Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte
         Properties
 
-        Zvolte Use the following IP address a jako IP address zadejte
+    d. Zvolte Use the following IP address a jako IP address zadejte
         **192.168.1.10**
 
-        Klikněte do zadávacího pole u Subnet mask, maska podsítě
+    e. Klikněte do zadávacího pole u Subnet mask, maska podsítě
         **255.255.255.0** bude doplněna automaticky
 
-        Do pole Default gateway nastavte výchozí bránu **192.168.1.1**
+    f. Do pole Default gateway nastavte výchozí bránu **192.168.1.1**
 
-        Zvolte Use the following DNS server address a jako Preferred DNS
+    g. Zvolte Use the following DNS server address a jako Preferred DNS
         server zadejte **192.168.1.1**
 
-        Otevřete pokročilou konfiguraci TCP/IP tlačítkem Advanced
+    h. Otevřete pokročilou konfiguraci TCP/IP tlačítkem Advanced
 
-        Přejděte na záložku DNS
+    i. Přejděte na záložku DNS
 
-        Do pole DNS sufix for this connection zadejte **testing2.local**
+    j. Do pole DNS sufix for this connection zadejte **testing2.local**
 
-        Potvrďte OK
+    k. Potvrďte OK
 
-**\
-**
 
 ## **Lab L02 -- Instalace a základní nastavení DNS serveru**
 
@@ -800,91 +796,85 @@ DHCP.
 >
 > Dokončený úkol **Lab L01**
 
-Na **w2016-base** spusťte **Server Manager**
+1. Na **w2016-base** spusťte **Server Manager**
 
-Start → (All Programs) → Administrative Tools → Server Manager
+    a. Start → (All Programs) → Administrative Tools → Server Manager
 
-Povyšte server do role DNS serveru
+2. Povyšte server do role DNS serveru
 
-Vyberte Add Roles and Features z nabídky Manage
+    a. Vyberte Add Roles and Features z nabídky Manage
 
-Pokračujte Next \>
+    b. Pokračujte Next \>
 
-Vyberte Role-based or feature-based installation a pokračujte Next \>
+    c. Vyberte Role-based or feature-based installation a pokračujte Next \>
 
-Vyberte aktuální server a pokračujte Next \>
+    d. Vyberte aktuální server a pokračujte Next \>
 
-V seznamu rolí vyberte DNS Server, potvrďte přidání potřebných funkcí
-Add Features a pokračujte třikrát Next \>
+    e. V seznamu rolí vyberte DNS Server, potvrďte přidání potřebných funkcí Add Features a pokračujte třikrát Next \>
 
-Zaškrtněte Restart the destination server automatically if required a
-potvrďte instalaci Install
+    f. Zaškrtněte Restart the destination server automatically if required a potvrďte instalaci Install
 
-Trvá cca 3 minuty (restart není potřeba)
+    - Trvá cca 3 minuty (restart není potřeba)
 
-Po dokončení instalace zkontrolujte notifikace Server Manageru
+g. Po dokončení instalace zkontrolujte notifikace Server Manageru
 
-Spusťte **DNS Manager**
+3. Spusťte **DNS Manager**
 
-Buď z nabídky Tools -- DNS nebo vyberte v levém sloupci roli DNS a
+- Buď z nabídky Tools -- DNS nebo vyberte v levém sloupci roli DNS a
 z kontextové nabídky nad jménem serveru zvolte DNS Manager
 
-Vytvořte novou zónu **testing2.local**
+4. Vytvořte novou zónu **testing2.local**
 
-Klikněte pravým na Forward Lookup Zones a zvolte New Zone...
+    a. Klikněte pravým na Forward Lookup Zones a zvolte New Zone...
 
-Řekněte, že *forward lookup* zóna je ekvivalentem standardní zóny, tedy
-mapování doménových jmen na odpovídající IP adresy, oproti tomu *reverse
-lookup* zóna zase odpovídá reverznímu mapování
+    > *Forward lookup* zóna je ekvivalentem standardní zóny, tedy
+    > mapování doménových jmen na odpovídající IP adresy, oproti tomu *reverse
+    > lookup* zóna zase odpovídá reverznímu mapování
 
-Pokračujte Next \>
+    b. Pokračujte Next \>
 
-Vyberte Primary Zone a pokračujete Next \>
+    c. Vyberte Primary Zone a pokračujete Next \>
 
-Můžete ještě jednou zmínit rozdíly mezi jednotlivými typy zón
+    - Povšimněte si rozdíly mezi jednotlivými typy zón
 
-V části pojmenování zóny zadejte jako Zone name **testing2.local** a
-pokračujte Next \>
+    d. V části pojmenování zóny zadejte jako Zone name **testing2.local** a
+    pokračujte Next \>
 
-Upozorněte, že v systémech Windows (a často i jinde) se většinou
-nerozlišuje **FQDN** od relativního doménového jména vzhledem k *root*
-doméně (tedy i při vynechání poslední tečky pořád používáme označení
-**FQDN**)
+    > V systémech Windows (a často i jinde) se většinou nerozlišuje **FQDN** od relativního doménového jména vzhledem k *root* doméně (tedy i při vynechání poslední tečky pořád používáme označení **FQDN**)
 
-V části uložení zónového souboru ponechte výchozí nastavení Create a new
-file with this file name s vygenerovaným názvem souboru podle názvu
-vytvářené zóny a pokračujte Next \>
+    e. V části uložení zónového souboru ponechte výchozí nastavení Create a new file with this file name s vygenerovaným názvem souboru podle názvu  vytvářené zóny a pokračujte Next \>
 
-Zmiňte, že v případě použití zónového souboru stejného názvu pro více
-zón se jejich obsahy navzájem přepisují, takže to nedělat
+    > Vpřípadě použití zónového souboru stejného názvu pro více zón se jejich obsahy navzájem přepisují.
 
-V části nastavení dynamických aktualizací ponechte výchozí volbu Do not
-allow dynamic updates a pokračujte Next \>
+    f. V části nastavení dynamických aktualizací ponechte výchozí volbu Do not
+    allow dynamic updates a pokračujte Next \>
 
-Stručně řekněte, k čemu slouží dynamické aktualizace, a popište, jaký je
-rozdíl mezi zabezpečenými a nezabezpečenými, zmiňte také, že zde
-zabezpečenou verzi nelze použít, jelikož zóna není integrovaná do AD
+    > K čemu slouží dynamické aktualizace?
 
-Potvrďte vytvoření nové zóny pomocí Finish
+    > Jaký je rozdíl mezi zabezpečenými a nezabezpečenými?
 
-Přidejte do zóny **testing2.local** nový **A** záznam pro **w2016-base**
+    > Zabezpečenou verzi nelze použít, jelikož zóna není integrovaná do AD.
 
-Klikněte pravým na zónu **testing2.local** a zvolte New Host (A or
-AAAA)...
+    g. Potvrďte vytvoření nové zóny pomocí Finish
 
-Jako Name zvolte **w2016-base** a jako IP address nastavte na
-**192.168.1.1**
+5. Přidejte do zóny **testing2.local** nový **A** záznam pro **w2016-base**
 
-Přidejte záznam pomocí Add Host
+    a. Klikněte pravým na zónu **testing2.local** a zvolte New Host (A or
+    AAAA)...
 
-Na **w10-base** ověřte správný překlad doménového jména serveru na
+    b. Jako Name zvolte **w2016-base** a jako IP address nastavte na
+    **192.168.1.1**
+
+    c. Přidejte záznam pomocí Add Host
+
+6. Na **w10-base** ověřte správný překlad doménového jména serveru na
 odpovídající IP adresu
 
-Spusťte příkaz **nslookup**
+    a. Spusťte příkaz **nslookup**
 
-Zadejte **w2016-base.testing2.local**
+    b. Zadejte **w2016-base.testing2.local**
 
-Ověřte, že vrácená IP adresa je opravdu IP adresa serveru
+    c. Ověřte, že vrácená IP adresa je opravdu IP adresa serveru
 
 **Lab L03 -- Pokročilá nastavení DNS serveru a klienta**
 
@@ -950,13 +940,13 @@ na to pak bodovaný úkol, a dynamické aktualizace.
     e.  V další části ponechte výchozí nastavení IPv4 Reverse Lookup
         Zone a pokračujete Next \>
 
-        -   Specifikace verze protokolu IP přímo určuje část názvu
+    -   Specifikace verze protokolu IP přímo určuje část názvu
             domény, pro kterou danou zónu vytváříme, v případě IPv4
             vytváříme subdoménu domény **in-addr.arpa**
 
     f.  Nastavte Network ID na **192.168.1** a pokračujete Next \>
 
-        -   Network ID určuje (pod)síť, jenž obsahuje IPv4 adresy, pro
+    -   Network ID určuje (pod)síť, jenž obsahuje IPv4 adresy, pro
             které se má provádět reverzní mapování, také se z něj určuje
             název vytvářené domény, v tomto případě je to doména
             **1.168.192.in-addr.arpa**
@@ -991,7 +981,7 @@ na to pak bodovaný úkol, a dynamické aktualizace.
     c.  Ověřte, že vrácené doménové jméno je opravdu doménové jméno
         serveru
 
-        -   Všimněte si, že **nslookup** již hlásí jako Default Server
+    -   Všimněte si, že **nslookup** již hlásí jako Default Server
             **w2016-base.testing2.local** místo **UnKnown** předtím,
             nyní již totiž může díky *reverse lookup* zóně provádět také
             reverzní mapování IPv4 adres na odpovídající doménová jména,
@@ -1009,101 +999,98 @@ na to pak bodovaný úkol, a dynamické aktualizace.
 >
 > **w2016-dc**
 
-Na **w2016-dc** nastavte statickou IPv4 adresu **192.168.1.2**
+1. Na **w2016-dc** nastavte statickou IPv4 adresu **192.168.1.2**
 
-Spusťte následující příkaz **netsh interface ip set address
+    a. Spusťte následující příkaz **netsh interface ip set address
 name=\"LAN2\" source=static addr=192.168.1.2 mask=255.255.255.0**
 
-Název **name** musí odpovídat síťovému rozhraní *Private1*, standardně
+    > Název **name** musí odpovídat síťovému rozhraní *Private1*, standardně
 to je LAN2
 
-Na **w10-domain** nastavte statickou IPv4 adresu **192.168.1.200** a
+2. Na **w10-domain** nastavte statickou IPv4 adresu **192.168.1.200** a
 také IPv4 adresu primárního **DNS** serveru **192.168.1.2**
 
-V příkazovém řádku s oprávněním správce spusťte následující příkaz
-**netsh interface ip set address name=\"LAN2\" source=static
-addr=192.168.1.200 mask=255.255.255.0**
+    a. V příkazovém řádku s oprávněním správce spusťte následující příkaz
+    **netsh interface ip set address name=\"LAN2\" source=static
+    addr=192.168.1.200 mask=255.255.255.0**
 
-Spusťte další příkaz **netsh interface ip set dnsservers name=\"LAN2\"
-source=static address=192.168.1.2**
+    b. Spusťte další příkaz **netsh interface ip set dnsservers name=\"LAN2\"
+    source=static address=192.168.1.2**
 
-Oba názvy **name** musí odpovídat síťovému rozhraní *Private1*,
-standardně to je LAN2
+   - Oba názvy **name** musí odpovídat síťovému rozhraní *Private1*,
+   standardně to je LAN2
 
-Oba příkazy vyžadují administrátorské oprávnění
+   - Oba příkazy vyžadují administrátorské oprávnění
 
-Na **w2016-dc** vytvořte zónu globálních jmen (zóna **GlobalNames**)
+3. Na **w2016-dc** vytvořte zónu globálních jmen (zóna **GlobalNames**)
 
-Spusťte **DNS Manager**
+    a. Spusťte **DNS Manager**
 
-Klikněte pravým na Forward Lookup Zones a zvolte New Zone...
+    b. Klikněte pravým na Forward Lookup Zones a zvolte New Zone...
 
-Na úvodní obrazovce pokračujte Next \>
+    c. Na úvodní obrazovce pokračujte Next \>
 
-Jako typ zóny vyberte Primary Zone a dole zaškrtněte Store The Zone In
-Active Directory, pokračujte Next \>
+    d. Jako typ zóny vyberte Primary Zone a dole zaškrtněte Store The Zone In
+    Active Directory, pokračujte Next \>
 
-Zóna globálních jmen musí být integrována v Active Directory
+   - Zóna globálních jmen musí být integrována v Active Directory
 
-V části rozsahu replikace zóny zvolte To all DNS servers running on
+    e. V části rozsahu replikace zóny zvolte To all DNS servers running on
 domain controllers in this forest: testing.local
 
-Zóna globálních jmen musí být replikována v rámci celého *forestu*
+   - Zóna globálních jmen musí být replikována v rámci celého *forestu*
 
-V části pojmenování zóny zadejte do Zone name **GlobalNames** a
-pokračujte Next \>
+    f. V části pojmenování zóny zadejte do Zone name **GlobalNames** a
+    pokračujte Next \>
 
-Zóna globálních jmen je ve své podstatě normální zóna jako všechny
-ostatní, pouze speciálně pojmenovaná (tak ji také systém rozeznává od
-zbylých zón)
+    - Zóna globálních jmen je ve své podstatě normální zóna jako všechny
+    ostatní, pouze speciálně pojmenovaná (tak ji také systém rozeznává od
+    zbylých zón)
 
-V části nastavení dynamických aktualizací zvolte možnost Do not allow
-dynamic updates a pokračujte Next \>
+    g. V části nastavení dynamických aktualizací zvolte možnost Do not allow
+    dynamic updates a pokračujte Next \>
 
-Zóna globálních jmen nepodporuje dynamické aktualizace, všechny záznamy
-musí být přidány manuálně
+    - Zóna globálních jmen nepodporuje dynamické aktualizace, všechny záznamy
+    musí být přidány manuálně
 
-Potvrďte vytvoření zóny globálních jmen pomocí Finish
+    h. Potvrďte vytvoření zóny globálních jmen pomocí Finish
 
-Na **w2016-dc** povolte podporu zóny globálních jmen
+4. Na **w2016-dc** povolte podporu zóny globálních jmen
 
-Spusťte příkaz **dnscmd /config /enableglobalnamessupport 1**
+    a. Spusťte příkaz **dnscmd /config /enableglobalnamessupport 1**
 
-Povolení podpory zóny globálních jmen vyžaduje administrátorské
-oprávnění
+    - Povolení podpory zóny globálních jmen vyžaduje administrátorské
+    oprávnění
 
-Restartujte službu **DNS**
+    b. Restartujte službu **DNS**
 
-Přejděte do **DNS Manageru**
+    - Přejděte do **DNS Manageru**
 
-Klikněte pravým na **w2016-dc**, vyberte All Tasks a pak Restart
+    - Klikněte pravým na **w2016-dc**, vyberte All Tasks a pak Restart
 
-Přidejte do zóny globálních jmen nový **CNAME** záznam odkazující
+5. Přidejte do zóny globálních jmen nový **CNAME** záznam odkazující
 **wdc** na **w2016-dc**
 
-Spusťte příkaz **dnscmd w2016-dc.testing.local /recordadd GlobalNames
-wdc cname w2016-dc.testing.local**
+    a. Spusťte příkaz **dnscmd w2016-dc.testing.local /recordadd GlobalNames
+    wdc cname w2016-dc.testing.local**
 
-Přidání záznamu do zóny vyžaduje administrátorské oprávnění
+    - Přidání záznamu do zóny vyžaduje administrátorské oprávnění
 
-Jelikož zóna globálních jmen slouží k náhradě **WINS** serverů, obsažená
+    - Jelikož zóna globálních jmen slouží k náhradě **WINS** serverů, obsažená
 jména jsou **NetBIOS** jmény a musí mít tedy délku maximálně 15 znaků
 
-Na **w10-domain** ověřte správný překlad globálních jmen na odpovídající
+6. Na **w10-domain** ověřte správný překlad globálních jmen na odpovídající
 doménová jména
 
-Spusťte příkaz **nslookup**
+    a. Spusťte příkaz **nslookup**
 
-Zadejte **wdc**
+    b. Zadejte **wdc**
 
-Ověřte, že vrácené doménové jméno je opravdu doménové jméno odpovídající
-serveru **w2016-dc** a IPv4 adresa taky náleží severu
+    c. Ověřte, že vrácené doménové jméno je opravdu doménové jméno odpovídající
+    serveru **w2016-dc** a IPv4 adresa taky náleží severu
 
-Pokud není počítač připojen do domény ležící ve *forestu*, ve kterém se
-zóna globálních jmen replikuje, nebude výše popsaný postup fungovat! Pro
-použití globálních jmen mimo takovou doménu je potřeba použít
-**\<globální jméno\>.GlobalNames** nebo přidat zónu **GlobalNames** do
-seznamu používaných *suffixů* pro dané rozhraní.
-
-**\
-**
+    - Pokud není počítač připojen do domény ležící ve *forestu*, ve kterém se
+    zóna globálních jmen replikuje, nebude výše popsaný postup fungovat! Pro
+    použití globálních jmen mimo takovou doménu je potřeba použít
+    **\<globální jméno\>.GlobalNames** nebo přidat zónu **GlobalNames** do
+    seznamu používaných *suffixů* pro dané rozhraní.

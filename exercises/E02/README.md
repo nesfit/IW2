@@ -199,18 +199,14 @@ Add-LabVirtualNetworkDefinition -Name Private4
 
 $w11_network = @(
     New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch none
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1 
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch none 
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1
 )
 
 Add-LabMachineDefinition -Name w11   -Memory 2GB -NetworkAdapter $w11_network -OperatingSystem 'Windows 11 Pro'
 
 $w2022_network = @(
     New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch none
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private4 
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch none 
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private4
 )
 
 Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
@@ -218,8 +214,7 @@ Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network 
 $w2022_core_network = @(
     New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN1 -VirtualSwitch 'Default Switch'
     New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN2 -VirtualSwitch Private1 
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch Private4 
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN4 -VirtualSwitch none 
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName LAN3 -VirtualSwitch Private4
 )
 
 Add-LabMachineDefinition -Name w2022-core -Memory 2GB -NetworkAdapter $w2022_core_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation'
@@ -243,11 +238,11 @@ Show-LabDeploymentSummary -Detailed
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-| ------------------------ | -------------- | -------------- | -------------- | -------------- |
-| **w11**                  | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2022**                | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
-| **w2022-core**           | Default Switch | Private1       | Private4       | Nepřipojeno    |
+| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** |
+| ------------------------ | -------------- | -------------- | -------------- |
+| **w11**                  | none           | Private1       |                |
+| **w2022**                | none           | Private4       |                |
+| **w2022-core**           | Default Switch | Private1       | Private4       |
 
 -   v případech, kdy je potřeba přistupovat na externí síť
     z **w11** a **w2022**, připojte adaptér **LAN1** k

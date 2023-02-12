@@ -18,9 +18,11 @@
 - [**Lektorské úkoly**](#lektorské-úkoly)
   - [**Lab L01 -- Server Manager a MMC**](#lab-l01----server-manager-a-mmc)
 - [**Studentské úkoly**](#studentské-úkoly)
-  - [**Lab S02 -- místní správa Windows Server Core**](#lab-s02----místní-správa-windows-server-core)
-  - [**Lab S03 --** **Příprava základní topologie sítě**](#lab-s03----příprava-základní-topologie-sítě)
-  - [**Lab S06 -- vzdálená správa Windows Server pomocí UI**](#lab-s06----vzdálená-správa-windows-server-pomocí-ui)
+  - [**Lab S01 -- místní správa Windows Server Core**](#lab-s01----místní-správa-windows-server-core)
+  - [Lab S02 -- Příprava základní topologie sítě](#lab-s02----příprava-základní-topologie-sítě)
+  - [Lab S04 -- příprava na vzdálenou správu Windows Server bez domény -- na stanici, odkud budeme spravovat](#lab-s04----příprava-na-vzdálenou-správu-windows-server-bez-domény----na-stanici-odkud-budeme-spravovat)
+  - [Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici\`](#lab-s04----příprava-na-vzdálenou-správu-windows-server-pomocí-ui----na-spravované-stanici)
+  - [Lab S06 -- vzdálená správa Windows Server pomocí UI](#lab-s06----vzdálená-správa-windows-server-pomocí-ui)
   - [**Lab S07 -- instalace role RAS na vzdálený server**](#lab-s07----instalace-role-ras-na-vzdálený-server)
   - [**Lab S08 -- Instalace nástrojů vzdálené správy Remote Server Administration Tools**](#lab-s08----instalace-nástrojů-vzdálené-správy-remote-server-administration-tools)
   - [**Lab S09 -- Konfigurace serveru jako NAT**](#lab-s09----konfigurace-serveru-jako-nat)
@@ -242,9 +244,9 @@ Show-LabDeploymentSummary -Detailed
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **w11**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2022**           | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
+| ------------------------ | -------------- | -------------- | -------------- | -------------- |
+| **w11**                  | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **w2022**                | Nepřipojeno    | Private4       | Nepřipojeno    | Nepřipojeno    |
 | **w2022-core**           | Default Switch | Private1       | Private4       | Nepřipojeno    |
 
 -   v případech, kdy je potřeba přistupovat na externí síť
@@ -253,9 +255,6 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 Pro urychlení úkolu S01 spusťte na začátku cvičení VM **w2022-core
 OOBE**.
-
-**\
-**
 
 # **Lektorské úkoly**
 
@@ -270,98 +269,31 @@ OOBE**.
 > **w2022**
 
 1.  Přihlaste se k **w2022** jako uživatel `root` s heslem `root4lab`
-
-2.  Popište základy rozhraní a snahu o správu více serverů z jednoho
-    > místa
-
+2.  Popište základy rozhraní a snahu o správu více serverů z jednoho místa
 3.  Nástrojová lišta
-
     a.  Tools -- možnost spuštění MMC konzolí proti lokálnímu serveru
-
     b.  Manage -- přidávání a odebírání rolí a funkcí na běžící server
         mebo do offline VHD s bitovou kopií Windows Serveru Windows
         serveru (na pozadí je dism / viz IW1)
-
     c.  Manage -- Add Server
-
     d.  Manage -- Server Manager Properties (nastavení intervalu obnovy
         a spouštění po přihlášení)
-
     e.  Notifications (vlaječka)
-
-        -   Zobrazují se zde poinstalační kroky a podobně.
-
+    -   Zobrazují se zde poinstalační kroky a podobně.
     f.  Dashboard se základním přehledem o serverech a rolích
-
     g.  Local Server
-
     h.  All Servers
-
     i.  Přehled rolí
-
 4.  Z kontextových nabídek nad jednotlivými servery lze spouštět MMC a
     jiné nástroje připojené k danému serveru.
-
 5.  MMC jde spouštět i samostatně z nabídky Administrative Tools nebo
     přidáním snap-inů do mmc.exe
-
 6.  Upozorněte, že Server Manager a některé další nástroje podporují
     vzdálenou správu pouze stejné nebo starší verze Windows Serveru.
 
-**\
-**
-
 # **Studentské úkoly**
-<!-- 
-## **Lab S01 -- dokončení základní instalace Windows Server Core**
 
-> **Cíl cvičení**
->
-> Dokončit instalaci Windows Server 2019 Standard Core
->
-> **Potřebné virtuální stroje**
->
-> **w2022-core** (w2022-core OOBE)
-
-> **Další prerekvizity**
->
-> Virtuální disk s Windows Server 2019 Standard Core vzniklý aplikací
-> bitové kopie skriptem Convert-WindowsImage.ps1
-
-1.  Spusťte VM **w2022-core OOBE** a počkejte na dokončení konfigurace
-    HW a následný restart
-
-    -   trvá asi 3 minuty.
-
-2.  Budete vyzváni k nastavení hesla uživatele **root**
-
-    a.  Zvolte OK a potvrďte klávesou Enter
-
-    b.  Zadejte nové heslo **aaaAAA111** a pokračujte Tab
-
-        -   (musí splňovat standardní požadavky na komplexitu -- 8 znaků
-            a 3 ze 4 skupin: velká písmena, malá písmena a číslice a
-            speciální znaky)
-
-    c.  Zopakujte nové heslo, potvrďte Enter, následně zvolte OK a opět
-        potvrďte Enter
-
-3.  Přihlaste se novým heslem
-
-4.  Nyní přejmenujte server
-
-    a.  Spusťte nástroj **Server Configuration**
-
-        -   V příkazovém řádku zadejte příkaz **sconfig**
-
-    b.  Zvolte volbu **2** Enter
-
-    c.  Zadejte nové jméno **w2022-core** a potvrďte Enter
-
-    d.  Zobrazí se dialog, zda chceme server rovnou restartovat, zvolte
-        Yes -->
-
-## **Lab S02 -- místní správa Windows Server Core**
+## **Lab S01 -- místní správa Windows Server Core**
 
 > **Cíl cvičení**
 >
@@ -375,17 +307,13 @@ OOBE**.
 >
 > Dokončený úkol S01.
 
-1.  Přihlaste se k **w2022-core** jako uživatel **root** s
-    heslem **aaaAAA111**
-
+1.  Přihlaste se k **w2022-core** jako uživatel **root** s heslem **root4lab**
 2.  Zavřete okno příkazového řádku
-
 3.  Pokuste se znovu otevřít příkazový řádek
 
     a.  Vyvolejte správce úloh (**Task Manager**) pomocí Ctrl + Alt +
         Del a výběru z nabídky
-
-        -   Alternativně lze použít i Ctrl + Shift + Esc
+    -   Alternativně lze použít i Ctrl + Shift + Esc
 
     b.  Přepněte se do pokročilého zobrazení pomocí More details
 
@@ -428,49 +356,40 @@ OOBE**.
     g.  Pro statickou IP adresu zvolte **S**
 
     h.  Zadejte
-
-        -   IP: **10.10.10.1**
-
-        -   Maska: **255.255.255.0**
-
-        -   Výchozí brána: nevyplňovat
+    -   IP: **10.10.10.1**
+    -   Maska: **255.255.255.0**
+    -   Výchozí brána: nevyplňovat
 
     i.  Volbou **4** vyskočte z nabídky nastavení síťového rozhraní
         (Network Adater Settings)
 
-> Pozn: Alternativně lze použít **netsh**
+    > Pozn: Alternativně lze použít **netsh**
 
 7.  Nastavte IP adresu síťového rozhraní s MAC 20-19-DD-00-00-03
 
-    a.  Opakujte postup z bodu 6
-
-        -   IP: **192.168.200.1**
-
-        -   Maska: **255.255.255.0**
-
-        -   Výchozí brána: nevyplňovat
+    a.  Opakujte postup z bodu 6    
+    -   IP: **192.168.200.1**
+    -   Maska: **255.255.255.0**
+    -   Výchozí brána: nevyplňovat
 
 8.  Ověřte, zda má rozhraní s MAC 20-19-DD-00-00-01 přidělenou IP adresu
     z DHCP serveru a fungující konektivitu do internetu
-
+    
     a.  Pomocí výpisu z **ipconfig /all**
-
+    
     b.  Pomocí **ping file.nepal.local**
-
-        -   Alternativně zkuste nějakou veřejnou IP (např. Google public
+    -   Alternativně zkuste nějakou veřejnou IP (např. Google public
             DNS 8.8.8.8 a 8.8.4.4, Cloudflare public DNS 1.1.1.1, ...)
             nebo přímo doménové jméno
-
 9.  Ověřte, že je povolena vzdálená správa
-
-    a.  V **Server Configuration** zkontrolujte stav u položky 4)
-        Configure Remote Management.
-
+    
+    a.  V **Server Configuration** zkontrolujte stav u položky 4) Configure Remote Management.
+    
     b.  Pokud zde není uvedena hodnota Enabled, zadejte volbu **4** a
         následně volbu **1** (Enable Remote Management). Potvrzovacím
         dialog zavřete tlačítkem OK.
 
-## **Lab S03 --** **Příprava základní topologie sítě**
+## Lab S02 -- Příprava základní topologie sítě
 
 > **Cíl cvičení**
 >
@@ -492,16 +411,10 @@ OOBE**.
 1.  Přihlaste se k **w11** jako uživatel **student** s heslem
     **root4lab**
 
-2.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv4
-    > adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na
-    > obrázku 1
+2.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv4 adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na obrázku 1
 
-    a.  Otevřete okno **Network Connections** (Settings -- Network &
-        > Internet -- Ethernet -- Change adapter options), zvolte LAN2 a
-        > pak Properties
-
-        -   Zvolené síťové rozhraní musí odpovídat *Private1*,
-            > standardně to je LAN2
+    a.  Otevřete okno **Network Connections** (Settings -- Network & Internet -- Ethernet -- Change adapter options), zvolte LAN2 a pak Properties
+    -   Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
 
     b.  Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte
         > Properties
@@ -516,42 +429,30 @@ OOBE**.
 
     f.  Potvrďte OK
 
-![](./img/media/image1.png){width="5.083333333333333in"
-height="2.4895833333333335in"}
+![](./img/media/image1.png)
 
 Obrázek 1. Schéma základní topologie sítě
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s
     heslem **root4lab**
 
-2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv4
-    > adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na
-    > obrázku 1
+2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv4 adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na obrázku 1
+ 
+    a.  Spusťte následující příkaz `netsh interface ip set address name=\"LAN2\" source=static addr=192.168.200.10 mask=255.255.255.0 gateway=192.168.200.1`
+    -   Název **name** musí odpovídat síťovému rozhraní *Private4*, standardně to je LAN2
 
-    a.  Spusťte následující příkaz **netsh interface ip set address
-        > name=\"LAN2\" source=static addr=192.168.200.10
-        > mask=255.255.255.0 gateway=192.168.200.1**
-
-        -   Název **name** musí odpovídat síťovému rozhraní *Private4*,
-            > standardně to je LAN2
-
-3.  Nyní na firewallech všech tří stanic povolte ICMP Echo Request
-    > (ping) - na všech profilech v příchozím i odchozím směru.
+3.  Nyní na firewallech všech tří stanic povolte ICMP Echo Request (ping) - na všech profilech v příchozím i odchozím směru.
 
     a.  Spusťte **PowerShell**
-
-        -   w2022-core: v příkazové řádce zadejte příkaz **start
+    -   w2022-core: v příkazové řádce zadejte příkaz **start
             powershell**
 
-        -   w11: spustit jako **administrátor**
+    -   w11: spustit jako **administrátor**
 
-    b.  Zadejte příkaz: **Get-NetFirewallRule \| where-object
-        {\$\_.DisplayName -like\
-        \"File\*Echo Request\*\" -and \$\_.Enabled -eq \"False\"} \|
-        Enable-NetFirewallRule**
+    b.  Zadejte příkaz: `Get-NetFirewallRule | where-object {$_.DisplayName -like
+        "File *Echo Request*" -and $_.Enabled -eq "False"} | Enable-NetFirewallRule`
 
-**Lab S04 -- příprava na vzdálenou správu Windows Server bez domény --
-na stanici, odkud budeme spravovat**
+## Lab S04 -- příprava na vzdálenou správu Windows Server bez domény -- na stanici, odkud budeme spravovat
 
 > **Cíl cvičení**
 >
@@ -571,42 +472,24 @@ na stanici, odkud budeme spravovat**
 1.  Přihlaste se k **w2022** jako uživatel **root** s
     heslem **root4lab**
 
-2.  Do souboru **C:\\Windows\\System32\\drivers\\etc\\hosts** přidejte
-    záznam odkazující na server **w2022-core** a soubor uložte:
+2.  Do souboru `C:\Windows\System32\drivers\etc\hosts` přidejte
+    záznam odkazující na server **w2022-core** a soubor uložte: `192.168.200.1 w2022-core`
 
-> **192.168.200.1 w2022-core**
-
-3.  Přidejte server **w2022-core** mezi důvěryhodné servery vzdálené
-    > správy
-
+3.  Přidejte server **w2022-core** mezi důvěryhodné servery vzdálené správy
     -   bylo by to nutné i v případě místního serveru v doméně a
         samostatného vzdáleného serveru
 
-```{=html}
-<!-- -->
-```
-a.  Spusťe **PowerShell** a zadejte příkaz:
-
-> **Set-Item wsman:\\localhost\\Client\\TrustedHosts w2022-core
-> -Concatenate -force**
+a.  Spusťe **PowerShell** a zadejte příkaz: `Set-Item wsman:\localhost\Client\TrustedHosts w2022-core -Concatenate -force`
 
 4.  Uložte alternativní přístupové údaje k serveru **w2022-core**
-
     -   v případě serverů v doméně není nutné
 
-```{=html}
-<!-- -->
-```
-a.  V příkazovém řádku nebo v **PowerShellu** zadejte:
-
-> **cmdkey /add:w2022-core /user:w2022-core\\administrator
-> /pass:aaaAAA111**
+a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-core /user:w2022-core\administrator /pass:root4lab`
 
 -   pokud vypustíte parametr /pass:, jednotlivé nástroje by se měly na
     heslo doptat (ale některé se neptají, např. Server Manager)
 
-**Lab S05 -- příprava na vzdálenou správu Windows Server pomocí UI -- na
-spravované stanici**
+## Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici`
 
 > **Cíl cvičení**
 >
@@ -618,46 +501,31 @@ spravované stanici**
 > **w2022-core**
 
 1.  Přihlaste se k **w2022-core** jako uživatel **root** s
-    heslem **aaaAAA111**
+    heslem **root4lab**
 
 2.  Spusťte **PowerShell**
 
 3.  Zadejte příkazy:
 
-> \# snap-in Event Viewer
->
-> **Enable-NetFirewallRule -DisplayGroup \"Remote Event Log
-> Management\"**
->
-> \# snap-in Services
->
-> **Enable-NetFirewallRule -DisplayGroup \"Remote Service Management\"**
->
-> \# snap-in Shared Folders
->
-> **Enable-NetFirewallRule -DisplayGroup \"File and Printer Sharing\"**
->
-> \# snap-in Task Scheduler
->
-> **Enable-NetFirewallRule -DisplayGroup \"Performance Logs and
-> Alerts\"**
->
-> \# snap-in Disk Management
->
-> **Enable-NetFirewallRule -DisplayGroup \"Remote Volume Management\"**
->
-> \# snap-in Windows Firewall with Advanced Security
->
-> **Enable-NetFirewallRule -DisplayGroup \"Windows Defender Firewall
-> Remote Management\"**
->
-> \# u w2016: Enable-NetFirewallRule -DisplayGroup \"Windows Firewall
-> Remote Management\"
+- snap-in Event Viewer
+    `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
+
+- snap-in Services `Enable-NetFirewallRule -DisplayGroup "Remote Service Management"`
+
+- snap-in Shared Folders `Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"`
+
+- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"`
+
+- snap-in Disk Management `Enable-NetFirewallRule -DisplayGroup "Remote Volume Management"`
+
+- snap-in Windows Firewall with Advanced Security `Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management"`
+
+- u w2022: `Enable-NetFirewallRule -DisplayGroup "Windows Firewall Remote Management"`
 
 Pozn: některé snap-iny vyžadují i další konfiguraci jako spuštění
 některých služeb apod.
 
-## **Lab S06 -- vzdálená správa Windows Server pomocí UI**
+## Lab S06 -- vzdálená správa Windows Server pomocí UI
 
 > **Cíl cvičení**
 >
@@ -674,8 +542,7 @@ některých služeb apod.
 >
 > Dokončené úkoly S04 a S05.
 
-1.  Přihlaste se k **w2022** jako uživatel **root** s
-    > heslem **root4lab**
+1.  Přihlaste se k **w2022** jako uživatel **root** s heslem **root4lab**
 
 2.  Otevřete **Server Manager**
 
@@ -690,8 +557,7 @@ některých služeb apod.
     c.  Pomocí tlačítka \> přidejte nalezený server do seznamu vybraných
         a potvrďte OK
 
-        -   **Server Manager** se pokusí zkontaktovat server
-            **w2022-core**
+     -   **Server Manager** se pokusí zkontaktovat server  **w2022-core**
 
 5.  Přejděte na All Servers
 
@@ -707,11 +573,9 @@ některých služeb apod.
     b.  Z kontextové nabídky nad záznamem **w2022-core** vyberte Manage
         As ...
 
-    c.  Zadejte přihlašovaní údaje:
+    c.  Zadejte přihlašovaní údaje:  **w2022-core\\administrator** s heslem **root4lab**
 
-> **w2022-core\\administrator** s heslem **aaaAAA111**
-
--   **Server Manager** se opět pokusí zkontaktovat server w2022-core,
+    -   **Server Manager** se opět pokusí zkontaktovat server w2022-core,
     tentokrát se správnými přihlašovacími údaji
 
 7.  Z kontextové nabídky nad **w2022-core** vyberte Computer Management
@@ -763,7 +627,7 @@ některých služeb apod.
     h.  V kroku Role Services zaškrtněte službu **Routing** a v dialogu
         se závislostmi potvrďte Add Features, pokračujte Next \>
 
-        -   Pozn.: dojde k zatržení služby DirectAccess and VPN (RAS)
+    -   Pozn.: dojde k zatržení služby DirectAccess and VPN (RAS)
 
     i.  V kroku *Confirmation* zaškrtněte Restart he destination server
         automatically if required
@@ -773,7 +637,7 @@ některých služeb apod.
 
     k.  Spusťte instalaci pomocí Install
 
-        -   Instalace může zabrat několik minut, v jejím průběhu můžete
+    -   Instalace může zabrat několik minut, v jejím průběhu můžete
             začít následující úkol.
 
     l.  V kroku *Results* nyní můžete vidět rekapitulaci rolí a funkcí,
@@ -792,20 +656,16 @@ některých služeb apod.
     b.  Z kontextové nabídky serveru **w2022-core** zvolte Restart
         Server a dotaz potvrďte OK
 
-    ```{=html}
-    <!-- -->
-    ```
     a.  Vyčkejte na dokončení restartu
 
 6.  Přihlaste se lokálně na k **w2022-core** jako uživatel
-    **root** s heslem **aaaAAA111**
+    **root** s heslem **root4lab**
 
 7.  Spusťte **PowerShell**
 
 8.  Zadejte příkaz a ověřte, že došlo k instalaci role **Remote Access**
 
-9.  **Get-WindowsFeature \| where-object {\$\_.InstallState -eq
-    \"Installed\"}**
+9.  `Get-WindowsFeature | where-object {$_.InstallState -eq "Installed"}`
 
 ## **Lab S08 -- Instalace nástrojů vzdálené správy Remote Server Administration Tools**
 
@@ -890,8 +750,7 @@ některých služeb apod.
 
     c.  Otevře se MMC konzole Routing and Remote Access
 
-        -   Alternativně je tato konzole součástí Computer Management
-            MMC pod uzlem Services And Applications
+    -   Alternativně je tato konzole součástí Computer Management MMC pod uzlem Services And Applications
 
 9.  V MMC **Routing and Remote Access** vyberte uzel w2022-core
 
@@ -940,16 +799,15 @@ některých služeb apod.
 
 19. Nastavte NAT i pro rozhraní s IP **192.168.200.1**
 
-    a.  V **Routing and Remote Access** MMC rozbalte uzel w2022-core \\
-        IPv4 \\ NAT
+    a.  V **Routing and Remote Access** MMC rozbalte uzel w2022-core \
+        IPv4 \ NAT
 
     b.  Z kontextové nabídky zvolte New Interface
 
     c.  Vyberte rozhraní odpovídající IP **192.168.200.1** a pokračujte
         OK
 
-        -   Pod uzlem w2022-core \\ IPv4 \\ General najdete přehled
-            rozhraní s jejich detaily
+    -   Pod uzlem w2022-core \ IPv4 \ General najdete přehled rozhraní s jejich detaily
 
     d.  Zvolte Private interface connected to private network a potvrďte
         OK
@@ -965,10 +823,6 @@ některých služeb apod.
     a.  Pomocí **ping 8.8.8.8**
 
     b.  Pomocí **tracert 8.8.8.8**
-
-**\
-**
-
 
 [^1]: https://docs.microsoft.com/en-us/windows-server/get-started/2016-edition-comparison
 

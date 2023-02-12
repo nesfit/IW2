@@ -693,12 +693,12 @@ $labName = 'E02'
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-| ------------------------ | -------------- | -------------- | -------------- | -------------- |
-| **w10-base**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w10-domain**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-dc**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** |
+| ------------------------ | -------------- | -------------- |
+| **w10-base**             | none           | Private1       |
+| **w2016-base**           | none           | Private1       |
+| **w10-domain**           | none           | Private1       |
+| **w2016-dc**             | none           | Private1       |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.

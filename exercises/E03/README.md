@@ -11,10 +11,6 @@
   - [**Lab S01 -- Vytvoření rezervace pro DHCP klienta**](#lab-s01----vytvoření-rezervace-pro-dhcp-klienta)
   - [**Lab S02 -- Aplikace nastavení DHCP na základě user class**](#lab-s02----aplikace-nastavení-dhcp-na-základě-user-class)
 
-<style type="text/css">
-    img {background-color: white;}
-</style>
-
 # **Systém DHCP**
 
 Zajištění konektivity mezi počítači v malé (např. domácí) síti je celkem
@@ -80,7 +76,7 @@ lze shrnout do následujících několika kroků:
     > rozhraní), odpoví všesměrovou (*broadcast*) zprávou **DHCP Nack**
     > a **DHCP** klient musí zažádat o novou (jinou) IPv4 adresu.
 
-![dora.png](./img/media/image1.png)
+![dora.png](./img/media/image1.png)(#fff)
 
 Obrázek 1. Průběh přidělování IPv4 adres pomocí DHCP (DORA)
 

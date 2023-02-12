@@ -675,8 +675,29 @@ tuto informaci **DNS** klientovi.
 # AutomatedLab
 
 ```pwsh
-$labName = 'E02'
+$labName = 'E04'
 
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+Set-LabInstallationCredential -Username root -Password root4lab
+
+Add-LabVirtualNetworkDefinition -Name Private1
+
+
+$w11_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName Ethernet -VirtualSwitch Private1
+)
+
+Add-LabMachineDefinition -Name w11   -Memory 2GB -NetworkAdapter $w11_network -OperatingSystem 'Windows 11 Pro'
+
+$w2022_network = @(
+    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName Ethernet -VirtualSwitch Private1
+)
+
+Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+Install-Lab
+
+Show-LabDeploymentSummary -Detailed
 
 ```
 
@@ -695,10 +716,10 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** |
 | ------------------------ | -------------- | -------------- |
-| **w10-base**             | none           | Private1       |
-| **w2016-base**           | none           | Private1       |
-| **w10-domain**           | none           | Private1       |
-| **w2016-dc**             | none           | Private1       |
+| **w11**             | none           | Private1       |
+| **w2022**           | none           | Private1       |
+| **w11-domain**           | none           | Private1       |
+| **w2022-dc**             | none           | Private1       |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
@@ -717,14 +738,14 @@ DHCP.
 
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 
-1.  Přihlaste se k **w2016-base** jako uživatel **administrator** s
+1.  Přihlaste se k **w2022** jako uživatel **administrator** s
     heslem **aaa**
 
-2.  Na **w2016-base** nastavte statickou IPv4 adresu **192.168.1.1**
+2.  Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
 
     a.  Otevřete okno **Network Connections** (Settings -- Network &
         Internet -- Ethernet -- Change adapter options), zvolte LAN2 a
@@ -744,10 +765,10 @@ DHCP.
 
     e.  Potvrďte OK
 
-3. Přihlaste se k **w10-base** jako uživatel **student** s heslem
+3. Přihlaste se k **w11** jako uživatel **student** s heslem
         **aaa**
 
-4.  Na **w10-base** nastavte statickou IPv4 adresu **192.168.1.10**
+4.  Na **w11** nastavte statickou IPv4 adresu **192.168.1.10**
 
     a. Otevřete okno **Network Connections** (Settings -- Network &
         Internet -- Ethernet -- Change adapter options), zvolte LAN2 a
@@ -788,15 +809,15 @@ DHCP.
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol **Lab L01**
 
-1. Na **w2016-base** spusťte **Server Manager**
+1. Na **w2022** spusťte **Server Manager**
 
     a. Start → (All Programs) → Administrative Tools → Server Manager
 
@@ -857,22 +878,22 @@ z kontextové nabídky nad jménem serveru zvolte DNS Manager
 
     g. Potvrďte vytvoření nové zóny pomocí Finish
 
-5. Přidejte do zóny **testing2.local** nový **A** záznam pro **w2016-base**
+5. Přidejte do zóny **testing2.local** nový **A** záznam pro **w2022**
 
     a. Klikněte pravým na zónu **testing2.local** a zvolte New Host (A or
     AAAA)...
 
-    b. Jako Name zvolte **w2016-base** a jako IP address nastavte na
+    b. Jako Name zvolte **w2022** a jako IP address nastavte na
     **192.168.1.1**
 
     c. Přidejte záznam pomocí Add Host
 
-6. Na **w10-base** ověřte správný překlad doménového jména serveru na
+6. Na **w11** ověřte správný překlad doménového jména serveru na
 odpovídající IP adresu
 
     a. Spusťte příkaz **nslookup**
 
-    b. Zadejte **w2016-base.testing2.local**
+    b. Zadejte **w2022.testing2.local**
 
     c. Ověřte, že vrácená IP adresa je opravdu IP adresa serveru
 
@@ -884,9 +905,9 @@ odpovídající IP adresu
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
@@ -918,15 +939,15 @@ na to pak bodovaný úkol, a dynamické aktualizace.
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-base**
+> **w11**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončeny úkol **Lab L02**
 
-1.  Na **w2016-base** vytvořte IPv4 reverzní zónu pro doménu
+1.  Na **w2022** vytvořte IPv4 reverzní zónu pro doménu
     **testing2.local**
 
     a.  Spusťte **DNS Manager**
@@ -967,11 +988,11 @@ na to pak bodovaný úkol, a dynamické aktualizace.
         zvolte New Pointer (PTR)...
 
     b.  Doplňte Host IP address na **192.168.1.1** a u Host name zadejte
-        **w2016-base.testing2.local**
+        **w2022.testing2.local**
 
     c.  Potvrďte přidání záznamu pomocí OK
 
-3.  Na **w10-base** ověřte správný překlad IPv4 adresy serveru na
+3.  Na **w11** ověřte správný překlad IPv4 adresy serveru na
     odpovídající doménové jméno
 
     a.  Spusťte příkaz **nslookup**
@@ -982,7 +1003,7 @@ na to pak bodovaný úkol, a dynamické aktualizace.
         serveru
 
     -   Všimněte si, že **nslookup** již hlásí jako Default Server
-            **w2016-base.testing2.local** místo **UnKnown** předtím,
+            **w2022.testing2.local** místo **UnKnown** předtím,
             nyní již totiž může díky *reverse lookup* zóně provádět také
             reverzní mapování IPv4 adres na odpovídající doménová jména,
             může tedy zjistit název serveru z jeho IPv4 adresy
@@ -995,11 +1016,11 @@ na to pak bodovaný úkol, a dynamické aktualizace.
 >
 > **Potřebné virtuální stroje**
 >
-> **w10-domain**
+> **w11-domain**
 >
-> **w2016-dc**
+> **w2022-dc**
 
-1. Na **w2016-dc** nastavte statickou IPv4 adresu **192.168.1.2**
+1. Na **w2022-dc** nastavte statickou IPv4 adresu **192.168.1.2**
 
     a. Spusťte následující příkaz **netsh interface ip set address
 name=\"LAN2\" source=static addr=192.168.1.2 mask=255.255.255.0**
@@ -1007,7 +1028,7 @@ name=\"LAN2\" source=static addr=192.168.1.2 mask=255.255.255.0**
     > Název **name** musí odpovídat síťovému rozhraní *Private1*, standardně
 to je LAN2
 
-2. Na **w10-domain** nastavte statickou IPv4 adresu **192.168.1.200** a
+2. Na **w11-domain** nastavte statickou IPv4 adresu **192.168.1.200** a
 také IPv4 adresu primárního **DNS** serveru **192.168.1.2**
 
     a. V příkazovém řádku s oprávněním správce spusťte následující příkaz
@@ -1022,7 +1043,7 @@ také IPv4 adresu primárního **DNS** serveru **192.168.1.2**
 
    - Oba příkazy vyžadují administrátorské oprávnění
 
-3. Na **w2016-dc** vytvořte zónu globálních jmen (zóna **GlobalNames**)
+3. Na **w2022-dc** vytvořte zónu globálních jmen (zóna **GlobalNames**)
 
     a. Spusťte **DNS Manager**
 
@@ -1055,7 +1076,7 @@ domain controllers in this forest: testing.local
 
     h. Potvrďte vytvoření zóny globálních jmen pomocí Finish
 
-4. Na **w2016-dc** povolte podporu zóny globálních jmen
+4. Na **w2022-dc** povolte podporu zóny globálních jmen
 
     a. Spusťte příkaz **dnscmd /config /enableglobalnamessupport 1**
 
@@ -1066,20 +1087,20 @@ domain controllers in this forest: testing.local
 
     - Přejděte do **DNS Manageru**
 
-    - Klikněte pravým na **w2016-dc**, vyberte All Tasks a pak Restart
+    - Klikněte pravým na **w2022-dc**, vyberte All Tasks a pak Restart
 
 5. Přidejte do zóny globálních jmen nový **CNAME** záznam odkazující
-**wdc** na **w2016-dc**
+**wdc** na **w2022-dc**
 
-    a. Spusťte příkaz **dnscmd w2016-dc.testing.local /recordadd GlobalNames
-    wdc cname w2016-dc.testing.local**
+    a. Spusťte příkaz **dnscmd w2022-dc.testing.local /recordadd GlobalNames
+    wdc cname w2022-dc.testing.local**
 
     - Přidání záznamu do zóny vyžaduje administrátorské oprávnění
 
     - Jelikož zóna globálních jmen slouží k náhradě **WINS** serverů, obsažená
 jména jsou **NetBIOS** jmény a musí mít tedy délku maximálně 15 znaků
 
-6. Na **w10-domain** ověřte správný překlad globálních jmen na odpovídající
+6. Na **w11-domain** ověřte správný překlad globálních jmen na odpovídající
 doménová jména
 
     a. Spusťte příkaz **nslookup**
@@ -1087,7 +1108,7 @@ doménová jména
     b. Zadejte **wdc**
 
     c. Ověřte, že vrácené doménové jméno je opravdu doménové jméno odpovídající
-    serveru **w2016-dc** a IPv4 adresa taky náleží severu
+    serveru **w2022-dc** a IPv4 adresa taky náleží severu
 
     - Pokud není počítač připojen do domény ležící ve *forestu*, ve kterém se
     zóna globálních jmen replikuje, nebude výše popsaný postup fungovat! Pro

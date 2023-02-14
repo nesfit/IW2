@@ -11,8 +11,8 @@
 - [AutomatedLab](#automatedlab)
 - [**Společné úkoly**](#společné-úkoly)
   - [**Lab LS00 -- konfigurace virtuálních stanic**](#lab-ls00----konfigurace-virtuálních-stanic)
-- [**Lektorské úkoly**](#lektorské-úkoly)
-  - [**Lab L01 -- Konfigurace síťových rozhraní**](#lab-l01----konfigurace-síťových-rozhraní)
+- [Lektorské úkoly](#lektorské-úkoly)
+  - [Lab L01 -- Konfigurace síťových rozhraní](#lab-l01----konfigurace-síťových-rozhraní)
   - [**Lab L02 -- Instalace a základní nastavení DNS serveru**](#lab-l02----instalace-a-základní-nastavení-dns-serveru)
   - [**Lab S02 -- Vytvoření zóny globálních jmen**](#lab-s02----vytvoření-zóny-globálních-jmen)
 
@@ -678,26 +678,65 @@ tuto informaci **DNS** klientovi.
 $labName = 'E04'
 
 New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
-Set-LabInstallationCredential -Username root -Password root4lab
 
-Add-LabVirtualNetworkDefinition -Name Private1
+Set-LabInstallationCredential -Username root -Password root4Lab
+Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
 
 
-$w11_network = @(
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName Ethernet -VirtualSwitch Private1
+Add-LabVirtualNetworkDefinition -Name $labName
+Add-LabVirtualNetworkDefinition -Name 'Default Switch' -HyperVProperties @{ SwitchType = 'External'; AdapterName = 'Wi-Fi' } # 'Ethernet'/'Wi-Fi'
+
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
+Add-LabMachineDefinition -Name w2022-dc -Memory 1GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -NetworkAdapter $netAdapter -DomainName testing.local
 
-Add-LabMachineDefinition -Name w11   -Memory 2GB -NetworkAdapter $w11_network -OperatingSystem 'Windows 11 Pro'
-
-$w2022_network = @(
-    New-LabNetworkAdapterDefinition -UseDhcp -InterfaceName Ethernet -VirtualSwitch Private1
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
+Add-LabMachineDefinition -Name w11-domain -Memory 1GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
 
-Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
+)
+Add-LabMachineDefinition -Name w2022 -Memory 1GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
+)
+Add-LabMachineDefinition -Name w11 -Memory 1GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
+
 
 Install-Lab
 
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
+    New-ADUser -Name Marge  -AccountPassword $password -Enabled $true
+    New-ADUser -Name Lisa   -AccountPassword $password -Enabled $true
+    New-ADUser -Name Bart   -AccountPassword $password -Enabled $true
+    New-ADUser -Name Maggie -AccountPassword $password -Enabled $true
+
+    Add-ADGroupMember -Identity "Domain Admins" -Members Homer
+
+} -ComputerName w2022-dc
+
+Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
+    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer,Marge,Lisa,Bart,Maggie
+
+} -ComputerName w11-domain
+
+
 Show-LabDeploymentSummary -Detailed
+
 
 ```
 
@@ -716,8 +755,8 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** |
 | ------------------------ | -------------- | -------------- |
-| **w11**             | none           | Private1       |
-| **w2022**           | none           | Private1       |
+| **w11**                  | none           | Private1       |
+| **w2022**                | none           | Private1       |
 | **w11-domain**           | none           | Private1       |
 | **w2022-dc**             | none           | Private1       |
 
@@ -725,9 +764,9 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
     adaptér **LAN1** k přepínači *Default switch*.
 
 
-# **Lektorské úkoly**
+# Lektorské úkoly
 
-## **Lab L01 -- Konfigurace síťových rozhraní**
+## Lab L01 -- Konfigurace síťových rozhraní
 
 > **Cíl cvičení**
 >
@@ -742,8 +781,8 @@ DHCP.
 >
 > **w2022**
 
-1.  Přihlaste se k **w2022** jako uživatel **administrator** s
-    heslem **aaa**
+1.  Přihlaste se k **w2022** jako uživatel **root** s
+    heslem **root4lab**
 
 2.  Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
 
@@ -757,16 +796,14 @@ DHCP.
     b. Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte
         Properties
 
-    c. Zvolte Use the following IP address a jako IP address zadejte
-        **192.168.1.1**
+    c. Zvolte Use the following IP address a jako IP address zadejte        **192.168.1.1**
 
-    d. Klikněte do zadávacího pole u Subnet mask, maska podsítě
-        **255.255.255.0** bude doplněna automaticky
+    d. Klikněte do zadávacího pole u Subnet mask, maska podsítě **255.255.255.0** bude doplněna automaticky
 
     e.  Potvrďte OK
 
-3. Přihlaste se k **w11** jako uživatel **student** s heslem
-        **aaa**
+3. Přihlaste se k **w11** jako uživatel **root** s heslem
+        **root4lab**
 
 4.  Na **w11** nastavte statickou IPv4 adresu **192.168.1.10**
 
@@ -837,7 +874,7 @@ DHCP.
 
     - Trvá cca 3 minuty (restart není potřeba)
 
-g. Po dokončení instalace zkontrolujte notifikace Server Manageru
+    g. Po dokončení instalace zkontrolujte notifikace Server Manageru
 
 3. Spusťte **DNS Manager**
 
@@ -848,9 +885,7 @@ z kontextové nabídky nad jménem serveru zvolte DNS Manager
 
     a. Klikněte pravým na Forward Lookup Zones a zvolte New Zone...
 
-    > *Forward lookup* zóna je ekvivalentem standardní zóny, tedy
-    > mapování doménových jmen na odpovídající IP adresy, oproti tomu *reverse
-    > lookup* zóna zase odpovídá reverznímu mapování
+    > *Forward lookup* zóna je ekvivalentem standardní zóny, tedy mapování doménových jmen na odpovídající IP adresy, oproti tomu *reverse lookup* zóna zase odpovídá reverznímu mapování
 
     b. Pokračujte Next \>
 
@@ -913,20 +948,9 @@ odpovídající IP adresu
 >
 > Dokončený úkol **Lab L02**
 
-Projděte různá nastavení ve vlastnostech zóny (nastavení informací v SOA
-záznamu, použití WINS serverů, přenos zón apod.). Přidejte další záznamy
-do **DNS**, např. **A** záznam pro **srv.testing2.local** pro ukázku, že
-pro jeden počítač jich může být neomezeně, **CNAME** záznam
-**www.testing2.local.** Ukažte formu uložení těchto záznamů v zónovém
-souboru **\<systém\>\\System32\\dns\\testing2.local.dns** a nějaký
-záznam upravte (před otevřením nezapomínat Update Server Data File a po
-změně naopak Reload, po Reload často potřeba i Refresh v konzoli).
-Zmiňte také, že kromě **DNS Manageru** lze použít i příkaz **dnscmd**
-pro obsluhu **DNS** z příkazové řádky.
+Projděte různá nastavení ve vlastnostech zóny (nastavení informací v SOA záznamu, použití WINS serverů, přenos zón apod.). Přidejte další záznamy do **DNS**, např. **A** záznam pro **srv.testing2.local** pro ukázku, že pro jeden počítač jich může být neomezeně, **CNAME** záznam **www.testing2.local.** Ukažte formu uložení těchto záznamů v zónovém souboru **\<systém\>\\System32\\dns\\testing2.local.dns** a nějaký záznam upravte (před otevřením nezapomínat Update Server Data File a po změně naopak Reload, po Reload často potřeba i Refresh v konzoli). Zmiňte také, že kromě **DNS Manageru** lze použít i příkaz **dnscmd** pro obsluhu **DNS** z příkazové řádky.
 
-Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých
-vlastnostech TCP/IPv4). Zmiňte hlavně nastavení **DNS** *suffixů*, mají
-na to pak bodovaný úkol, a dynamické aktualizace.
+Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vlastnostech TCP/IPv4). Zmiňte hlavně nastavení **DNS** *suffixů*, mají na to pak bodovaný úkol, a dynamické aktualizace.
 
 **Studentské úkoly**
 

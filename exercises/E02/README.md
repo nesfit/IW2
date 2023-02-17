@@ -328,7 +328,7 @@ OOBE**.
 
     d.  Zavřete okno Date and Time
 
-6.  Nastavte IP adresu síťového rozhraní s MAC 20-19-DD-00-00-02
+6.  Nastavte IP adresu síťového rozhraní **LAN2**
 
     a.  V nástroji **Server Configuration** vyberte volbu **8**
 

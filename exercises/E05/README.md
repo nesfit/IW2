@@ -536,7 +536,7 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
 Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
     $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
 
-    Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer,Marge,Lisa,Bart,Maggie
+    Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer,Marge
 
 } -ComputerName w11-domain
 

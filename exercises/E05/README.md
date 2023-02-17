@@ -820,7 +820,7 @@ a ukažte, jak se změní jeho DN.
     h.  Potvrďte Next
 
     i.  Při výzvě o zadání účtu použijte účet **homer@testing.local** s
-        heslem **root4Lab**
+        heslem **user4Lab**
 
     -   I běžný uživatel může do doménu připojit až 10 zařízení (best practice je však tuto možnost zakázat)
 

@@ -9,12 +9,15 @@
   - [**Zóna globálních jmen**](#zóna-globálních-jmen)
   - [**DNS dotazy**](#dns-dotazy)
 - [AutomatedLab](#automatedlab)
-- [**Společné úkoly**](#společné-úkoly)
-  - [**Lab LS00 -- konfigurace virtuálních stanic**](#lab-ls00----konfigurace-virtuálních-stanic)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
 - [Lektorské úkoly](#lektorské-úkoly)
   - [Lab L01 -- Konfigurace síťových rozhraní](#lab-l01----konfigurace-síťových-rozhraní)
-  - [**Lab L02 -- Instalace a základní nastavení DNS serveru**](#lab-l02----instalace-a-základní-nastavení-dns-serveru)
-  - [**Lab S02 -- Vytvoření zóny globálních jmen**](#lab-s02----vytvoření-zóny-globálních-jmen)
+  - [Lab L02 -- Instalace a základní nastavení DNS serveru](#lab-l02----instalace-a-základní-nastavení-dns-serveru)
+  - [Lab L03 -- Pokročilá nastavení DNS serveru a klienta](#lab-l03----pokročilá-nastavení-dns-serveru-a-klienta)
+- [Studentské úkoly](#studentské-úkoly)
+  - [Lab S01 -- Vytvoření reverzního mapování pro IPv4](#lab-s01----vytvoření-reverzního-mapování-pro-ipv4)
+  - [Lab S02 -- Vytvoření zóny globálních jmen](#lab-s02----vytvoření-zóny-globálních-jmen)
 
 
 # **Systém DNS**
@@ -740,14 +743,14 @@ Show-LabDeploymentSummary -Detailed
 
 ---
 
-# **Společné úkoly**
+# Společné úkoly
 
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
 
 -   Nepřipojené síťové daptéry je doporučeno zakázat uvnitř VM.
 
-## **Lab LS00 -- konfigurace virtuálních stanic**
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
@@ -835,7 +838,7 @@ DHCP.
     k. Potvrďte OK
 
 
-## **Lab L02 -- Instalace a základní nastavení DNS serveru**
+## Lab L02 -- Instalace a základní nastavení DNS serveru
 
 > **Cíl cvičení**
 >
@@ -930,7 +933,7 @@ odpovídající IP adresu
 
     c. Ověřte, že vrácená IP adresa je opravdu IP adresa serveru
 
-**Lab L03 -- Pokročilá nastavení DNS serveru a klienta**
+## Lab L03 -- Pokročilá nastavení DNS serveru a klienta
 
 > **Cíl cvičení**
 >
@@ -950,9 +953,9 @@ Projděte různá nastavení ve vlastnostech zóny (nastavení informací v SOA 
 
 Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vlastnostech TCP/IPv4). Zmiňte hlavně nastavení **DNS** *suffixů*, mají na to pak bodovaný úkol, a dynamické aktualizace.
 
-**Studentské úkoly**
+# Studentské úkoly
 
-**Lab S01 -- Vytvoření reverzního mapování pro IPv4**
+## Lab S01 -- Vytvoření reverzního mapování pro IPv4
 
 > **Cíl cvičení**
 >
@@ -1030,7 +1033,7 @@ Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vl
             reverzní mapování IPv4 adres na odpovídající doménová jména,
             může tedy zjistit název serveru z jeho IPv4 adresy
 
-## **Lab S02 -- Vytvoření zóny globálních jmen**
+## Lab S02 -- Vytvoření zóny globálních jmen
 
 > **Cíl cvičení**
 >

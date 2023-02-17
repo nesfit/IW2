@@ -20,7 +20,7 @@
 - [**Studentské úkoly**](#studentské-úkoly)
   - [**Lab S01 -- místní správa Windows Server Core**](#lab-s01----místní-správa-windows-server-core)
   - [Lab S02 -- Příprava základní topologie sítě](#lab-s02----příprava-základní-topologie-sítě)
-  - [Lab S04 -- příprava na vzdálenou správu Windows Server bez domény -- na stanici, odkud budeme spravovat](#lab-s04----příprava-na-vzdálenou-správu-windows-server-bez-domény----na-stanici-odkud-budeme-spravovat)
+  - [Lab S03 -- příprava na vzdálenou správu Windows Server bez domény -- na stanici, odkud budeme spravovat](#lab-s03----příprava-na-vzdálenou-správu-windows-server-bez-domény----na-stanici-odkud-budeme-spravovat)
   - [Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici\`](#lab-s04----příprava-na-vzdálenou-správu-windows-server-pomocí-ui----na-spravované-stanici)
   - [Lab S06 -- vzdálená správa Windows Server pomocí UI](#lab-s06----vzdálená-správa-windows-server-pomocí-ui)
   - [**Lab S07 -- instalace role RAS na vzdálený server**](#lab-s07----instalace-role-ras-na-vzdálený-server)
@@ -297,10 +297,6 @@ OOBE**.
 > **Potřebné virtuální stroje**
 >
 > **w2022-core** (w2022-core OOBE)
->
-> **Další prerekvizity**
->
-> Dokončený úkol S01.
 
 1.  Přihlaste se k **w2022-core** jako uživatel **root** s heslem **root4lab**
 2.  Zavřete okno příkazového řádku
@@ -398,10 +394,6 @@ OOBE**.
 > **w2022**
 >
 > **w2022-core** (w2022-core OOBE)
->
-> **Další prerekvizity**
->
-> Dokončený úkol S02
 
 1.  Přihlaste se k **w11** jako uživatel **student** s heslem
     **root4lab**
@@ -447,7 +439,7 @@ Obrázek 1. Schéma základní topologie sítě
     b.  Zadejte příkaz: `Get-NetFirewallRule | where-object {$_.DisplayName -like
         "File *Echo Request*" -and $_.Enabled -eq "False"} | Enable-NetFirewallRule`
 
-## Lab S04 -- příprava na vzdálenou správu Windows Server bez domény -- na stanici, odkud budeme spravovat
+## Lab S03 -- příprava na vzdálenou správu Windows Server bez domény -- na stanici, odkud budeme spravovat
 
 > **Cíl cvičení**
 >
@@ -461,8 +453,6 @@ Obrázek 1. Schéma základní topologie sítě
 > **w2022**
 >
 > **Další prerekvizity**
->
-> Dokončený úkol S03.
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s
     heslem **root4lab**
@@ -532,10 +522,6 @@ některých služeb apod.
 > **w2022**
 >
 > **w2022-core** (w2022-core OOBE)
->
-> **Další prerekvizity**
->
-> Dokončené úkoly S04 a S05.
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s heslem **root4lab**
 
@@ -590,10 +576,6 @@ některých služeb apod.
 > **w2022**
 >
 > **w2022-core** (w2022-core OOBE)
->
-> **Další prerekvizity**
->
-> Dokončený úkol S06.
 
 1.  Přihlaste se k w2022 jako uživatel administrator s heslem aaa
 
@@ -717,25 +699,21 @@ některých služeb apod.
 > **w2022**
 >
 > **w2022-core** (w2022-core OOBE)
->
-> **Další prerekvizity**
->
-> Dokončené úkoly S08.
 
-4.  Přihlaste se k **w2022** jako uživatel **root** s
+1.  Přihlaste se k **w2022** jako uživatel **root** s
     heslem **root4lab**
 
-5.  Ověřte, že server **w2022** nemůže přistoupit na internet
+2.  Ověřte, že server **w2022** nemůže přistoupit na internet
 
     a.  Pomocí **ping 8.8.8.8**
 
-6.  Spusťte **Server Manager**
+3.  Spusťte **Server Manager**
 
     a.  Start → **Server Manager**
 
-7.  Zvolte Remote Access
+4.  Zvolte Remote Access
 
-8.  Z kontextové nabídky nad **w2022-core** vyberte Remote Access
+5.  Z kontextové nabídky nad **w2022-core** vyberte Remote Access
     Management
 
     a.  V okně **Remote Access Management Console** zvolte v navigačním
@@ -747,16 +725,16 @@ některých služeb apod.
 
     -   Alternativně je tato konzole součástí Computer Management MMC pod uzlem Services And Applications
 
-9.  V MMC **Routing and Remote Access** vyberte uzel w2022-core
+6.  V MMC **Routing and Remote Access** vyberte uzel w2022-core
 
-10. Z kontextové nabídky vyberte Configure and Enable Routing and Remote
+7.  Z kontextové nabídky vyberte Configure and Enable Routing and Remote
     Access
 
-11. V průvodci zvolte Next \>
+8.  V průvodci zvolte Next \>
 
-12. Vyberte Network address translation (NAT) a pokračujte Next \>
+9.  Vyberte Network address translation (NAT) a pokračujte Next \>
 
-13. Pokud se zobrazí chyba o nenainstalovaném protokolu IP nebo se
+10. Pokud se zobrazí chyba o nenainstalovaném protokolu IP nebo se
     nezobrazí žádné rozhraní pod Use this public interface to connect to
     the Internet, zkuste povolit službu RRA:
 
@@ -775,24 +753,24 @@ některých služeb apod.
     g.  Zopakujte bod 12, pokud chyba nezmizí, server **w2022-core**
         restartujte
 
-14. V průvodci zvolte Use this public interface to connect to the
+11. V průvodci zvolte Use this public interface to connect to the
     Internet a vyberte rozhraní připojené k *Default switch*, pokračujte
     Next \>
 
-15. V kroku *Network Selection* vyberte rozhraní s IP **10.10.10.1**,
+12. V kroku *Network Selection* vyberte rozhraní s IP **10.10.10.1**,
     pro které chceme zpřístupnit překlad adres, pokračujte Next \>
 
-16. V kroku *Name and Address Translation Services* přepněte na I will
+13. V kroku *Name and Address Translation Services* přepněte na I will
     set up name and address services later, pokračujte Next \>
 
-17. Ukončete průvodce Finish
+14. Ukončete průvodce Finish
 
-18. Skončí-li průvodce chybou *Permission denied*, zavřete **Routing and
+15. Skončí-li průvodce chybou *Permission denied*, zavřete **Routing and
     Remote Access** MMC a **Remote Access Management Console**, vraťte
     se do **Server Manager**, nastavte Manage As ... (viz úkol S06
     bod 6) a zopakujte body 7 až 17
 
-19. Nastavte NAT i pro rozhraní s IP **192.168.200.1**
+16. Nastavte NAT i pro rozhraní s IP **192.168.200.1**
 
     a.  V **Routing and Remote Access** MMC rozbalte uzel w2022-core \
         IPv4 \ NAT
@@ -807,13 +785,13 @@ některých služeb apod.
     d.  Zvolte Private interface connected to private network a potvrďte
         OK
 
-20. Ověřte, že server **w2022** nyní může přistoupit na internet
+17. Ověřte, že server **w2022** nyní může přistoupit na internet
 
     a.  Pomocí **ping 8.8.8.8**
 
     b.  Pomocí **tracert 8.8.8.8**
 
-21. Ověřte, že stanice **w11** může přistoupit na internet
+18. Ověřte, že stanice **w11** může přistoupit na internet
 
     a.  Pomocí **ping 8.8.8.8**
 

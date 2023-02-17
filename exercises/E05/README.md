@@ -3,6 +3,7 @@
   - [Komponenty](#komponenty)
   - [Instalace](#instalace)
   - [Základní objekty](#základní-objekty)
+- [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
   - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
   - [Lab LS01 -- Instalace Active Directory](#lab-ls01----instalace-active-directory)
@@ -469,6 +470,81 @@ mohou na ně být aplikovány zásady skupiny. I počítače, stejně jako
 uživatelé, se musí přihlašovat do domény, jejich přihlašovací jméno a
 heslo mění systém Windows automaticky co 30 dní.
 
+---
+
+# AutomatedLab
+
+```pwsh
+$labName = 'E05'
+
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+
+Set-LabInstallationCredential -Username root -Password root4Lab
+Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
+
+
+Add-LabVirtualNetworkDefinition -Name $labName
+Add-LabVirtualNetworkDefinition -Name $labName`1
+Add-LabVirtualNetworkDefinition -Name 'Default Switch' -HyperVProperties @{ SwitchType = 'External'; AdapterName = 'Wi-Fi' } # 'Ethernet'/'Wi-Fi'
+
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
+)
+Add-LabMachineDefinition -Name w2022-dc -Memory 1GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -NetworkAdapter $netAdapter -DomainName testing.local
+
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
+)
+Add-LabMachineDefinition -Name w11-domain -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
+
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName`1
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
+)
+Add-LabMachineDefinition -Name w2022 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
+)
+Add-LabMachineDefinition -Name w11-1 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
+
+
+$netAdapter = @(
+New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
+)
+Add-LabMachineDefinition -Name w11-2 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
+
+
+Install-Lab
+
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+    
+    New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
+    New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
+    New-ADUser -Name Marge  -AccountPassword $password -Enabled $true
+
+    Add-ADGroupMember -Identity "Domain Admins" -Members Homer
+
+} -ComputerName w2022-dc
+
+Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
+    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer,Marge,Lisa,Bart,Maggie
+
+} -ComputerName w11-domain
+
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
 
 # Společné úkoly
 

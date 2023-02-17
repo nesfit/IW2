@@ -750,8 +750,7 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete **Active Directory Users and Computers**
 
-    1.  Start → Administrative Tools → **Active Directory Users and
-            Computers**
+    1.  Start → Windows Tools → **Active Directory Users and Computers**
 
     b.  Vyberte kontejner Computers
 
@@ -843,7 +842,7 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete **Active Directory Users and Computers**
 
-    1.  Start → Administrative Tools → **Active Directory Users and Computers**
+    1.  Start → Windows Tools → **Active Directory Users and Computers**
 
     b.  Vyberte kontejner Computers
 
@@ -882,7 +881,7 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete **Active Directory Users and Computers**
 
-    1.  Start → Windows Administrative Tools → Active Directory Users and Computers
+    1.  Start → Windows Tools → Active Directory Users and Computers
 
     b.  Zkuste přidat nový uživatelský účet nebo změnit stávající
 
@@ -893,7 +892,7 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete **Active Directory Users and Computers**
 
-    1.  Start → Windows Administrative Tools → Active Directory Users and Computers
+    1.  Start → Windows Tools → Active Directory Users and Computers
 
     b.  Klikněte pravým na organizační jednotku **brno** a vyberte
         Delegate Control...
@@ -917,7 +916,7 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete **Active Directory Users and Computers**
 
-    1.  Start → Administrative Tools → Active Directory Users and Computers
+    1.  Start → Windows Tools → Active Directory Users and Computers
 
     b.  Klikněte pravým na organizační jednotku **brno** a zvolte New → User
 

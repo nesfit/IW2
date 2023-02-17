@@ -720,16 +720,13 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete System Properties
 
-        -   Start → vyhledat System (v Settings)
+    -   Start → vyhledat System (v Settings)
 
-            -   Alternativně: System z kontextové nabídky **Win+X**
-                (resp. v levém dolním rohu taskbaru)
+    -   Alternativně: System z kontextové nabídky **Win+X**              (resp. v levém dolním rohu taskbaru)
 
-            -   Alternativně: Properties z kontextové nabídky nad
-                Computer (v průzkumníku)
+    -   Alternativně: Properties z kontextové nabídky nad                Computer (v průzkumníku)
 
-        -   Zvolte Change Settings pod Computer name, domain, and
-            workgroup settings
+    -   Zvolte Change Settings pod Computer name, domain, and            workgroup settings
 
     b.  Na záložce Computer Name zvolte Change...
 
@@ -741,12 +738,9 @@ a ukažte, jak se změní jeho DN.
     e.  Při výzvě o zadání účtu použijte účet
         **root@testing.local** s heslem **root4Lab**
 
-        -   Upozorněte, že zde se nejedná o lokální účet administrátora,
-            ale o účet administrátora domény (*Domain Admin*)
+    -   Upozorněte, že zde se nejedná o lokální účet administrátora, ale o účet administrátora domény (*Domain Admin*)
 
-        -   Zmiňte, že od Windows Server 2008 R2 lze připojit počítač do
-            domény i bez kontaktování řadiče domény, tzv. *Offline
-            Domain Join*
+    -   Zmiňte, že od Windows Server 2008 R2 lze připojit počítač do domény i bez kontaktování řadiče domény, tzv. *Offline Domain Join*
 
     f.  Potvrďte OK
 
@@ -756,7 +750,7 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete **Active Directory Users and Computers**
 
-        1.  Start → Administrative Tools → **Active Directory Users and
+    1.  Start → Administrative Tools → **Active Directory Users and
             Computers**
 
     b.  Vyberte kontejner Computers
@@ -769,13 +763,9 @@ a ukažte, jak se změní jeho DN.
     a.  Použijte uživatelské jméno **testing\homer** nebo
         **homer@testing.local**, heslo **root4Lab**
 
-        -   Řekněte, že první název je starší způsob identifikace z dob,
-            kdy se používal **NetBIOS** a druhý je novější založený na
-            **DNS**
+    -   Řekněte, že první název je starší způsob identifikace z dob, kdy se používal **NetBIOS** a druhý je novější založený na **DNS**
 
-        -   Zmiňte možnost přihlášení ve formě **.\root** kde symbol
-            **.** značí vždy lokální stanici ke které se přihlašujeme
-            (a tedy nemusíme vypisovat název)
+    -   Zmiňte možnost přihlášení ve formě **.\root** kde symbol **.** značí vždy lokální stanici ke které se přihlašujeme (a tedy nemusíme vypisovat název)
 
 ## Lab LS04 -- Připojení klienta do domény -- Settings
 
@@ -799,19 +789,18 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete Settings
 
-        -   Start → vyhledat Settings (v Settings)
+    -   Start → vyhledat Settings (v Settings)
 
-            -   Alternativně: Settings z kontextové nabídky **Win+X**
+    -   Alternativně: Settings z kontextové nabídky **Win+X**
                 (resp. v levém dolním rohu taskbaru)
 
-            -   Alternativně: All Settings z centra akcí Action center
+    -   Alternativně: All Settings z centra akcí Action center
 
     b.  Přejděte do modulu System
 
     c.  Přejděte do sekce About
 
-        -   Zmiňte, že zde lze také přejmenovat stanici -- viz tlačítko
-            Rename this PC
+    -   Zde lze také přejmenovat stanici -- viz tlačítko Rename this PC
 
     d.  Odkazem Connect to work or school pod názvem organizace
         (WORKGROUP) přejděte do modulu Accounts, sekce Access work or
@@ -819,11 +808,9 @@ a ukažte, jak se změní jeho DN.
 
     e.  Pokračujte tlačítkem + Connect
 
-        -   Zobrazí se okno s titulkem Microsoft account
+    -   Zobrazí se okno s titulkem Microsoft account
 
-        -   Touto cestou se lze připojit do cloudové služby Microsoft
-            Intune[^3], která se zaměřuje na správu mobilních zařízení
-            (MDM), provázané s Azure AD
+    -   Touto cestou se lze připojit do cloudové služby Microsoft Intune[^3], která se zaměřuje na správu mobilních zařízení (MDM), provázané s Azure AD
 
     f.  Ve spodní části v části Alternate actions použijte odkaz Join
         this device to a local Active Directory domain
@@ -835,22 +822,18 @@ a ukažte, jak se změní jeho DN.
     i.  Při výzvě o zadání účtu použijte účet **homer@testing.local** s
         heslem **root4Lab**
 
-        -   Upozorněte, že i běžný uživatel může do doménu připojit až
-            10 zařízení (best practice je však tuto možnost zakázat)
+    -   I běžný uživatel může do doménu připojit až 10 zařízení (best practice je však tuto možnost zakázat)
 
     j.  Potvrďte OK
 
     k.  V sekci Add an Account můžete zvolit existující doménový účet,
         např. **marge**, a vybrat typ uživatele.
 
-        -   Uživatelské jméno musí být bez názvu domény
+    -   Uživatelské jméno musí být bez názvu domény
 
-            -   V případě využití této možnosti bude zvolený uživatel k
-                dispozici na přihlašovací obrazovce.
+    -   V případě využití této možnosti bude zvolený uživatel k dispozici na přihlašovací obrazovce.
 
-            -   Při zvolní typu **Administrator** bude navíc uživatel
-                přidán i mezi lokální správce (skupina
-                **Administrators**)
+    -   Při zvolní typu **Administrator** bude navíc uživatel přidán i mezi lokální správce (skupina **Administrators**)
 
     l.  Potvrďte Next
 
@@ -861,8 +844,7 @@ a ukažte, jak se změní jeho DN.
 
     a.  Otevřete **Active Directory Users and Computers**
 
-        1.  Start → Administrative Tools → **Active Directory Users and
-            Computers**
+    1.  Start → Administrative Tools → **Active Directory Users and Computers**
 
     b.  Vyberte kontejner Computers
 

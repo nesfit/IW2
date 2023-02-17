@@ -553,7 +553,7 @@ Show-LabDeploymentSummary -Detailed
     jméno **file.nepal.local**
 
 -   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
+    **root4Lab**
 
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
@@ -562,13 +562,13 @@ Show-LabDeploymentSummary -Detailed
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **w10-base**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w10-wadk**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w10-domain**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private2       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-dc**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** |
+| ------------------------ | -------------- | -------------- | 
+| **w11-1**             | Nepřipojeno    | Private1       |
+| **w11-2**             | Nepřipojeno    | Private1       |
+| **w11-domain**           | Nepřipojeno    | Private1       |
+| **w2022**           | Nepřipojeno    | Private2       |
+| **w2022-dc**             | Nepřipojeno    | Private1       |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
@@ -581,11 +581,11 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-base**
+> **w2022**
 
-Na **w2016-base** se přihlaste jako uživatel **administrator**
+Na **w2022** se přihlaste jako uživatel **root**
 
-Na **w2016-base** nastavte statickou IPv4 adresu **192.168.64.5**
+Na **w2022** nastavte statickou IPv4 adresu **192.168.64.5**
 
 Otevřete **Network and Sharing Center**, zvolte LAN2 a pak properties
 
@@ -656,7 +656,7 @@ Directory**), jinak se vše musí udělat manuálně
 Zmiňte, že z důvodu instalace prvního řadiče domény v daném lese musí
 nést tento server globální katalog
 
-Zadejte (a potvrďte) heslo (**aaa**) pro Directory Services Restore Mode
+Zadejte (a potvrďte) heslo (**root4Lab**) pro Directory Services Restore Mode
 a pokračujte Next \>
 
 Řekněte, že tento režim slouží pro obnovu **Active Directory** databáze
@@ -686,7 +686,7 @@ PowerShell** (View Script). Pokračujte Next \>
 
 Prohlédněte si výsledky kontroly prerekvizit.
 
-**NEPOKRAČUJTE!!!** Dále se bude využívat už jen **w2016-dc**.
+**NEPOKRAČUJTE!!!** Dále se bude využívat už jen **w2022-dc**.
 
 Konfigurace trvá cca 3 minuty
 
@@ -703,7 +703,7 @@ doménová politika na komplexnost hesel)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 
 Otevřete **ADUC** konzoli a projděte ji. Ukažte, že interní struktura
 **Active Directory** tvoří hierarchii kontejnerů obsahujících jednotlivé
@@ -739,13 +739,13 @@ a ukažte, jak se změní jeho DN.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-base**
+> **w11-1**
 
-1.  Na **w10-base** se přihlaste jako uživatel **student**
+1.  Na **w11-1** se přihlaste jako uživatel **student**
 
-2.  Připojte **w10-base** do domény **testing.local**
+2.  Připojte **w11-1** do domény **testing.local**
 
     a.  Otevřete System Properties
 
@@ -768,7 +768,7 @@ a ukažte, jak se změní jeho DN.
     d.  Potvrďte OK
 
     e.  Při výzvě o zadání účtu použijte účet
-        **administrator@testing.local** s heslem **aaa**
+        **root@testing.local** s heslem **root4Lab**
 
         -   Upozorněte, že zde se nejedná o lokální účet administrátora,
             ale o účet administrátora domény (*Domain Admin*)
@@ -781,7 +781,7 @@ a ukažte, jak se změní jeho DN.
 
     g.  Po připojení do domény proveďte restart
 
-3.  Na **w2016-dc** ověřte vytvoření účtu počítače
+3.  Na **w2022-dc** ověřte vytvoření účtu počítače
 
     a.  Otevřete **Active Directory Users and Computers**
 
@@ -790,19 +790,19 @@ a ukažte, jak se změní jeho DN.
 
     b.  Vyberte kontejner Computers
 
-    c.  Ověřte existenci účtu pro počítač **w10-base**
+    c.  Ověřte existenci účtu pro počítač **w11-1**
 
-4.  Na **w10-base** se přihlaste jako uživatel **homer** do domény
+4.  Na **w11-1** se přihlaste jako uživatel **homer** do domény
     **testing.local**
 
-    a.  Použijte uživatelské jméno **testing\\homer** nebo
-        **homer@testing.local**, heslo **aaa**
+    a.  Použijte uživatelské jméno **testing\homer** nebo
+        **homer@testing.local**, heslo **root4Lab**
 
         -   Řekněte, že první název je starší způsob identifikace z dob,
             kdy se používal **NetBIOS** a druhý je novější založený na
             **DNS**
 
-        -   Zmiňte možnost přihlášení ve formě **.\\student** kde symbol
+        -   Zmiňte možnost přihlášení ve formě **.\root** kde symbol
             **.** značí vždy lokální stanici ke které se přihlašujeme
             (a tedy nemusíme vypisovat název)
 
@@ -814,17 +814,17 @@ a ukažte, jak se změní jeho DN.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-wadk**
+> **w11-2**
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol LS02
 
-1.  Na **w10-wadk** se přihlaste jako uživatel **student**
+1.  Na **w11-2** se přihlaste jako uživatel **student**
 
-2.  Připojte **w10-wadk** do domény **testing.local**
+2.  Připojte **w11-2** do domény **testing.local**
 
     a.  Otevřete Settings
 
@@ -862,7 +862,7 @@ a ukažte, jak se změní jeho DN.
     h.  Potvrďte Next
 
     i.  Při výzvě o zadání účtu použijte účet **homer@testing.local** s
-        heslem **aaa**
+        heslem **root4Lab**
 
         -   Upozorněte, že i běžný uživatel může do doménu připojit až
             10 zařízení (best practice je však tuto možnost zakázat)
@@ -886,7 +886,7 @@ a ukažte, jak se změní jeho DN.
     m.  Dokončete přidávání do domény restartem počítače (tlačítko
         Restart now)
 
-3.  Na **w2016-dc** ověřte vytvoření účtu počítače
+3.  Na **w2022-dc** ověřte vytvoření účtu počítače
 
     a.  Otevřete **Active Directory Users and Computers**
 
@@ -895,7 +895,7 @@ a ukažte, jak se změní jeho DN.
 
     b.  Vyberte kontejner Computers
 
-    c.  Ověřte existenci účtu pro počítač **w10-wadk**
+    c.  Ověřte existenci účtu pro počítač **w11-2**
 
 # Studentské úkoly
 
@@ -908,9 +908,9 @@ a ukažte, jak se změní jeho DN.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
@@ -918,7 +918,7 @@ a ukažte, jak se změní jeho DN.
 > jednotka **brno** pod **testing.local**, nainstalovaný **RSAT** pro
 > Windows 10 64-bit en[^4]
 
-1.  Na **w10-domain** se přihlaste jako uživatel **homer** do domény
+1.  Na **w11-domain** se přihlaste jako uživatel **homer** do domény
     **testing.local**
 
 2.  Ověřte nainstalovaní nástrojů pro správu doménových služeb **Active
@@ -929,7 +929,7 @@ a ukažte, jak se změní jeho DN.
     b.  V levém panelu vyberte Turn Windows features on or off
 
     c.  Zadejte přihlašovací údaje uživatele s právy lokálního správce
-        **.\\student** s heslem **aaa**
+        **.\\root** s heslem **root4Lab**
 
     d.  Remote Server Administration Tools → Role Administration Tools →
         AD DS and AD LDS Tools → AD DS Tools, ověřte zaškrtnutí AD DS
@@ -953,7 +953,7 @@ a ukažte, jak se změní jeho DN.
         -   Možnosti přidávání účtů budou úplně chybět, modifikace
             nebude proveditelná díky nedostačujícím oprávněním
 
-4.  Na **w2016-dc** delegujte práva na vytváření a modifikaci účtů pro
+4.  Na **w2022-dc** delegujte práva na vytváření a modifikaci účtů pro
     organizační jednotkou **brno** na uživatele **homer**
 
     a.  Otevřete **Active Directory Users and Computers**
@@ -979,7 +979,7 @@ a ukažte, jak se změní jeho DN.
 
     h.  Proveďte delegaci práv pomocí Finish
 
-5.  Na **w10-domain** ověřte, že již můžete přidávat i modifikovat účty
+5.  Na **w11-domain** ověřte, že již můžete přidávat i modifikovat účty
     v organizační jednotce **brno**
 
     a.  Otevřete **Active Directory Users and Computers**
@@ -1002,18 +1002,18 @@ a ukažte, jak se změní jeho DN.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
 > **Další prerekvizity**
 >
 > Organizační jednotka **brno** pod **testing.local**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  přidejte pomocí **dsadd** nového uživatele **lisa** do organizační
     jednotky **brno**, křestní jméno nastavte na **Lisa** a heslo zvolte
-    **aaa**
+    **root4Lab**
 
     a.  Spusťte příkaz **dsadd user CN=lisa,OU=brno,DC=testing,DC=local
         -fn Lisa -pwd aaa**

@@ -21,7 +21,7 @@
   - [**Lab S01 -- místní správa Windows Server Core**](#lab-s01----místní-správa-windows-server-core)
   - [Lab S02 -- Příprava základní topologie sítě](#lab-s02----příprava-základní-topologie-sítě)
   - [Lab S03 -- příprava na vzdálenou správu Windows Server bez domény -- na stanici, odkud budeme spravovat](#lab-s03----příprava-na-vzdálenou-správu-windows-server-bez-domény----na-stanici-odkud-budeme-spravovat)
-  - [Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici\`](#lab-s04----příprava-na-vzdálenou-správu-windows-server-pomocí-ui----na-spravované-stanici)
+  - [Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici](#lab-s04----příprava-na-vzdálenou-správu-windows-server-pomocí-ui----na-spravované-stanici)
   - [Lab S06 -- vzdálená správa Windows Server pomocí UI](#lab-s06----vzdálená-správa-windows-server-pomocí-ui)
   - [**Lab S07 -- instalace role RAS na vzdálený server**](#lab-s07----instalace-role-ras-na-vzdálený-server)
   - [**Lab S08 -- Instalace nástrojů vzdálené správy Remote Server Administration Tools**](#lab-s08----instalace-nástrojů-vzdálené-správy-remote-server-administration-tools)
@@ -474,7 +474,7 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 -   pokud vypustíte parametr /pass:, jednotlivé nástroje by se měly na
     heslo doptat (ale některé se neptají, např. Server Manager)
 
-## Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici`
+## Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici
 
 > **Cíl cvičení**
 >
@@ -492,20 +492,21 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 3.  Zadejte příkazy:
 
-- snap-in Event Viewer
-    `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
+- `Enable-NetFireWallRule -DisplayName “Windows Management Instrumentation (DCOM-In)`
+
+- snap-in Event Viewer `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
 
 - snap-in Services `Enable-NetFirewallRule -DisplayGroup "Remote Service Management"`
 
 - snap-in Shared Folders `Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"`
 
-- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"`
+- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup “Remote Scheduled Tasks Management`
 
 - snap-in Disk Management `Enable-NetFirewallRule -DisplayGroup "Remote Volume Management"`
 
 - snap-in Windows Firewall with Advanced Security `Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management"`
 
-- u w2022: `Enable-NetFirewallRule -DisplayGroup "Windows Firewall Remote Management"`
+- u w2022: `Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management"` (je již povolen)
 
 Pozn: některé snap-iny vyžadují i další konfiguraci jako spuštění
 některých služeb apod.

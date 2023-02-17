@@ -349,7 +349,7 @@ OOBE**.
     h.  Zadejte
     -   IP: **10.10.10.1**
     -   Maska: **255.255.255.0**
-    -   Výchozí brána: nevyplňovat
+    -   Výchozí brána: nevyplňovat (zadejte mezeru)
 
     i.  Volbou **4** vyskočte z nabídky nastavení síťového rozhraní
         (Network Adater Settings)
@@ -361,7 +361,7 @@ OOBE**.
     a.  Opakujte postup z bodu 6    
     -   IP: **192.168.200.1**
     -   Maska: **255.255.255.0**
-    -   Výchozí brána: nevyplňovat
+    -   Výchozí brána: nevyplňovat (zadejte mezeru)
 
 8.  Ověřte, zda má rozhraní **LAN1** přidělenou IP adresu
     z DHCP serveru a fungující konektivitu do internetu

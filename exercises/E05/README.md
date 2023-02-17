@@ -529,8 +529,6 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
     New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
     New-ADUser -Name Marge  -AccountPassword $password -Enabled $true
 
-    Add-ADGroupMember -Identity "Domain Admins" -Members Homer
-
 } -ComputerName w2022-dc
 
 Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {

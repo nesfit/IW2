@@ -1,4 +1,21 @@
-**Active Directory -- část 1**
+- [Active Directory -- Active Directory - Instalace, UAC](#active-directory----active-directory---instalace-uac)
+  - [Řešení identity a přístupu](#řešení-identity-a-přístupu)
+  - [Komponenty](#komponenty)
+  - [Instalace](#instalace)
+  - [Základní objekty](#základní-objekty)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
+  - [Lab LS01 -- Instalace Active Directory](#lab-ls01----instalace-active-directory)
+  - [Lab LS02 -- ADUC (Active Directory Users and Computers)](#lab-ls02----aduc-active-directory-users-and-computers)
+  - [Lab LS03 -- Připojení klienta do domény -- System Properties](#lab-ls03----připojení-klienta-do-domény----system-properties)
+  - [Lab LS04 -- Připojení klienta do domény -- Settings](#lab-ls04----připojení-klienta-do-domény----settings)
+- [Studentské úkoly](#studentské-úkoly)
+  - [Lab S01 -- Delegace práv](#lab-s01----delegace-práv)
+  - [Lab S02 -- Správa Active Directory pomocí příkazové řádky](#lab-s02----správa-active-directory-pomocí-příkazové-řádky)
+- [Bodované úkoly](#bodované-úkoly)
+
+
+# Active Directory -- Active Directory - Instalace, UAC
 
 **Active Directory**, nyní přesněji doménové služby **Active Directory**
 (AD DS, *Active Directory Domain Services*), je implementace
@@ -8,7 +25,7 @@ počítačů a umožňuje také vyhledávání a přístup ke zdrojům. Tato
 funkcionalita se často označuje jako tzv. řešení identity a přístupu
 (IDA, *Identity and Access*).
 
-**Řešení identity a přístupu**
+## Řešení identity a přístupu
 
 Jak již bylo řečeno dříve, **Active Directory** poskytuje řešení
 identity a přístupu neboli **IDA**. Hlavním úkolem **IDA** je zajistit
@@ -16,42 +33,42 @@ bezpečnost podnikových zdrojů (souborů, aplikací, databází apod.).
 Řešení **IDA** musí zajistit následující:
 
 -   **Uložení informací o uživatelích, skupinách, počítačích a jiných identitách**.
-    > Identita je pouze jakási abstraktní reprezentace entity, jenž
-    > provádí určité akce v podnikové síti. Nejběžnějším případem
-    > identity je samozřejmě uživatel, ale i další entity jako skupiny,
-    > počítače nebo služby mohou provádět různé akce v podnikové síti a
-    > musí být tedy reprezentovány odpovídajícími identitami. Kromě řady
-    > dalších informací, jenž se u každé identity uchovávají, musí být
-    > každá identita jednoznačně identifikována. K této identifikaci
-    > slouží **SID** (*Security identifier*), jednoznačný řetězec
-    > proměnlivé délky, který je unikátní v rámci celé sítě (lesa)
-    > Active Directory.
+Identita je pouze jakási abstraktní reprezentace entity, jenž
+provádí určité akce v podnikové síti. Nejběžnějším případem
+identity je samozřejmě uživatel, ale i další entity jako skupiny,
+počítače nebo služby mohou provádět různé akce v podnikové síti a
+musí být tedy reprezentovány odpovídajícími identitami. Kromě řady
+dalších informací, jenž se u každé identity uchovávají, musí být
+každá identita jednoznačně identifikována. K této identifikaci
+slouží **SID** (*Security identifier*), jednoznačný řetězec
+proměnlivé délky, který je unikátní v rámci celé sítě (lesa)
+Active Directory.
 
 -   **Autentizaci identit**. Server nikdy nesmí poskytnout identitě
-    > přístup ke zdroji, dokud neověří, že identita obsažená v požadavku
-    > pro přístup je validní. Ověření validity je zajištěno pomocí
-    > tajemství (*secret*), které zná pouze daná identita a **IDA**.
-    > Identita se musí prokázat tímto tajemstvím a to je porovnáno s
-    > informací uloženou v úložišti identit. Tento proces se označuje
-    > jako *autentizace*.
+přístup ke zdroji, dokud neověří, že identita obsažená v požadavku
+pro přístup je validní. Ověření validity je zajištěno pomocí
+tajemství (*secret*), které zná pouze daná identita a **IDA**.
+Identita se musí prokázat tímto tajemstvím a to je porovnáno s
+informací uloženou v úložišti identit. Tento proces se označuje
+jako *autentizace*.
 
 -   **Řízení přístupu**. Ne všechny *autentizované* identity mají mít
-    > přístup k určitému zdroji, navíc je často potřeba rozlišovat více
-    > úrovní přístupu k jednomu zdroji. Tuto funkcionalitu zajišťuje
-    > řízení přístupu. Řízení přístupu je realizováno formou seznamů pro
-    > řízení přístupu (ACL, *Access Control List*). Tyto seznamy pro
-    > každý zdroj přesně definují oprávnění určující úroveň přístupu pro
-    > jednotlivé identity. Oprávnění mohou být různá, záleží na typu
-    > zdroje, např. pro soubor to budou oprávnění pro čtení, zápis
-    > apod., pro tiskárnu oprávnění pro tisk, správu tiskové fronty
-    > atd., pokud nejsou oprávnění pro nějakou identitu definována,
-    > znamená to, že daná identita nemá k danému zdroji žádný přístup.
+přístup k určitému zdroji, navíc je často potřeba rozlišovat více
+úrovní přístupu k jednomu zdroji. Tuto funkcionalitu zajišťuje
+řízení přístupu. Řízení přístupu je realizováno formou seznamů pro
+řízení přístupu (ACL, *Access Control List*). Tyto seznamy pro
+každý zdroj přesně definují oprávnění určující úroveň přístupu pro
+jednotlivé identity. Oprávnění mohou být různá, záleží na typu
+zdroje, např. pro soubor to budou oprávnění pro čtení, zápis
+apod., pro tiskárnu oprávnění pro tisk, správu tiskové fronty
+atd., pokud nejsou oprávnění pro nějakou identitu definována,
+znamená to, že daná identita nemá k danému zdroji žádný přístup.
 
 -   **Auditování**. Asi vždy existuje riziko, že některá identita získá
-    > přístup ke zdroji, ke kterému přístup mít nemá, případně získá
-    > vyšší úroveň oprávnění, než jí náleží. Pro tyto případy je
-    > důležité, aby existovaly mechanismy umožňující provádět auditování
-    > přístupů k jednotlivým zdrojům.
+přístup ke zdroji, ke kterému přístup mít nemá, případně získá
+vyšší úroveň oprávnění, než jí náleží. Pro tyto případy je
+důležité, aby existovaly mechanismy umožňující provádět auditování
+přístupů k jednotlivým zdrojům.
 
 Řešení **IDA** ve Windows Server je složeno z pěti komponent, kde každá
 komponenta má specifickou funkcionalitu. Patří zde:
@@ -105,7 +122,7 @@ komponenta má specifickou funkcionalitu. Patří zde:
     partner spravuje své vlastní identity, může ale také bezpečně
     přijímat identity od jiných partnerů.
 
-**Komponenty**
+## Komponenty
 
 Komponenty lze rozdělit do dvou kategorií. První kategorii tvoří
 programové komponenty, které zajišťují samotnou funkcionalitu **Active
@@ -217,7 +234,7 @@ Logické komponenty, určující strukturu sítě, vycházejí ze systému
     rozdělují strukturu sítě po fyzické stránce, než po logické, jak to
     dělaly dříve zmíněné komponenty.
 
-**Instalace**
+## Instalace
 
 Instalace, nebo přesněji povýšení serveru do role **AD DS** se provádí
 pomocí průvodce přidáním role nebo pomocí Windows PowerShellu. (Příkaz
@@ -267,7 +284,7 @@ a funkcionalitu **Active Directory**:
     odlišných discích, což může urychlit manipulaci s daty a tedy i
     práci **Active Directory**.
 
-**Základní objekty**
+## Základní objekty
 
 Jak již bylo řečeno dříve, **Active Directory** je adresářová služba
 obsahující informace o uživatelích, počítačích a dalších entitách. Tyto
@@ -452,10 +469,8 @@ mohou na ně být aplikovány zásady skupiny. I počítače, stejně jako
 uživatelé, se musí přihlašovat do domény, jejich přihlašovací jméno a
 heslo mění systém Windows automaticky co 30 dní.
 
-**\
-**
 
-**Společné úkoly**
+# Společné úkoly
 
 -   Pro přístup na server **file** (a jiné) přes síťové rozhraní
     *Default switch* je nutné použít jeho plně kvalifikované doménové
@@ -467,7 +482,7 @@ heslo mění systém Windows automaticky co 30 dní.
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
@@ -482,7 +497,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
-Lab LS01 -- Instalace Active Directory
+## Lab LS01 -- Instalace Active Directory
 
 > **Cíl cvičení**
 >
@@ -604,7 +619,7 @@ Následně se systém restartuje
 Po restartu bude chtít systém změnu administrátorského hesla (výchozí
 doménová politika na komplexnost hesel)
 
-Lab LS02 -- ADUC (Active Directory Users and Computers)
+## Lab LS02 -- ADUC (Active Directory Users and Computers)
 
 > **Cíl cvičení**
 >
@@ -640,7 +655,7 @@ to je *distinguished name* (DN) a demonstrujte na tabuli pro uživatele
 **marge**. Přesuňte uživatele **homer** do organizační jednotky **brno**
 a ukažte, jak se změní jeho DN.
 
-Lab LS03 -- Připojení klienta do domény -- System Properties
+## Lab LS03 -- Připojení klienta do domény -- System Properties
 
 > **Cíl cvičení**
 >
@@ -715,7 +730,7 @@ Lab LS03 -- Připojení klienta do domény -- System Properties
             **.** značí vždy lokální stanici ke které se přihlašujeme
             (a tedy nemusíme vypisovat název)
 
-Lab LS04 -- Připojení klienta do domény -- Settings
+## Lab LS04 -- Připojení klienta do domény -- Settings
 
 > **Cíl cvičení**
 >
@@ -806,9 +821,9 @@ Lab LS04 -- Připojení klienta do domény -- Settings
 
     c.  Ověřte existenci účtu pro počítač **w10-wadk**
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
-Lab S01 -- Delegace práv
+## Lab S01 -- Delegace práv
 
 > **Cíl cvičení**
 >
@@ -902,7 +917,7 @@ Lab S01 -- Delegace práv
     c.  Vytvořte nového uživatele a ověřte, že lze po vytvoření
         modifikovat
 
-Lab S02 -- Správa Active Directory pomocí příkazové řádky
+## Lab S02 -- Správa Active Directory pomocí příkazové řádky
 
 > **Cíl cvičení**
 >
@@ -972,7 +987,7 @@ Lab S02 -- Správa Active Directory pomocí příkazové řádky
     c.  Ověřte v **Active Directory Users and Computers**, že
         organizační jednotka byla smazána
 
-# Bodované úkoly {#bodované-úkoly .IW_nadpis1}
+# Bodované úkoly
 
 Úkol
 

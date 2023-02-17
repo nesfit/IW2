@@ -7,12 +7,13 @@ Lectures and computer labs storage for IW2 course at FIT VUT.
 | L00 | 06.02. | **Úvod**                                                       |
 | L01 | 06.02. | **Sítě a směrování**                                           |
 | E01 | 10.02. | Model TCP/IP                                                   |
-| E02 |        | Microsoft Windows Server                                       |
+| E02 | 17.02. | Microsoft Windows Server                                       |
 | L02 | 10.02. | **Systém DNS, Protokol DHCP**                                  |
 | E03 | 10.02. | Systém DHCP                                                    |
-| E04 |        | Systém DNS                                                     |
-| L03 |        | **Active Directory - Úvod, Služby, Komponenty, Instalace**     |
-| L04 |        | **Active Directory - Schéma, Objekty, Operační servery**       |
+| L03 | 17.02. | **Active Directory - Úvod, Služby, Komponenty, Instalace**     |
+| E04 | 17.02. | Systém DNS                                                     |
+| L04 | 17.02. | **Active Directory - Schéma, Objekty, Operační servery**       |
+| E05 | 17.02. | Active Directory - Instalace, UAC                              |
 | L05 |        | **Active Directory - Zásady skupiny (objekty, zpracování)**    |
 | L06 |        | **Active Directory - Zásady skupiny (uložení, šablony)**       |
 | L07 |        | **Active Directory - Replikace**                               |

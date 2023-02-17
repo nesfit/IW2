@@ -736,8 +736,6 @@ Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
 
 
 Show-LabDeploymentSummary -Detailed
-
-
 ```
 
 ---

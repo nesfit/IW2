@@ -714,7 +714,7 @@ a ukažte, jak se změní jeho DN.
 >
 > **w11-1**
 
-1.  Na **w11-1** se přihlaste jako uživatel **student**
+1.  Na **w11-1** se přihlaste jako uživatel **root**
 
 2.  Připojte **w11-1** do domény **testing.local**
 
@@ -783,7 +783,7 @@ a ukažte, jak se změní jeho DN.
 >
 > Dokončený úkol LS02
 
-1.  Na **w11-2** se přihlaste jako uživatel **student**
+1.  Na **w11-2** se přihlaste jako uživatel **root**
 
 2.  Připojte **w11-2** do domény **testing.local**
 

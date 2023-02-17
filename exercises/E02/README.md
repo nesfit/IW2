@@ -356,19 +356,19 @@ OOBE**.
 
     > Pozn: Alternativně lze použít **netsh**
 
-7.  Nastavte IP adresu síťového rozhraní s MAC 20-19-DD-00-00-03
+7.  Nastavte IP adresu síťového rozhraní **LAN3**
 
     a.  Opakujte postup z bodu 6    
     -   IP: **192.168.200.1**
     -   Maska: **255.255.255.0**
     -   Výchozí brána: nevyplňovat
 
-8.  Ověřte, zda má rozhraní s MAC 20-19-DD-00-00-01 přidělenou IP adresu
+8.  Ověřte, zda má rozhraní **LAN1** přidělenou IP adresu
     z DHCP serveru a fungující konektivitu do internetu
     
     a.  Pomocí výpisu z **ipconfig /all**
     
-    b.  Pomocí **ping file.nepal.local**
+    b.  Pomocí **ping google.com**
     -   Alternativně zkuste nějakou veřejnou IP (např. Google public
             DNS 8.8.8.8 a 8.8.4.4, Cloudflare public DNS 1.1.1.1, ...)
             nebo přímo doménové jméno

@@ -802,8 +802,7 @@ a ukažte, jak se změní jeho DN.
 
     -   Zde lze také přejmenovat stanici -- viz tlačítko Rename this PC
 
-    d.  Odkazem Connect to work or school pod názvem organizace
-        (WORKGROUP) přejděte do modulu Accounts, sekce Access work or
+    d.  Použijte vyhledávání pro nalezení modulu Accounts, sekce Access work or
         school
 
     e.  Pokračujte tlačítkem + Connect
@@ -874,23 +873,9 @@ a ukažte, jak se změní jeho DN.
 1.  Na **w11-domain** se přihlaste jako uživatel **homer** do domény
     **testing.local**
 
-2.  Ověřte nainstalovaní nástrojů pro správu doménových služeb **Active
-    Directory**
+2.  Nainstalujte nástroje pro správu doménových služeb **Active Directory**
 
-    a.  Control Panel → Programs → Programs and Features
-
-    b.  V levém panelu vyberte Turn Windows features on or off
-
-    c.  Zadejte přihlašovací údaje uživatele s právy lokálního správce
-        **.\root** s heslem **root4Lab**
-
-    d.  Remote Server Administration Tools → Role Administration Tools →
-        AD DS and AD LDS Tools → AD DS Tools, ověřte zaškrtnutí AD DS
-        Snap-ins and Command-line Tools
-
-    e.  Potvrďte OK
-
-    -   Ve starších verzích se po instalaci **RSAT** musely tyto nástroje povolit
+    a.  V Powershell administrativním módu `Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability –Online`
 
 3.  Ověřte, že nemůžete přidávat ani modifikovat účty v organizační
     jednotce **brno**

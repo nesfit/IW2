@@ -869,7 +869,7 @@ a ukažte, jak se změní jeho DN.
 >
 > Účet uživatele **homer** v doméně **testing.local**, organizační
 > jednotka **brno** pod **testing.local**, nainstalovaný **RSAT** pro
-> Windows 10 64-bit en[^4]
+> Windows 11 64-bit en[^4]
 
 1.  Na **w11-domain** se přihlaste jako uživatel **homer** do domény
     **testing.local**
@@ -882,7 +882,7 @@ a ukažte, jak se změní jeho DN.
     b.  V levém panelu vyberte Turn Windows features on or off
 
     c.  Zadejte přihlašovací údaje uživatele s právy lokálního správce
-        **.\\root** s heslem **root4Lab**
+        **.\root** s heslem **root4Lab**
 
     d.  Remote Server Administration Tools → Role Administration Tools →
         AD DS and AD LDS Tools → AD DS Tools, ověřte zaškrtnutí AD DS
@@ -890,29 +890,25 @@ a ukažte, jak se změní jeho DN.
 
     e.  Potvrďte OK
 
-        -   Ve starších verzích se po instalaci **RSAT** musely tyto
-            nástroje povolit
+    -   Ve starších verzích se po instalaci **RSAT** musely tyto nástroje povolit
 
 3.  Ověřte, že nemůžete přidávat ani modifikovat účty v organizační
     jednotce **brno**
 
     a.  Otevřete **Active Directory Users and Computers**
 
-        1.  Start → Windows Administrative Tools → Active Directory
-            Users and Computers
+    1.  Start → Windows Administrative Tools → Active Directory Users and Computers
 
     b.  Zkuste přidat nový uživatelský účet nebo změnit stávající
 
-        -   Možnosti přidávání účtů budou úplně chybět, modifikace
-            nebude proveditelná díky nedostačujícím oprávněním
+    -   Možnosti přidávání účtů budou úplně chybět, modifikace nebude proveditelná díky nedostačujícím oprávněním
 
 4.  Na **w2022-dc** delegujte práva na vytváření a modifikaci účtů pro
     organizační jednotkou **brno** na uživatele **homer**
 
     a.  Otevřete **Active Directory Users and Computers**
 
-        1.  Start → Windows Administrative Tools → Active Directory
-            Users and Computers
+    1.  Start → Windows Administrative Tools → Active Directory Users and Computers
 
     b.  Klikněte pravým na organizační jednotku **brno** a vyberte
         Delegate Control...
@@ -932,19 +928,15 @@ a ukažte, jak se změní jeho DN.
 
     h.  Proveďte delegaci práv pomocí Finish
 
-5.  Na **w11-domain** ověřte, že již můžete přidávat i modifikovat účty
-    v organizační jednotce **brno**
+5.  Na **w11-domain** ověřte, že již můžete přidávat i modifikovat účty v organizační jednotce **brno**
 
     a.  Otevřete **Active Directory Users and Computers**
 
-        1.  Start → Administrative Tools → Active Directory Users and
-            Computers
+    1.  Start → Administrative Tools → Active Directory Users and Computers
 
-    b.  Klikněte pravým na organizační jednotku **brno** a zvolte New →
-        User
+    b.  Klikněte pravým na organizační jednotku **brno** a zvolte New → User
 
-    c.  Vytvořte nového uživatele a ověřte, že lze po vytvoření
-        modifikovat
+    c.  Vytvořte nového uživatele a ověřte, že lze po vytvoření modifikovat
 
 ## Lab S02 -- Správa Active Directory pomocí příkazové řádky
 
@@ -968,8 +960,7 @@ a ukažte, jak se změní jeho DN.
     jednotky **brno**, křestní jméno nastavte na **Lisa** a heslo zvolte
     **root4Lab**
 
-    a.  Spusťte příkaz **dsadd user CN=lisa,OU=brno,DC=testing,DC=local
-        -fn Lisa -pwd aaa**
+    a.  Spusťte příkaz **dsadd user CN=lisa,OU=brno,DC=testing,DC=local -fn Lisa -pwd aaa**
 
     b.  Ověřte v **Active Directory Users and Computers**, že uživatel
         byl přidán

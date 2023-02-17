@@ -578,7 +578,7 @@ některých služeb apod.
 >
 > **w2022-core** (w2022-core OOBE)
 
-1.  Přihlaste se k w2022 jako uživatel administrator s heslem aaa
+1.  Přihlaste se k w2022 jako uživatel **root** s heslem **root4lab**
 
 2.  Spusťte **Server Manager**
 

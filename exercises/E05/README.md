@@ -548,13 +548,6 @@ Show-LabDeploymentSummary -Detailed
 
 # Společné úkoly
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
-
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **root4Lab**
-
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
 
@@ -563,11 +556,11 @@ Show-LabDeploymentSummary -Detailed
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** |
-| ------------------------ | -------------- | -------------- | 
-| **w11-1**             | Nepřipojeno    | Private1       |
-| **w11-2**             | Nepřipojeno    | Private1       |
+| ------------------------ | -------------- | -------------- |
+| **w11-1**                | Nepřipojeno    | Private1       |
+| **w11-2**                | Nepřipojeno    | Private1       |
 | **w11-domain**           | Nepřipojeno    | Private1       |
-| **w2022**           | Nepřipojeno    | Private2       |
+| **w2022**                | Nepřipojeno    | Private2       |
 | **w2022-dc**             | Nepřipojeno    | Private1       |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
@@ -583,117 +576,95 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 >
 > **w2022**
 
-Na **w2022** se přihlaste jako uživatel **root**
+1. Na **w2022** se přihlaste jako uživatel **root**
 
-Na **w2022** nastavte statickou IPv4 adresu **192.168.64.5**
+2. Na **w2022** nastavte statickou IPv4 adresu **192.168.64.5**
 
-Otevřete **Network and Sharing Center**, zvolte LAN2 a pak properties
+    a. Otevřete **Network and Sharing Center**, zvolte LAN2 a pak properties
 
-Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
+    b. Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
 
-Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte properties
+    c. Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte properties
 
-Zvolte Use the following IP address a jako IP address zadejte
-**192.168.64.5**
+    d. Zvolte Use the following IP address a jako IP address zadejte **192.168.64.5**
 
-Klikněte do zadávacího pole u Subnet mask, maska podsítě bude doplněna
-automaticky
+    e. Klikněte do zadávacího pole u Subnet mask, maska podsítě bude doplněna automaticky
 
-Potvrďte OK
+    f. Potvrďte OK
 
-Spusťte **Server Manager**
+3. Spusťte **Server Manager**
 
-Start → **Server Manager**
+    a. Start → **Server Manager**
 
-Nainstalujte roli **Active Directory Domain Services**
+4. Nainstalujte roli **Active Directory Domain Services**
 
-Vyberte Add Roles and Features z nabídky Manage
+    a. Vyberte *Add Roles and Features* z nabídky *Manage*
 
-Pokračujte Next \>
+    b. Pokračujte Next \>
 
-Vyberte Role-based or feature-based installation a pokračujte Next \>
+    c. Vyberte *Role-based* or *feature-based installation* a pokračujte *Next* \>
 
-Vyberte aktuální server a pokračujte Next \>
+    d. Vyberte aktuální server a pokračujte Next \>
 
-V seznamu rolí vyberte Active Directory Domain Services, potvrďte
-přidání potřebných funkcí Add Features a pokračujte třikrát Next \>
+    e. V seznamu rolí vyberte *Active Directory Domain Services*, potvrďte přidání potřebných funkcí *Add Features* a pokračujte třikrát *Next* \>
 
-Potvrďte instalaci Install
+    f. Potvrďte instalaci *Install*
+    - Trvá cca 3 minuty
 
-Trvá cca 3 minuty
+    g. Po dokončení instalace najdete v notifikacích Server Manageru odkaz na *Promote this server to a domain controller*
 
-Po dokončení instalace najdete v notifikacích Server Manageru odkaz na
-Promote this server to a domain controller
+5. V konfiguračním průvodci (*Active Directory Domain Services Configuration
+Wizard*)
 
-V konfiguračním průvodci (Active Directory Domain Services Configuration
-Wizard)
+    a. Zvolte *Add a new forest*
 
-Zvolte Add a new forest
+    b. Do pole root domain name zadejte **testing.local** a pokračujte Next \>
 
-Do pole root domain name zadejte **testing.local** a pokračujte Next \>
+    - Název musí být unikátní
 
-Název musí být unikátní
+    c. Nastavte funkční úroveň lesa i domény **Windows Server 2016**
 
-Nastavte funkční úroveň lesa i domény **Windows Server 2016**
+    - Tímto nastavením nelze použít v celém lese jiné servery
+    než takové, na kterých běží daná nebo novější verze Windows Serveru
 
-Upozorněte, že tímto nastavením nelze použít v celém lese jiné servery
-než takové, na kterých běží daná nebo novější verze Windows Serveru
+    - Všechny domény vytvořené v tomto lese budou ve výchozím
+    nastavení operovat také na této funkční úrovní (tentokrát domény)
 
-Zmiňte, že všechny domény vytvořené v tomto lese budou ve výchozím
-nastavení operovat také na této funkční úrovní (tentokrát domény)
+    d. Ověřte zaškrtnutí instalace DNS serveru a globálního katalogu
 
-Ověřte zaškrtnutí instalace DNS serveru a globálního katalogu
+    -  **Active Directory** je přímo závislá na systému **DNS** a pro svou správnou funkcionalitu vyžaduje přítomnost **DNS** serveru
 
-Připomeňte, že **Active Directory** je přímo závislá na systému **DNS**
-a pro svou správnou funkcionalitu vyžaduje přítomnost **DNS** serveru
+    - Nejvýhodnější je použít Windows **DNS** server se zónami integrovanými v **Active Directory**, do kterých může **Active Directory** zapsat veškeré potřebné informace pro svou správnou funkcionalitu (např. záznamy pro lokalizaci služeb **Active Directory**), jinak se vše musí udělat manuálně
 
-Řekněte, že nejvýhodnější je použít Windows **DNS** server se zónami
-integrovanými v **Active Directory**, do kterých může **Active
-Directory** zapsat veškeré potřebné informace pro svou správnou
-funkcionalitu (např. záznamy pro lokalizaci služeb **Active
-Directory**), jinak se vše musí udělat manuálně
+    - Z důvodu instalace prvního řadiče domény v daném lese musí nést tento server globální katalog
 
-Zmiňte, že z důvodu instalace prvního řadiče domény v daném lese musí
-nést tento server globální katalog
+    e. Zadejte (a potvrďte) heslo (**root4Lab**) pro Directory Services Restore Modea pokračujte Next \>
 
-Zadejte (a potvrďte) heslo (**root4Lab**) pro Directory Services Restore Mode
-a pokračujte Next \>
+    - Tento režim slouží pro obnovu **Active Directory** databáze ze zálohy a pro řešení problémů vyžadujících, aby služby **Active Directory** nebyly spuštěny
 
-Řekněte, že tento režim slouží pro obnovu **Active Directory** databáze
-ze zálohy a pro řešení problémů vyžadujících, aby služby **Active
-Directory** nebyly spuštěny
+    f. Nyní jsme upozorněni na nemožnost delegace v nadřazené **DNS** zóně. Jelikož v tuto chvíli žádná neexistuje, můžeme to ignorovat. Next \>
 
-Nyní jsme upozorněni na nemožnost delegace v nadřazené **DNS** zóně.
-Jelikož v tuto chvíli žádná neexistuje, můžeme to ignorovat. Next \>
+   - Toto varování se týká situace, kdy integrujeme **DNS** server do stávající **DNS** infrastruktury a je potřeba mít správně nastavenou delegaci překladu jmen pro námi vytvářenou doménu.
 
-Okomentujte, že toto varování se týká situace, kdy integrujeme **DNS**
-server do stávající **DNS** infrastruktury a je potřeba mít správně
-nastavenou delegaci překladu jmen pro námi vytvářenou doménu.
+    g. Zadejte **NetBIOS** název domény (max. 15 znaků[^2]) -- ponechte**TESTING**. Next \>
 
-Zadejte **NetBIOS** název domény (max. 15 znaků[^2]) -- ponechte
-**TESTING**. Next \>
+   - Název musí být unikátní
 
-Název musí být unikátní
+    h. Zadejte cesty k databázím Location for Database, Log Files, and SYSVOL (ponechte výchozí). Next \>
 
-Zadejte cesty k databázím Location for Database, Log Files, and SYSVOL
-(ponechte výchozí). Next \>
+    - Často je výhodné umístit tyto jednotlivá úložiště na různé disky pro zvýšení výkonu a větší bezpečnost.
 
-Zmiňte, že často je výhodné umístit tyto jednotlivá úložiště na různé
-disky pro zvýšení výkonu a větší bezpečnost.
+    i. Zkontrolujte zadané údaje a zobrazte si odpovídající **skript pro PowerShell** (View Script). Pokračujte Next \>
 
-Zkontrolujte zadané údaje a zobrazte si odpovídající **skript pro
-PowerShell** (View Script). Pokračujte Next \>
+    j. Prohlédněte si výsledky kontroly prerekvizit.
 
-Prohlédněte si výsledky kontroly prerekvizit.
+    > warning: **NEPOKRAČUJTE!!!** Dále se bude využívat už jen **w2022-dc**.
 
-**NEPOKRAČUJTE!!!** Dále se bude využívat už jen **w2022-dc**.
+   - Konfigurace trvá cca 3 minuty
 
-Konfigurace trvá cca 3 minuty
+   - Následně se systém restartuje
 
-Následně se systém restartuje
-
-Po restartu bude chtít systém změnu administrátorského hesla (výchozí
-doménová politika na komplexnost hesel)
+   - Po restartu bude chtít systém změnu administrátorského hesla (výchozí doménová politika na komplexnost hesel)
 
 ## Lab LS02 -- ADUC (Active Directory Users and Computers)
 

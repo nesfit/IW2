@@ -158,9 +158,9 @@ New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 set-labinstallationcredential -username root -password root4Lab
 add-labdomaindefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
 
-Add-LabMachineDefinition -Name w2022-dc1-1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
-Add-LabMachineDefinition -Name w2022-dc2-1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC     -DomainName testing.local
-Add-LabMachineDefinition -Name w11-domain-1 -Memory 4GB -Processors 8  -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC     -DomainName testing.local
+Add-LabMachineDefinition -Name w11-domain -Memory 4GB -Processors 8  -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
 
 Install-Lab
 
@@ -183,8 +183,6 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 | **w2022-dc1**  | Internal |
 | **w2022-dc2**  | Internal |
 
--   v případech, kdy je potřeba přistupovat na externí síť, připojte
-    adaptér **LAN1** k přepínači *Default switch*.
 
 ## Lektorské úkoly
 

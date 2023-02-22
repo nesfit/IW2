@@ -1,4 +1,11 @@
-**Replikace Active Directory**
+- [Active Directory - Replikace](#active-directory---replikace)
+  - [**Další možnosti konfigurace mezimístní replikace**](#další-možnosti-konfigurace-mezimístní-replikace)
+- [Společné úkoly {#společné-úkoly .IW\_nadpis1}](#společné-úkoly-společné-úkoly-iw_nadpis1)
+- [Lektorské úkoly {#lektorské-úkoly .IW\_nadpis1}](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
+- [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
+- [Bodované úkoly {#bodované-úkoly .IW\_nadpis1}](#bodované-úkoly-bodované-úkoly-iw_nadpis1)
+
+# Active Directory - Replikace
 
 Jedním z hlavních úkolů **Active Directory**, jakožto řešení **IDA**, je
 *autentizace* bezpečnostních objektů (*security principals*) jako jsou

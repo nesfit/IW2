@@ -1,6 +1,11 @@
-**Zásady skupiny -- část 2**
+- [Active Directory - Zásady skupiny (uložení, šablony)](#active-directory---zásady-skupiny-uložení-šablony)
+  - [Uložení GPO objektů](#uložení-gpo-objektů)
+- [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
+- [Bodované úkoly {#bodované-úkoly .IW\_nadpis1}](#bodované-úkoly-bodované-úkoly-iw_nadpis1)
 
-**Uložení GPO objektů**
+# Active Directory - Zásady skupiny (uložení, šablony)
+
+## Uložení GPO objektů
 
 Nastavení zásad skupiny jsou v **Active Directory** reprezentována jako
 **GPO** objekty, tyto objekty se ovšem skládají ze dvou komponent ‒

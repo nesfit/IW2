@@ -1,7 +1,22 @@
+- [Active Directory - Zásady skupiny (objekty, zpracování)](#active-directory---zásady-skupiny-objekty-zpracování)
+  - [Základní pojmy](#základní-pojmy)
+  - [Klient zásad skupiny a klientská rozšíření](#klient-zásad-skupiny-a-klientská-rozšíření)
+  - [Typy GPO objektů](#typy-gpo-objektů)
+  - [Zpracování zásad skupiny](#zpracování-zásad-skupiny)
+  - [Zpracování Loopback zásad skupiny](#zpracování-loopback-zásad-skupiny)
+- [AutomatedLab](#automatedlab)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
+- [Lektorské úkoly](#lektorské-úkoly)
+  - [Lab L01 -- GPME (Group Policy Management Editor)](#lab-l01----gpme-group-policy-management-editor)
+  - [Lab L02 -- Zpracování GPO objektů](#lab-l02----zpracování-gpo-objektů)
+  - [Lab L03 -- Výsledné sady zásad](#lab-l03----výsledné-sady-zásad)
+- [Studentské úkoly](#studentské-úkoly)
+  - [Lab S01 -- Loopback zpracování GPO objektů](#lab-s01----loopback-zpracování-gpo-objektů)
 
 
 
-# **Active Directory - Zásady skupiny (objekty, zpracování)**
+# Active Directory - Zásady skupiny (objekty, zpracování)
 
 **Zásady skupiny** (*Group Policy*) jsou nedílnou součástí snad každé
 **Active Directory** domény. Řešení **IDA** je vhodné k zajištění
@@ -419,15 +434,15 @@ Add-LabMachineDefinition -Name w11-domain -Memory 4GB -Processors 8  -OperatingS
 Install-Lab
 
 Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
-    $password = $adminPass | ConvertTo-SecureString -AsPlainText -Force
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
     
     New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
     New-ADOrganizationalUnit -Name brnopcs -path "DC=testing,DC=local" 
 
     New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
-    Move-ADObject "CN=w11-domain,OU=computers,DC=testing,DC=local" -TargetPath "OU=brnopcs,DC=testing,DC=local"
-
-} -ComputerName w2022-dc
+    Move-ADObject "CN=w11-domain,CN=computers,DC=testing,DC=local" -TargetPath "OU=brnopcs,DC=testing,DC=local"
+    
+} -ComputerName w2022-dc1
 
 Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
 
@@ -455,9 +470,9 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 | **w11-domain** | Internal |
 | **w2022-dc1**  | Internal |
 
-## Lektorské úkoly
+# Lektorské úkoly
 
-Lab L01 -- GPME (Group Policy Management Editor)
+## Lab L01 -- GPME (Group Policy Management Editor)
 
 > **Cíl cvičení**
 >

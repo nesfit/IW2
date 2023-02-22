@@ -1,4 +1,7 @@
-**Zásady skupiny -- část 1**
+
+
+
+# **Active Directory - Zásady skupiny (objekty, zpracování)**
 
 **Zásady skupiny** (*Group Policy*) jsou nedílnou součástí snad každé
 **Active Directory** domény. Řešení **IDA** je vhodné k zajištění
@@ -28,7 +31,7 @@ administrativní nároky kladené na údržbu celé podnikové sítě a usnadňu
 celkovou správu, je proto důležité vědět jak **zásady skupiny** pracují
 a jak mohou usnadnit práci.
 
-**Základní pojmy**
+## Základní pojmy
 
 **Nastavení zásady** (*policy setting*). Jednotlivé zásady skupiny se
 skládají z jednoho či více nastavení zásady, často označované jako
@@ -93,7 +96,7 @@ konfigurace, jež budou nakonec aplikovány na daného uživatele nebo
 počítač po vyřešení všech konfliktů mezi odlišně definovanými stejnými
 zásadami.
 
-**Klient zásad skupiny a klientská rozšíření**
+## Klient zásad skupiny a klientská rozšíření
 
 **Klient zásad skupiny** (*Group Policy Client*) je služba systému
 Windows, která zajišťuje aplikaci nastavení zásad definovaných v **GPO**
@@ -135,7 +138,7 @@ pak ně-jaký uživatel změní určité nastavení lokálně tak, že je v rozp
 s nastavením v **GPO** objektech, bude toto nastavení přepsáno při
 nejbližší aktualizaci zásad skupiny.
 
-**Typy GPO objektů**
+## Typy GPO objektů
 
 Na konkrétní počítač či uživatele může být aplikováno nastavení z více
 **GPO** objektů. Tyto objekty mohou pocházet ze dvou zdrojů, na základě
@@ -208,7 +211,7 @@ obsahuje po svém vzniku dva předdefinované **GPO** objekty:
     objektu bude aplikováno pouze na řadiče domény. Používá se hlavně
     pro definici zásad auditu nebo uživatelských práv.
 
-**Zpracování zásad skupiny**
+## Zpracování zásad skupiny
 
 Při zpracování zásad skupiny je dobré si uvědomit několik věcí. Vše k
 čemu zásady skupiny slouží je aplikace konkrétních zásad definovaných v
@@ -219,134 +222,129 @@ později, přepíší nastavení stejných zásad aplikovaných dřívějšími
 **GPO**. Přesný postup zpracování zásad skupiny klientem je následující:
 
 1.  Naběhne počítač a síť, jsou spuštěny služby **RPCSS**[^1] (*Remote
-    > Procedure Call System Service*) a **MUP**[^2] (*Multiple Universal
-    > Naming Convention Provider*) a běží **Klient zásad skupiny**.
+    Procedure Call System Service*) a **MUP**[^2] (*Multiple Universal
+    Naming Convention Provider*) a běží **Klient zásad skupiny**.
 
 2.  **Klient zásad skupiny** obdrží uspořádaný seznam všech **GPO**
-    > objektů, jejichž rozsah zahrnuje daný počítač. Uspořádaní **GPO**
-    > objektů v tomto seznamu určuje také pořadí jejich zpracování.
-    > Standardně se nejprve zpracovávají lokální **GPO** objekty a pak
-    > postupně **GPO** objekty přiřazené k místu, doméně a organizačním
-    > jednotkám.
+    objektů, jejichž rozsah zahrnuje daný počítač. Uspořádaní **GPO**
+    objektů v tomto seznamu určuje také pořadí jejich zpracování.
+    Standardně se nejprve zpracovávají lokální **GPO** objekty a pak
+    postupně **GPO** objekty přiřazené k místu, doméně a organizačním
+    jednotkám.
 
-```{=html}
-<!-- -->
-```
-a.  **Lokální GPO objekty** (*Local GPOs*). Počítače, na kterých běží
-    > Windows 2000, Windows XP nebo Windows Server 2003 mají pouze
-    > jediný **GPO** objekt a ten se tedy použije. Novější systémy jako
-    > Windows Vista a Windows Server 2008 mají možnost definovat více
-    > lokálních **GPO** objektů (tzv. *multiple local GPOs*).
+    a.  **Lokální GPO objekty** (*Local GPOs*). Počítače, na kterých běží
+        Windows 2000, Windows XP nebo Windows Server 2003 mají pouze
+        jediný **GPO** objekt a ten se tedy použije. Novější systémy jako
+        Windows Vista a Windows Server 2008 mají možnost definovat více
+        lokálních **GPO** objektů (tzv. *multiple local GPOs*).
 
-b.  **GPO objekty připojené k místu** (*Site GPOs*). Všechny **GPO**
-    > objekty připojené k místu, jenž obsahuje daný počítač, jsou
-    > přidány do uspořádaného seznamu nejdříve. Pokud je k danému místu
-    > připojeno více **GPO** objektů, pak pořadí připojení (*link
-    > order*) určuje pořadí jejich přidávání do seznamu. **GPO** objekty
-    > s nejnižším pořadím připojení jsou do seznamu přidány jako
-    > poslední, tedy budou aplikovány později než ostatní **GPO**
-    > objekty a přepíší nastavení z dříve aplikovaných **GPO** objektů.
+    b.  **GPO objekty připojené k místu** (*Site GPOs*). Všechny **GPO**
+        objekty připojené k místu, jenž obsahuje daný počítač, jsou
+        přidány do uspořádaného seznamu nejdříve. Pokud je k danému místu
+        připojeno více **GPO** objektů, pak pořadí připojení (*link
+        order*) určuje pořadí jejich přidávání do seznamu. **GPO** objekty
+        s nejnižším pořadím připojení jsou do seznamu přidány jako
+        poslední, tedy budou aplikovány později než ostatní **GPO**
+        objekty a přepíší nastavení z dříve aplikovaných **GPO** objektů.
 
-c.  **GPO objekty připojené k doméně** (*domain GPOs*). Stejně jako u
-    > *site* **GPO** objektů, i zde jsou přidány jednotlivé **GPO**
-    > objekty, jež jsou připojeny k doméně, která zahrnuje daný počítač,
-    > v pořadí určeném pořadím připojení.
+    c.  **GPO objekty připojené k doméně** (*domain GPOs*). Stejně jako u
+        *site* **GPO** objektů, i zde jsou přidány jednotlivé **GPO**
+        objekty, jež jsou připojeny k doméně, která zahrnuje daný počítač,
+        v pořadí určeném pořadím připojení.
 
-d.  **GPO objekty připojené k organizačním jednotkám** (*OU GPOs*).
-    > Pořadí přidávání těchto objektů do uspořádaného seznamu závisí na
-    > hierarchii organizačních jednotek. **GPO** objekty připojené k
-    > organizačním jednotkám na nejvyšší úrovni hierarchie **Active
-    > Directory** jsou připojeny nejdříve. Pak se postupně přidávají
-    > **GPO** objekty připojené k organizačním jednotkám na nižších
-    > úrovních. Nakonec jsou pak přidány **GPO** objekty připojené k
-    > organizační jednotce, jenž obsahuje daný počítač. Pokud je ke
-    > konkrétní organizační jednotce připojeno více **GPO** objektů,
-    > přidají se opět v pořadí určeném pořadím připojení.
+    d.  **GPO objekty připojené k organizačním jednotkám** (*OU GPOs*).
+        Pořadí přidávání těchto objektů do uspořádaného seznamu závisí na
+        hierarchii organizačních jednotek. **GPO** objekty připojené k
+        organizačním jednotkám na nejvyšší úrovni hierarchie **Active
+        Directory** jsou připojeny nejdříve. Pak se postupně přidávají
+        **GPO** objekty připojené k organizačním jednotkám na nižších
+        úrovních. Nakonec jsou pak přidány **GPO** objekty připojené k
+        organizační jednotce, jenž obsahuje daný počítač. Pokud je ke
+        konkrétní organizační jednotce připojeno více **GPO** objektů,
+        přidají se opět v pořadí určeném pořadím připojení.
 
-e.  **Vynucené GPO objekty** (*Enforced GPOs*). Tyto objekty jsou
-    > přidány až na konec uspořádaného seznamu a přepíší tedy veškerá
-    > konfliktní nastavení definovaná v **GPO** objektech v tomto
-    > seznamu dříve. Vynucené **GPO** objekty jsou přidávány v obráceném
-    > pořadí než standardní **GPO** objekty. Tedy nejprve se přidávají
-    > vynucené **GPO** objekty připojené k organizačním jednotkám,
-    > tentokrát ale v pořadí od nejnižší úrovně (**GPO** objekty
-    > připojené k OU, která obsahuje daný počítač) až k úrovni nejvyšší,
-    > pak vynucené **GPO** objekty připojené k doméně obsahující daný
-    > počítač a nakonec vynucené **GPO** objekty připojené k místu, kde
-    > je daný počítač situován. Tento postup umožňuje definovat zásady
-    > skupiny, jenž mají být vynuceny pro celou doménu. Stačí vytvořit
-    > vynucený **GPO** objekt připojený k doméně. Ten bude vždy
-    > aplikován až po aplikaci všech ostatních **GPO** objektů (kromě
-    > vynucených **GPO** objektů připojených k místu, používaných
-    > málokdy) a vynutí tedy svá nastavení na všech počítačích v doméně.
+    e.  **Vynucené GPO objekty** (*Enforced GPOs*). Tyto objekty jsou
+        přidány až na konec uspořádaného seznamu a přepíší tedy veškerá
+        konfliktní nastavení definovaná v **GPO** objektech v tomto
+        seznamu dříve. Vynucené **GPO** objekty jsou přidávány v obráceném
+        pořadí než standardní **GPO** objekty. Tedy nejprve se přidávají
+        vynucené **GPO** objekty připojené k organizačním jednotkám,
+        tentokrát ale v pořadí od nejnižší úrovně (**GPO** objekty
+        připojené k OU, která obsahuje daný počítač) až k úrovni nejvyšší,
+        pak vynucené **GPO** objekty připojené k doméně obsahující daný
+        počítač a nakonec vynucené **GPO** objekty připojené k místu, kde
+        je daný počítač situován. Tento postup umožňuje definovat zásady
+        skupiny, jenž mají být vynuceny pro celou doménu. Stačí vytvořit
+        vynucený **GPO** objekt připojený k doméně. Ten bude vždy
+        aplikován až po aplikaci všech ostatních **GPO** objektů (kromě
+        vynucených **GPO** objektů připojených k místu, používaných
+        málokdy) a vynutí tedy svá nastavení na všech počítačích v doméně.
 
-```{=html}
-<!-- -->
-```
+
 3.  **Klient zásad skupiny** zpracuje **GPO** objekty synchronně v
-    > pořadí v jakém se vyskytují v obdrženém uspořádaném seznamu. Tedy
-    > nejprve lokální **GPO** objekty, pak **GPO** objekty připojené k
-    > místu, k doméně a k organizačním jednotkám a nakonec vynucené
-    > **GPO** objekty. Před zpracováním jednotlivých **GPO** objektů
-    > ovšem klient nejprve zjistí, zda má vůbec daný **GPO** objekt
-    > aplikovat. Nejprve ověří stav **GPO** objektu (zda má povoleno
-    > aplikovat nastavení pod uzlem konfigurace počítače) a oprávnění
-    > (zda disponuje počítač oprávněními Povolit zásady skupiny (*Allow
-    > Group Policy*)). V případě, že je na **GPO** objekt aplikován WMI
-    > filtr a pokud na počítači běží systém Windows XP nebo novější,
-    > provede klient WQL dotaz obsažený ve filtru a ověří, zda počítač
-    > splňuje požadavky tohoto filtru, aby na něj mohl být daný **GPO**
-    > objekt aplikován.
+    pořadí v jakém se vyskytují v obdrženém uspořádaném seznamu. Tedy
+    nejprve lokální **GPO** objekty, pak **GPO** objekty připojené k
+    místu, k doméně a k organizačním jednotkám a nakonec vynucené
+    **GPO** objekty. Před zpracováním jednotlivých **GPO** objektů
+    ovšem klient nejprve zjistí, zda má vůbec daný **GPO** objekt
+    aplikovat. Nejprve ověří stav **GPO** objektu (zda má povoleno
+    aplikovat nastavení pod uzlem konfigurace počítače) a oprávnění
+    (zda disponuje počítač oprávněními Povolit zásady skupiny (*Allow
+    Group Policy*)). V případě, že je na **GPO** objekt aplikován WMI
+    filtr a pokud na počítači běží systém Windows XP nebo novější,
+    provede klient WQL dotaz obsažený ve filtru a ověří, zda počítač
+    splňuje požadavky tohoto filtru, aby na něj mohl být daný **GPO**
+    objekt aplikován.
 
 4.  Pokud má být daný **GPO** objekt aplikován na počítač,
-    > **Klient zásad skupiny** spustí **CSE** rozšíření, jenž zpracují
-    > jednotlivé zásady obsažené v tomto **GPO** objektu. Nastavení
-    > zásad v daném **GPO** objektu přepíše nastavení zásad z dříve
-    > aplikovaných **GPO** objektů následovně:
+    **Klient zásad skupiny** spustí **CSE** rozšíření, jenž zpracují
+    jednotlivé zásady obsažené v tomto **GPO** objektu. Nastavení
+    zásad v daném **GPO** objektu přepíše nastavení zásad z dříve
+    aplikovaných **GPO** objektů následovně:
 
 -   Pokud je nějaká zásada definována (*povolena* či *zakázána*) v
-    > **GPO** objektu připojenému k nadřízenému (*parent*) kontejneru
-    > **Active Directory** (OU, doméně, místu) a zároveň je stejná
-    > zásada *nedefinována* v **GPO** objektu připojenému k podřízenému
-    > (*child*) kontejneru, pak bude na počítač v podřízeném kontejneru
-    > aplikováno nastavení zásady definované v **GPO** objektu
-    > připojenému k nadřízenému kontejneru. V případě, že je na
-    > podřízeném kontejneru nastaveno blokování dědičnosti (*Block
-    > Inheritance*), nedojde k aplikaci nastavení z nadřízeného
-    > kontejneru, pokud není **GPO** objekt připojený k nadřízenému
-    > kontejneru vynucený, pak bude aplikován i přes blokování
-    > dědičnosti.
+    **GPO** objektu připojenému k nadřízenému (*parent*) kontejneru
+    **Active Directory** (OU, doméně, místu) a zároveň je stejná
+    zásada *nedefinována* v **GPO** objektu připojenému k podřízenému
+    (*child*) kontejneru, pak bude na počítač v podřízeném kontejneru
+    aplikováno nastavení zásady definované v **GPO** objektu
+    připojenému k nadřízenému kontejneru. V případě, že je na
+    podřízeném kontejneru nastaveno blokování dědičnosti (*Block
+    Inheritance*), nedojde k aplikaci nastavení z nadřízeného
+    kontejneru, pokud není **GPO** objekt připojený k nadřízenému
+    kontejneru vynucený, pak bude aplikován i přes blokování
+    dědičnosti.
 
 -   Pokud je nějaká zásada definována (*povolena* či *zakázána*) v
-    > **GPO** objektu připojenému k nadřízenému (*parent*) kontejneru a
-    > stejná zásada je zároveň definována i v **GPO** objektu
-    > připojenému k podřízenému (*child*) kontejneru, pak nastavení v
-    > **GPO** objektu připojenému k podřízenému kontejneru přepíše
-    > nastavení v **GPO** objektu připojenému k nadřízenému kontejneru.
-    > Pokud ovšem je **GPO** objekt připojený k nadřízenému kontejneru
-    > vynucený, bude aplikováno nastavení z tohoto **GPO** objektu.
+    **GPO** objektu připojenému k nadřízenému (*parent*) kontejneru a
+    stejná zásada je zároveň definována i v **GPO** objektu
+    připojenému k podřízenému (*child*) kontejneru, pak nastavení v
+    **GPO** objektu připojenému k podřízenému kontejneru přepíše
+    nastavení v **GPO** objektu připojenému k nadřízenému kontejneru.
+    Pokud ovšem je **GPO** objekt připojený k nadřízenému kontejneru
+    vynucený, bude aplikováno nastavení z tohoto **GPO** objektu.
 
 -   Pokud je nějaká zásada *nedefinována* jak v **GPO** objektu
-    > připojenému k nadřízenému kontejneru, tak v **GPO** objektu
-    > připojenému k podřízenému kontejneru, pak bude použito výsledné
-    > nastavení z lokálních **GPO** objektů. Pokud ani v lokálních
-    > **GPO** objektech není daná zásada definována, použije se výchozí
-    > nastavení systému Windows.
+    připojenému k nadřízenému kontejneru, tak v **GPO** objektu
+    připojenému k podřízenému kontejneru, pak bude použito výsledné
+    nastavení z lokálních **GPO** objektů. Pokud ani v lokálních
+    **GPO** objektech není daná zásada definována, použije se výchozí
+    nastavení systému Windows.
 
 5.  Jakmile se na počítač přihlásí nějaký uživatel, jsou vykonány body
-    > 2 - 4, tentokrát ale pro uživatelská nastavení. Tedy klient opět
-    > obdrží uspořádaný seznam **GPO** objektů, jejichž rozsah zahrnuje
-    > daného uživatele, synchronně zpracuje jednotlivé **GPO** objekty v
-    > tomto seznamu a předá zásady, jež se mají aplikovat, odpovídajícím
-    > **CSE** rozšířením.
+    2 - 4, tentokrát ale pro uživatelská nastavení. Tedy klient opět
+    obdrží uspořádaný seznam **GPO** objektů, jejichž rozsah zahrnuje
+    daného uživatele, synchronně zpracuje jednotlivé **GPO** objekty v
+    tomto seznamu a předá zásady, jež se mají aplikovat, odpovídajícím
+    **CSE** rozšířením.
 
 6.  Každých 90 - 120 minut po startu počítače se aktualizuje nastavení
-    > zásad daného počítače a opakují se kroky 2 - 4 pro nastavení
-    > počítače.
+    zásad daného počítače a opakují se kroky 2 - 4 pro nastavení
+    počítače.
 
 7.  Každých 90 - 120 minut po přihlášení uživatele se aktualizuje
-    > nastavené zásad daného uživatele a opakují se kroky 2 - 4 pro
-    > uživatelská nastavení.
+    nastavené zásad daného uživatele a opakují se kroky 2 - 4 pro
+    uživatelská nastavení.
 
 Pokud dojde k přerušení připojení k síti, a klient tedy nemůže
 kontaktovat žádný z řadičů domény, zůstávají v platnosti nastavení
@@ -356,7 +354,7 @@ aktualizace zásad skupiny. Pokud ano, získá klient z řadiče domény
 nejnovější seznam **GPO** objektů pro daný počítač nebo uživatele
 a spustí proces aktualizace zásad skupiny.
 
-**Zpracování Loopback zásad skupiny**
+## Zpracování Loopback zásad skupiny
 
 Ve výchozím nastavení budou na uživatele aplikována nastavení zásad z
 **GPO** objektů, jejichž rozsah zahrnuje daného uživatele. Tedy výsledná
@@ -401,19 +399,9 @@ modifikován:
     uživatelských nastavení daného uživatele podle uživatelských
     nastavení pro konkrétní počítač.
 
-**Společné úkoly**
+# Společné úkoly
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
-
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
-
--   Rozsah IP adres přidělených z *Default switch* se může od níže
-    uvedeného rozsahu lišit.
-
-**Lab LS00 -- konfigurace virtuálních stanic**
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
@@ -425,10 +413,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
-**\
-**
-
-**Lektorské úkoly**
+## Lektorské úkoly
 
 Lab L01 -- GPME (Group Policy Management Editor)
 
@@ -460,7 +445,7 @@ vynucení **GPO** objektu pomocí Enforced a řekněte, k čemu to slouží.
 Nakonec ještě upozorněte, že existuje něco jako Starter GPOs od Windows
 Server 2008.
 
-Lab L02 -- Zpracování GPO objektů
+## Lab L02 -- Zpracování GPO objektů
 
 > **Cíl cvičení**
 >
@@ -519,7 +504,7 @@ Lab L02 -- Zpracování GPO objektů
     a.  Pokud se pod kontejnerem Sites nenachází místo
         **Default-First-Site-Name**
 
-        -   klikněte pravým na kontejner Sites a zvolte Show Sites...,
+    -   klikněte pravým na kontejner Sites a zvolte Show Sites...,
             zaškrtněte **Default-First-Site-Name** a potvrďte OK
 
     b.  Klikněte pravým tlačítkem myši na místo
@@ -533,11 +518,9 @@ Lab L02 -- Zpracování GPO objektů
     a.  Ověřte, že v Control Panel chybí možnosti Fonts, Device Manager,
         Backup and Restore a Administrative Tools
 
-        -   Tip: přepněte zobrazení na velké ikony (View by: Large
-            icons)
+    -   Tip: přepněte zobrazení na velké ikony (View by: Large icons)
 
-        -   Pokud jsou zobrazené, spusťte **gpupdate /force**, zavřete a
-            znova otevřete Control Panel
+    -   Pokud jsou zobrazené, spusťte **gpupdate /force**, zavřete a znova otevřete Control Panel
 
 6.  Vytvořte nový GPO objekt **Domain GPO** a rovnou ho připojte k
     doméně **testing.local**
@@ -562,7 +545,7 @@ Lab L02 -- Zpracování GPO objektů
     b.  Ověřte, že Administrative Tools jsou nyní přítomny v Control
         Panel
 
-        -   Standardní GPO objekty připojené k doméně mají vždy vyšší
+    -   Standardní GPO objekty připojené k doméně mají vždy vyšší
             prioritu než standardní GPO objekty připojené k místu,
             **Domain GPO** objekt bude aplikován až po **Site GPO**
             objektu a přepíše tedy konfliktní nastavení
@@ -582,7 +565,7 @@ Lab L02 -- Zpracování GPO objektů
     b.  Ověřte, že Administrative Tools i Backup and Restore jsou
         přítomny v Control Panel
 
-        -   Standardní GPO objekty připojené k nějaké organizační
+    -   Standardní GPO objekty připojené k nějaké organizační
             jednotce mají vždy vyšší prioritu než standardní GPO objekty
             připojené k místu či doméně, **Brno GPO** objekt bude tedy
             aplikován až po **Domain GPO** a **Site GPO** objektech a
@@ -610,7 +593,7 @@ Lab L02 -- Zpracování GPO objektů
 
     b.  Ověřte, že Device Manager je nyní přítomen v Control Panel
 
-        -   V případě, že mají dva GPO objekty stejnou prioritu (jsou
+    -   V případě, že mají dva GPO objekty stejnou prioritu (jsou
             oba připojeny k doméně, místu nebo dané organizační
             jednotce), rozhoduje o pořadí jejich aplikace tzv. pořadí
             připojení (*link order*), **Brno Priority GPO** má nižší
@@ -641,7 +624,7 @@ Lab L02 -- Zpracování GPO objektů
     c.  Ověřte, že v Control Panel chybí pouze Fonts a na hlavním panelu
         chybí hodiny
 
-        -   Jelikož nastavení zásady, jenž odebírá hodiny, není
+    -   Jelikož nastavení zásady, jenž odebírá hodiny, není
             definováno v GPO objektech připojených k organizační
             jednotce **brno**, dojde ke zdědění nastavení této zásady
             z GPO objektů výše (GPO objektů aplikovaných dříve), v tomto
@@ -680,7 +663,7 @@ Lab L02 -- Zpracování GPO objektů
     c.  Ověřte, že pouze Administrative Tools jsou přítomny v Control
         Panel a na hlavním panelu chybí hodiny
 
-        -   Vynucené (*enforced*) GPO objekty jsou aplikovány vždy, i v
+    -   Vynucené (*enforced*) GPO objekty jsou aplikovány vždy, i v
             případě blokování dědičnosti, navíc má tento typ GPO objektů
             vyšší prioritu než standardní GPO objekty, tyto objekty jsou
             tedy aplikovány až po aplikaci všech standardních GPO
@@ -707,11 +690,11 @@ Lab L02 -- Zpracování GPO objektů
         Backup and Restore, Administrative Tools a na hlavním panelu
         chybí hodiny
 
-        -   Vynucené (*enforced*) GPO objekty mají opačnou prioritu
+    -   Vynucené (*enforced*) GPO objekty mají opačnou prioritu
             aplikace, nejprve vynucené objekty připojené k organizačním
             jednotkám, pak k doménám a až nakonec k místům
 
-Lab L03 -- Výsledné sady zásad
+## Lab L03 -- Výsledné sady zásad
 
 > **Cíl cvičení**
 >
@@ -735,9 +718,9 @@ Na klientovi ukažte nástroj **gpresult** a jeho použití, nejlépe
 Můžete zmínit, že **gpresult** je obdoba Group Policy Results pro
 příkazový řádek.
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
-Lab S01 -- Loopback zpracování GPO objektů
+## Lab S01 -- Loopback zpracování GPO objektů
 
 > **Cíl cvičení**
 >
@@ -798,11 +781,11 @@ Lab S01 -- Loopback zpracování GPO objektů
     b.  Vyberte uzel User Configuration \\ Policies \\ Administrative
         Templates \\ Control Panel \\ Personalization
 
-    c.  Klikněte pravým na zásadu Prevent changing sounds a zvolte Edit
+    c.  Klikněte pravým na zásadu *Prevent changing sounds* a zvolte Edit
 
     d.  Přepněte nastavení na Enabled a potvrďte OK
 
-    e.  Klikněte pravým na zásadu Prevent changing color and appearance
+    e.  Klikněte pravým na zásadu *Prevent changing color and appearance*
         a zvolte Edit
 
     f.  Přepněte nastavení na Disabled a potvrďte OK
@@ -812,8 +795,7 @@ Lab S01 -- Loopback zpracování GPO objektů
     barevné schéma (Settings -- Personalization -- Colors)
 
     -   Na uživatele jsou aplikována pouze nastavení z těch GPO objektů,
-        v jejichž rozsahu daný uživatel leží, tedy nastavení z **BrnoPCs
-        GPO** nejsou aplikována
+        v jejichž rozsahu daný uživatel leží, tedy nastavení z **BrnoPCs GPO** nejsou aplikována
 
 6.  Povolte *Loopback* zpracování GPO objektů v režimu nahrazení
 
@@ -842,7 +824,7 @@ Lab S01 -- Loopback zpracování GPO objektů
         Personalization -- Background) i barevné schéma (Settings --
         Personalization -- Colors) lze.
 
-        -   V režimu nahrazení (*replace*) jsou aplikována uživatelská
+    -   V režimu nahrazení (*replace*) jsou aplikována uživatelská
             nastavení pouze z GPO objektů, které mají ve svém rozsahu
             počítač, kde je daný uživatel přihlášen
 
@@ -870,15 +852,11 @@ Lab S01 -- Loopback zpracování GPO objektů
         Background), ale změnit barevné schéma (Settings --
         Personalization -- Colors) lze.
 
-        -   V režimu sloučení (*merge*) jsou nejprve aplikována
+    -   V režimu sloučení (*merge*) jsou nejprve aplikována
             uživatelská nastavení z GPO objektů, které mají ve svém
             rozsahu daného uživatele, a poté dále nastavení z GPO
             objektů, které mají ve svém rozsahu počítač, kde je daný
             uživatel přihlášen
-
-# Bodované úkoly {#bodované-úkoly .IW_nadpis1}
-
-
 
 [^1]: Služba **Vzdálené volání procedur (RPC)** umožňuje klientovi
     vykonávat na serveru akce, které jsou potřeba pro obdržení všech

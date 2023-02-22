@@ -1,4 +1,4 @@
-**Active Directory -- část 2**
+# Active Directory -- Schéma, Objekty, Operační servery
 
 **Operační servery**
 
@@ -53,50 +53,50 @@ Druhá kategorie zahrnuje role plněné v rámci konkrétní domény (tzv.
     hned několik důležitých funkcí pro danou doménu:
 
     -   **Emuluje funkci PDC** (*Primary Domain Controller*). Ve starých
-        > Windows NT 4.0 doménách mohl pouze **PDC** provádět změny v
-        > adresáři. Starší aplikace, nástroje a klienti si nejsou
-        > vědomi, že nyní může provádět změny v adresáři jakýkoliv řadič
-        > domény a vyžadují spojení s **PDC**. **PDC** emulátor
-        > zajišťuje zpětnou kompatibilitu **Active Directory** s těmito
-        > aplikacemi.
+        Windows NT 4.0 doménách mohl pouze **PDC** provádět změny v
+        adresáři. Starší aplikace, nástroje a klienti si nejsou
+        vědomi, že nyní může provádět změny v adresáři jakýkoliv řadič
+        domény a vyžadují spojení s **PDC**. **PDC** emulátor
+        zajišťuje zpětnou kompatibilitu **Active Directory** s těmito
+        aplikacemi.
 
     -   **Podílí se na speciální aktualizaci hesel v doméně**. Když je
-        > heslo uživatele změněno nebo *resetováno*, dojde okamžitě k
-        > replikaci těchto změn na **PDC** emulátor. Pokud uživatel zadá
-        > špatné heslo při přihlašování do domény, nedojde ihned k jeho
-        > zamítnutí, ale řadič domény, jenž uživatele *autentizuje*,
-        > přepošle požadavek na přihlášení **PDC** emulátoru. **PDC**
-        > emulátor ověří heslo, a pokud je v pořádku, instruuje řadič
-        > domény, aby *autentizaci* povolil. Tato funkce zajistí, že je
-        > uživatel autentizován i v případě, že si zrovna změnil heslo a
-        > tato změna ještě nebyla replikována na ostatní řadiče domény.
+        heslo uživatele změněno nebo *resetováno*, dojde okamžitě k
+        replikaci těchto změn na **PDC** emulátor. Pokud uživatel zadá
+        špatné heslo při přihlašování do domény, nedojde ihned k jeho
+        zamítnutí, ale řadič domény, jenž uživatele *autentizuje*,
+        přepošle požadavek na přihlášení **PDC** emulátoru. **PDC**
+        emulátor ověří heslo, a pokud je v pořádku, instruuje řadič
+        domény, aby *autentizaci* povolil. Tato funkce zajistí, že je
+        uživatel autentizován i v případě, že si zrovna změnil heslo a
+        tato změna ještě nebyla replikována na ostatní řadiče domény.
 
     -   **Spravuje aktualizace zásad skupiny** **v doméně**. Při
-        > modifikaci zásad skupiny na dvou řadičích domény současně může
-        > dojít ke konfliktům při replikaci provedených změn. Aby se
-        > vyhnulo těmto situacím, slouží **PDC** emulátor jako ústřední
-        > bod pro veškeré změny zásad skupiny. Tedy modifikace zásad
-        > skupiny se vždy provádí na **PDC** emulátoru.
+        modifikaci zásad skupiny na dvou řadičích domény současně může
+        dojít ke konfliktům při replikaci provedených změn. Aby se
+        vyhnulo těmto situacím, slouží **PDC** emulátor jako ústřední
+        bod pro veškeré změny zásad skupiny. Tedy modifikace zásad
+        skupiny se vždy provádí na **PDC** emulátoru.
 
     -   **Poskytuje hlavní zdroj času pro doménu**. Správná
-        > synchronizace času jednotlivých systémů je nezbytná pro
-        > správné fungování **Active Directory**, Kerberos, FRS, DFS-R
-        > apod., jelikož všechny tyto systémy a služby jsou závislé na
-        > časových razítkách (*timestamps*). **PDC** emulátor v kořenové
-        > doméně lesa je hlavní zdroj času pro celý les. **PDC**
-        > emulátory v každé doméně se synchronizují s **PDC** emulátorem
-        > v kořenové doméně lesa. Ostatní řadiče domény se pak
-        > synchronizují s **PDC** emulátorem v jejich doméně. Všechny
-        > ostatní počítače se nakonec synchronizují s některým z řadičů
-        > domény. Tento hierarchický přístup zajišťuje konzistenci času
-        > a je realizován službou Win32Time.
+        synchronizace času jednotlivých systémů je nezbytná pro
+        správné fungování **Active Directory**, Kerberos, FRS, DFS-R
+        apod., jelikož všechny tyto systémy a služby jsou závislé na
+        časových razítkách (*timestamps*). **PDC** emulátor v kořenové
+        doméně lesa je hlavní zdroj času pro celý les. **PDC**
+        emulátory v každé doméně se synchronizují s **PDC** emulátorem
+        v kořenové doméně lesa. Ostatní řadiče domény se pak
+        synchronizují s **PDC** emulátorem v jejich doméně. Všechny
+        ostatní počítače se nakonec synchronizují s některým z řadičů
+        domény. Tento hierarchický přístup zajišťuje konzistenci času
+        a je realizován službou Win32Time.
 
     -   **Působí jako doménový prohlížeč** (*domain master browser*).
-        > Při procházení sítě se klientovi zobrazují okolní domény a
-        > počítače ve formě tzv. *browse listu*. Tyto *browse listy*
-        > jsou vytvářeny službou prohlížeče (*browser*) na každém
-        > segmentu sítě. Doménový prohlížeč slučuje tyto *browse listy*
-        > do jediného, jenž je pak poskytnut klientům.
+        Při procházení sítě se klientovi zobrazují okolní domény a
+        počítače ve formě tzv. *browse listu*. Tyto *browse listy*
+        jsou vytvářeny službou prohlížeče (*browser*) na každém
+        segmentu sítě. Doménový prohlížeč slučuje tyto *browse listy*
+        do jediného, jenž je pak poskytnut klientům.
 
 **Globální katalog**
 
@@ -148,42 +148,45 @@ je však můžeme redefinovat a deaktivovat.
 
 Schéma AD je společné pro celý les.
 
-**Společné úkoly**
+---
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
+# AutomatedLab
+```
+$labName = 'E06'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
+set-labinstallationcredential -username root -password root4Lab
+add-labdomaindefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
 
--   Rozsah IP adres přidělených z *Default switch* se může od níže
-    uvedeného rozsahu lišit.
+Add-LabMachineDefinition -Name w2022-dc1-1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc2-1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC     -DomainName testing.local
+Add-LabMachineDefinition -Name w11-domain-1 -Memory 4GB -Processors 8  -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+Install-Lab
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
+
+# Společné úkoly
+
+-   Upravte nastavení RAM a CPU dle použitých PC
+
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **w10-domain**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-dc**       | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-repl**     | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **VM**         | **LAN**  |
+| -------------- | -------- |
+| **w11-domain** | Internal |
+| **w2022-dc1**  | Internal |
+| **w2022-dc2**  | Internal |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
--   Servery D+R+C w2016-dc a D+R+C w2016-repl je nutné spouštět společně
-
--   Na stanici **D+R+C w2016-dc** restartujte službu DHCP
-
-    -   DHCP MMC, vyberte w2016-dc.testing.local a z kontextové nabídky
-        All Tasks -- Restart
-
-**\
-**
-
-**Lektorské úkoly**
+## Lektorské úkoly
 
 Lab L01 -- ADAC (Active Directory Administrative Center)
 
@@ -193,9 +196,9 @@ Lab L01 -- ADAC (Active Directory Administrative Center)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2** 
 
 Otevřete administrativní centrum **Active Directory** (např. z nabídky
 Tools v server manageru). Ukažte i zde hierarchii kontejnerů.
@@ -222,9 +225,9 @@ Lab L02 -- Operační servery (Operations Masters) a globální katalog
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2** 
 
 Ukažte, kde se nastavují operační servery. **RID**, **PDC** a
 **Infrastructure** v **Active Directory Users and Computers** (pravý
@@ -235,12 +238,12 @@ klik na **testing.local** → Operations Masters...). **Domain Naming** v
 Master...).
 
 Ukažte, kde se nastavuje globální katalog v **Active Directory Sites and
-Services** (Sites → Default-First-Site-Name → Servers → w2016-dc, pravý
+Services** (Sites → Default-First-Site-Name → Servers → w2022-dc1, pravý
 klik na NTDS Settings, vybrat Properties, záložka General).
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
-Lab S01 -- Správa Active Directory pomocí Windows PowerShell (s  modulem
+## Lab S01 -- Správa Active Directory pomocí Windows PowerShell (s  modulem
 ActiveDirectory)
 
 > **Cíl cvičení**
@@ -251,13 +254,13 @@ ActiveDirectory)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
 > **Další prerekvizity**
 >
 > Organizační jednotka **brno** pod **testing.local**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Spusťte **Windows PowerShell**
@@ -266,51 +269,38 @@ ActiveDirectory)
         ActiveDirectory. Jeho import probíhá v PowerShellu od verze 3.0
         (obsaženém od Windows Serveru 2012) automaticky při prvním
         použití některého z obsažených příkazů. Pokud tomu tak nebude,
-        použijte příkaz **import-module ActiveDirectory**. Alternativně
+        použijte příkaz `import-module ActiveDirectory`. Alternativně
         lze použít zástupce **Active Directory Module for Windows
         Powershell** z **Administrative Tools**
 
 3.  Přidejte nového uživatele **lisa** do organizační jednotky **brno**
 
-    a.  Spusťte příkaz **New-ADuser lisa -Path
-        \"OU=brno,DC=testing,DC=local\"**
+    a.  Spusťte příkaz `New-ADuser lisa -Path "OU=brno,DC=testing,DC=local"`
 
     b.  Ověřte v **Active Directory Users and Computers**, že uživatel
         byl přidán
 
-        -   Protože jsme nedefinovali heslo, bude účet zakázán
-
-        -   Pokud uživatele v zadané OU nevidíte, zkuste použít refresh
+    -   Protože jsme nedefinovali heslo, bude účet zakázán
+    -   Pokud uživatele v zadané OU nevidíte, zkuste použít refresh
 
 4.  Změňte uživateli **lisa** heslo
 
-    a.  Spusťte příkaz **Set-ADAccountPassword
-        \"CN=lisa,OU=brno,DC=testing,DC=local\" -Reset -NewPassword
-        (ConvertTo-SecureString -AsPlainText \"aaa\" -Force)**
+    a.  Spusťte příkaz `Set-ADAccountPassword "CN=lisa,OU=brno,DC=testing,DC=local" -Reset -NewPassword (ConvertTo-SecureString -AsPlainText "aaa" -Force)`
 
-        -   Místo DN lze použít i jen **-Identity lisa** (viz
-            následující bod)
+    -   Místo DN lze použít i jen `-Identity lisa` (viz následující bod)
 
 5.  Povolte účet uživatele **lisa** a zařiďte, aby **lisa** nemusela
     měnit heslo při prvním přihlášení
 
-    a.  Spusťte příkaz **Set-ADUser -Identity lisa
-        -ChangePasswordAtLogon \$false --Enabled \$true**
+    a.  Spusťte příkaz `Set-ADUser -Identity lisa -ChangePasswordAtLogon $false -Enabled $true`
 
     b.  Ověřte změnu v **Active Directory Users and Computers**
 
-        -   Volitelně: Ověřte funkčnost vytvořeného účtu přihlášením do
-            domény **testing.local** na **w10-domain** jako uživatel
-            **lisa**
+    -   Volitelně: Ověřte funkčnost vytvořeného účtu přihlášením do domény **testing.local** na **w11-domain** jako uživatel **lisa**
 
 6.  Nastavte uživateli **lisa** příjmení (pomocí **Set-ADUser**)
 
-    -   samostatně, pokud si nevíte rady, zeptejte se lektora
-
-    ```{=html}
-    <!-- -->
-    ```
-    -   **Set-ADUser -Identity lisa -surname \"Simpson\"**
+    -  **samostatně** `"nospmiS" emanrus- asil ytitnedI- resUDA-teS`
 
 7.  Vypište informace o uživateli lisa
 
@@ -319,53 +309,43 @@ ActiveDirectory)
 8.  Vytvořte organizační jednotku **vut** pod organizační jednotkou
     **brno**
 
-    a.  Spusťte příkaz **New-ADOrganizationalUnit vut -Path
-        \"OU=brno,DC=testing,DC=local\"**
+    a.  Spusťte příkaz `New-ADOrganizationalUnit vut -Path "OU=brno,DC=testing,DC=local"`
 
     b.  Ověřte v **Active Directory Users and Computers**, že
         organizační jednotka byla vytvořena
 
 9.  Přesuňte uživatele **lisa** do organizační jednotky **vut**
 
-    a.  Spusťte příkaz **Move-ADObject
-        \"CN=lisa,OU=brno,DC=testing,DC=local\" -TargetPath
-        \"OU=vut,OU=brno,DC=testing,DC=local\"**
+    a.  Spusťte příkaz `Move-ADObject "CN=lisa,OU=brno,DC=testing,DC=local" -TargetPath "OU=vut,OU=brno,DC=testing,DC=local"`
 
     b.  Ověřte přesun v **Active Directory Users and Computers**
 
 10. Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce
     **vut**
 
-    a.  Spusťte příkaz **Get-ADUser -Filter \* -SearchBase \"OU=vut,
-        OU=brno, DC=testing, DC=local\" \| select name, surname,
-        enabled**
+    a.  Spusťte příkaz `Get-ADUser -Filter * -SearchBase "OU=vut, OU=brno, DC=testing, DC=local" | select name, surname, enabled`
 
 11. Zobrazte jméno, příjmení a stav pro všechny zakázané uživatelské
     účty v Objektu Users
 
-    a.  Spusťte příkaz **Get-ADUser -Filter \* -SearchBase \"CN=users,
-        DC=testing, DC=local\" \| where {\$\_.enabled --eq \$false} \|
-        select name, surname, enabled**
+    a.  Spusťte příkaz `Get-ADUser -Filter * -SearchBase "CN=users, DC=testing, DC=local" | where {$_.enabled --eq $false} | select name, surname, enabled`
 
 12. Smažte organizační jednotku **vut** i s celým jejím obsahem (bez
     potvrzování)
 
-    a.  Spusťte příkaz **Remove-ADOrganizationalUnit -Identity \"OU=vut,
-        OU=brno, DC=testing, DC=local\" -Recursive -confirm:\$false**
+    a.  Spusťte příkaz `Remove-ADOrganizationalUnit -Identity "OU=vut, OU=brno, DC=testing, DC=local" -Recursive -confirm:$false`
 
-        -   Nemělo by se podařit
+    -   Nemělo by se podařit
 
     b.  Zrušte ochranu proti náhodnému smazání pomocí příkazu
-        **Set-ADOrganizationalUnit\
-        -Identity \"OU=vut, OU=brno, DC=testing, DC=local\"
-        -ProtectedFromAccidentalDeletion \$false**
+        `Set-ADOrganizationalUnit -Identity "OU=vut, OU=brno, DC=testing, DC=local" -ProtectedFromAccidentalDeletion $false`
 
     c.  Pokuste se znova o smazání
 
     d.  Ověřte v **Active Directory Users and Computers**, že
         organizační jednotka byla smazána
 
-Lab S02 -- Správa Active Directory pomocí Windows PowerShell pomocí
+## Lab S02 -- Správa Active Directory pomocí Windows PowerShell pomocí
 pokročilých metod
 
 > **Cíl cvičení**
@@ -377,15 +357,15 @@ pokročilých metod
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
 > Organizační jednotka **brno** pod **testing.local**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Spusťte **Windows PowerShell**
@@ -394,13 +374,11 @@ pokročilých metod
     **brno**
 
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
-        jednotku **brno** pomocí příkazu **\$ouBrno =
-        \[ADSI\]\"LDAP://OU=brno,DC=testing,DC=local\"**
+        jednotku **brno** pomocí příkazu `$ouBrno = [ADSI]"LDAP://OU=brno,DC=testing,DC=local"`
 
-    b.  Vytvořte uživatele **maggie** příkazem **\$userMaggie =
-        \$ouBrno.Create(\"user\", \"CN=maggie\")**
+    b.  Vytvořte uživatele **maggie** příkazem `$userMaggie = $ouBrno.Create("user", "CN=maggie")`
 
-    c.  Potvrďte vytvoření uživatele příkazem **\$userMaggie.SetInfo()**
+    c.  Potvrďte vytvoření uživatele příkazem `$userMaggie.SetInfo()`
 
     d.  Ověřte v **Active Directory Users and Computers**, že uživatel
         byl přidán
@@ -408,42 +386,33 @@ pokročilých metod
 4.  Změňte uživateli **maggie** heslo
 
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
-        **maggie** pomocí příkazu **\$userMaggie =
-        \[ADSI\]\"LDAP://CN=maggie,OU=brno,DC=testing,DC=local\"**
+        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=brno,DC=testing,DC=local"`
 
-    b.  Změňte heslo uživatele **maggie** příkazem
-        **\$userMaggie.SetPassword(\"aaa\")**
+    b.  Změňte heslo uživatele **maggie** příkazem `$userMaggie.SetPassword("aaa")`
 
-    c.  Potvrďte změnu hesla příkazem **\$userMaggie.SetInfo()**
+    c.  Potvrďte změnu hesla příkazem `$userMaggie.SetInfo()`
 
 5.  Povolte účet uživatele **maggie**
 
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
-        **maggie** pomocí příkazu **\$userMaggie =
-        \[ADSI\]\"LDAP://CN=maggie,OU=brno,DC=testing,DC=local\"**
+        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=brno,DC=testing,DC=local"`
 
-    b.  Povolte účet příkazem
-        **\$userMaggie.InvokeSet(\"AccountDisabled\", \$false)**
+    b.  Povolte účet příkazem `$userMaggie.InvokeSet("AccountDisabled", $false)`
 
-    c.  Potvrďte povolení účtu příkazem **\$userMaggie.SetInfo()**
+    c.  Potvrďte povolení účtu příkazem `$userMaggie.SetInfo()`
 
-        -   Volitelně: Ověřte funkčnost vytvořeného účtu přihlášením do
-            domény **testing.local** na **w10-domain** jako uživatel
-            **maggie**
+    -   Volitelně: Ověřte funkčnost vytvořeného účtu přihlášením do domény **testing.local** na **w11-domain** jako uživatel **maggie**
 
 6.  Vytvořte organizační jednotku **vut** pod organizační jednotkou
     **brno**
 
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
-        jednotku **brno** pomocí příkazu **\$ouBrno =
-        \[ADSI\]\"LDAP://OU=brno,DC=testing,DC=local\"**
+        jednotku **brno** pomocí příkazu `$ouBrno = [ADSI]"LDAP://OU=brno,DC=testing,DC=local"`
 
     b.  Vytvořte organizační jednotku **vut** pod organizační jednotkou
-        **brno** příkazem **\$ouVut =
-        \$ouBrno.Create(\"organizationalUnit\", \"OU=vut\")**
+        **brno** příkazem `$ouVut = $ouBrno.Create("organizationalUnit", "OU=vut")`
 
-    c.  Potvrďte vytvoření organizační jednotky příkazem
-        **\$ouVut.SetInfo()**
+    c.  Potvrďte vytvoření organizační jednotky příkazem `$ouVut.SetInfo()`
 
     d.  Ověřte v **Active Directory Users and Computers**, že
         organizační jednotka byla vytvořena
@@ -451,63 +420,51 @@ pokročilých metod
 7.  Přesuňte uživatele **maggie** do organizační jednotky **vut**
 
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
-        **maggie** pomocí příkazu **\$userMaggie =
-        \[ADSI\]\"LDAP://CN=maggie,OU=brno,DC=testing,DC=local\"**
+        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=brno,DC=testing,DC=local"`
 
     b.  Získejte referenci na objekt, jenž reprezentuje organizační
-        jednotku **vut** pomocí příkazu **\$ouVut =
-        \[ADSI\]\"LDAP://OU=vut,OU=brno,DC=testing,DC=local\"**
+        jednotku **vut** pomocí příkazu `$ouVut = [ADSI]"LDAP://OU=vut,OU=brno,DC=testing,DC=local"`
 
     c.  Přesuňte uživatele **maggie** do organizační jednotky **vut**
-        příkazem **\$userMaggie.MoveTo(\$ouVut, \"CN=maggie\")**
+        příkazem `$userMaggie.MoveTo($ouVut, "CN=maggie")`
 
-8.  Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce
-    **vut**
-
+8.  Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce **vut**
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
-        jednotku **vut** pomocí příkazu **\$ouVut =
-        \[ADSI\]\"LDAP://OU=vut,OU=brno,DC=testing,DC=local\"**
+        jednotku **vut** pomocí příkazu `$ouVut = [ADSI]"LDAP://OU=vut,OU=brno,DC=testing,DC=local"`
 
     b.  Vypište seznam všech uživatelů v organizační jednotce **vut**
-        příkazem **\$ouVut.Children \| Format-List -property
-        distinguishedName**
+        příkazem `$ouVut.Children | Format-List -property distinguishedName`
 
 9.  Změňte uživateli **maggie** příjmení
-
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
-        **maggie** pomocí příkazu **\$userMaggie =
-        \[ADSI\]\"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local\"**
+        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local"`
 
     b.  Změňte příjmení uživatele **maggie** příkazem
-        **\$userMaggie.put(\"sn\", \"Simpson\")**
+        `$userMaggie.put("sn", "Simpson")`
 
-    c.  Potvrďte změnu příjmení příkazem **\$userMaggie.SetInfo()**
+    c.  Potvrďte změnu příjmení příkazem `$userMaggie.SetInfo()`
 
 10. Ověřte změnu příjmení
 
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
-        **maggie** pomocí příkazu **\$userMaggie =
-        \[ADSI\]\"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local\"**
+        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local"`
 
-    b.  Vypište přehledně informace o uživateli **maggie** příkazem
-        **\$userMaggie \| Format-List \***
+    b.  Vypište přehledně informace o uživateli **maggie** příkazem `$userMaggie | Format-List *`
 
-    c.  Vypište pouze informace o příjmení příkazem **\$userMaggie \|
-        Format-List -property sn**
+    c.  Vypište pouze informace o příjmení příkazem `$userMaggie | Format-List -property sn`
 
 11. Smažte organizační jednotku **vut** i s celým jejím obsahem
 
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
-        jednotku **vut** pomocí příkazu **\$ouVut =
-        \[ADSI\]\"LDAP://OU=vut,OU=brno,DC=testing,DC=local\"**
+        jednotku **vut** pomocí příkazu `$ouVut = [ADSI]"LDAP://OU=vut,OU=brno,DC=testing,DC=local"`
 
     b.  Smažte organizační jednotku **vut** příkazem
-        **\$ouVut.DeleteTree()**
+        `$ouVut.DeleteTree()`
 
 12. Ověřte v **Active Directory Users and Computers**, že organizační
     jednotka byla smazána
 
-Lab S03 -- Přesun operačního serveru (Operations Master)
+## Lab S03 -- Přesun operačního serveru (Operations Master)
 
 > **Cíl cvičení**
 >
@@ -515,11 +472,11 @@ Lab S03 -- Přesun operačního serveru (Operations Master)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2** 
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Otevřete **Active Directory Users and Computers**
@@ -527,17 +484,17 @@ Lab S03 -- Přesun operačního serveru (Operations Master)
     a.  Start → Administrative Tools → Active Directory Users and
         Computers
 
-3.  Připojte se na **w2016-repl**
+3.  Připojte se na **w2022-dc2**
 
     a.  Klikněte pravým na **testing.local** a zvolte Change Domain
         Controller...
 
     b.  V Change Directory Server zvolte This Domain Controller or AD
-        LDS instance a v seznamu vyberte **w2016-repl.testing.local**
+        LDS instance a v seznamu vyberte **w2022-dc2.testing.local**
 
     c.  Potvrďte OK
 
-4.  Přesuňte roli **PDC** emulátoru na **w2016-repl**
+4.  Přesuňte roli **PDC** emulátoru na **w2022-dc2**
 
     a.  Klikněte pravým na **testing.local** a zvolte Operations
         Masters...
@@ -559,16 +516,16 @@ Lab S04 -- Schéma AD
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2** 
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
     a.  Uživatel je členem Schema Admins
 
-2.  Otevřete příkazový řádek a příkazem **regsvr32 schmmgmt.dll**
+2.  Otevřete příkazový řádek a příkazem `regsvr32 schmmgmt.dll`
     zaregistrujte MMC snap-in
 
 3.  Otevřete novou MMC konzoli příkazem **mmc.exe**
@@ -579,10 +536,9 @@ Lab S04 -- Schéma AD
 5.  V levém panelu vyberte Active Directory Schema, pomocí Add \> daný
     snap-in přidejte mezi vybrané a následně OK dokončete průvodce
 
-6.  Klikněte pravým na uzel **Active Directory Schema
-    \[w2016-dc.testing.local\]** a zvolte Operations Masters...
+6.  Klikněte pravým na uzel **Active Directory Schema [w2022-dc1.testing.local]** a zvolte Operations Masters...
 
-    -   Zde lze přesunout FSMO Schema Master
+-   Zde lze přesunout FSMO Schema Master
 
 7.  Pomocí Close uzavřete okno Change Schema Master
 
@@ -592,11 +548,9 @@ Lab S04 -- Schéma AD
 
     -   **cn** -- Unicode textový řetězec délky 1 až 64 znaků
 
-    -   **securityIdentifier** -- všimněte si poznámky *This attribute
-        is single-valued*
+    -   **securityIdentifier** -- všimněte si poznámky *This attribute is single-valued*
 
-    -   **sIDHistory** -- všimněte si poznámky *This attribute is
-        multi-valued*
+    -   **sIDHistory** -- všimněte si poznámky *This attribute is multi-valued*
 
     -   **lastLogonTimestamp**
 
@@ -610,7 +564,7 @@ Lab S04 -- Schéma AD
 
     c.  Projděte si jednotlivé záložky s definicí
 
-        -   Abstraktní třída **top** je předkem všech ostatních tříd
+    -   Abstraktní třída **top** je předkem všech ostatních tříd
 
 10. Rozbalte uzel **Classes** a najděte třídu **user**
 
@@ -649,19 +603,13 @@ Lab S04 -- Schéma AD
     otevřete editor k nastavení.
 
 17. Do pole Value to add napište *Duff* a pomocí tlačítka Add přidejte.
-    Dle vlastního uvážení můžete přidat další nápoje. Na závěr potvrďte
-    OK.
+    Dle vlastního uvážení můžete přidat další nápoje. Na závěr potvrďte OK.
 
 # Bodované úkoly {#bodované-úkoly .IW_nadpis1}
 
 Úkol
 
--   Přesuňte role **jmenování domén** (domain naming) a **schéma**
-    (schema) na **w2016-repl**.
-
-```
--   Na jakémkoliv serveru vypsat operační servery pro všech 5 rolí
-    příkazem **netdom query fsmo**.
+-   Přesuňte role **jmenování domén** (domain naming) a **schéma** (schema) na **w2022-dc2**.
 
 [^1]: Replikace typu *multimaster* znamená, že replikaci může iniciovat
     jakýkoliv člen (server), což je umožněno existencí více tzv.

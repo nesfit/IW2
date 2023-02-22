@@ -399,19 +399,61 @@ modifikován:
     uživatelských nastavení daného uživatele podle uživatelských
     nastavení pro konkrétní počítač.
 
+---
+
+# AutomatedLab
+
+```
+$labName = 'E07'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+
+$adminPass = 'root4Lab'
+
+set-labinstallationcredential -username root -password $adminPass
+add-labdomaindefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
+
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w11-domain -Memory 4GB -Processors 8  -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
+
+
+Install-Lab
+
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = $adminPass | ConvertTo-SecureString -AsPlainText -Force
+    
+    New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
+    New-ADOrganizationalUnit -Name brnopcs -path "DC=testing,DC=local" 
+
+    New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
+    Move-ADObject "CN=w11-domain,OU=computers,DC=testing,DC=local" -TargetPath "OU=brnopcs,DC=testing,DC=local"
+
+} -ComputerName w2022-dc
+
+Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
+
+    Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer
+
+} -ComputerName w11-domain
+
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
+
+
 # Společné úkoly
+
+-   Upravte nastavení RAM a CPU dle použitých PC
 
 ## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **w10-domain**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-dc**             | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-
--   v případech, kdy je potřeba přistupovat na externí síť, připojte
-    adaptér **LAN1** k přepínači *Default switch*.
+| **VM**         | **LAN**  |
+| -------------- | -------- |
+| **w11-domain** | Internal |
+| **w2022-dc1**  | Internal |
 
 ## Lektorské úkoly
 
@@ -423,7 +465,7 @@ Lab L01 -- GPME (Group Policy Management Editor)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 
 Otevřete **GPME** konzoli a projděte ji. Ukažte, že konzole má zvlášť
 uzly pro *site* a zbytek (domény a OU) a že nemusí být všechny *site* a
@@ -455,13 +497,13 @@ Server 2008.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
-> Účet počítače **w10-domain** v organizační jednotce **brnopcs** v
+> Účet počítače **w11-domain** v organizační jednotce **brnopcs** v
 > doméně **testing.local**, účet uživatele **homer** v organizační
 > jednotce **brno** v doméně **testing.local**
 
@@ -512,7 +554,7 @@ Server 2008.
 
     c.  Pod Group Policy objects vyberte **Site GPO** a potvrďte OK
 
-5.  Přihlaste se na **w10-domain** jako uživatel **homer** a ověřte, že
+5.  Přihlaste se na **w11-domain** jako uživatel **homer** a ověřte, že
     nastavení byla aplikována
 
     a.  Ověřte, že v Control Panel chybí možnosti Fonts, Device Manager,
@@ -537,7 +579,7 @@ Server 2008.
     nyní jen **Microsoft.Fonts**, **Microsoft.DeviceManager** a
     **Microsoft.BackupAndRestore**, podle postupu z **bodu 3**
 
-8.  Na **w10-domain** ověřte, že byla aplikována nastavení zásad z GPO
+8.  Na **w11-domain** ověřte, že byla aplikována nastavení zásad z GPO
     objektu **Domain GPO**
 
     a.  Spusťte příkaz **gpupdate /force**
@@ -557,7 +599,7 @@ Server 2008.
     tentokrát **Microsoft.Fonts** a **Microsoft.DeviceManager**, podle
     postupu z **bodu 3**
 
-11. Na **w10-domain** ověřte, že byla aplikována nastavení zásad z GPO
+11. Na **w11-domain** ověřte, že byla aplikována nastavení zásad z GPO
     objektu **Brno GPO**
 
     a.  Spusťte příkaz **gpupdate /force**
@@ -586,7 +628,7 @@ Server 2008.
         vlevo **Brno Priority GPO** nad **Brno GPO**, aby **Brno
         Priority GPO** mělo nižší *link order* než **Brno GPO**
 
-15. Na **w10-domain** ověřte, že byla aplikována nastavení zásad z GPO
+15. Na **w11-domain** ověřte, že byla aplikována nastavení zásad z GPO
     objektu **Brno Priority GPO**
 
     a.  Spusťte příkaz **gpupdate /force**
@@ -613,7 +655,7 @@ Server 2008.
 
     d.  Přepněte nastavení na Enabled a potvrďte OK
 
-17. Na **w10-domain** ověřte, že došlo k aplikaci nastavení zásad z GPO
+17. Na **w11-domain** ověřte, že došlo k aplikaci nastavení zásad z GPO
     objektů **Brno Priority GPO** a **Domain GPO**
 
     a.  Spusťte příkaz **gpupdate /force**
@@ -635,7 +677,7 @@ Server 2008.
     a.  Klikněte pravým na organizační jednotku **brno** a zvolte Block
         Inheritance
 
-19. Na **w10-domain** ověřte, že nedošlo k aplikaci nastavení zásad z
+19. Na **w11-domain** ověřte, že nedošlo k aplikaci nastavení zásad z
     GPO objektu **Domain GPO**
 
     a.  Spusťte příkaz **gpupdate /force**
@@ -651,7 +693,7 @@ Server 2008.
     a.  Klikněte pravým na GPO odkaz **Domain GPO** připojený k doméně
         **testing.local** a vyberte Enforced
 
-21. Na **w10-domain** ověřte, že došlo k aplikaci nastavení zásad z GPO
+21. Na **w11-domain** ověřte, že došlo k aplikaci nastavení zásad z GPO
     objektu **Domain GPO** a ty navíc přepsaly konfliktní nastavení z
     GPO objektů **Brno GPO** i **Brno Priority GPO**
 
@@ -677,7 +719,7 @@ Server 2008.
     a.  Klikněte pravým na GPO odkaz **Site GPO** připojený k místu
         **Default-First-Site-Name** a pak zvolte Enforced
 
-23. Na **w10-domain** ověřte, že nastavení zásad z GPO objektu **Site
+23. Na **w11-domain** ověřte, že nastavení zásad z GPO objektu **Site
     GPO** přepsalo konfliktní nastavení zásad z GPO objektu **Domain
     GPO**
 
@@ -702,9 +744,9 @@ Server 2008.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-domain**
+> **w11-domain**
 
 Projděte nástroje Group Policy Modeling a Group Policy Results v
 **GPME**. Okomentujte jejich použití a upozorněte, v čem spočívá jejich
@@ -728,13 +770,13 @@ příkazový řádek.
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
-> Účet počítače **w10-domain** v organizační jednotce **brnopcs** v
+> Účet počítače **w11-domain** v organizační jednotce **brnopcs** v
 > doméně **testing.local**, účet uživatele **homer** v organizační
 > jednotce **brno** v doméně **testing.local**, GPO objekt **Brno GPO**
 > připojený k organizační jednotce **brno** v doméně **testing.local**
@@ -790,7 +832,7 @@ příkazový řádek.
 
     f.  Přepněte nastavení na Disabled a potvrďte OK
 
-5.  Přihlaste se na **w10-domain** jako uživatel **homer** a ověřte, že
+5.  Přihlaste se na **w11-domain** jako uživatel **homer** a ověřte, že
     nelze změnit tapetu (Settings -- Personalization -- Background) ani
     barevné schéma (Settings -- Personalization -- Colors)
 
@@ -812,7 +854,7 @@ příkazový řádek.
 
     e.  Potvrďte OK
 
-7.  Na **w10-domain** ověřte, že došlo k aplikaci pouze nastavení zásad
+7.  Na **w11-domain** ověřte, že došlo k aplikaci pouze nastavení zásad
     z **BrnoPCs GPO** objektu
 
     a.  Spusťte příkaz **gpupdate /target:computer /force**
@@ -840,7 +882,7 @@ příkazový řádek.
 
     d.  U Mode pod Options vyberte **Merge** a potvrďte OK
 
-9.  Na **w10-domain** ověřte, že došlo k aplikaci jak nastavení zásad z
+9.  Na **w11-domain** ověřte, že došlo k aplikaci jak nastavení zásad z
     GPO objektu **Brno GPO**, tak také z GPO objektu **BrnoPCs GPO**
 
     a.  Spusťte příkaz **gpupdate /target:computer /force**

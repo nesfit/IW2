@@ -1,7 +1,16 @@
 - [Active Directory - Zásady skupiny (uložení, šablony)](#active-directory---zásady-skupiny-uložení-šablony)
   - [Uložení GPO objektů](#uložení-gpo-objektů)
+  - [Replikace GPO objektů](#replikace-gpo-objektů)
+  - [Šablony pro správu](#šablony-pro-správu)
+  - [Instalace softwaru pomocí zásad skupiny](#instalace-softwaru-pomocí-zásad-skupiny)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
 - [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
-- [Bodované úkoly {#bodované-úkoly .IW\_nadpis1}](#bodované-úkoly-bodované-úkoly-iw_nadpis1)
+  - [Lab S01 -- Bezpečnostní filtry](#lab-s01----bezpečnostní-filtry)
+  - [Lab S02 -- Šablony pro správu](#lab-s02----šablony-pro-správu)
+  - [Lab S03 -- Publikace aplikací pomocí GPO objektů](#lab-s03----publikace-aplikací-pomocí-gpo-objektů)
+  - [Lab S04 -- Instalace aplikací pomocí GPO objektů a WMI filtrů](#lab-s04----instalace-aplikací-pomocí-gpo-objektů-a-wmi-filtrů)
+- [Bodované úkoly](#bodované-úkoly)
 
 # Active Directory - Zásady skupiny (uložení, šablony)
 
@@ -35,7 +44,7 @@ adresáři. Klient si pamatuje číslo verze každého **GPO** objektu, jenž
 aplikoval naposledy a při aktualizaci nejprve ověří, zda byl daný
 **GPO** objekt změněn a je potřeba ho tedy aplikovat.
 
-**Replikace GPO objektů**
+## Replikace GPO objektů
 
 Replikace **GPO** objektů mezi jednotlivými řadiči domény je
 komplikovanější, jelikož každá z obou komponent **GPO** objektu je
@@ -67,7 +76,7 @@ odpovídající **GPC** kontejner. Tyto nekonzistence mezi **GPC**
 kontejnery a **GPT** šablonami lze jednoduše identifikovat pomocí
 nástroje **Gpotool.exe**[^1] (*Group Policy Verification Tool*).
 
-**Šablony pro správu**
+## Šablony pro správu
 
 Zásady situované pod uzlem Šablony pro správu (*Administrative
 Templates*) slouží k modifikaci registru. V případě, že spadají pod uzel
@@ -134,7 +143,7 @@ domény\>*\\SYSVOL\\*\<FQDN domény\>*\\Policies** a pak do něj přesunout
 ***\<systém\>*\\PolicyDefinitions**, kde *\<systém\>* je kořenový
 adresář systému Windows na lokálním počítači.
 
-**Instalace softwaru pomocí zásad skupiny**
+## Instalace softwaru pomocí zásad skupiny
 
 Instalace softwaru pomocí zásad skupiny (**GPSI**, *Group Policy
 Software Instalation*) se používá pro zajištění přístupu uživatelů k
@@ -190,7 +199,7 @@ standardně neprovádí instalace softwaru přes pomalou linku. Toto chování
 lze změnit v zásadách skupiny, stejně jako práh pro rozhodování, zda je
 daná linka pokládána za pomalou.
 
-**Společné úkoly**
+# Společné úkoly
 
 -   Pro přístup na server **file** (a jiné) přes síťové rozhraní
     *Default switch* je nutné použít jeho plně kvalifikované doménové
@@ -202,7 +211,7 @@ daná linka pokládána za pomalou.
 -   Rozsah IP adres přidělených z *Default switch* se může od níže
     uvedeného rozsahu lišit.
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
@@ -217,7 +226,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 # Studentské úkoly {#studentské-úkoly .IW_nadpis1}
 
-Lab S01 -- Bezpečnostní filtry
+## Lab S01 -- Bezpečnostní filtry
 
 > **Cíl cvičení**
 >
@@ -246,10 +255,7 @@ Potřeba zkontrolovat a případně doplnit
 
     a.  Start → Administrative Tools → **Group Policy Management**
 
-```{=html}
-<!-- -->
-```
-1.  Vytvořte nový GPO objekt **Simpsons GPO** a rovnou ho připojte k
+3.  Vytvořte nový GPO objekt **Simpsons GPO** a rovnou ho připojte k
     doméně **testing.local**
 
     a.  Klikněte pravým na doménu **testing.local** a zvolte Create a
@@ -260,7 +266,7 @@ Potřeba zkontrolovat a případně doplnit
 
     c.  Potvrďte OK
 
-2.  V GPO objektu **Simpsons GPO** zakažte změnu barvy oken (Color)
+4.  V GPO objektu **Simpsons GPO** zakažte změnu barvy oken (Color)
 
     a.  Klikněte pravým na GPO objekt **Simpsons GPO** a zvolte Edit...
 
@@ -272,7 +278,7 @@ Potřeba zkontrolovat a případně doplnit
 
     d.  Přepněte nastavení na Enabled a potvrďte OK
 
-3.  Nastavte rozsah GPO objektu **Simpsons GPO** pouze na uživatele
+5.  Nastavte rozsah GPO objektu **Simpsons GPO** pouze na uživatele
     skupiny **Simpsons**
 
     a.  Vyberte GPO objekt **Simpsons GPO**
@@ -286,10 +292,10 @@ Potřeba zkontrolovat a případně doplnit
 
     e.  Vyberte skupinu Authenticated Users, zvolte Remove a potvrďte OK
 
-4.  Vytvořte nový GPO objekt **NonSimpsons GPO** podle postupu z **bodu
+6.  Vytvořte nový GPO objekt **NonSimpsons GPO** podle postupu z **bodu
     2**
 
-5.  V GPO objektu **NonSimpsons GPO** zakažte změnu motivů (Themes)
+7.  V GPO objektu **NonSimpsons GPO** zakažte změnu motivů (Themes)
 
     a.  Klikněte pravým na GPO objekt **NonSimpsons GPO** a zvolte
         Edit...
@@ -301,7 +307,7 @@ Potřeba zkontrolovat a případně doplnit
 
     d.  Přepněte nastavení na Enabled a potvrďte OK
 
-6.  Nastavte rozsah GPO objektu **NonSimpsons GPO** na všechny
+8.  Nastavte rozsah GPO objektu **NonSimpsons GPO** na všechny
     uživatele, jenž nejsou členy skupiny **Simpsons**
 
     a.  Vyberte GPO objekt **NonSimpsons GPO**
@@ -317,18 +323,18 @@ Potřeba zkontrolovat a případně doplnit
 
     f.  Zaškrtněte Deny u Apply group policy
 
-        -   Volitelně můžete také odškrtnout Allow u Read, ale to v
+    -   Volitelně můžete také odškrtnout Allow u Read, ale to v
             našem případě nebude dostatečné, protože je zaškrtnuto Allow
             Read u Authenticated Users.
 
     g.  Potvrďte OK a následně zvolte Yes
 
-7.  Přihlaste se na **w10-domain** jako uživatel **homer**
+9.  Přihlaste se na **w10-domain** jako uživatel **homer**
 
-8.  Spusťte příkaz **gpupdate /force**, uživatele odhlaste a přihlaste
+10. Spusťte příkaz **gpupdate /force**, uživatele odhlaste a přihlaste
     zpět
 
-9.  Ověřte, že uživatel **homer** nemůže měnit barvy, ale témata ano
+11. Ověřte, že uživatel **homer** nemůže měnit barvy, ale témata ano
 
     -   Settings \\ Personalization \\ Colors
 
@@ -339,10 +345,10 @@ Potřeba zkontrolovat a případně doplnit
         zvolte Advanced... a skupině Authenticated Users odeberte Allow
         u Apply group policy (tj. ponechte pouze Read)
 
-10. Přihlaste se na **w10-domain** jako uživatel **student** a ověřte,
+12. Přihlaste se na **w10-domain** jako uživatel **student** a ověřte,
     že pod tímto uživatelem nelze měnit motivy, ale barvy měnit lze
 
-Lab S02 -- Šablony pro správu
+## Lab S02 -- Šablony pro správu
 
 > **Cíl cvičení**
 >
@@ -421,7 +427,7 @@ Lab S02 -- Šablony pro správu
         Templates: Policy Definitions (ADMX files) retrieved from the
         central store.
 
-        -   Všimněte si, že došlo ke změně na z local computer na
+    -   Všimněte si, že došlo ke změně na z local computer na
             central store a jsou zobrazena pouze nastavení MS Office.
             Původní nastavení Windows doplníte nakopírováním
             odpovídajících admx a adml souborů ze složky
@@ -431,7 +437,7 @@ Lab S02 -- Šablony pro správu
 
     c.  Ukončete GPME
 
-Lab S03 -- Publikace aplikací pomocí GPO objektů
+## Lab S03 -- Publikace aplikací pomocí GPO objektů
 
 > **Cíl cvičení**
 >
@@ -473,7 +479,7 @@ Potřeba zkontrolovat a případně doplnit
 
     d.  Vyberte instalační soubor **\\\\w2016-dc\\share\\7z920.msi**
 
-        -   Zadaná cesta musí být síťovou cestou k instalačnímu souboru
+    -   Zadaná cesta musí být síťovou cestou k instalačnímu souboru
             aplikace, jinak nebude pro klienta možné lokalizovat na síti
             tento instalační soubor a instalace selže
 
@@ -492,9 +498,9 @@ Potřeba zkontrolovat a případně doplnit
 
     b.  Otevřete Programs and Features
 
-        1.  Control Panel → Programs and Features
+    1.  Control Panel → Programs and Features
 
-            -   Alternativně Settings → Apps → Apps & Features --
+        -   Alternativně Settings → Apps → Apps & Features --
                 Programs and Features pod Related settings
 
     c.  V panelu vlevo zvolte Install a program from the network
@@ -512,7 +518,7 @@ Potřeba zkontrolovat a případně doplnit
 6.  Na **w10-domain** spusťte **gpupdate /force**, odhlaste a znovu
     přihlaste uživatele **homer** a ověřte, že aplikace byla odstraněna
 
-Lab S04 -- Instalace aplikací pomocí GPO objektů a WMI filtrů
+## Lab S04 -- Instalace aplikací pomocí GPO objektů a WMI filtrů
 
 > **Cíl cvičení**
 >
@@ -588,7 +594,7 @@ Potřeba zkontrolovat a případně doplnit
 
     d.  Vyberte instalační soubor **\\\\w2016-dc\\share\\7z920.msi**
 
-        -   Zadaná cesta musí být síťovou cestou k instalačnímu souboru
+    -   Zadaná cesta musí být síťovou cestou k instalačnímu souboru
             aplikace, jinak nebude pro klienta možné lokalizovat na síti
             tento instalační soubor a instalace selže
 
@@ -643,12 +649,12 @@ Potřeba zkontrolovat a případně doplnit
 
     a.  Otevřete Programs and Features
 
-        1.  Control Panel → Programs and Features
+    1.  Control Panel → Programs and Features
 
     b.  Zkontrolujte, že je v seznamu přítomen **7-Zip 9.20** resp.
         **7-Zip 9.20 (x64 edition)**
 
-# Bodované úkoly {#bodované-úkoly .IW_nadpis1}
+# Bodované úkoly
 
 Úkol 1
 
@@ -658,9 +664,6 @@ Potřeba zkontrolovat a případně doplnit
     na řadič domény, byla aplikována nastavení v GPO objektu **DC GPO**
     ale ne nastavení v GPO objektu **Default Domain Policy**
 
-```{=html}
-<!-- -->
-```
 -   Ať studenti hned na začátku spustí na **w2016-dc** skript
     **run_prep.bat** (obsažen u adresáři **utils**, vyžaduje
     **prepare.ps1**), jenž automaticky vytvoří potřebné GPO objekty a

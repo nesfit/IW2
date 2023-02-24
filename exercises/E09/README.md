@@ -336,7 +336,7 @@ linek nebo celý proces replikace. Hlavní nastavení se týkají:
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
 | **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
+| ------------------------ | -------------- | -------------- | -------------- | -------------- |
 | **D+R+C w2016-dc**       | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
 | **D+R+C w2016-repl**     | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
 | **w2016-base**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |

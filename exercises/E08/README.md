@@ -3,9 +3,10 @@
   - [Replikace GPO objektů](#replikace-gpo-objektů)
   - [Šablony pro správu](#šablony-pro-správu)
   - [Instalace softwaru pomocí zásad skupiny](#instalace-softwaru-pomocí-zásad-skupiny)
+- [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
   - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
-- [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
+- [Studentské úkoly](#studentské-úkoly)
   - [Lab S01 -- Bezpečnostní filtry](#lab-s01----bezpečnostní-filtry)
   - [Lab S02 -- Šablony pro správu](#lab-s02----šablony-pro-správu)
   - [Lab S03 -- Publikace aplikací pomocí GPO objektů](#lab-s03----publikace-aplikací-pomocí-gpo-objektů)
@@ -199,32 +200,94 @@ standardně neprovádí instalace softwaru přes pomalou linku. Toto chování
 lze změnit v zásadách skupiny, stejně jako práh pro rozhodování, zda je
 daná linka pokládána za pomalou.
 
+---
+
+# AutomatedLab
+
+```
+$labName = 'E08'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+
+$adminPass = 'root4Lab'
+
+set-labinstallationcredential -username root -password $adminPass
+add-labdomaindefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
+
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w11-domain -Memory 4GB -Processors 8  -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
+
+
+Install-Lab
+
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    New-ADUser -Name student -SamAccountName Student -AccountPassword $password -Enabled $true
+    
+    New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
+    New-ADOrganizationalUnit -Name brnopcs -path "DC=testing,DC=local" 
+
+    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Path "OU=brno,DC=testing,DC=local" -Description "Members of this group are Simpsons"
+
+    $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
+
+    Add-ADGroupMember -Identity $Simpsons -Members $Homer
+
+    Move-ADObject "CN=w11-domain,CN=computers,DC=testing,DC=local" -TargetPath "OU=brnopcs,DC=testing,DC=local"
+
+    # Lab evaluation prep
+    Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "NoAutoUpdate" -Type DWORD -Value 0
+    Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "AUOptions" -Type DWORD -Value 2
+
+    New-GPO "DC GPO"
+    Set-GPRegistryValue -Name "DC GPO" -Key "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System" -ValueName "DisableTaskMgr" -Type DWORD -Value 1
+
+    $usersContainer = [ADSI]"LDAP://CN=Users,DC=testing,DC=local"
+    $iw2testUser = $usersContainer.Create("user", "CN=iw2test")
+    $iw2testUser.Put("sAMAccountName", "iw2test") 
+    $iw2testUser.SetInfo()
+    $iw2testUser.SetPassword("aaaAAA111")
+    $iw2testUser.SetInfo()
+    $iw2testUser.InvokeSet("AccountDisabled", $false)
+    $iw2testUser.SetInfo()
+
+    $soGroup = [ADSI]"LDAP://CN=Server Operators,CN=Builtin,DC=testing,DC=local" 
+    $soGroup.Member.Add("CN=iw2test,CN=Users,DC=testing,DC=local") 
+    $soGroup.CommitChanges()
+    
+} -ComputerName w2022-dc1
+
+Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
+
+    Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer
+
+} -ComputerName w11-domain
+
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
+
+
 # Společné úkoly
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
-
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
-
--   Rozsah IP adres přidělených z *Default switch* se může od níže
-    uvedeného rozsahu lišit.
+-   Upravte nastavení RAM a CPU dle použitých PC
 
 ## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **visualstudio W7**      | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w10-domain**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-dc**             | Default switch | Private1       | Nepřipojeno    | Nepřipojeno    |
+| **Adaptér (MAC suffix)** | **LAN**  |
+| ------------------------ | -------- |
+| **w10_x86**              | Internal |
+| **w11-domain**           | Internal |
+| **w2022-dc**             | Internal |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
-    adaptér **LAN1** k přepínači *Default switch*.
+    adaptér **LAN** k přepínači *Default switch*.
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
 ## Lab S01 -- Bezpečnostní filtry
 
@@ -235,9 +298,9 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
@@ -248,7 +311,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 Potřeba zkontrolovat a případně doplnit
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc** se přihlaste jako uživatel **administrator** do
     domény **testing.local**
 
 2.  Otevřete **GPME** (*Group Policy Management Editor*)
@@ -329,7 +392,7 @@ Potřeba zkontrolovat a případně doplnit
 
     g.  Potvrďte OK a následně zvolte Yes
 
-9.  Přihlaste se na **w10-domain** jako uživatel **homer**
+9.  Přihlaste se na **w11-domain** jako uživatel **homer**
 
 10. Spusťte příkaz **gpupdate /force**, uživatele odhlaste a přihlaste
     zpět
@@ -345,7 +408,7 @@ Potřeba zkontrolovat a případně doplnit
         zvolte Advanced... a skupině Authenticated Users odeberte Allow
         u Apply group policy (tj. ponechte pouze Read)
 
-12. Přihlaste se na **w10-domain** jako uživatel **student** a ověřte,
+12. Přihlaste se na **w11-domain** jako uživatel **student** a ověřte,
     že pod tímto uživatelem nelze měnit motivy, ale barvy měnit lze
 
 ## Lab S02 -- Šablony pro správu
@@ -356,18 +419,16 @@ Potřeba zkontrolovat a případně doplnit
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
-> Archiv **admintemplates_x86_4822-1000_en-us.exe** obsahující šablony
-> pro správu MS Office 2016 a 2019 (k dispozici lokálně na serveru
-> **file** v adresáři **\\\\file.nepal.local\\data\\kurzy pro FIT a
-> FEKT\\IW2\\cv08**)
+> Obstarejte si archiv **admintemplates_x86_4822-1000_en-us.exe** obsahující šablony
+> pro správu MS Office 2016 a 2019. Použijte Google / Bing... :)
 
-1.  Přihlaste se na **w2016-dc** jako uživatel **administrator**
+1.  Přihlaste se na **w2022-dc** jako uživatel **administrator**
 
 2.  Otevřete **GPME** (*Group Policy Management Editor*)
 
@@ -395,7 +456,7 @@ Potřeba zkontrolovat a případně doplnit
     c.  Ukončete GPME
 
 5.  Zkopírujte archiv **admintemplates_x86_4822-1000_en-us.exe** na
-    **w2016-dc**, rozbalte jej (spusťte, odsouhlaste licenční podmínky a
+    **w2022-dc**, rozbalte jej (spusťte, odsouhlaste licenční podmínky a
     vyberte cílovou složku, např. C:\\Office2016admx)
 
 6.  Prozkoumejte obsah získaných admx souborů ve složce **admx** a
@@ -404,9 +465,7 @@ Potřeba zkontrolovat a případně doplnit
     -   jedná se o soubory ve formátu xml, otevřete je v libovolném
         textovém editoru
 
-    -   všimněte si souboru office2016grouppolicyandoctsettings.xlsx (k
-        prozkoumání z fyzické stanice k dispozici i na
-        \\\\file.nepal.local\\data\\kurzy pro FIT a FEKT\\IW2\\cv08)
+    -   všimněte si souboru office2016grouppolicyandoctsettings.xlsx
 
 7.  Přejděte do **\\\\testing.local*\\*SYSVOL\\testing.local\\Policies**
     a vytvořte složku **PolicyDefinitions**
@@ -446,22 +505,20 @@ Potřeba zkontrolovat a případně doplnit
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
 > Účet uživatele **homer** v organizační jednotce **brno** v doméně
 > **testing.local**, GPO objekt **Brno GPO** připojený k organizační
 > jednotce **brno** v doméně **testing.local**, sdílený adresář
-> **share** na **w2016-dc** obsahující soubor **7z920.msi**
-> (**7z920.msi** je k dispozici lokálně na serveru **file** v adresáři
-> **\\\\file.nepal.local\\data\\kurzy pro FIT a FEKT\\IW2\\cv08**)
+> **share** na **w2022-dc** obsahující soubor **7z920.msi**.
 
 Potřeba zkontrolovat a případně doplnit
 
-1.  Přihlaste se na **w2016-dc** jako uživatel **administrator**
+1.  Přihlaste se na **w2022-dc** jako uživatel **administrator**
 
 2.  Otevřete **GPME** (*Group Policy Management Editor*)
 
@@ -477,7 +534,7 @@ Potřeba zkontrolovat a případně doplnit
     c.  Klikněte pravým na Software Instalation a zvolte New →
         Package...
 
-    d.  Vyberte instalační soubor **\\\\w2016-dc\\share\\7z920.msi**
+    d.  Vyberte instalační soubor **\\\\w2022-dc\\share\\7z920.msi**
 
     -   Zadaná cesta musí být síťovou cestou k instalačnímu souboru
             aplikace, jinak nebude pro klienta možné lokalizovat na síti
@@ -491,7 +548,7 @@ Potřeba zkontrolovat a případně doplnit
 
     g.  Potvrďte OK
 
-4.  Na **w10-domain** se přihlaste jako uživatel **homer** a
+4.  Na **w11-domain** se přihlaste jako uživatel **homer** a
     nainstalujte aplikaci
 
     a.  spusťte **gpupdate /force**
@@ -515,7 +572,7 @@ Potřeba zkontrolovat a případně doplnit
 
 5.  Přesuňte uživatele **homer** do kontejneru Users
 
-6.  Na **w10-domain** spusťte **gpupdate /force**, odhlaste a znovu
+6.  Na **w11-domain** spusťte **gpupdate /force**, odhlaste a znovu
     přihlaste uživatele **homer** a ověřte, že aplikace byla odstraněna
 
 ## Lab S04 -- Instalace aplikací pomocí GPO objektů a WMI filtrů
@@ -527,26 +584,25 @@ Potřeba zkontrolovat a případně doplnit
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc**
+> **w2022-dc**
 >
-> **visualstudio** (visualstudio W7) \[Windows 7 Professional SP1,
-> 32bit\]
+> **w10_x86**
 >
-> **w10-domain**
+> **w11-domain**
 >
 > **Další prerekvizity**
 >
 > Účet uživatele **homer** v doméně **testing.local**, sdílený adresář
-> **share** na **w2016-dc** obsahující soubory **7z920.msi** a
+> **share** na **w2022-dc** obsahující soubory **7z920.msi** a
 > **7z920-x64.msi** (**7z920.msi** i **7z920-x64.msi** jsou k dispozici
 > lokálně na serveru **file** v adresáři
 > **\\\\file.nepal.local\\data\\kurzy pro FIT a FEKT\\IW2\\cv08**)
 
 Potřeba zkontrolovat a případně doplnit
 
-1.  Přihlaste se na **visualstudio** jako uživatel **student**
+1.  Přihlaste se na **w10_x86** jako uživatel **student**
 
-2.  Připojte **visualstudio** do domény **testing.local**
+2.  Připojte **w10_x86** do domény **testing.local**
 
     a.  Otevřete System Properties (Vlastnosti systému)
 
@@ -565,7 +621,7 @@ Potřeba zkontrolovat a případně doplnit
 
     g.  Po připojení do domény proveďte restart
 
-3.  Na **w2016-dc** otevřete **GPME** (*Group Policy Management Editor*)
+3.  Na **w2022-dc** otevřete **GPME** (*Group Policy Management Editor*)
 
     a.  Start → Administrative Tools → **Group Policy Management**
 
@@ -592,7 +648,7 @@ Potřeba zkontrolovat a případně doplnit
     c.  Klikněte pravým na Software Instalation a zvolte New →
         Package...
 
-    d.  Vyberte instalační soubor **\\\\w2016-dc\\share\\7z920.msi**
+    d.  Vyberte instalační soubor **\\\\w2022-dc\\share\\7z920.msi**
 
     -   Zadaná cesta musí být síťovou cestou k instalačnímu souboru
             aplikace, jinak nebude pro klienta možné lokalizovat na síti
@@ -637,13 +693,13 @@ Potřeba zkontrolovat a případně doplnit
     instalační soubor **7z920-x64.msi** a WMI filtr **SELECT \* FROM
     Win32_OperatingSystem WHERE OSArchitecture=\"64-bit\"**
 
-9.  Na stanicích **visualstudio** a **w10-domain** spusťte **gpupdate
+9.  Na stanicích **w10_x86** a **w11-domain** spusťte **gpupdate
     /force** a následně je restartujte
 
     -   Nastavení počítače se aktualizují při startu počítače, nestačí
         se pouze odhlásit
 
-10. Přihlaste se na počítač **visualstudio**, resp. **w10-domain**, jako
+10. Přihlaste se na počítač **w10_x86**, resp. **w11-domain**, jako
     uživatel **homer** a ověřte, že byly nainstalovány aplikace **7-Zip
     9.20**, resp. **7-Zip 9.20 (x64 edition)**
 
@@ -663,11 +719,6 @@ Potřeba zkontrolovat a případně doplnit
     řadičů domény, dále zajistěte, aby na uživatele, kteří se přihlásí
     na řadič domény, byla aplikována nastavení v GPO objektu **DC GPO**
     ale ne nastavení v GPO objektu **Default Domain Policy**
-
--   Ať studenti hned na začátku spustí na **w2016-dc** skript
-    **run_prep.bat** (obsažen u adresáři **utils**, vyžaduje
-    **prepare.ps1**), jenž automaticky vytvoří potřebné GPO objekty a
-    uživatele
 
 [^1]: **Gpotool.exe** je k dispozici zde
     <http://go.microsoft.com/fwlink/?linkid=27766>

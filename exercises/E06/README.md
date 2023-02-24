@@ -603,7 +603,7 @@ Lab S04 -- Schéma AD
 17. Do pole Value to add napište *Duff* a pomocí tlačítka Add přidejte.
     Dle vlastního uvážení můžete přidat další nápoje. Na závěr potvrďte OK.
 
-# Bodované úkoly {#bodované-úkoly .IW_nadpis1}
+# Bodované úkoly
 
 Úkol
 

@@ -311,7 +311,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 Potřeba zkontrolovat a případně doplnit
 
-1.  Na **w2022-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Otevřete **GPME** (*Group Policy Management Editor*)
@@ -428,7 +428,7 @@ Potřeba zkontrolovat a případně doplnit
 > Obstarejte si archiv **admintemplates_x86_4822-1000_en-us.exe** obsahující šablony
 > pro správu MS Office 2016 a 2019. Použijte Google / Bing... :)
 
-1.  Přihlaste se na **w2022-dc** jako uživatel **administrator**
+1.  Přihlaste se na **w2022-dc** jako uživatel **root**
 
 2.  Otevřete **GPME** (*Group Policy Management Editor*)
 
@@ -518,7 +518,7 @@ Potřeba zkontrolovat a případně doplnit
 
 Potřeba zkontrolovat a případně doplnit
 
-1.  Přihlaste se na **w2022-dc** jako uživatel **administrator**
+1.  Přihlaste se na **w2022-dc** jako uživatel **root**
 
 2.  Otevřete **GPME** (*Group Policy Management Editor*)
 
@@ -614,8 +614,7 @@ Potřeba zkontrolovat a případně doplnit
 
     d.  Potvrďte OK
 
-    e.  Při výzvě o zadání účtu použijte účet **administrator** s heslem
-        **aaa**
+    e.  Při výzvě o zadání účtu použijte účet **root**
 
     f.  Potvrďte OK
 

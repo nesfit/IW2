@@ -19,8 +19,8 @@ Lectures and computer labs storage for IW2 course at FIT VUT.
 | E07 | 24.02  | Active Directory - Zásady skupiny (objekty, zpracování)        |
 | L06 | 24.02  | **Active Directory - Zásady skupiny (uložení, šablony)**       |
 | E08 | 24.02  | Active Directory - Zásady skupiny (uložení, šablony)           |
-| L07 | 24.02  | **Active Directory - Replikace**                               |
-| E09 | 24.02  | Active Directory - Replikace                                   |
+| L07 |        | **Active Directory - Replikace**                               |
+| E09 |        | Active Directory - Replikace                                   |
 | L08 |        | **Active Directory - Read-only řadiče domény**                 |
 | L09 |        | **Active Directory - Údržba, ochrana, Active Directory koš**   |
 | L10 |        | **Souborový server, FSRM, DFS**                                |

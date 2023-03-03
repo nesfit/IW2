@@ -1,4 +1,4 @@
-**Vztahy důvěry**
+# Active Directory - Vztahy důvěry
 
 V případě pracovní skupiny si každý počítač uchovává vlastní úložiště
 identit (*identity store*) ve formě **SAM** (*Security Accounts
@@ -166,46 +166,61 @@ authentication*), jenž umožňuje specifikovat, kteří uživatelé či skupiny
 mohou využívat služby na konkrétním počítači. Výběrovou autentizaci lze
 povolit u *external* a *forest* vztahů důvěry.
 
-# Společné úkoly {#společné-úkoly .IW_nadpis1}
+---
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
+# AutomatedLab
 
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
+```
+$labName = 'E12'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 
--   Rozsah IP adres přidělených z *Default switch* se může od níže
-    uvedeného rozsahu lišit.
+$adminPass = 'root4Lab'
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+Set-LabinstallationCredential -username root -password $adminPass
+
+Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
+Add-LabDomainDefinition -Name child.testing.local -AdminUser root -AdminPassword $adminPass
+Add-LabDomainDefinition -Name testing2.local2 -AdminUser root -AdminPassword $adminPass
+
+
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC -DomainName testing.local
+
+Add-LabMachineDefinition -Name w2022-child-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles FirstChildDC  -DomainName child.testing.local 
+
+Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing2.local2
+
+Install-Lab
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
+
+# Společné úkoly
+
+-   Upravte nastavení RAM a CPU dle použitých PC
+
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **D+R+C w2016-dc**       | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-repl**     | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-child**    | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-dc2**            | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+
+| **Adaptér (MAC suffix)** | **LAN**  |
+| ------------------------ | -------- |
+| **w2022-dc1**            | Internal |
+| **w2022-dc2**            | Internal |
+| **w2022-child-dc1**      | Internal |
+| **w2022-testing2-dc1**   | Internal |
 
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
--   Servery **D+R+C w2016-dc** **a D+R+C w2016-repl** je nutné spouštět
-    společně.
-
--   Na stanici **D+R+C w2016-dc** restartujte službu DHCP
-
-    -   DHCP MMC, vyberte w2016-dc.testing.local a z kontextové nabídky
-        All Tasks -- Restart
-
--   Tip: stanice **D+R+C w2016-dc** a **D+R+C w2016-repl** spusťte na
-    začátku cvičení.
+---
 
 # Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
 
-Lab L01 -- ADDT (Active Directory Domains and Trusts)
+## Lab L01 -- ADDT (Active Directory Domains and Trusts)
 
 > **Cíl cvičení**
 >
@@ -213,9 +228,9 @@ Lab L01 -- ADDT (Active Directory Domains and Trusts)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1**
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2**
 
 Otevřete **ADDT** konzoli a projděte ji. Na záložce Trusts ve
 vlastnostech domény **testing.local** ukažte automaticky vytvořené
@@ -226,7 +241,7 @@ vlastnosti nějakého vztahu důvěry. Řekněte k čemu je tranzitivita vztahů
 důvěry. Upozorněte na možnost Validate pro ověření funkčnosti daného
 vztahu důvěry.
 
-Lab L02 -- Vytvoření vztahů důvěry
+## Lab L02 -- Vytvoření vztahů důvěry
 
 > **Cíl cvičení**
 >
@@ -236,21 +251,21 @@ Lab L02 -- Vytvoření vztahů důvěry
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1**
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2**
 >
-> **w2016-child** (D+R+C w2016-child)
+> **w2022-child-dc1**
 >
-> **w2016-dc2** (w2016-dc2)
+> **w2022-testing2-dc1**
 >
 > **Další prerekvizity**
 >
-> Účet uživatele **administrator** v doméně **testing2.local2**
+> Účet uživatele **root** v doméně **testing2.local2**
 
-1.  Přihlaste se na **w2016-dc** jako **testing\\administrator**
+1.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
-2.  Přihlaste se na **w2016-dc2** jako **testing2\\administrator**
+2.  Přihlaste se na **w2022-testing2-dc1** jako **testing2\\root**
 
 3.  Nastavte podmíněné přeposílání DNS dotazů mezi doménami
     **testing.local** a **testing2.local2**
@@ -261,7 +276,7 @@ Lab L02 -- Vytvoření vztahů důvěry
     -   Zmiňte, že místo podmíněného přeposílání lze použít také třeba
         stub zónu
 
-    a.  Na **w2016-dc** otevřete **DNS**
+    a.  Na **w2022-dc1** otevřete **DNS**
 
         1.  Start → Administrative Tools → **DNS**
 
@@ -270,21 +285,18 @@ Lab L02 -- Vytvoření vztahů důvěry
 
     c.  Do pole DNS Domain zadejte **testing2.local2** a pod IP
         addresses of the master servers níže vložte IP adresu
-        **192.168.32.90** a potvrďte OK
+        <doplnte IP w2022-testing2-dc1> a potvrďte OK
 
-    d.  Opakujte **body 1.a -- 1.c** na **w2016-dc2**, tentokrát pro
-        doménu **testing.local** a IP adresu **192.168.32.5**
+    d.  Opakujte **body 1.a -- 1.c** na **w2022-testing2-dc1**, tentokrát pro
+        doménu **testing.local** a IP adresu <doplnte IP w2022-dc1>
 
     e.  Pomocí nástroje nslookup ověřte, že je nyní možné přeložit FQDN
         z opačné domény
 
-```{=html}
-<!-- -->
-```
-1.  Vytvořte nový *external* vztah důvěry tak, aby doména
+4.  Vytvořte nový *external* vztah důvěry tak, aby doména
     **child.testing.local** důvěřovala doméně **testing2.local2**
 
-    a.  Na **w2016-dc** otevřete **ADDT** (*Active Directory Domains and
+    a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -315,7 +327,7 @@ Lab L02 -- Vytvoření vztahů důvěry
         the specified domain a pak pokračujte Next \>
 
     h.  V další části User Name and Password zadejte účet uživatele
-        **testing2\\administrator** a heslo **aaa** a pokračujte Next \>
+        **testing2\\root** a pokračujte Next \>
 
         -   Doménové jméno není nutné uvádět, použije se dříve vybraná
             doména (je zobrazena jako Specified domain)
@@ -334,10 +346,10 @@ Lab L02 -- Vytvoření vztahů důvěry
 
     n.  Přečtěte si upozornění o zapnutém SID filtering a potvrďte OK
 
-2.  Ověřte, že bodem 2.g došlo i k vytvoření jednosměrného příchozího
+5.  Ověřte, že bodem 2.g došlo i k vytvoření jednosměrného příchozího
     vztahu důvěry v doméně **testing2.local2**
 
-    a.  Na **w2016-dc2** otevřete **ADDT** (*Active Directory Domains
+    a.  Na **w2022-testing2-dc1** otevřete **ADDT** (*Active Directory Domains
         and Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -350,12 +362,12 @@ Lab L02 -- Vytvoření vztahů důvěry
         **child.testing.local** mezi příchozími vztahy důvěry (incoming
         trusts)
 
-3.  Přihlaste se na **w2016-child** jako **child\\administrator**
+6.  Přihlaste se na **w2022-child-dc1** jako **child\\root**
 
-4.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
+7.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
     **child.testing.local**
 
-    a.  Na **w2016-child** otevřete **GPME** (*Group Policy Management
+    a.  Na **w2022-child-dc1** otevřete **GPME** (*Group Policy Management
         Editor*)
 
         1.  Start → Administrative Tools → **Group Policy Management**
@@ -383,35 +395,35 @@ Lab L02 -- Vytvoření vztahů důvěry
             k dispozici klientskou stanici. V praxi toto
             z bezpečnostních důvodů nikdy nedělejte.
 
-5.  Přihlaste se na **w2016-child** jako uživatel
-    **administrator@testing2.local2**
+8.  Přihlaste se na **w2022-child-dc1** jako uživatel
+    **root@testing2.local2**
 
     -   Přihlášení bude úspěšné, jelikož doména **testing2.local2** je
         důvěryhodnou doménou pro doménu **child.testing.local**
 
-6.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
-    **testing2.local2** provedením postupu z **bodu 5** na **w2016-dc2**
+9.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
+    **testing2.local2** provedením postupu z **bodu 5** na **w2022-testing2-dc1**
 
-7.  Přihlaste se na **w2016-dc2** jako uživatel
-    **administrator@child.testing.local**
+10. Přihlaste se na **w2022-testing2-dc1** jako uživatel
+    **root@child.testing.local**
 
     -   Přihlášení nebude úspěšné, jelikož doména
         **child.testing.local** není důvěryhodnou doménou pro doménu
         **testing2.local2**, vytvořený vztah je jednosměrný
 
-8.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
-    **testing.local** provedením postupu **bodu 5** na **w2016-dc**
+11. Povolte všem uživatelům přihlásit se na řadiče domény v doméně
+    **testing.local** provedením postupu **bodu 5** na **w2022-dc1**
 
-9.  Přihlaste se na **w2016-dc** jako uživatel
-    **administrator@testing2.local2**
+12. Přihlaste se na **w2022-dc1** jako uživatel
+    **root@testing2.local2**
 
     -   Přihlášení nebude úspěšné, jelikož doména **testing2.local2**
         není důvěryhodnou doménou pro doménu **testing.local**
 
-10. Smažte vytvořený *external* vztah důvěry mezi doménami
+13. Smažte vytvořený *external* vztah důvěry mezi doménami
     **child.testing.local** a **testing2.local2**
 
-    a.  Na **w2016-dc** otevřete **ADDT** (*Active Directory Domains and
+    a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -427,15 +439,15 @@ Lab L02 -- Vytvoření vztahů důvěry
 
     e.  Vyberte Yes, remove the trust from both the local domain and the
         other domain a použijte účet uživatele
-        **testing2\\administrator** s heslem **aaa**
+        **testing2\\root**
 
     f.  Potvrďte odebrání pomocí Yes
 
-11. Vytvořte *forest* vztah důvěry tak, aby kořenová doména lesa
+14. Vytvořte *forest* vztah důvěry tak, aby kořenová doména lesa
     **testing.local** důvěřovala kořenové doméně lesa
     **testing2.local2**
 
-    a.  Na **w2016-dc** otevřete **ADDT** (*Active Directory Domains and
+    a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -483,10 +495,10 @@ Lab L02 -- Vytvoření vztahů důvěry
 
     n.  Potvrďte pomocí Finish
 
-12. Dokončete vytvoření forest vztahu důvěry v doméně
+15. Dokončete vytvoření forest vztahu důvěry v doméně
     **testing2.local2**
 
-    a.  Na **w2016-dc2** otevřete **ADDT** (*Active Directory Domains
+    a.  Na **w2022-testing2-dc1** otevřete **ADDT** (*Active Directory Domains
         and Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -519,13 +531,12 @@ Lab L02 -- Vytvoření vztahů důvěry
     k.  Pokračujte Next \>
 
     l.  V části Confirm Incoming Trust zvolte Yes, confirm the incoming
-        trust a zadejte účet uživatele **testing\\administrator** a
-        heslo **aaa** a pokračujte Next \>
+        trust a zadejte účet uživatele **testing\\root** a pokračujte Next \>
 
     m.  Potvrďte pomocí Finish
 
-13. Přihlaste se na **w2016-dc** jako uživatel
-    **administrator@testing2.local2**
+16. Přihlaste se na **w2022-dc1** jako uživatel
+    **root@testing2.local2**
 
     -   Přihlášení bude úspěšné, jelikož doména **testing2.local2** je
         důvěryhodnou doménou pro doménu **testing.local**
@@ -538,15 +549,15 @@ Lab L02 -- Vytvoření vztahů důvěry
         domain zkuste chvíli počkat a případně forest trust zrušit a
         znovu nastavit
 
-14. Přihlaste se na **w2016-dc2** jako uživatel
-    **administrator@testing.local**
+17. Přihlaste se na **w2022-testing2-dc1** jako uživatel
+    **root@testing.local**
 
     -   Přihlášení nebude úspěšné, jelikož doména **testing.local** není
         důvěryhodnou doménou pro doménu **testing2.local2**, vytvořený
         vztah je jednosměrný
 
-15. Přihlaste se na **w2016-child** jako uživatel
-    **administrator@testing2.local2**
+18. Přihlaste se na **w2022-child-dc1** jako uživatel
+    **root@testing2.local2**
 
     -   Přihlášení bude úspěšné, jelikož doména **testing2.local2** je
         důvěryhodnou doménou pro doménu **testing.local**, doména
@@ -567,22 +578,22 @@ Lab S01 -- Zabezpečení vztahů důvěry
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** (D+R+C w2022-dc1)
 >
-> **w2016-child** (D+R+C w2016-child)
+> **w2022-child-dc1** (D+R+C w2022-child-dc1)
 >
-> **w2016-dc2** (w2016-dc2)
+> **w2022-testing2-dc1** (w2022-testing2-dc1)
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol **Lab L02**
 
-1.  Přihlaste se na **w2016-dc** jako **testing\\administrator**
+1.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
 2.  Povolte výběrovou autentizaci pro *forest* vztah důvěry mezi
     **testing.local** a **testing2.local2**
 
-    a.  Na **w2016-dc** otevřete **ADDT** (*Active Directory Domains and
+    a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -600,18 +611,18 @@ Lab S01 -- Zabezpečení vztahů důvěry
 
     f.  Potvrďte dvakrát OK
 
-3.  Přihlaste se na **w2016-dc** jako uživatel
-    **administrator@testing2.local2**
+3.  Přihlaste se na **w2022-dc1** jako uživatel
+    **root@testing2.local2**
 
     -   Přihlášení nebude úspěšné, jelikož po povolení selektivní
         *autentizace* nelze využívat žádné služby počítačů v důvěřující
         doméně
 
-4.  Přihlaste se na **w2016-dc** jako **testing\\administrator**
+4.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
-5.  Povolte využívání služeb **w2016-dc**
+5.  Povolte využívání služeb **w2022-dc1**
 
-    a.  Na **w2016-dc** otevřete **ADUC** (*Active Directory Users and
+    a.  Na **w2022-dc1** otevřete **ADUC** (*Active Directory Users and
         Computers*)
 
         1.  Start → Administrative Tools → **Active Directory Users and
@@ -623,7 +634,7 @@ Lab S01 -- Zabezpečení vztahů důvěry
 
     c.  Vyberte organizační jednotku Domain Controllers
 
-    d.  Klikněte pravým na účet počítače **w2016-dc** a zvolte
+    d.  Klikněte pravým na účet počítače **w2022-dc1** a zvolte
         Properties
 
     e.  Přejděte na záložku Security, pak v seznamu pod Group or user
@@ -632,31 +643,31 @@ Lab S01 -- Zabezpečení vztahů důvěry
 
     f.  Potvrďte OK
 
-6.  Přihlaste se na **w2016-dc** jako uživatel
-    **administrator@testing2.local2**
+6.  Přihlaste se na **w2022-dc1** jako uživatel
+    **root@testing2.local2**
 
     -   Přihlášení již bude úspěšné, jelikož všichni uživatelé z
         důvěryhodných domén jsou členy skupiny Authenticated Users a ta
         má nyní oprávnění využívat služby tohoto počítače
 
-7.  Přihlaste se na **w2016-dc** jako **testing\\administrator**
+7.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
 8.  Vypněte doménovou karanténu pro *forest* vztah důvěry mezi
     **testing.local** a **testing2.local2**
 
-    a.  Na **w2016-dc** spusťte jako administrátor příkazový řádek
+    a.  Na **w2022-dc1** spusťte jako administrátor příkazový řádek
 
     b.  Spusťte příkaz **netdom trust testing.local /d:testing2.local2
-        /quarantine:no /userD:administrator@testing2.local2
+        /quarantine:no /userD:root@testing2.local2
         /passwordD:aaa**
 
 9.  Zapněte doménovou karanténu pro *forest* vztah důvěry mezi
     **testing.local** a **testing2.local2**
 
-    a.  Na **w2016-dc** spusťte jako administrátor příkazový řádek
+    a.  Na **w2022-dc1** spusťte jako administrátor příkazový řádek
 
     b.  Spusťte příkaz **netdom trust testing.local /d:testing2.local2
-        /quarantine:yes** **/userD:administrator@testing2.local2
+        /quarantine:yes** **/userD:root@testing2.local2
         /passwordD:aaa**
 
 # Bodované úkoly {#bodované-úkoly .IW_nadpis1}
@@ -670,7 +681,7 @@ Lab S01 -- Zabezpečení vztahů důvěry
     možné.
 
 
--   Na **w2016-dc** zkontrolovat *incoming* a *outgoing* vztahy důvěry
+-   Na **w2022-dc1** zkontrolovat *incoming* a *outgoing* vztahy důvěry
     do **testing2.local2** a také, že nejsou tranzitivní.
 
 [^1]: Kořenová doména lesa je první doména vytvořená v daném lese

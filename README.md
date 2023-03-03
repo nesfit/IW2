@@ -14,15 +14,16 @@ Lectures and computer labs storage for IW2 course at FIT VUT.
 | E04 | 17.02. | Systém DNS                                                     |
 | L04 | 17.02. | **Active Directory - Schéma, Objekty, Operační servery**       |
 | E05 | 17.02. | Active Directory - Instalace, UAC                              |
-| E06 | 24.02  | Active Directory - Schéma, Objekty, Operační servery           |
-| L05 | 24.02  | **Active Directory - Zásady skupiny (objekty, zpracování)**    |
-| E07 | 24.02  | Active Directory - Zásady skupiny (objekty, zpracování)        |
-| L06 | 24.02  | **Active Directory - Zásady skupiny (uložení, šablony)**       |
-| E08 | 24.02  | Active Directory - Zásady skupiny (uložení, šablony)           |
-| L07 |        | **Active Directory - Replikace**                               |
-| E09 |        | Active Directory - Replikace                                   |
-| L08 |        | **Active Directory - Read-only řadiče domény**                 |
-| L09 |        | **Active Directory - Údržba, ochrana, Active Directory koš**   |
+| E06 | 24.02. | Active Directory - Schéma, Objekty, Operační servery           |
+| L05 | 24.02. | **Active Directory - Zásady skupiny (objekty, zpracování)**    |
+| E07 | 24.02. | Active Directory - Zásady skupiny (objekty, zpracování)        |
+| L06 | 24.02. | **Active Directory - Zásady skupiny (uložení, šablony)**       |
+| E08 | 24.02. | Active Directory - Zásady skupiny (uložení, šablony)           |
+| L07 | 03.03. | **Active Directory - Replikace**                               |
+| E09 | 03.03. | Active Directory - Replikace                                   |
+| L08 | 03.03. | **Active Directory - Read-only řadiče domény**                 |
+| E10 | 03.03. | Active Directory - Read-only řadiče domény                 |
+| L09 | 03.03. | **Active Directory - Údržba, ochrana, Active Directory koš**   |
 | L10 |        | **Souborový server, FSRM, DFS**                                |
 | L11 |        | **Windows PowerShell - Pro správu serveru a Active Directory** |
 

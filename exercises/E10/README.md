@@ -1,4 +1,4 @@
-**RODC (Read-Only Domain Controller)**
+# Active Directory - Read-only řadiče domény
 
 Pokud je nějaká doména rozprostřena přes více míst (*sites*), nastává
 otázka, kde umístit jednotlivé řadiče domény. Síťová propojení mezi

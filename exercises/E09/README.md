@@ -689,7 +689,7 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
         resp. **w2022** a zvolte Replicate configuration to the
         selected DC
 
-        -   Pokud replikace selže, přejděte (připojte se pomocí
+    -   Pokud replikace selže, přejděte (připojte se pomocí
             **ADSS**) na **w2022-dc2** resp. **w2022**, klikněte
             pravým na uzel NTDS Settings pod uzlem **w2022-dc1** a zvolte
             Replicate configuration from the selected DC
@@ -710,10 +710,10 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 
     a.  Ověřte, že na **w2022-dc2** byla změna replikována
 
-        -   Pozor kam se připojí **ADUC** konzole, viz upozornění níže u
+    -   Pozor kam se připojí **ADUC** konzole, viz upozornění níže u
             **RODC**
 
-            -   Změny se projeví až za cca. 15 sekund, až po 15
+    -   Změny se projeví až za cca. 15 sekund, až po 15
                 sekundách bude totiž zasláno oznámení prvnímu z řadičů
                 domény v daném místě, jehož replikačním partnerem je
                 **w2022-dc1**, v tomto případě tedy řadiči domény
@@ -721,7 +721,7 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 
     b.  Ověřte, že **na w2022** nedošlo k žádným změnám
 
-        -   **Pozor** na používání **ADUC** konzole na **RODC**
+    -   **Pozor** na používání **ADUC** konzole na **RODC**
             řadičích, tato konzole se primárně připojuje k normálním
             řadičům domény, které mohou zapisovat do **Active
             Directory** databáze, po otevření této konzole může být
@@ -792,67 +792,53 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 
 2.  Otevřete **ADSS** (*Active Directory Sites and Services*)
 
-    a.  Start → Administrative Tools → **Active Directory Sites and
-        Services**
+    a.  Start → Administrative Tools → **Active Directory Sites and Services**
 
-3.  Smažte všechny objekty spojení zahrnující **w2022-dc1**,
-    **w2022-dc2** a **w2022**
+3.  Smažte všechny objekty spojení zahrnující **w2022-dc1**, **w2022-dc2** a **w2022**
 
     a.  Klikněte pravým na objekt spojení a zvolte Delete
 
     b.  Potvrďte smazání pomocí Yes
 
-        -   Pokud objekt spojení nepůjde smazat, ověřte, že není chráněn
+    -   Pokud objekt spojení nepůjde smazat, ověřte, že není chráněn
             proti smazání
 
-            1.  Klikněte pravým na objekt spojení a zvolte Properties
+        1.  Klikněte pravým na objekt spojení a zvolte Properties
 
-            2.  Přejděte na záložku Object
+        2.  Přejděte na záložku Object
 
-            3.  Odškrtněte možnost Protect object from accidental
+        3.  Odškrtněte možnost Protect object from accidental
                 deletion
 
-            4.  Potvrďte pomocí OK
+        4.  Potvrďte pomocí OK
 
-4.  Nastavte **w2022-dc1** jako **ISTG** (*Intersite Topology Generator*)
-    pro místo **VUT**
-
-    a.  Vyberte místo **VUT**
-
-    b.  V okně napravo klikněte pravým na NTDS Site Settings a zvolte
-        Properties
-
-    c.  Přejděte na záložku Attribute Editor, vyberte atribut
-        **interSiteTopologyGenerator** a zvolte Edit
-
-    d.  Zadejte hodnotu **CN=NTDS
-        Settings,CN=W2022-DC1,CN=Servers,CN=VUT,CN=Sites,
-        CN=Configuration,DC=testing,DC=local**
-
-5.  Povolte automatické generování místní a mezimístní replikační
-    topologie pro místo **VUT**
+4.  Nastavte **w2022-dc1** jako **ISTG** (*Intersite Topology Generator*) pro místo **VUT**
 
     a.  Vyberte místo **VUT**
 
-    b.  Klikněte pravým na NTDS Site Settings v okně napravo a zvolte
-        Properties
+    b.  V okně napravo klikněte pravým na NTDS Site Settings a zvolte  Properties
 
-    c.  Přejděte na záložku Attribute Editor, vyberte atribut
-        **options** a zvolte Edit
+    c.  Přejděte na záložku Attribute Editor, vyberte atribut **interSiteTopologyGenerator** a zvolte Edit
+
+    d.  Zadejte hodnotu **CN=NTDS Settings,CN=W2022-DC1,CN=Servers,CN=VUT,CN=Sites,CN=Configuration,DC=testing,DC=local**
+
+5.  Povolte automatické generování místní a mezimístní replikační topologie pro místo **VUT**
+
+    a.  Vyberte místo **VUT**
+
+    b.  Klikněte pravým na NTDS Site Settings v okně napravo a zvolte Properties
+
+    c.  Přejděte na záložku Attribute Editor, vyberte atribut **options** a zvolte Edit
 
     d.  Zvolte Clear a potvrďte pomocí OK
 
-6.  Nastavte **w2022-dc1** jako **ISTG** pro místo **FIT** a povolte pro
-    toto místo generování místní a mezimístní replikační topologie podle
-    postupu z **bodů 4 -- 5**
+6.  Nastavte **w2022** jako **ISTG** pro místo **FIT** a povolte pro toto místo generování místní a mezimístní replikační topologie podle postupu z **bodů 4 -- 5**
 
-7.  Nastavte **w2022-dc1** jako upřednostňovaný bridgehead server pro
-    místo **VUT**
+7.  Nastavte **w2022-dc1** jako upřednostňovaný bridgehead server pro místo **VUT**
 
     a.  Klikněte pravým na uzel **w2022-dc1** a zvolte Properties
 
-    b.  Pod Transports available for inter-site data transfer vyberte
-        **IP** a zvolte Add \>\>
+    b.  Pod Transports available for inter-site data transfer vyberte **IP** a zvolte Add \>\>
 
     c.  Potvrďte pomocí OK
 
@@ -871,67 +857,52 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
     a.  Pokud nejsou objekty spojení pod NTDS Settings viditelné,
         klikněte pravým na uzel NTDS Settings a zvolte Refresh
 
-        -   Pokud došlo k vygenerování replikační topologie
+    -   Pokud došlo k vygenerování replikační topologie
             z **w2022-dc2** směrem k **w2022-dc1**, použijte v místě
             **VUT** k editaci ADSS připojené k serveru **w2022-dc2**
             (alternativně bude potřeba po jednotlivých změnách potřeba
             použít Replicate configuration to the selected DC).
 
-10. Vygenerujte mezimístní replikační topologii mezi místy **FIT** a
-    **VUT**
+10. Vygenerujte mezimístní replikační topologii mezi místy **FIT** a **VUT**
 
     a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2022** a
         pod All Tasks zvolte Check Replication Topology
 
     b.  Potvrďte pomocí OK
 
-11. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2022-dc1**
-    do **w2022**
+11. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2022-dc1** do **w2022**
 
-    a.  Na **w2022** otevřete **ADSS** (*Active Directory Sites and
-        Services*)
+    a.  Na **w2022** otevřete **ADSS** (*Active Directory Sites and Services*)
 
-        1.  Start → Administrative Tools → **Active Directory Sites and
-            Services**
+    1.  Start → Administrative Tools → **Active Directory Sites and Services**
 
     b.  Připojte se k **w2022**
 
-        1.  Klikněte pravým na Active Directory Users and Computers a
-            zvolte Change Domain Controller...
+    1.  Klikněte pravým na Active Directory Users and Computers a zvolte Change Domain Controller...
 
-        2.  Pod Change to zvolte možnost This Domain Controller or AD
-            LDS instance a vyberte **w2022.testing.local**
+    2.  Pod Change to zvolte možnost This Domain Controller or AD LDS instance a vyberte **w2022.testing.local**
 
-        3.  Potvrďte dvakrát pomocí OK
+    3.  Potvrďte dvakrát pomocí OK
 
     c.  Vyberte uzel NTDS Settings pod uzlem **w2022**
 
-    d.  Zkontrolujte, že vygenerované spojení (objekt spojení) jde z
-        (From Server) **w2022-dc1**
+    d.  Zkontrolujte, že vygenerované spojení (objekt spojení) jde z (From Server) **w2022-dc1**
 
-12. Vraťte se zpátky na **w2022-dc1** (resp. **w2022-dc2**) a zrušte
-    **w2022-dc1** jako upřednostňovaný bridgehead server pro místo
-    **VUT**
+12. Vraťte se zpátky na **w2022-dc1** (resp. **w2022-dc2**) a zrušte **w2022-dc1** jako upřednostňovaný bridgehead server pro místo **VUT**
 
     a.  Klikněte pravým na uzel **w2022-dc1** a zvolte Properties
 
-    b.  Pod This server is a preferred bridgehead server for the
-        following transports vyberte IP a zvolte \<\< Remove
+    b.  Pod This server is a preferred bridgehead server for the following transports vyberte IP a zvolte \<\< Remove
 
     c.  Potvrďte pomocí OK
 
-13. Nastavte **w2022-dc2** jako upřednostňovaný bridgehead server pro
-    místo **VUT** podle postupu z **bodu 7.a**
+13. Nastavte **w2022-dc2** jako upřednostňovaný bridgehead server pro místo **VUT** podle postupu z **bodu 7.a**
 
-14. Přegenerujte mezimístní replikační topologii mezi místy **FIT** a
-    **VUT** podle postupu z **bodu 10**
+14. Přegenerujte mezimístní replikační topologii mezi místy **FIT** a **VUT** podle postupu z **bodu 10**
 
-15. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2022-dc2**
-    do **w2022**
+15. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2022-dc2** do **w2022**
 
-    -   Pokud spojení nebylo vytvořeno, proveďte postup z **bodu 10** na
-        **w2022**
-
+    -   Pokud spojení nebylo vytvořeno, proveďte postup z **bodu 10** na **w2022**
 
 # Bodované úkoly
 

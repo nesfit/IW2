@@ -387,17 +387,6 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
--   Servery **w2022-dc1** **a w2022-dc2** je nutné spouštět
-    společně.
-
--   Na stanici **w2022-dc1** restartujte službu DHCP
-
-    -   DHCP MMC, vyberte w2016-dc.testing.local a z kontextové nabídky
-        All Tasks -- Restart
-
--   Tip: stanice **w2022-dc1** a **w2022-dc2** spusťte na
-    začátku cvičení.
-
 # Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
 
 Lab L01 -- instalace RODC pomocí skriptu
@@ -408,22 +397,18 @@ Lab L01 -- instalace RODC pomocí skriptu
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (w2022-dc1)
+> **w2022-dc1** (w2022-dc1)
 >
-> **w2016-repl** (w2022-dc2)
+> **w2022-dc2** (w2022-dc2)
 >
 > **w2022**
->
-> **Další prerekvizity**
->
-> Složka utils se skripty run_rep.bat a prepare.ps1
 
 1.  Na **w2022** se přihlaste jako lokální uživatel
-    **administrator**
+    **root**
 
 2. Poupravte následující script dle konfigurace stroje a 
 ```
-# install RODC on w2016-base
+# install RODC on w2022
 
 # configure networks
 New-NetIPAddress -InterfaceAlias "LAN2" -AddressFamily IPv4 -IPAddress "192.168.32.9" -PrefixLength 24 -DefaultGateway 192.168.32.5 -Confirm:$false
@@ -468,9 +453,9 @@ Lab L02 -- ADSS (Active Directory Sites and Services)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (w2022-dc1)
+> **w2022-dc1** (w2022-dc1)
 >
-> **w2016-repl** (w2022-dc2)
+> **w2022-dc2** (w2022-dc2)
 
 Otevřete **ADSS** konzoli a projděte ji. Řekněte, že v kontejneru
 Subnets jsou místěny všechny objekty podsítí (*subnet objects*) a k čemu
@@ -498,7 +483,7 @@ tranzitivitu objektů linek (a zmiňte co to tranzitivita je, měli by to
 vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 **BRNO** v kontejneru IP zahrnující místo **Default-First-Site-Link**.
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Otevřete **ADSS** (*Active Directory Sites and Services*)
@@ -533,14 +518,14 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 6.  Prozkoumejte nastavení týkající se místní (*intrasite*) replikace
 
     a.  Vyberte místo **Default-First-Site-Name** a v kontejneru Servers
-        najděte server **w2016-dc**
+        najděte server **w2022-dc1**
 
-    b.  Pod serverem **w2016-dc** vyberte NTDS Settings a z kontextové
+    b.  Pod serverem **w2022-dc1** vyberte NTDS Settings a z kontextové
         nabídky otevřete jeho vlastnosti (Properties)
 
     c.  Prozkoumete záložku Connections
 
-    d.  Pod serverem **w2016-dc** vyberte NTDS Settings a všimněte si
+    d.  Pod serverem **w2022-dc1** vyberte NTDS Settings a všimněte si
         objektů **příchozích** replikačních spojení.
 
     e.  Z kontextové nabídky objektu spojení otevřete vlastnosti
@@ -587,9 +572,9 @@ Lab L03 -- Vytvoření replikační topologie
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (w2022-dc1)
+> **w2022-dc1** (w2022-dc1)
 >
-> **w2016-repl** (w2022-dc2)
+> **w2022-dc2** (w2022-dc2)
 >
 > **w2022**
 >
@@ -598,10 +583,10 @@ Lab L03 -- Vytvoření replikační topologie
 > Dokončený úkol **L01**, objekt linky (*site link object*) **BRNO** v
 > kontejneru IP z úkolu **L02**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
-2.  Na **w2016-dc** otevřete **ADSS** (*Active Directory Sites and
+2.  Na **w2022-dc1** otevřete **ADSS** (*Active Directory Sites and
     Services*)
 
     a.  Start → Administrative Tools → **Active Directory Sites and
@@ -634,40 +619,40 @@ Lab L03 -- Vytvoření replikační topologie
             nejnižšího bitu (hodnota **0x10**) zase vypíná generování
             mezimístní replikační topologie
 
-5.  Přesuňte **w2016-dc** do místa **VUT**
+5.  Přesuňte **w2022-dc1** do místa **VUT**
 
-    a.  Klikněte pravým na server **w2016-dc** a zvolte Move...
+    a.  Klikněte pravým na server **w2022-dc1** a zvolte Move...
 
     b.  Pod Select the site that should contain this server zvolte místo
         **VUT**
 
     c.  Potvrďte přesun pomocí OK
 
-6.  Přesuňte **w2016-repl** do místa **VUT** podle postupu z **bodu 5**
+6.  Přesuňte **w2022-dc2** do místa **VUT** podle postupu z **bodu 5**
 
 7.  Vytvořte místo **FIT**, vypněte v něm automatické generování místní
     a mezimístní replikační topologie a přesuňte do něj server
     **w2022** podle postupů z **bodů 3 - 5**
 
-8.  Smažte všechny objekty spojení zahrnující **w2016-dc**,
-    **w2016-repl** a **w2022** s výjimkou objektu spojení **RODC
+8.  Smažte všechny objekty spojení zahrnující **w2022-dc1**,
+    **w2022-dc2** a **w2022** s výjimkou objektu spojení **RODC
     Connection (SYSVOL)** u **w2022**
 
     a.  Klikněte pravým na konkrétní objekt spojení a zvolte Delete
 
     b.  Potvrďte smazání pomocí Yes
 
-9.  Vytvořte spojení z **w2016-dc** do **w2016-repl** a názvem
+9.  Vytvořte spojení z **w2022-dc1** do **w2022-dc2** a názvem
     **dc2repl**
 
-    a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2016-repl** a
+    a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2022-dc2** a
         vyberte New Active Directory Domain Services Connection...
 
         -   Upozorněte, že pod NTDS Settings jsou zobrazeny příchozí
             spojení a tedy při vytváření spojení vybíráme NTDS Settings
             cílového řadiče domény
 
-    b.  Ze Search result vyberte **w2016-dc** a zvolte OK
+    b.  Ze Search result vyberte **w2022-dc1** a zvolte OK
 
         -   Řekněte, že zde volíme zase zdrojový řadič domény (tedy
             replikačního partnera)
@@ -676,15 +661,15 @@ Lab L03 -- Vytvoření replikační topologie
         pomocí OK
 
 10. Upravte spojení **RODC Connection (SYSVOL)** tak, aby byl
-    replikačním partnerem **w2022** **w2016-dc**, tedy aby
-    **w2022** replikoval změny vždy od **w2016-dc**
+    replikačním partnerem **w2022** **w2022-dc1**, tedy aby
+    **w2022** replikoval změny vždy od **w2022-dc1**
 
     a.  Klikněte pravým na objekt spojení **RODC Connection (SYSVOL)** a
         zvolte Properties
 
     b.  Na záložce General v části Replicate from zvolte Change\...
 
-    c.  Ze Search result vyberte **w2016-dc** a potvrďte dvakrát OK
+    c.  Ze Search result vyberte **w2022-dc1** a potvrďte dvakrát OK
 
 11. Zavřete a znova otevřete **ADSS** (*Active Directory Sites and
     Services*)
@@ -698,13 +683,13 @@ Lab L03 -- Vytvoření replikační topologie
 12. Replikujte změny v konfiguraci **Active Directory** na ostatní
     řadiče domény
 
-    a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2016-repl**
+    a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2022-dc2**
         resp. **w2022** a zvolte Replicate configuration to the
         selected DC
 
         -   Pokud replikace selže, přejděte (připojte se pomocí
-            **ADSS**) na **w2016-repl** resp. **w2022**, klikněte
-            pravým na uzel NTDS Settings pod uzlem **w2016-dc** a zvolte
+            **ADSS**) na **w2022-dc2** resp. **w2022**, klikněte
+            pravým na uzel NTDS Settings pod uzlem **w2022-dc1** a zvolte
             Replicate configuration from the selected DC
 
 13. Promítněte změny do replikační topologie **Active Directory**
@@ -712,7 +697,7 @@ Lab L03 -- Vytvoření replikační topologie
     a.  Na všech řadičích domény spusťte jako administrátor příkaz
         **repadmin /kcc**
 
-14. Na **w2016-dc** proveďte nějakou změnu v **Active Directory**
+14. Na **w2022-dc1** proveďte nějakou změnu v **Active Directory**
     databázi, například u uživatele **homer** změňte hodnotu atributu
     Description
 
@@ -721,7 +706,7 @@ Lab L03 -- Vytvoření replikační topologie
     -   Údaj ve sloupci Description se v **ADUC** zobrazí opožděně, je
         lepší otevřít vlastnosti objektu
 
-    a.  Ověřte, že na **w2016-repl** byla změna replikována
+    a.  Ověřte, že na **w2022-dc2** byla změna replikována
 
         -   Pozor kam se připojí **ADUC** konzole, viz upozornění níže u
             **RODC**
@@ -729,8 +714,8 @@ Lab L03 -- Vytvoření replikační topologie
             -   Změny se projeví až za cca. 15 sekund, až po 15
                 sekundách bude totiž zasláno oznámení prvnímu z řadičů
                 domény v daném místě, jehož replikačním partnerem je
-                **w2016-dc**, v tomto případě tedy řadiči domény
-                **w2016-repl**
+                **w2022-dc1**, v tomto případě tedy řadiči domény
+                **w2022-dc2**
 
     b.  Ověřte, že **na w2022** nedošlo k žádným změnám
 
@@ -750,7 +735,7 @@ Lab L03 -- Vytvoření replikační topologie
 ```{=html}
 <!-- -->
 ```
-14. Vynuťte replikaci změn provedených na **w2016-dc** na **w2022**
+14. Vynuťte replikaci změn provedených na **w2022-dc1** na **w2022**
 
     a.  Vyberte uzel NTDS Settings pod uzlem **w2022**
 
@@ -762,22 +747,22 @@ Lab L03 -- Vytvoření replikační topologie
 15. Ověřte, že změna byla replikována na **w2022**
 
 16. Proveďte nějakou změnu v **Active Directory** databázi tentokrát na
-    **w2016-repl**
+    **w2022-dc2**
 
 17. Ověřte, že změna nebyla replikována na žádný z ostatních řadičů
     domény
 
     -   Spojení jsou vždy jednosměrná, vytvořené spojení **dc2repl**
-        umožňuje replikovat změny pouze z **w2016-dc** na
-        **w2016-repl**, nikdy ne opačně
+        umožňuje replikovat změny pouze z **w2022-dc1** na
+        **w2022-dc2**, nikdy ne opačně
 
-18. Vytvořte nové spojení z **w2016-repl** zpět na **w2016-dc** s názvem
+18. Vytvořte nové spojení z **w2022-dc2** zpět na **w2022-dc1** s názvem
     **repl2dc** podle postupu z **bodu 9**
 
 19. Replikujte změny v konfiguraci na ostatní řadiče domény a promítněte
     je do replikační topologie podle postupů z **bodů 12 - 13**
 
-20. Ověřte, že změny byly replikovány na **w2016-dc**
+20. Ověřte, že změny byly replikovány na **w2022-dc1**
 
 # Studentské úkoly {#studentské-úkoly .IW_nadpis1}
 
@@ -790,20 +775,20 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (w2022-dc1)
+> **w2022-dc1** (w2022-dc1)
 >
-> **w2016-repl** (w2022-dc2)
+> **w2022-dc2** (w2022-dc2)
 >
 > **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol **Lab L01**, místo **VUT** obsahující servery
-> **w2016-dc** a **w2016-repl**, místo **FIT** obsahující server
+> **w2022-dc1** a **w2022-dc2**, místo **FIT** obsahující server
 > **w2022**, objekt linky (*site link object*) obsahující obě místa
 > **VUT** a **FIT**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Otevřete **ADSS** (*Active Directory Sites and Services*)
@@ -811,8 +796,8 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
     a.  Start → Administrative Tools → **Active Directory Sites and
         Services**
 
-3.  Smažte všechny objekty spojení zahrnující **w2016-dc**,
-    **w2016-repl** a **w2022**
+3.  Smažte všechny objekty spojení zahrnující **w2022-dc1**,
+    **w2022-dc2** a **w2022**
 
     a.  Klikněte pravým na objekt spojení a zvolte Delete
 
@@ -830,7 +815,7 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 
             4.  Potvrďte pomocí OK
 
-4.  Nastavte **w2016-dc** jako **ISTG** (*Intersite Topology Generator*)
+4.  Nastavte **w2022-dc1** jako **ISTG** (*Intersite Topology Generator*)
     pro místo **VUT**
 
     a.  Vyberte místo **VUT**
@@ -858,14 +843,14 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 
     d.  Zvolte Clear a potvrďte pomocí OK
 
-6.  Nastavte **w2016-dc** jako **ISTG** pro místo **FIT** a povolte pro
+6.  Nastavte **w2022-dc1** jako **ISTG** pro místo **FIT** a povolte pro
     toto místo generování místní a mezimístní replikační topologie podle
     postupu z **bodů 4 -- 5**
 
-7.  Nastavte **w2016-dc** jako upřednostňovaný bridgehead server pro
+7.  Nastavte **w2022-dc1** jako upřednostňovaný bridgehead server pro
     místo **VUT**
 
-    a.  Klikněte pravým na uzel **w2016-dc** a zvolte Properties
+    a.  Klikněte pravým na uzel **w2022-dc1** a zvolte Properties
 
     b.  Pod Transports available for inter-site data transfer vyberte
         **IP** a zvolte Add \>\>
@@ -874,22 +859,22 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 
 8.  Vygenerujte místní replikační topologii pro místo **VUT**
 
-    a.  Klikněte pravým na NTDS Settings pod uzlem **w2016-dc** a pod
+    a.  Klikněte pravým na NTDS Settings pod uzlem **w2022-dc1** a pod
         All Tasks zvolte Check Replication Topology
 
     b.  Po přečtení potvrďte pomocí OK
 
-    c.  Opakujte **body a -- b** pro uzel **w2016-repl**
+    c.  Opakujte **body a -- b** pro uzel **w2022-dc2**
 
-9.  Ověřte automatické vytvoření spojení mezi **w2016-dc** a
-    **w2016-repl**
+9.  Ověřte automatické vytvoření spojení mezi **w2022-dc1** a
+    **w2022-dc2**
 
     a.  Pokud nejsou objekty spojení pod NTDS Settings viditelné,
         klikněte pravým na uzel NTDS Settings a zvolte Refresh
 
         -   Pokud došlo k vygenerování replikační topologie
-            z **w2016-repl** směrem k **w2016-dc**, použijte v místě
-            **VUT** k editaci ADSS připojené k serveru **w2016-repl**
+            z **w2022-dc2** směrem k **w2022-dc1**, použijte v místě
+            **VUT** k editaci ADSS připojené k serveru **w2022-dc2**
             (alternativně bude potřeba po jednotlivých změnách potřeba
             použít Replicate configuration to the selected DC).
 
@@ -901,7 +886,7 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 
     b.  Potvrďte pomocí OK
 
-11. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2016-dc**
+11. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2022-dc1**
     do **w2022**
 
     a.  Na **w2022** otevřete **ADSS** (*Active Directory Sites and
@@ -923,26 +908,26 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
     c.  Vyberte uzel NTDS Settings pod uzlem **w2022**
 
     d.  Zkontrolujte, že vygenerované spojení (objekt spojení) jde z
-        (From Server) **w2016-dc**
+        (From Server) **w2022-dc1**
 
-12. Vraťte se zpátky na **w2016-dc** (resp. **w2016-repl**) a zrušte
-    **w2016-dc** jako upřednostňovaný bridgehead server pro místo
+12. Vraťte se zpátky na **w2022-dc1** (resp. **w2022-dc2**) a zrušte
+    **w2022-dc1** jako upřednostňovaný bridgehead server pro místo
     **VUT**
 
-    a.  Klikněte pravým na uzel **w2016-dc** a zvolte Properties
+    a.  Klikněte pravým na uzel **w2022-dc1** a zvolte Properties
 
     b.  Pod This server is a preferred bridgehead server for the
         following transports vyberte IP a zvolte \<\< Remove
 
     c.  Potvrďte pomocí OK
 
-13. Nastavte **w2016-repl** jako upřednostňovaný bridgehead server pro
+13. Nastavte **w2022-dc2** jako upřednostňovaný bridgehead server pro
     místo **VUT** podle postupu z **bodu 7.a**
 
 14. Přegenerujte mezimístní replikační topologii mezi místy **FIT** a
     **VUT** podle postupu z **bodu 10**
 
-15. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2016-repl**
+15. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2022-dc2**
     do **w2022**
 
     -   Pokud spojení nebylo vytvořeno, proveďte postup z **bodu 10** na
@@ -955,21 +940,21 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 
 Úkol 1
 
--   Mějme tři řadiče domény **w2016-dc**, **w2016-repl** a
-    **w2022**. **w2016-dc** je umístěn na rektorátu **VUT**,
-    **w2016-repl** na fakultě **FEKT** a **w2022** na fakultě
+-   Mějme tři řadiče domény **w2022-dc1**, **w2022-dc2** a
+    **w2022**. **w2022-dc1** je umístěn na rektorátu **VUT**,
+    **w2022-dc2** na fakultě **FEKT** a **w2022** na fakultě
     **FIT**. Rektorát **VUT** je spojen s fakultami **FEKT** a **FIT**
     pomocí 10Mbit kabelu a fakulty **FEKT** a **FIT** jsou navzájem
     spojeny pomocí experimentální 1Gbit optické linky. Zajistěte, aby
     všechny počítače ze sítě **192.168.1.x** byly autentizovány vždy
-    pomocí **w2016-dc**, všechny počítače ze sítě **192.168.2.x** zase
-    pomocí **w2016-repl** a všechny počítače ze sítě **192.168.3.x** jen
+    pomocí **w2022-dc1**, všechny počítače ze sítě **192.168.2.x** zase
+    pomocí **w2022-dc2** a všechny počítače ze sítě **192.168.3.x** jen
     pomocí **w2022**. Dále navrhněte replikační topologii, jenž
     zajistí replikaci změn na kterémkoliv řadiči domény na všechny
     ostatní a jenž zajistí, že **w2022** bude replikovat změny od
-    **w2016-repl** pomocí experimentální optické linky, ale v případě
+    **w2022-dc2** pomocí experimentální optické linky, ale v případě
     selhání této linky bude existovat alternativní spojení s
-    **w2016-repl**.
+    **w2022-dc2**.
 
 [^1]: Replikačním provozem (*replication traffic*) je myšlen síťový
     provoz týkající se pouze replikovaných dat

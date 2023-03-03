@@ -2,6 +2,9 @@
   - [Instalace](#instalace)
   - [Fine-Grained zásady hesel a uzamykání účtů](#fine-grained-zásady-hesel-a-uzamykání-účtů)
     - [Objekty nastavení hesel](#objekty-nastavení-hesel)
+- [AutomatedLab](#automatedlab)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
 - [Lektorské úkoly](#lektorské-úkoly)
   - [Lab L01 -- Instalace RODC](#lab-l01----instalace-rodc)
 - [Studentské úkoly](#studentské-úkoly)
@@ -244,7 +247,66 @@ je vytvořit novou skupiny, do které se zařadí všichni uživatelé z dané
 organizační jednotky. Tyto skupiny se často označují jako tzv. stínové
 skupiny (*shadow groups*).
 
+---
 
+# AutomatedLab
+
+```
+$labName = 'E09'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+
+$adminPass = 'root4Lab'
+
+Set-LabinstallationCredential -username root -password $adminPass
+Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
+Add-LabDomainDefinition -Name child.testing.local -AdminUser root -AdminPassword $adminPass
+
+
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC     -DomainName testing.local
+Add-LabMachineDefinition -Name w2022  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+Install-Lab
+
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    New-ADUser -Name student -SamAccountName Student -AccountPassword $password -Enabled $true
+
+    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Description "Members of this group are Simpsons"
+
+    $Homer = New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
+    $Bart = New-ADUser -Name Bart -AccountPassword $password -Enabled $true
+
+    Add-ADGroupMember -Identity $Simpsons -Members $Homer
+    Add-ADGroupMember -Identity $Simpsons -Members $Bart
+
+} -ComputerName w2022-dc1
+
+
+Show-LabDeploymentSummary -Detailed
+```
+
+# Společné úkoly
+
+-   Upravte nastavení RAM a CPU dle použitých PC
+
+## Lab LS00 -- konfigurace virtuálních stanic
+
+Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
+
+
+| **Adaptér (MAC suffix)** | **LAN**  |
+| ------------------------ | -------- |
+| **w2022-dc1**            | Internal |
+| **w2022-dc2**            | Internal |
+| **w2022**      | Internal |
+
+-   V případech, kdy je potřeba přistupovat na externí síť, připojte
+    adaptér **LAN1** k přepínači *Default switch*.
+
+
+---
 
 # Lektorské úkoly
 

@@ -440,7 +440,7 @@ Admninistrativ Center**.
 # AutomatedLab
 
 ```
-$labName = 'E10'
+$labName = 'E11'
 New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 
 $adminPass = 'root4Lab'

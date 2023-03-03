@@ -25,8 +25,8 @@ Lectures and computer labs storage for IW2 course at FIT VUT.
 | E10     | 03.03. | Active Directory - Read-only řadiče domény                     |
 | **L09** | 03.03. | **Active Directory - Vztahy důvěry**                           |
 | E12     | 03.03. | Active Directory - Vztahy důvěry                               |
-| **L10** | 03.03. | **Active Directory - Údržba, ochrana, Active Directory koš**   |
-| E11     | 03.03. | Active Directory - Údržba                                      |
-| **L11** |        | **Souborový server, FSRM, DFS**                                |
+| **L10** |        | **Active Directory - Údržba, ochrana, Active Directory koš**   |
+| E11     |        | Active Directory - Údržba                                      |
+| **L11** | 03.03. | **Souborový server, FSRM, DFS**                                |
 | **L12** |        | **Windows PowerShell - Pro správu serveru a Active Directory** |
 

@@ -252,14 +252,13 @@ skupiny (*shadow groups*).
 # AutomatedLab
 
 ```
-$labName = 'E09'
+$labName = 'E10'
 New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 
 $adminPass = 'root4Lab'
 
 Set-LabinstallationCredential -username root -password $adminPass
 Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
-Add-LabDomainDefinition -Name child.testing.local -AdminUser root -AdminPassword $adminPass
 
 
 Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local

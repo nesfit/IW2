@@ -1,5 +1,11 @@
 - [Active Directory - Replikace](#active-directory---replikace)
-  - [**Další možnosti konfigurace mezimístní replikace**](#další-možnosti-konfigurace-mezimístní-replikace)
+  - [**Místa**](#místa)
+  - [**Úkoly replikace**](#úkoly-replikace)
+  - [**Replikační topologie**](#replikační-topologie)
+  - [**Místní replikace**](#místní-replikace)
+  - [**Mezimístní replikace**](#mezimístní-replikace)
+    - [**Bridgehead servery**](#bridgehead-servery)
+    - [**Další možnosti konfigurace mezimístní replikace**](#další-možnosti-konfigurace-mezimístní-replikace)
 - [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
 - [Lektorské úkoly {#lektorské-úkoly .IW\_nadpis1}](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
@@ -26,7 +32,7 @@ vytížení linek v této síti. Stejně jako **Active Directory**
 reprezentuje uživatele nebo počítače pomocí odpovídajících typů objektů,
 tak také topologii reprezentuje pomocí specifických typů objektů.
 
-**Místa**
+## **Místa**
 
 Místo (*site*), v obecném slova smyslu, je fyzické umístění (např.
 kancelář či město). Tyto místa jsou propojena pomocí spojení (linek).
@@ -93,7 +99,7 @@ to i v případě řadičů domén obsahujících více síťových rozhraní. T
 řadiče by, na základě svých IP adres, jinak mohly spadat pod více míst
 zároveň.
 
-**Úkoly replikace**
+## **Úkoly replikace**
 
 Jak již bylo zmíněno dříve, přesun dat je pouze jedním z úkolů, jenž
 replikace řeší. Obecně lze říci, že replikace **Active Directory**
@@ -140,7 +146,7 @@ zajišťuje:
     domény. V takovémto případě musí replikace zajistit vyřešení tohoto
     konfliktu.
 
-**Replikační topologie**
+## **Replikační topologie**
 
 Hlavní úlohu při vytváření replikační topologie hrají objekty spojení
 (*connection objects*). Objekty spojení reprezentují spojení mezi dvěma
@@ -175,7 +181,7 @@ opět dosáhl efektivní replikace. Objekty spojení je možné vytvořit i
 manuálně. Tyto objekty jsou pak perzistentní (nemohou být smazány
 **KCC** při přetváření replikační topologie).
 
-**Místní replikace**
+## **Místní replikace**
 
 Místní (*intrasite*) replikace se týká replikace změn pouze v rámci
 jediného místa (*site*). Existují dva odlišné způsoby, jak iniciovat
@@ -213,7 +219,7 @@ replikační topologie a její úpravu, pokud je vyzývaný replikační partner
 opravdu nedostupný. Pokud odpoví a oznámí, že u něj došlo ke změnám,
 budou ty-to změny replikovány.
 
-**Mezimístní replikace**
+## **Mezimístní replikace**
 
 V rámci jednoho místa **KCC** předpokládá, že každé dva řadiče domény
 jsou síťově dostupné, tedy že každý řadič domény může kontaktovat
@@ -251,7 +257,7 @@ Pro replikaci změn mezi místy lze využít dva protokoly:
     certifikační autority (CA) a také, že nemůže replikovat oddíl
     domény.
 
-**Bridgehead servery**
+### **Bridgehead servery**
 
 **ISTG** vytváří replikační topologii mezi místy obsaženými v nějakém
 objektu linky. Aby byla replikace realizována maximálně efektivně, je v
@@ -282,7 +288,7 @@ definovat jeden či více řadičů domény, jenž budou upřednostňovány jako
 všech takto specifikovaných řadičů domény již nebude vybrán žádný další
 a replikace mezi místy selže.
 
-## **Další možnosti konfigurace mezimístní replikace**
+### **Další možnosti konfigurace mezimístní replikace**
 
 Ne vždy musí být replikační topologie vytvořená **ISTG** ideální. U
 složitějších sítí může být potřeba přesněji nastavit jednotlivé objekty
@@ -353,28 +359,6 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
     $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
 
     Add-ADGroupMember -Identity $Simpsons -Members $Homer
-
-    Move-ADObject "CN=w11-domain,CN=computers,DC=testing,DC=local" -TargetPath "OU=brnopcs,DC=testing,DC=local"
-
-    # Lab evaluation prep
-    Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "NoAutoUpdate" -Type DWORD -Value 0
-    Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "AUOptions" -Type DWORD -Value 2
-
-    New-GPO "DC GPO"
-    Set-GPRegistryValue -Name "DC GPO" -Key "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System" -ValueName "DisableTaskMgr" -Type DWORD -Value 1
-
-    $usersContainer = [ADSI]"LDAP://CN=Users,DC=testing,DC=local"
-    $iw2testUser = $usersContainer.Create("user", "CN=iw2test")
-    $iw2testUser.Put("sAMAccountName", "iw2test") 
-    $iw2testUser.SetInfo()
-    $iw2testUser.SetPassword("aaaAAA111")
-    $iw2testUser.SetInfo()
-    $iw2testUser.InvokeSet("AccountDisabled", $false)
-    $iw2testUser.SetInfo()
-
-    $soGroup = [ADSI]"LDAP://CN=Server Operators,CN=Builtin,DC=testing,DC=local" 
-    $soGroup.Member.Add("CN=iw2test,CN=Users,DC=testing,DC=local") 
-    $soGroup.CommitChanges()
     
 } -ComputerName w2022-dc1
 

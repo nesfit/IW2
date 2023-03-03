@@ -830,7 +830,7 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
         **interSiteTopologyGenerator** a zvolte Edit
 
     d.  Zadejte hodnotu **CN=NTDS
-        Settings,CN=W2016-DC,CN=Servers,CN=VUT,CN=Sites,
+        Settings,CN=W2022-DC1,CN=Servers,CN=VUT,CN=Sites,
         CN=Configuration,DC=testing,DC=local**
 
 5.  Povolte automatické generování místní a mezimístní replikační

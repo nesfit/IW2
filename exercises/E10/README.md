@@ -1,3 +1,18 @@
+- [Active Directory - Read-only řadiče domény](#active-directory---read-only-řadiče-domény)
+  - [Instalace](#instalace)
+  - [Fine-Grained zásady hesel a uzamykání účtů](#fine-grained-zásady-hesel-a-uzamykání-účtů)
+    - [Objekty nastavení hesel](#objekty-nastavení-hesel)
+- [AutomatedLab](#automatedlab)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
+- [Lektorské úkoly](#lektorské-úkoly)
+  - [Lab L01 -- Instalace RODC](#lab-l01----instalace-rodc)
+- [Studentské úkoly](#studentské-úkoly)
+  - [Lab S01 -- Zásady replikace hesel](#lab-s01----zásady-replikace-hesel)
+  - [Lab S02 -- Fine-Grained zásady hesel s použitím ADAC](#lab-s02----fine-grained-zásady-hesel-spoužitím-adac)
+  - [Lab S03 -- Fine-Grained zásady hesel s pomocí ADSI Edit](#lab-s03----fine-grained-zásady-hesel-spomocí-adsi-edit)
+
+
 # Active Directory - Read-only řadiče domény
 
 Pokud je nějaká doména rozprostřena přes více míst (*sites*), nastává
@@ -116,7 +131,7 @@ I přesto, že **RODC** řadiče mohou plnit různé role, nemohou být nikdy
 operačními servery. Mohou ovšem nést globální katalog, což je důležité
 pro vyhledávání.
 
-**Instalace**
+## Instalace
 
 Než je možné povýšit nějaký server do role **RODC** řadiče, je nejprve
 potřeba ověřit splnění několika podmínek a případně připravit daný les
@@ -160,7 +175,7 @@ rozdělit na tři části:
     člen pracovní skupiny. Pokud by byl v doméně, nebude se moci navázat
     na předpřipravený účet.
 
-**Fine-Grained zásady hesel a uzamykání účtů**
+## Fine-Grained zásady hesel a uzamykání účtů
 
 Zásady hesel (*Password Policies*) a zásady uzamykání účtů (*Account
 Lockout Policies*) se nacházejí pod uzlem nastavení počítače (*Computer
@@ -180,7 +195,7 @@ hesel a uzamykání účtů pro jednotlivé skupiny nebo uživatele v doméně.
 Aby bylo možné používat tyto zásady v dané doméně, musí být její funkční
 úroveň alespoň Windows Server 2008.
 
-**Objekty nastavení hesel**
+### Objekty nastavení hesel
 
 Zásady spravované *fine-grained* zásadami hesel jsou totožné se zásadami
 pod uzly Zásady hesla (*Password Policy*) a Zásady uzamčení účtů
@@ -232,45 +247,68 @@ je vytvořit novou skupiny, do které se zařadí všichni uživatelé z dané
 organizační jednotky. Tyto skupiny se často označují jako tzv. stínové
 skupiny (*shadow groups*).
 
-# Společné úkoly {#společné-úkoly .IW_nadpis1}
+---
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
+# AutomatedLab
 
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
+```
+$labName = 'E10'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 
--   Rozsah IP adres přidělených z *Default switch* se může od níže
-    uvedeného rozsahu lišit.
+$adminPass = 'root4Lab'
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+set-labinstallationcredential -username root -password $adminPass
+add-labdomaindefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
+
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC     -DomainName testing.local
+Add-LabMachineDefinition -Name w2022  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+Install-Lab
+
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    New-ADUser -Name student -SamAccountName Student -AccountPassword $password -Enabled $true
+    
+    New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
+    New-ADOrganizationalUnit -Name brnopcs -path "DC=testing,DC=local" 
+
+    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Path "OU=brno,DC=testing,DC=local" -Description "Members of this group are Simpsons"
+
+    $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
+
+    Add-ADGroupMember -Identity $Simpsons -Members $Homer
+    
+} -ComputerName w2022-dc1
+
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
+
+# Společné úkoly
+
+-   Upravte nastavení RAM a CPU dle použitých PC
+
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **D+R+C w2016-dc**       | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-repl**     | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+
+| **Adaptér (MAC suffix)** | **LAN**  |
+| ------------------------ | -------- |
+| **w2022-dc1**            | Internal |
+| **w2022-dc2**            | Internal |
+| **w2022**                | Internal |
 
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
--   Servery **D+R+C w2016-dc** **a D+R+C w2016-repl** je nutné spouštět
-    společně.
+# Lektorské úkoly
 
--   Na stanici **D+R+C w2016-dc** restartujte službu DHCP
-
-    -   DHCP MMC, vyberte w2016-dc.testing.local a z kontextové nabídky
-        All Tasks -- Restart
-
--   Tip: stanice **D+R+C w2016-dc** a **D+R+C w2016-repl** spusťte na
-    začátku cvičení.
-
-# Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
-
-Lab L01 -- Instalace RODC
+## Lab L01 -- Instalace RODC
 
 > **Cíl cvičení**
 >
@@ -278,11 +316,11 @@ Lab L01 -- Instalace RODC
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1**
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 
@@ -295,37 +333,15 @@ Lab L01 -- Instalace RODC
 -   účet uživatele **homer** v doméně **testing.local**, jenž je členem
     skupiny **Simpsons**
 
-1.  Na **w2016-base** se přihlaste jako lokální uživatel
-    **administrator**
+1.  Na **w2022** se přihlaste jako lokální uživatel
+    **root**
 
-2.  Nastavte statickou IPv4 adresu **192.168.32.9** jako IPv4 adresu
-    počítače a IPv4 adresu **192.168.32.5** jako IPv4 adresu DNS serveru
-
-    a.  Otevřete **Network and Sharing Center**, zvolte LAN2 a pak
-        Properties
-
-        -   Zvolené síťové rozhraní musí odpovídat *Private1*,
-            standardně to je LAN2
-
-    b.  Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte
-        Properties
-
-    c.  Zvolte Use the following IP address a jako IP address zadejte
-        **192.168.32.9**
-
-    d.  Klikněte do zadávacího pole u Subnet mask, maska podsítě bude
-        doplněna automaticky
-
-    e.  Pod Use the following DNS server addresses zadejte
-        **192.168.32.5** do pole Preferred DNS Server
-
-    f.  Potvrďte OK a dvakrát Close
+2.  Nastavte statickou IPv4 adresu (poznamenejte si ji) jako IPv4 adresu
+    počítače a IPv4 adresu **<W2022-dc1>** jako IPv4 adresu DNS serveru
 
 3.  Nainstalujte roli **Active Directory Domain Services**
 
     a.  Spusťte **Server Manager**
-
-        1.  Start → **Server Manager**
 
     b.  Vyberte Add Roles and Features z nabídky Manage
 
@@ -342,9 +358,7 @@ Lab L01 -- Instalace RODC
 
     g.  Potvrďte instalaci Install
 
-        -   Trvá cca 3 minuty
-
-        -   Tip: IP adresu z kroku 1 nastavovat v průběhu instalace role
+    -   Trvá cca 3 minuty
 
     h.  Po dokončení instalace najdete v notifikacích Server Manageru
         odkaz na Promote this server to a domain controller
@@ -354,89 +368,81 @@ Lab L01 -- Instalace RODC
 
     a.  V kroku Deployment Configuration
 
-        1.  Zvolte Add a domain controller to an existing domain
+    1.  Zvolte Add a domain controller to an existing domain
 
-        2.  Do pole Domain zadejte **testing.local**
+    2.  Do pole Domain zadejte **testing.local**
 
-        3.  Klepněte na tlačítko Change... v sekci Supply the
+    3.  Klepněte na tlačítko Change... v sekci Supply the
             credentials to perform this operation a vyplňte jméno
-            **testing\\administrator** a heslo **aaa**
+            **testing\\root** a heslo **root4Lab**
 
-            -   Lze použít i zápis **administrator@testing.local**
+        -   Lze použít i zápis **administrator@testing.local**
 
-            ```{=html}
-            <!-- -->
-            ```
-            -   Řekněte, že pro přidání řadiče domény do domény jsou
+        -   Řekněte, že pro přidání řadiče domény do domény jsou
                 potřeba oprávnění správce domény, účet tedy musí členem
                 skupiny Domain Admins
 
-        4.  Pokračujte Next \>
+    4.  Pokračujte Next \>
 
     b.  V části Domain Controller Options
 
-        1.  ponechte zaškrtnuté možnosti **DNS server** i **Global
+    5.  ponechte zaškrtnuté možnosti **DNS server** i **Global
             Catalog**
 
-        2.  zaškrtněte **Read-only Domain Controller (RODC)**.
+    6.  zaškrtněte **Read-only Domain Controller (RODC)**.
 
-        3.  v Site name ponechte místo **Default-First-Site-Name**
+    7.  v Site name ponechte místo **Default-First-Site-Name**
 
-            -   Zmiňte, že v případě více míst můžeme nechat určení
+    -   V případě více míst můžeme nechat určení
                 místa na **Active Directory**, kde bude místo zvoleno
                 podle IP adresy řadiče domény
 
-        4.  Jako Directory Services Restore Mode (DSRM) Password
-            použijte (a potvrďte) heslo **aaa**
+    8.  Jako Directory Services Restore Mode (DSRM) Password
+            použijte (a potvrďte) heslo **root4Lab**
 
-            -   Připoměňte, že tento režim slouží pro obnovu **Active
+    -   Tento režim slouží pro obnovu **Active
                 Directory** databáze ze zálohy a pro řešení problémů
                 vyžadujících, aby služby **Active Directory** nebyly
                 spuštěny
 
-        5.  pokračujte Next \>
+    9.  pokračujte Next \>
 
     c.  V části RODC Options zvolte skupinu **Simpsons** jako správce
         instalovaného RODC řadiče
 
-        -   Řekněte, že zde zvolený uživatel, či uživatelé z vybrané
+    -   Zde zvolený uživatel, či uživatelé z vybrané
             skupiny, budou moci přiřadit instalovaný server k jeho RODC
             účtu v **Active Directory**
 
-        -   Zmiňte, že zde zvolený uživatel, či uživatelé z vybrané
+    -   Zde zvolený uživatel, či uživatelé z vybrané
             skupiny, budou také lokálními správci na tomto RODC řadiči
 
-        1.  Pod Delegated administrator account použijte Select...
+    10. Pod Delegated administrator account použijte Select...
 
-            a.  V Enter the object names to select zadejte **Simpsons**
+        a.  V Enter the object names to select zadejte **Simpsons**
                 a zvolte Check Names pro ověření existence zadané
                 skupiny
 
-            b.  Potvrďte OK
+        b.  Potvrďte OK
 
-        2.  Zkontrolujte uživatelské skupiny, jejichž hesla se
+    11. Zkontrolujte uživatelské skupiny, jejichž hesla se
             budou/nebudou replikovat na tento RODC
 
-            -   Vysvětlete studentům k čemu je to dobré
+        -   Vysvětlete studentům k čemu je to dobré
 
-        3.  Pokračujte Next \>
-
-    ```{=html}
-    <!-- -->
-    ```
+    12. Pokračujte Next \>
+   
     c.  V části Additional Options zvolte, odkud proběhne úvodní
         replikace
 
-        1.  Z nabídky Replicate from zvolte **w2016-dc.testing.local**
+    1.  Z nabídky Replicate from zvolte **w2022-dc1.testing.local**
 
-            -   Zmiňte možnost instalace z média (výhody a nevýhody)
-
-        2.  Pokračujte Next \>
+    2.  Pokračujte Next \>
 
     d.  Zadejte cesty k databázím Location for Database, Log Files, and
         SYSVOL (ponechte výchozí). Next \>
 
-        -   Zmiňte, že často je výhodné umístit tyto jednotlivá úložiště
+    -   Často je výhodné umístit tyto jednotlivá úložiště
             na různé disky pro zvýšení výkonu a větší bezpečnost.
 
     e.  Zkontrolujte zadané údaje a zobrazte si odpovídající **skript
@@ -445,23 +451,16 @@ Lab L01 -- Instalace RODC
     f.  Prohlédněte si výsledky kontroly prerekvizit.
 
     g.  Dokončete průvodce Install
+    -   Konfigurace trvá cca 3 minuty
+    -   Následně se systém restartuje
 
-        -   Konfigurace trvá cca 3 minuty
-
-        -   Následně se systém restartuje
-
-        -   Tip: v mezičase si na **w2016-dc** vyrobte účet student
-
-```{=html}
-<!-- -->
-```
-3.  Přihlaste se na **w2016-base** jako uživatel **student**
+1.  Přihlaste se na **w2022** jako uživatel **student**
 
     -   Přihlášení nebude úspěšné, jelikož standardní uživatel nemá
         právo přihlašovat se lokálně na řadiče domény (nepatří mezi
         lokální administrátory)
 
-4.  Přihlaste se na **w2016-base** jako uživatel **homer**
+2.  Přihlaste se na **w2022** jako uživatel **homer**
 
     -   Přihlášení bude úspěšné, jelikož skupina **Simpsons** patří mezi
         lokální administrátory, kteří jsou na rozdíl od normálních
@@ -469,9 +468,9 @@ Lab L01 -- Instalace RODC
         lokální administrátory vždy pouze členové **Domain Admins**
         skupiny bez možnosti to jakkoliv změnit
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
-Lab S01 -- Zásady replikace hesel
+## Lab S01 -- Zásady replikace hesel
 
 > **Cíl cvičení**
 >
@@ -480,18 +479,18 @@ Lab S01 -- Zásady replikace hesel
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1**
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2**
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol **Lab L01**, účty uživatelů **homer** a **bart** v
 > doméně **testing.local**, kteří jsou členy skupiny **Simpsons**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Otevřete **ADUC** (*Active Directory Users and Computers*)
@@ -500,10 +499,10 @@ Lab S01 -- Zásady replikace hesel
         Computers**
 
 3.  Povolte pro všechny uživatele ze skupiny **Simpsons** ukládání hesel
-    do vyrovnávací paměti na **w2016-base**
+    do vyrovnávací paměti na **w2022**
 
     a.  Vyberte organizační jednotku Domain Controllers, klikněte pravým
-        na **w2016-base** a zvolte Properties
+        na **w2022** a zvolte Properties
 
     b.  Přejděte na záložku Password Replication Policy a zvolte Add...
 
@@ -515,22 +514,22 @@ Lab S01 -- Zásady replikace hesel
 
     e.  Potvrďte dvakrát pomocí OK
 
-        -   V praxi by bylo vhodnější vyrobit speciální skupinu pro daný
+    -   V praxi by bylo vhodnější vyrobit speciální skupinu pro daný
             RODC, které tímto postupem povolíme/zakážeme ukládání hesel,
             a skupinu **Simpsons** přidat až do této speciální skupiny.
             V případě povolení/zakázání pro všechny RODC lze využít
             **Allowed RODC Password Replication Group** a **Denied RODC
             Password Replication Group**.
 
-4.  Přihlaste se na **w2016-base** jako uživatel **homer**
+4.  Přihlaste se na **w2022** jako uživatel **homer**
 
-5.  Vraťte se zpět na **w2016-dc** do **ADUC**
+5.  Vraťte se zpět na **w2022-dc1** do **ADUC**
 
 6.  Ověřte, že heslo bylo přihlášením skutečně uloženo ve vyrovnávací
-    paměti **w2016-base**
+    paměti **w2022**
 
     a.  Vyberte organizační jednotku Domain Controllers, klikněte pravým
-        na **w2016-base** a zvolte Properties
+        na **w2022** a zvolte Properties
 
     b.  Přejděte na záložku Password Replication Policy a zvolte
         Advanced...
@@ -542,10 +541,10 @@ Lab S01 -- Zásady replikace hesel
     d.  Ověřte, že uživatel **homer** je v seznamu pod Users and
         computers
 
-7.  Vložte heslo uživatele **bart** do vyrovnávací paměti **w2016-base**
+7.  Vložte heslo uživatele **bart** do vyrovnávací paměti **w2022**
 
     a.  Vyberte organizační jednotku Domain Controllers, klikněte pravým
-        na **w2016-base** a zvolte Properties
+        na **w2022** a zvolte Properties
 
     b.  Přejděte na záložku Password Replication Policy a zvolte
         Advanced...
@@ -557,33 +556,33 @@ Lab S01 -- Zásady replikace hesel
 
     e.  Potvrďte pomocí OK, Yes a OK
 
-8.  Přerušte spojení mezi w2016-base a ostatními řadiči domény
+8.  Přerušte spojení mezi w2022 a ostatními řadiči domény
 
-    a.  Na **w2016-dc** a **w2016-repl** zakažte sítové rozhraní LAN2
+    a.  Na **w2022-dc1** a **w2022-dc2** zakažte sítové rozhraní LAN2
 
-        -   Zakázané síťové rozhraní musí odpovídat *Private1*,
+    -   Zakázané síťové rozhraní musí odpovídat *Private1*,
             standardně to je LAN2
 
-9.  Zkuste se přihlásit na **w2016-base** jako uživatel
-    **administrator**
+9.  Zkuste se přihlásit na **w2022** jako uživatel
+    **root**
 
     -   Přihlášení nebude úspěšné, protože heslo uživatele
-        **administrator** není obsaženo ve vyrovnávací paměti
-        **w2016-base**
+        **root** není obsaženo ve vyrovnávací paměti
+        **w2022**
 
-10. Zkuste se přihlásit na **w2016-base** jako uživatel **bart**
+10. Zkuste se přihlásit na **w2022** jako uživatel **bart**
 
     -   Přihlášení bude úspěšné, jelikož heslo uživatele **bart** bylo
-        přidáno do vyrovnávací paměti **w2016-base**
+        přidáno do vyrovnávací paměti **w2022**
 
-11. obnovte spojení mezi w2016-base a ostatními řadiči domény
+11. obnovte spojení mezi w2022 a ostatními řadiči domény
 
-    a.  Na **w2016-dc** a **w2016-repl** povolte sítové rozhraní LAN2
+    a.  Na **w2022-dc1** a **w2022-dc2** povolte sítové rozhraní LAN2
 
-        -   Povolené síťové rozhraní musí odpovídat *Private1*,
+    -   Povolené síťové rozhraní musí odpovídat *Private1*,
             standardně to je LAN2
 
-Lab S02 -- Fine-Grained zásady hesel s použitím ADAC
+## Lab S02 -- Fine-Grained zásady hesel s použitím ADAC
 
 > **Cíl cvičení**
 >
@@ -592,16 +591,16 @@ Lab S02 -- Fine-Grained zásady hesel s použitím ADAC
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1**
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2**
 >
 > **Další prerekvizity**
 >
 > Účet uživatele **homer** v doméně **testing.local**, který jsou členy
 > skupiny **Simpsons**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Otevřete **ADAC** (*Active Directory Administrative Center*)
@@ -615,42 +614,42 @@ Lab S02 -- Fine-Grained zásady hesel s použitím ADAC
 
     a.  Nastavte
 
-        1.  Name: **Simpsons PSO**
+    1.  Name: **Simpsons PSO**
 
-        2.  Precedence: **1**
+    2.  Precedence: **1**
 
-            -   Hodnota Precedence odpovídá hodnotě atributu
+        -   Hodnota Precedence odpovídá hodnotě atributu
                 **msDS-PasswordSetingsPrecedence**. Jde o obdobu *link
                 order* u GPO, jenž udává prioritu PSO objektu, pokud je
                 více PSO objektů přiřazeno jedné skupině či uživateli.
 
-        3.  Enforce minimum password length: **3**
+    3.  Enforce minimum password length: **3**
 
-        4.  Zrušte zaškrtnutí Enforce password history
+    4.  Zrušte zaškrtnutí Enforce password history
 
-        5.  Ponechte Password must meet complexity requirements
+    5.  Ponechte Password must meet complexity requirements
 
-        6.  Zrušte zaškrtnutí Enforce minimum password age
+    6.  Zrušte zaškrtnutí Enforce minimum password age
 
-        7.  Enforce maximum password age: **90**
+    7.  Enforce maximum password age: **90**
 
-        8.  Zaškrtněte Enforce account lockout policy
+    8.  Zaškrtněte Enforce account lockout policy
 
-        9.  Number of failed logon attempt allowed: **5**
+    9.  Number of failed logon attempt allowed: **5**
 
-        10. Reset failed logon attempts count after: **60**
+    10. Reset failed logon attempts count after: **60**
 
-        11. Account will be locked out -- For a duration of (mins):
-            **1440**
+    11. Account will be locked out -- For a duration of (mins):
+        **1440**
 
     b.  V sekci Directly Applies To přidejte skupinu **Simpsons**
 
-        1.  Add...
+    12. Add...
 
-        2.  Do Enter the object names to select zadejte **Simpsons** a
-            zvolte Check Names
+    13. Do Enter the object names to select zadejte **Simpsons** a
+        zvolte Check Names
 
-        3.  Potvrďte pomocí OK
+    14. Potvrďte pomocí OK
 
     c.  Pokračujte OK
 
@@ -669,7 +668,7 @@ Lab S02 -- Fine-Grained zásady hesel s použitím ADAC
 
     c.  Zadejte heslo **bbb**
 
-        -   Heslo nepůjde vytvořit, jelikož **Simpsons PSO** vyžaduje
+    -   Heslo nepůjde vytvořit, jelikož **Simpsons PSO** vyžaduje
             silná hesla
 
 7.  Smažte **Simpsons PSO**
@@ -686,7 +685,7 @@ Lab S02 -- Fine-Grained zásady hesel s použitím ADAC
     d.  Z kontextové nabídky **Simpsons PSO** vyberte Delete a smazání
         potvrďte Yes
 
-Lab S03 -- Fine-Grained zásady hesel s pomocí ADSI Edit
+## Lab S03 -- Fine-Grained zásady hesel s pomocí ADSI Edit
 
 > **Cíl cvičení**
 >
@@ -695,16 +694,16 @@ Lab S03 -- Fine-Grained zásady hesel s pomocí ADSI Edit
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1**
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2**
 >
 > **Další prerekvizity**
 >
 > Účet uživatele **homer** v doméně **testing.local**, který jsou členy
 > skupiny **Simpsons**
 
-1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
+1.  Na **w2022-dc1** se přihlaste jako uživatel **root** do
     domény **testing.local**
 
 2.  Otevřete **ADSI Edit** (*Active Directory Services Interfaces
@@ -733,77 +732,77 @@ Lab S03 -- Fine-Grained zásady hesel s pomocí ADSI Edit
     d.  U atributu **cn** zadejte do pole Value název **Simpsons PSO** a
         pokračujte Next \>
 
-        -   Atribut **cn** obsahuje název PSO objektu
+    -   Atribut **cn** obsahuje název PSO objektu
 
     e.  U atributu **msDS-PasswordSetingsPrecedence** zadejte do pole
         Value hodnotu **1** a pokračujte Next \>
 
-        -   Atribut **msDS-PasswordSetingsPrecedence** je obdoba *link
+    -   Atribut **msDS-PasswordSetingsPrecedence** je obdoba *link
             order* u GPO, jenž udává prioritu PSO objektu, pokud je více
             PSO objektů přiřazeno jedné skupině či uživateli
 
     f.  U atributu **msDS-PasswordReversibleEncryptionEnabled** zadejte
         do pole Value hodnotu **False** a pokračujte Next \>
 
-        -   Atribut **msDS-PasswordReversibleEncryptionEnabled** určuje,
+    -   Atribut **msDS-PasswordReversibleEncryptionEnabled** určuje,
             zda mají být hesla ukládána pomocí reverzibilního šifrování
 
     g.  U atributu **msDS-PasswordHistoryLength** zadejte do pole Value
         hodnotu **0** a pokračujte Next \>
 
-        -   Atribut **msDS-PasswordHistoryLength** udává, kolik
+    -   Atribut **msDS-PasswordHistoryLength** udává, kolik
             naposledy zadaných hesel nesmí uživatel použít při změně
             hesla
 
     h.  U atributu **msDS-PasswordComplexityEnabled** zadejte do pole
         Value hodnotu **True** a pokračujte Next \>
 
-        -   Atribut **msDS-PasswordComplexityEnabled** určuje, zda jsou
+    -   Atribut **msDS-PasswordComplexityEnabled** určuje, zda jsou
             vyžadována silná hesla
 
     i.  U atributu **msDS-MinimumPasswordLength** zadejte do pole Value
         hodnotu **3** a pokračujte Next \>
 
-        -   Atribut **msDS-MinimumPasswordLength** určuje minimální
+    -   Atribut **msDS-MinimumPasswordLength** určuje minimální
             délku hesel
 
     j.  U atributu **msDS-MinimumPasswordAge** zadejte do pole Value
         hodnotu **0:00:00:00** a pokračujte Next \>
 
-        -   Atribut **msDS-MinimumPasswordAge** určuje, za jakou dobu je
+    -   Atribut **msDS-MinimumPasswordAge** určuje, za jakou dobu je
             možné nejdříve změnit heslo ve formátu
             *\<dny\>:\<hodiny\>:\<minuty\>:\<sekundy\>*
 
     k.  U atributu **msDS-MaximumPasswordAge** zadejte do pole Value
         hodnotu **90:00:00:00** a pokračujte Next \>
 
-        -   Atribut **msDS-MaximumPasswordAge** určuje, za jakou dobu
+    -   Atribut **msDS-MaximumPasswordAge** určuje, za jakou dobu
             vyprší platnost hesla ve formátu
             *\<dny\>:\<hodiny\>:\<minuty\>:\<sekundy\>*
 
     l.  U atributu **msDS-LockoutThreshold** zadejte do pole Value
         hodnotu **5** a pokračujte Next \>
 
-        -   Atribut **msDS-LockoutThreshold** udává, po jakém počtu
+    -   Atribut **msDS-LockoutThreshold** udává, po jakém počtu
             špatně zadaných hesel doj-de k zablokování účtu
 
     m.  U atributu **msDS-LockoutObservationWindow** vložte do pole
         Value hodnotu **0:01:00:00** a pokračujte Next \>
 
-        -   Atribut **msDS-LockoutObservationWindow** udává, kdy dojde k
+    -   Atribut **msDS-LockoutObservationWindow** udává, kdy dojde k
             vynulování počítadla špatně zadaných hesel ve formátu
             *\<dny\>:\<hodiny\>:\<minuty\>:\<sekundy\>*
 
     n.  U atributu **msDS-LockoutDuration** vložte do pole Value hodnotu
         **1:00:00:00** a pokračujte Next \>
 
-        -   Atribut **msDS-LockoutDuration** udává délku zablokování
+    -   Atribut **msDS-LockoutDuration** udává délku zablokování
             účtu, pokud bylo několikrát zadáno špatné heslo, ve formátu
             *\<dny\>:\<hodiny\>:\<minuty\>:\<sekundy\>*
 
     o.  Potvrďte vytvoření PSO objektu pomocí Finish
 
-        -   V případě výskytu chyby Operation failed. error code:
+    -   V případě výskytu chyby Operation failed. error code:
             0x20e7, The modification was not permitted for security
             reasons. ověřte správně zadané hodnoty výše, tato chyba
             nastává v případě nemožnosti zpracovat zadané hodnoty **ADSI
@@ -828,12 +827,12 @@ Lab S03 -- Fine-Grained zásady hesel s pomocí ADSI Edit
 
     a.  Otevřete **ADUC** (*Active Directory Users and Computers*)
 
-        1.  Start → Administrative Tools → **Active Directory Users and
+    1.  Start → Administrative Tools → **Active Directory Users and
             Computers**
 
     b.  Zapněte zobrazení pokročilých vlastností uživatelských účtů
 
-        1.  V menu konzole vyberte View a zvolte Advanced Features
+    2.  V menu konzole vyberte View a zvolte Advanced Features
 
     c.  Klikněte pravým na uživatele **homer** a zvolte Properties
 
@@ -853,7 +852,7 @@ Lab S03 -- Fine-Grained zásady hesel s pomocí ADSI Edit
 
     b.  Zadejte heslo **bbb**
 
-        -   Heslo nepůjde vytvořit, jelikož **Simpsons PSO** vyžaduje
+    -   Heslo nepůjde vytvořit, jelikož **Simpsons PSO** vyžaduje
             silná hesla
 
 [^1]: Pověření je sada informací sloužící k *autentizaci* určité entity

@@ -391,6 +391,8 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
+- Očekávaný IP rozsah *Internal* je `192.168.11.0/24`. V případě, že je jiný, respektujte v cvičení automaticky generovaný rozsah.    
+
 # Lektorské úkoly
 
 ## Lab L01 -- instalace RODC pomocí skriptu
@@ -413,12 +415,6 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 2. Poupravte následující script dle konfigurace stroje a 
 ```
 # install RODC on w2022
-
-# configure networks
-New-NetIPAddress -InterfaceAlias "<doplnte>" -AddressFamily IPv4 -IPAddress "<doplnte>" -PrefixLength 24 
--DefaultGateway <doplnte> -Confirm:$false
-
-Set-DnsClientServerAddress -InterfaceAlias "<zvolte>" -ServerAddresses ("<doplnte>") -Confirm:$false
 
 # instal domain services
 Install-WindowsFeature -Name 'AD-Domain-Services' -IncludeAllSubFeature -IncludeManagementTools -Confirm:$false 
@@ -468,7 +464,7 @@ Subnets jsou místěny všechny objekty podsítí (*subnet objects*) a k čemu
 slouží. Hlavně zdůrazněte, že z hlediska řadičů domén jsou tyto objekty
 irelevantní a že řadiče domény jsou umísťovány do míst explicitně.
 Ukažte, že toto explicitní přiřazení je zachyceno níže (kontejnery
-Servers pod každým z míst). Vytvořte objekt podsítě **192.168.32.0/24**
+Servers pod každým z míst). Vytvořte objekt podsítě **192.168.11.0/24**
 a pak ukažte, že lze přiřadit pouze jedinému místu, u nějakého místa
 naopak ukažte, že může zahrnovat více podsítí.
 
@@ -507,11 +503,11 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
         míst umisťují explicitně (viz kontejner Servers pod každým
         místem)
 
-5.  Vytvořte objekt podsítě **192.168.32.0/24**
+5.  Vytvořte objekt podsítě **192.168.11.0/24**
 
     a.  Klikněte pravým na kontejner Subnets a zvolte New subnet...
 
-    b.  Jako Prefix zadejte **192.168.32.0/24**
+    b.  Jako Prefix zadejte **192.168.11.0/24**
 
     c.  Objekt podsítě přiřaďte místu **Default-First-Site-Name** jeho
         vybráním pod Select a site object for this prefix

@@ -1,12 +1,13 @@
 - [Active Directory - Vztahy důvěry](#active-directory---vztahy-důvěry)
+  - [Zabezpečení vztahů důvěry](#zabezpečení-vztahů-důvěry)
 - [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
   - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
 - [Lektorské úkoly {#lektorské-úkoly .IW\_nadpis1}](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
   - [Lab L01 -- ADDT (Active Directory Domains and Trusts)](#lab-l01----addt-active-directory-domains-and-trusts)
   - [Lab L02 -- Vytvoření vztahů důvěry](#lab-l02----vytvoření-vztahů-důvěry)
-- [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
-- [Bodované úkoly {#bodované-úkoly .IW\_nadpis1}](#bodované-úkoly-bodované-úkoly-iw_nadpis1)
+- [Studentské úkoly](#studentské-úkoly)
+- [Bodované úkoly](#bodované-úkoly)
 
 
 # Active Directory - Vztahy důvěry
@@ -133,7 +134,7 @@ typy vztahů důvěry, jenž lze vytvořit manuálně:
     funkční úroveň lesa alespoň Windows Server 2003 a také mít
     odpovídající **DNS** infrastrukturu.
 
-**Zabezpečení vztahů důvěry**
+## Zabezpečení vztahů důvěry
 
 Samotný vztah důvěry sice neumožňuje uživatelům přistupovat ke zdrojům v
 důvěřující doméně, ale jeho vytvořením mohou uživatelé z důvěryhodné
@@ -288,7 +289,7 @@ vztahu důvěry.
 
     a.  Na **w2022-dc1** otevřete **DNS**
 
-        1.  Start → Administrative Tools → **DNS**
+    1.  Start → Administrative Tools → **DNS**
 
     b.  Klikněte pravým na Conditional Forwarders a zvolte New
         Conditional Forwarder...
@@ -309,7 +310,7 @@ vztahu důvěry.
     a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
-        1.  Start → Administrative Tools → **Active Directory Domains
+    1.  Start → Administrative Tools → **Active Directory Domains
             and Trusts**
 
     b.  Klikněte pravým na doménu **child.testing.local** a zvolte
@@ -322,14 +323,14 @@ vztahu důvěry.
     e.  V části Trust Name zadejte do pole Name doménu
         **testing2.local2** a pokračujte Next \>
 
-        -   Upozorněte, že zde se zadává druhá doména, jenž participuje
+    -   Zde se zadává druhá doména, jenž participuje
             ve vytvářeném vztahu důvěry, není to pojmenování vztahu
             důvěry nebo tak něco
 
     f.  V další části Direction of Trust zvolte One way: outgoing a
         pokračujte Next \>
 
-        -   Řekněte, že s tímto nastavením bude doména
+    -   S tímto nastavením bude doména
             **child.testing.local** důvěřovat doméně
             **testing2.local2**, ale ne naopak
 
@@ -339,8 +340,7 @@ vztahu důvěry.
     h.  V další části User Name and Password zadejte účet uživatele
         **testing2\\root** a pokračujte Next \>
 
-        -   Doménové jméno není nutné uvádět, použije se dříve vybraná
-            doména (je zobrazena jako Specified domain)
+    -   Doménové jméno není nutné uvádět, použije se dříve vybraná doména (je zobrazena jako Specified domain)
 
     i.  V části Outgoing Trust Authentication Level ‒ Local Domain
         zvolte možnost Domain-wide authentication a pokračujte Next \>
@@ -362,8 +362,7 @@ vztahu důvěry.
     a.  Na **w2022-t2-dc1** otevřete **ADDT** (*Active Directory Domains
         and Trusts*)
 
-        1.  Start → Administrative Tools → **Active Directory Domains
-            and Trusts**
+    1.  Start → Administrative Tools → **Active Directory Domains and Trusts**
 
     b.  Klikněte pravým na doménu **testing2.local2** a zvolte
         Properties
@@ -380,7 +379,7 @@ vztahu důvěry.
     a.  Na **w2022-child-dc1** otevřete **GPME** (*Group Policy Management
         Editor*)
 
-        1.  Start → Administrative Tools → **Group Policy Management**
+    1.  Start → Administrative Tools → **Group Policy Management**
 
     b.  Klikněte pravým na GPO objekt Default Domain Controllers Policy
         a zvolte Edit...
@@ -401,7 +400,7 @@ vztahu důvěry.
     h.  Aktualizujte nastavení zásad skupiny příkazem **gpupdate
         /force**
 
-        -   Pozor: Jde jen o zjednodušení úkolu, protože nemáme
+    -   Pozor: Jde jen o zjednodušení úkolu, protože nemáme
             k dispozici klientskou stanici. V praxi toto
             z bezpečnostních důvodů nikdy nedělejte.
 
@@ -436,8 +435,7 @@ vztahu důvěry.
     a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
-        1.  Start → Administrative Tools → **Active Directory Domains
-            and Trusts**
+    1.  Start → Administrative Tools → **Active Directory Domains and Trusts**
 
     b.  Klikněte pravým na doménu **child.testing.local** a zvolte
         Properties
@@ -460,8 +458,7 @@ vztahu důvěry.
     a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
-        1.  Start → Administrative Tools → **Active Directory Domains
-            and Trusts**
+    1.  Start → Administrative Tools → **Active Directory Domains and Trusts**
 
     b.  Klikněte pravým na doménu **testing.local** a zvolte Properties
 
@@ -475,7 +472,7 @@ vztahu důvěry.
     f.  V další části Trust Type vyberte Forest Trust a pokračujte Next
         \>
 
-        -   Připomeňte, že *forest* vztah důvěry je vždy mezi kořenovými
+    -   *Forest* vztah důvěry je vždy mezi kořenovými
             doménami dvou lesů, takže v předchozím případě (u domény
             **child.testing.local**) byl automaticky vybrán typ
             *external*, jelikož forest by stejně nešel vytvořit
@@ -489,10 +486,9 @@ vztahu důvěry.
     i.  V další části Outgoing Trust Authentication Level zvolte
         Forest-wide authentication a pokračujte Next \>
 
-    j.  V následující části Trust Password použijte heslo **aaaAAA111**
-        a pokračujte Next \>
+    j.  V následující části Trust Password použijte heslo **root4Lab** a pokračujte Next \>
 
-        -   Řekněte, že toto heslo je potřeba pro spárování
+    -   Toto heslo je potřeba pro spárování
             odpovídajících *incoming* a *outgoing* vztahů důvěry, pokud
             jsou vytvářeny samostatně v obou participujících doménách
 
@@ -511,8 +507,7 @@ vztahu důvěry.
     a.  Na **w2022-t2-dc1** otevřete **ADDT** (*Active Directory Domains
         and Trusts*)
 
-        1.  Start → Administrative Tools → **Active Directory Domains
-            and Trusts**
+    1.  Start → Administrative Tools → **Active Directory Domains and Trusts**
 
     b.  Klikněte pravým na doménu **testing2.local2** a zvolte
         Properties
@@ -533,7 +528,7 @@ vztahu důvěry.
     h.  V části Sides of Trust ponechte This domain only a pokračujte
         Next \>
 
-    i.  V další části Trust Password zadejte heslo **aaaAAA111** a
+    i.  V další části Trust Password zadejte heslo **root4Lab** a
         pokračujte Next \>
 
     j.  Vytvořte nový vztah důvěry pomocí Next \>
@@ -551,9 +546,6 @@ vztahu důvěry.
     -   Přihlášení bude úspěšné, jelikož doména **testing2.local2** je
         důvěryhodnou doménou pro doménu **testing.local**
 
-    ```{=html}
-    <!-- -->
-    ```
     -   V případě chyby The name or security ID (SID) of the domain
         specified is inconsistent with the trust information for that
         domain zkuste chvíli počkat a případně forest trust zrušit a
@@ -577,7 +569,7 @@ vztahu důvěry.
         tranzitivní, takže také doména **child.testing.local** důvěřuje
         doméně **testing2.local2**
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
 Lab S01 -- Zabezpečení vztahů důvěry
 
@@ -606,8 +598,7 @@ Lab S01 -- Zabezpečení vztahů důvěry
     a.  Na **w2022-dc1** otevřete **ADDT** (*Active Directory Domains and
         Trusts*)
 
-        1.  Start → Administrative Tools → **Active Directory Domains
-            and Trusts**
+    1.  Start → Administrative Tools → **Active Directory Domains and Trusts**
 
     b.  Klikněte pravým na doménu **testing.local** a zvolte Properties
 
@@ -624,9 +615,7 @@ Lab S01 -- Zabezpečení vztahů důvěry
 3.  Přihlaste se na **w2022-dc1** jako uživatel
     **root@testing2.local2**
 
-    -   Přihlášení nebude úspěšné, jelikož po povolení selektivní
-        *autentizace* nelze využívat žádné služby počítačů v důvěřující
-        doméně
+    -   Přihlášení nebude úspěšné, jelikož po povolení selektivní *autentizace* nelze využívat žádné služby počítačů v důvěřující doméně
 
 4.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
@@ -635,17 +624,15 @@ Lab S01 -- Zabezpečení vztahů důvěry
     a.  Na **w2022-dc1** otevřete **ADUC** (*Active Directory Users and
         Computers*)
 
-        1.  Start → Administrative Tools → **Active Directory Users and
-            Computers**
+    1.  Start → Administrative Tools → **Active Directory Users and Computers**
 
     b.  Povolte pokročilé možnosti zobrazení
 
-        1.  V menu konzole vyberte View a zvolte Advanced Features
+    1.  V menu konzole vyberte View a zvolte Advanced Features
 
     c.  Vyberte organizační jednotku Domain Controllers
 
-    d.  Klikněte pravým na účet počítače **w2022-dc1** a zvolte
-        Properties
+    d.  Klikněte pravým na účet počítače **w2022-dc1** a zvolte *Properties*
 
     e.  Přejděte na záložku Security, pak v seznamu pod Group or user
         names vyberte skupinu Authenticated Users a zaškrtněte Allow u
@@ -656,9 +643,7 @@ Lab S01 -- Zabezpečení vztahů důvěry
 6.  Přihlaste se na **w2022-dc1** jako uživatel
     **root@testing2.local2**
 
-    -   Přihlášení již bude úspěšné, jelikož všichni uživatelé z
-        důvěryhodných domén jsou členy skupiny Authenticated Users a ta
-        má nyní oprávnění využívat služby tohoto počítače
+    -   Přihlášení již bude úspěšné, jelikož všichni uživatelé z důvěryhodných domén jsou členy skupiny Authenticated Users a ta má nyní oprávnění využívat služby tohoto počítače
 
 7.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
@@ -680,19 +665,10 @@ Lab S01 -- Zabezpečení vztahů důvěry
         /quarantine:yes** **/userD:root@testing2.local2
         /passwordD:aaa**
 
-# Bodované úkoly {#bodované-úkoly .IW_nadpis1}
+# Bodované úkoly
 
 Úkol 1
 
--   Zajistěte, aby se uživatelé z **testing.local** mohli přihlásit na
-    počítače v doméně **testing2.local2**, a naopak uživatelé z
-    **testing2.local2** zase na počítače v doméně **testing.local**,
-    přihlašování mezi jinými dvojicemi domén napříč lesy nesmí být
-    možné.
+-   Zajistěte, aby se uživatelé z **testing.local** mohli přihlásit na počítače v doméně **testing2.local2**, a naopak uživatelé z **testing2.local2** zase na počítače v doméně **testing.local**, přihlašování mezi jinými dvojicemi domén napříč lesy nesmí být možné.
 
-
--   Na **w2022-dc1** zkontrolovat *incoming* a *outgoing* vztahy důvěry
-    do **testing2.local2** a také, že nejsou tranzitivní.
-
-[^1]: Kořenová doména lesa je první doména vytvořená v daném lese
-    **Active Directory**
+[^1]: Kořenová doména lesa je první doména vytvořená v daném lese  **Active Directory**

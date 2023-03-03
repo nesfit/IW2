@@ -1,3 +1,14 @@
+- [Active Directory - Vztahy důvěry](#active-directory---vztahy-důvěry)
+- [AutomatedLab](#automatedlab)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
+- [Lektorské úkoly {#lektorské-úkoly .IW\_nadpis1}](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
+  - [Lab L01 -- ADDT (Active Directory Domains and Trusts)](#lab-l01----addt-active-directory-domains-and-trusts)
+  - [Lab L02 -- Vytvoření vztahů důvěry](#lab-l02----vytvoření-vztahů-důvěry)
+- [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
+- [Bodované úkoly {#bodované-úkoly .IW\_nadpis1}](#bodované-úkoly-bodované-úkoly-iw_nadpis1)
+
+
 # Active Directory - Vztahy důvěry
 
 V případě pracovní skupiny si každý počítač uchovává vlastní úložiště
@@ -188,7 +199,7 @@ Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingS
 
 Add-LabMachineDefinition -Name w2022-child-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles FirstChildDC  -DomainName child.testing.local 
 
-Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing2.local2
+Add-LabMachineDefinition -Name w2022-testing2-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing2.local2
 
 Install-Lab
 

@@ -8,9 +8,13 @@
     - [**Další možnosti konfigurace mezimístní replikace**](#další-možnosti-konfigurace-mezimístní-replikace)
 - [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
-- [Lektorské úkoly {#lektorské-úkoly .IW\_nadpis1}](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
-- [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
-- [Bodované úkoly {#bodované-úkoly .IW\_nadpis1}](#bodované-úkoly-bodované-úkoly-iw_nadpis1)
+- [Lektorské úkoly](#lektorské-úkoly)
+  - [Lab L01 -- instalace RODC pomocí skriptu](#lab-l01----instalace-rodc-pomocí-skriptu)
+  - [Lab L02 -- ADSS (Active Directory Sites and Services)](#lab-l02----adss-active-directory-sites-and-services)
+  - [Lab L03 -- Vytvoření replikační topologie](#lab-l03----vytvoření-replikační-topologie)
+- [Studentské úkoly](#studentské-úkoly)
+  - [Lab S01 -- Bridgehead servery a mezimístní replikační topologie](#lab-s01----bridgehead-servery-a-mezimístní-replikační-topologie)
+- [Bodované úkoly](#bodované-úkoly)
 
 # Active Directory - Replikace
 
@@ -387,9 +391,9 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
-# Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
+# Lektorské úkoly
 
-Lab L01 -- instalace RODC pomocí skriptu
+## Lab L01 -- instalace RODC pomocí skriptu
 
 > **Cíl cvičení**
 >
@@ -411,8 +415,10 @@ Lab L01 -- instalace RODC pomocí skriptu
 # install RODC on w2022
 
 # configure networks
-New-NetIPAddress -InterfaceAlias "LAN2" -AddressFamily IPv4 -IPAddress "192.168.32.9" -PrefixLength 24 -DefaultGateway 192.168.32.5 -Confirm:$false
-Set-DnsClientServerAddress -InterfaceAlias "LAN2" -ServerAddresses ("192.168.32.5") -Confirm:$false
+New-NetIPAddress -InterfaceAlias "<doplnte>" -AddressFamily IPv4 -IPAddress "<doplnte>" -PrefixLength 24 
+-DefaultGateway <doplnte> -Confirm:$false
+
+Set-DnsClientServerAddress -InterfaceAlias "<zvolte>" -ServerAddresses ("<doplnte>") -Confirm:$false
 
 # instal domain services
 Install-WindowsFeature -Name 'AD-Domain-Services' -IncludeAllSubFeature -IncludeManagementTools -Confirm:$false 
@@ -445,7 +451,7 @@ Install-ADDSDomainController `
 
 ```
 
-Lab L02 -- ADSS (Active Directory Sites and Services)
+## Lab L02 -- ADSS (Active Directory Sites and Services)
 
 > **Cíl cvičení**
 >
@@ -510,7 +516,7 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
     c.  Objekt podsítě přiřaďte místu **Default-First-Site-Name** jeho
         vybráním pod Select a site object for this prefix
 
-        -   Objekt podsítě lze přiřadit jen jednomu místu, ale jedno
+    -   Objekt podsítě lze přiřadit jen jednomu místu, ale jedno
             místo může zahrnovat více podístí.
 
     d.  Potvrďte vytvoření podsítě pomocí OK
@@ -555,7 +561,7 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 
     a.  Z kontextové nabídky kontejneru IP zvolte New Site Link ...
 
-        -   V tuto chvíli máme jen jedno místo, proto se zobrazí
+    -   V tuto chvíli máme jen jedno místo, proto se zobrazí
             upozornění -- přečtěte si jej a  pokračujte OK
 
     b.  Pojmenujte objekt linky **BRNO**
@@ -564,7 +570,7 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 
     d.  a  pokračujte OK
 
-Lab L03 -- Vytvoření replikační topologie
+## Lab L03 -- Vytvoření replikační topologie
 
 > **Cíl cvičení**
 >
@@ -614,7 +620,7 @@ Lab L03 -- Vytvoření replikační topologie
 
     d.  Zadejte hodnotu (Value) **0x11** a potvrďte dvakrát OK
 
-        -   Nastavení 1. nejnižšího bitu (hodnota **0x01**) vypíná
+    -   Nastavení 1. nejnižšího bitu (hodnota **0x01**) vypíná
             generování místní replikační topologie, nastavení 5.
             nejnižšího bitu (hodnota **0x10**) zase vypíná generování
             mezimístní replikační topologie
@@ -648,13 +654,13 @@ Lab L03 -- Vytvoření replikační topologie
     a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2022-dc2** a
         vyberte New Active Directory Domain Services Connection...
 
-        -   Upozorněte, že pod NTDS Settings jsou zobrazeny příchozí
+    -   Pod NTDS Settings jsou zobrazeny příchozí
             spojení a tedy při vytváření spojení vybíráme NTDS Settings
             cílového řadiče domény
 
     b.  Ze Search result vyberte **w2022-dc1** a zvolte OK
 
-        -   Řekněte, že zde volíme zase zdrojový řadič domény (tedy
+    -   Zde volíme zase zdrojový řadič domény (tedy
             replikačního partnera)
 
     c.  Jako název (Name) zadejte **dc2repl** a vytvořte objekt spojení
@@ -732,9 +738,6 @@ Lab L03 -- Vytvoření replikační topologie
             vyzývání, jenž je jediná možnost jak iniciovat mezimístní
             replikaci
 
-```{=html}
-<!-- -->
-```
 14. Vynuťte replikaci změn provedených na **w2022-dc1** na **w2022**
 
     a.  Vyberte uzel NTDS Settings pod uzlem **w2022**
@@ -764,9 +767,9 @@ Lab L03 -- Vytvoření replikační topologie
 
 20. Ověřte, že změny byly replikovány na **w2022-dc1**
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
-Lab S01 -- Bridgehead servery a mezimístní replikační topologie
+## Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 
 > **Cíl cvičení**
 >
@@ -933,10 +936,8 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
     -   Pokud spojení nebylo vytvořeno, proveďte postup z **bodu 10** na
         **w2022**
 
-**\
-**
 
-# Bodované úkoly {#bodované-úkoly .IW_nadpis1}
+# Bodované úkoly
 
 Úkol 1
 

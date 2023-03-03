@@ -1,6 +1,7 @@
 - [Active Directory - Replikace](#active-directory---replikace)
   - [**Další možnosti konfigurace mezimístní replikace**](#další-možnosti-konfigurace-mezimístní-replikace)
-- [Společné úkoly {#společné-úkoly .IW\_nadpis1}](#společné-úkoly-společné-úkoly-iw_nadpis1)
+- [AutomatedLab](#automatedlab)
+- [Společné úkoly](#společné-úkoly)
 - [Lektorské úkoly {#lektorské-úkoly .IW\_nadpis1}](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
 - [Studentské úkoly {#studentské-úkoly .IW\_nadpis1}](#studentské-úkoly-studentské-úkoly-iw_nadpis1)
 - [Bodované úkoly {#bodované-úkoly .IW\_nadpis1}](#bodované-úkoly-bodované-úkoly-iw_nadpis1)
@@ -319,40 +320,59 @@ linek nebo celý proces replikace. Hlavní nastavení se týkají:
     hodin denně. Tyto doby lze omezit jen na určité hodiny, během
     kterých bude dané spojení (*site link*) mezi místy k dispozici.
 
-# Společné úkoly {#společné-úkoly .IW_nadpis1}
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
+---
 
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
+# AutomatedLab
 
--   Rozsah IP adres přidělených z *Default switch* se může od níže
-    uvedeného rozsahu lišit.
+```
+$labName = 'E09'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+
+$adminPass = 'root4Lab'
+
+set-labinstallationcredential -username root -password $adminPass
+add-labdomaindefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
+
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC     -DomainName testing.local
+Add-LabMachineDefinition -Name w2022  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+
+Install-Lab
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
+
+# Společné úkoly
+
+-   Upravte nastavení RAM a CPU dle použitých PC
+
 
 **Lab LS00 -- konfigurace virtuálních stanic**
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-| ------------------------ | -------------- | -------------- | -------------- | -------------- |
-| **D+R+C w2016-dc**       | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-repl**     | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **w2016-base**           | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+
+| **Adaptér (MAC suffix)** | **LAN**  |
+| ------------------------ | -------- |
+| **w2022-dc1**            | Internal |
+| **w2022-dc2**            | Internal |
+| **w2022**                | Internal |
 
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
--   Servery **D+R+C w2016-dc** **a D+R+C w2016-repl** je nutné spouštět
+-   Servery **w2022-dc1** **a w2022-dc2** je nutné spouštět
     společně.
 
--   Na stanici **D+R+C w2016-dc** restartujte službu DHCP
+-   Na stanici **w2022-dc1** restartujte službu DHCP
 
     -   DHCP MMC, vyberte w2016-dc.testing.local a z kontextové nabídky
         All Tasks -- Restart
 
--   Tip: stanice **D+R+C w2016-dc** a **D+R+C w2016-repl** spusťte na
+-   Tip: stanice **w2022-dc1** a **w2022-dc2** spusťte na
     začátku cvičení.
 
 # Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
@@ -365,20 +385,20 @@ Lab L01 -- instalace RODC pomocí skriptu
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2016-dc** (w2022-dc1)
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2016-repl** (w2022-dc2)
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Složka utils se skripty run_rep.bat a prepare.ps1
 
-1.  Na **w2016-base** se přihlaste jako lokální uživatel
+1.  Na **w2022** se přihlaste jako lokální uživatel
     **administrator**
 
-2.  Na **w2016-base** zkopírujte složku utils se skripty
+2.  Na **w2022** zkopírujte složku utils se skripty
 
     -   Nejrychleji přetažením do okna rozšířené relace připojení k VM
 
@@ -396,9 +416,9 @@ Lab L02 -- ADSS (Active Directory Sites and Services)
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2016-dc** (w2022-dc1)
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2016-repl** (w2022-dc2)
 
 Otevřete **ADSS** konzoli a projděte ji. Řekněte, že v kontejneru
 Subnets jsou místěny všechny objekty podsítí (*subnet objects*) a k čemu
@@ -515,11 +535,11 @@ Lab L03 -- Vytvoření replikační topologie
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2016-dc** (w2022-dc1)
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2016-repl** (w2022-dc2)
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
@@ -575,11 +595,11 @@ Lab L03 -- Vytvoření replikační topologie
 
 7.  Vytvořte místo **FIT**, vypněte v něm automatické generování místní
     a mezimístní replikační topologie a přesuňte do něj server
-    **w2016-base** podle postupů z **bodů 3 - 5**
+    **w2022** podle postupů z **bodů 3 - 5**
 
 8.  Smažte všechny objekty spojení zahrnující **w2016-dc**,
-    **w2016-repl** a **w2016-base** s výjimkou objektu spojení **RODC
-    Connection (SYSVOL)** u **w2016-base**
+    **w2016-repl** a **w2022** s výjimkou objektu spojení **RODC
+    Connection (SYSVOL)** u **w2022**
 
     a.  Klikněte pravým na konkrétní objekt spojení a zvolte Delete
 
@@ -604,8 +624,8 @@ Lab L03 -- Vytvoření replikační topologie
         pomocí OK
 
 10. Upravte spojení **RODC Connection (SYSVOL)** tak, aby byl
-    replikačním partnerem **w2016-base** **w2016-dc**, tedy aby
-    **w2016-base** replikoval změny vždy od **w2016-dc**
+    replikačním partnerem **w2022** **w2016-dc**, tedy aby
+    **w2022** replikoval změny vždy od **w2016-dc**
 
     a.  Klikněte pravým na objekt spojení **RODC Connection (SYSVOL)** a
         zvolte Properties
@@ -627,11 +647,11 @@ Lab L03 -- Vytvoření replikační topologie
     řadiče domény
 
     a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2016-repl**
-        resp. **w2016-base** a zvolte Replicate configuration to the
+        resp. **w2022** a zvolte Replicate configuration to the
         selected DC
 
         -   Pokud replikace selže, přejděte (připojte se pomocí
-            **ADSS**) na **w2016-repl** resp. **w2016-base**, klikněte
+            **ADSS**) na **w2016-repl** resp. **w2022**, klikněte
             pravým na uzel NTDS Settings pod uzlem **w2016-dc** a zvolte
             Replicate configuration from the selected DC
 
@@ -660,7 +680,7 @@ Lab L03 -- Vytvoření replikační topologie
                 **w2016-dc**, v tomto případě tedy řadiči domény
                 **w2016-repl**
 
-    b.  Ověřte, že **na w2016-base** nedošlo k žádným změnám
+    b.  Ověřte, že **na w2022** nedošlo k žádným změnám
 
         -   **Pozor** na používání **ADUC** konzole na **RODC**
             řadičích, tato konzole se primárně připojuje k normálním
@@ -678,16 +698,16 @@ Lab L03 -- Vytvoření replikační topologie
 ```{=html}
 <!-- -->
 ```
-14. Vynuťte replikaci změn provedených na **w2016-dc** na **w2016-base**
+14. Vynuťte replikaci změn provedených na **w2016-dc** na **w2022**
 
-    a.  Vyberte uzel NTDS Settings pod uzlem **w2016-base**
+    a.  Vyberte uzel NTDS Settings pod uzlem **w2022**
 
     b.  Klikněte pravým na spojení **RODC Connection (SYSVOL)** a zvolte
         Replicate Now
 
     c.  Potvrďte OK
 
-15. Ověřte, že změna byla replikována na **w2016-base**
+15. Ověřte, že změna byla replikována na **w2022**
 
 16. Proveďte nějakou změnu v **Active Directory** databázi tentokrát na
     **w2016-repl**
@@ -718,17 +738,17 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2016-dc** (w2022-dc1)
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2016-repl** (w2022-dc2)
 >
-> **w2016-base**
+> **w2022**
 >
 > **Další prerekvizity**
 >
 > Dokončený úkol **Lab L01**, místo **VUT** obsahující servery
 > **w2016-dc** a **w2016-repl**, místo **FIT** obsahující server
-> **w2016-base**, objekt linky (*site link object*) obsahující obě místa
+> **w2022**, objekt linky (*site link object*) obsahující obě místa
 > **VUT** a **FIT**
 
 1.  Na **w2016-dc** se přihlaste jako uživatel **administrator** do
@@ -740,7 +760,7 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
         Services**
 
 3.  Smažte všechny objekty spojení zahrnující **w2016-dc**,
-    **w2016-repl** a **w2016-base**
+    **w2016-repl** a **w2022**
 
     a.  Klikněte pravým na objekt spojení a zvolte Delete
 
@@ -824,31 +844,31 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 10. Vygenerujte mezimístní replikační topologii mezi místy **FIT** a
     **VUT**
 
-    a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2016-base** a
+    a.  Klikněte pravým na uzel NTDS Settings pod uzlem **w2022** a
         pod All Tasks zvolte Check Replication Topology
 
     b.  Potvrďte pomocí OK
 
-11. Na **w2016-base** ověřte, že bylo vytvořeno spojení z **w2016-dc**
-    do **w2016-base**
+11. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2016-dc**
+    do **w2022**
 
-    a.  Na **w2016-base** otevřete **ADSS** (*Active Directory Sites and
+    a.  Na **w2022** otevřete **ADSS** (*Active Directory Sites and
         Services*)
 
         1.  Start → Administrative Tools → **Active Directory Sites and
             Services**
 
-    b.  Připojte se k **w2016-base**
+    b.  Připojte se k **w2022**
 
         1.  Klikněte pravým na Active Directory Users and Computers a
             zvolte Change Domain Controller...
 
         2.  Pod Change to zvolte možnost This Domain Controller or AD
-            LDS instance a vyberte **w2016-base.testing.local**
+            LDS instance a vyberte **w2022.testing.local**
 
         3.  Potvrďte dvakrát pomocí OK
 
-    c.  Vyberte uzel NTDS Settings pod uzlem **w2016-base**
+    c.  Vyberte uzel NTDS Settings pod uzlem **w2022**
 
     d.  Zkontrolujte, že vygenerované spojení (objekt spojení) jde z
         (From Server) **w2016-dc**
@@ -870,11 +890,11 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 14. Přegenerujte mezimístní replikační topologii mezi místy **FIT** a
     **VUT** podle postupu z **bodu 10**
 
-15. Na **w2016-base** ověřte, že bylo vytvořeno spojení z **w2016-repl**
-    do **w2016-base**
+15. Na **w2022** ověřte, že bylo vytvořeno spojení z **w2016-repl**
+    do **w2022**
 
     -   Pokud spojení nebylo vytvořeno, proveďte postup z **bodu 10** na
-        **w2016-base**
+        **w2022**
 
 **\
 **
@@ -884,17 +904,17 @@ Lab S01 -- Bridgehead servery a mezimístní replikační topologie
 Úkol 1
 
 -   Mějme tři řadiče domény **w2016-dc**, **w2016-repl** a
-    **w2016-base**. **w2016-dc** je umístěn na rektorátu **VUT**,
-    **w2016-repl** na fakultě **FEKT** a **w2016-base** na fakultě
+    **w2022**. **w2016-dc** je umístěn na rektorátu **VUT**,
+    **w2016-repl** na fakultě **FEKT** a **w2022** na fakultě
     **FIT**. Rektorát **VUT** je spojen s fakultami **FEKT** a **FIT**
     pomocí 10Mbit kabelu a fakulty **FEKT** a **FIT** jsou navzájem
     spojeny pomocí experimentální 1Gbit optické linky. Zajistěte, aby
     všechny počítače ze sítě **192.168.1.x** byly autentizovány vždy
     pomocí **w2016-dc**, všechny počítače ze sítě **192.168.2.x** zase
     pomocí **w2016-repl** a všechny počítače ze sítě **192.168.3.x** jen
-    pomocí **w2016-base**. Dále navrhněte replikační topologii, jenž
+    pomocí **w2022**. Dále navrhněte replikační topologii, jenž
     zajistí replikaci změn na kterémkoliv řadiči domény na všechny
-    ostatní a jenž zajistí, že **w2016-base** bude replikovat změny od
+    ostatní a jenž zajistí, že **w2022** bude replikovat změny od
     **w2016-repl** pomocí experimentální optické linky, ale v případě
     selhání této linky bude existovat alternativní spojení s
     **w2016-repl**.

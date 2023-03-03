@@ -340,6 +340,45 @@ Add-LabMachineDefinition -Name w2022  -Memory 4GB -Processors 8  -OperatingSyste
 
 Install-Lab
 
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    New-ADUser -Name student -SamAccountName Student -AccountPassword $password -Enabled $true
+    
+    New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
+    New-ADOrganizationalUnit -Name brnopcs -path "DC=testing,DC=local" 
+
+    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Path "OU=brno,DC=testing,DC=local" -Description "Members of this group are Simpsons"
+
+    $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
+
+    Add-ADGroupMember -Identity $Simpsons -Members $Homer
+
+    Move-ADObject "CN=w11-domain,CN=computers,DC=testing,DC=local" -TargetPath "OU=brnopcs,DC=testing,DC=local"
+
+    # Lab evaluation prep
+    Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "NoAutoUpdate" -Type DWORD -Value 0
+    Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "AUOptions" -Type DWORD -Value 2
+
+    New-GPO "DC GPO"
+    Set-GPRegistryValue -Name "DC GPO" -Key "HKCU\Software\Microsoft\Windows\CurrentVersion\Policies\System" -ValueName "DisableTaskMgr" -Type DWORD -Value 1
+
+    $usersContainer = [ADSI]"LDAP://CN=Users,DC=testing,DC=local"
+    $iw2testUser = $usersContainer.Create("user", "CN=iw2test")
+    $iw2testUser.Put("sAMAccountName", "iw2test") 
+    $iw2testUser.SetInfo()
+    $iw2testUser.SetPassword("aaaAAA111")
+    $iw2testUser.SetInfo()
+    $iw2testUser.InvokeSet("AccountDisabled", $false)
+    $iw2testUser.SetInfo()
+
+    $soGroup = [ADSI]"LDAP://CN=Server Operators,CN=Builtin,DC=testing,DC=local" 
+    $soGroup.Member.Add("CN=iw2test,CN=Users,DC=testing,DC=local") 
+    $soGroup.CommitChanges()
+    
+} -ComputerName w2022-dc1
+
+
 Show-LabDeploymentSummary -Detailed
 ```
 
@@ -398,15 +437,44 @@ Lab L01 -- instalace RODC pomocí skriptu
 1.  Na **w2022** se přihlaste jako lokální uživatel
     **administrator**
 
-2.  Na **w2022** zkopírujte složku utils se skripty
+2. Poupravte následující script dle konfigurace stroje a 
+```
+# install RODC on w2016-base
 
-    -   Nejrychleji přetažením do okna rozšířené relace připojení k VM
+# configure networks
+New-NetIPAddress -InterfaceAlias "LAN2" -AddressFamily IPv4 -IPAddress "192.168.32.9" -PrefixLength 24 -DefaultGateway 192.168.32.5 -Confirm:$false
+Set-DnsClientServerAddress -InterfaceAlias "LAN2" -ServerAddresses ("192.168.32.5") -Confirm:$false
 
-3.  Spusťte skript run_prep.bat
+# instal domain services
+Install-WindowsFeature -Name 'AD-Domain-Services' -IncludeAllSubFeature -IncludeManagementTools -Confirm:$false 
 
-    -   Vyžaduje prepare.ps1
+# post deployment settings
 
-        -   Skript běží cca 7 min a na závěr dojde k restartu VM
+$testingAdminPassword = ConvertTo-SecureString 'root4Lab' -AsPlainText -Force
+$testingAdminCredential = New-Object System.Management.Automation.PSCredential ('root@testing.local', $testingAdminPassword)
+$safeModeAdministratorPassword = ConvertTo-SecureString 'root4Lab' -AsPlainText -Force
+
+Import-Module ADDSDeployment
+Install-ADDSDomainController `
+-AllowPasswordReplicationAccountName @("TESTING\Allowed RODC Password Replication Group") `
+-NoGlobalCatalog:$false `
+-Credential $testingAdminCredential `
+-CriticalReplicationOnly:$false `
+-SafeModeAdministratorPassword $safeModeAdministratorPassword `
+-DatabasePath "C:\Windows\NTDS" `
+-DelegatedAdministratorAccountName "TESTING\Simpsons" `
+-DenyPasswordReplicationAccountName @("BUILTIN\Administrators", "BUILTIN\Server Operators", "BUILTIN\Backup Operators", "BUILTIN\Account Operators", "TESTING\Denied RODC Password Replication Group") `
+-DomainName "testing.local" `
+-InstallDns:$true `
+-LogPath "C:\Windows\NTDS" `
+-NoRebootOnCompletion:$false `
+-ReadOnlyReplica:$true `
+-ReplicationSourceDC "w2022-dc1.testing.local" `
+-SiteName "Default-First-Site-Name" `
+-SysvolPath "C:\Windows\SYSVOL" `
+-Force:$true
+
+```
 
 Lab L02 -- ADSS (Active Directory Sites and Services)
 

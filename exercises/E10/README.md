@@ -299,7 +299,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 | ------------------------ | -------- |
 | **w2022-dc1**            | Internal |
 | **w2022-dc2**            | Internal |
-| **w2022**      | Internal |
+| **w2022**                | Internal |
 
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
@@ -377,7 +377,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
             credentials to perform this operation a vyplňte jméno
             **testing\\root** a heslo **root4Lab**
 
-        -   Lze použít i zápis **administrator@testing.local**
+        -   Lze použít i zápis **root@testing.local**
 
         -   Řekněte, že pro přidání řadiče domény do domény jsou
                 potřeba oprávnění správce domény, účet tedy musí členem

@@ -193,13 +193,12 @@ Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword $admi
 Add-LabDomainDefinition -Name child.testing.local -AdminUser root -AdminPassword $adminPass
 Add-LabDomainDefinition -Name testing2.local2 -AdminUser root -AdminPassword $adminPass
 
-
 Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
 Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC -DomainName testing.local
 
 Add-LabMachineDefinition -Name w2022-child-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles FirstChildDC  -DomainName child.testing.local 
 
-Add-LabMachineDefinition -Name w2022-testing2-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing2.local2
+Add-LabMachineDefinition -Name w2022-t2-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing2.local2
 
 Install-Lab
 
@@ -222,7 +221,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 | **w2022-dc1**            | Internal |
 | **w2022-dc2**            | Internal |
 | **w2022-child-dc1**      | Internal |
-| **w2022-testing2-dc1**   | Internal |
+| **w2022-t2-dc1**         | Internal |
 
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
@@ -268,7 +267,7 @@ vztahu důvěry.
 >
 > **w2022-child-dc1**
 >
-> **w2022-testing2-dc1**
+> **w2022-t2-dc1**
 >
 > **Další prerekvizity**
 >
@@ -276,7 +275,7 @@ vztahu důvěry.
 
 1.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
-2.  Přihlaste se na **w2022-testing2-dc1** jako **testing2\\root**
+2.  Přihlaste se na **w2022-t2-dc1** jako **testing2\\root**
 
 3.  Nastavte podmíněné přeposílání DNS dotazů mezi doménami
     **testing.local** a **testing2.local2**
@@ -296,9 +295,9 @@ vztahu důvěry.
 
     c.  Do pole DNS Domain zadejte **testing2.local2** a pod IP
         addresses of the master servers níže vložte IP adresu
-        <doplnte IP w2022-testing2-dc1> a potvrďte OK
+        <doplnte IP w2022-t2-dc1> a potvrďte OK
 
-    d.  Opakujte **body 1.a -- 1.c** na **w2022-testing2-dc1**, tentokrát pro
+    d.  Opakujte **body 1.a -- 1.c** na **w2022-t2-dc1**, tentokrát pro
         doménu **testing.local** a IP adresu <doplnte IP w2022-dc1>
 
     e.  Pomocí nástroje nslookup ověřte, že je nyní možné přeložit FQDN
@@ -360,7 +359,7 @@ vztahu důvěry.
 5.  Ověřte, že bodem 2.g došlo i k vytvoření jednosměrného příchozího
     vztahu důvěry v doméně **testing2.local2**
 
-    a.  Na **w2022-testing2-dc1** otevřete **ADDT** (*Active Directory Domains
+    a.  Na **w2022-t2-dc1** otevřete **ADDT** (*Active Directory Domains
         and Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -413,9 +412,9 @@ vztahu důvěry.
         důvěryhodnou doménou pro doménu **child.testing.local**
 
 9.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
-    **testing2.local2** provedením postupu z **bodu 5** na **w2022-testing2-dc1**
+    **testing2.local2** provedením postupu z **bodu 5** na **w2022-t2-dc1**
 
-10. Přihlaste se na **w2022-testing2-dc1** jako uživatel
+10. Přihlaste se na **w2022-t2-dc1** jako uživatel
     **root@child.testing.local**
 
     -   Přihlášení nebude úspěšné, jelikož doména
@@ -509,7 +508,7 @@ vztahu důvěry.
 15. Dokončete vytvoření forest vztahu důvěry v doméně
     **testing2.local2**
 
-    a.  Na **w2022-testing2-dc1** otevřete **ADDT** (*Active Directory Domains
+    a.  Na **w2022-t2-dc1** otevřete **ADDT** (*Active Directory Domains
         and Trusts*)
 
         1.  Start → Administrative Tools → **Active Directory Domains
@@ -560,7 +559,7 @@ vztahu důvěry.
         domain zkuste chvíli počkat a případně forest trust zrušit a
         znovu nastavit
 
-17. Přihlaste se na **w2022-testing2-dc1** jako uživatel
+17. Přihlaste se na **w2022-t2-dc1** jako uživatel
     **root@testing.local**
 
     -   Přihlášení nebude úspěšné, jelikož doména **testing.local** není
@@ -593,7 +592,7 @@ Lab S01 -- Zabezpečení vztahů důvěry
 >
 > **w2022-child-dc1** (D+R+C w2022-child-dc1)
 >
-> **w2022-testing2-dc1** (w2022-testing2-dc1)
+> **w2022-t2-dc1** (w2022-t2-dc1)
 >
 > **Další prerekvizity**
 >

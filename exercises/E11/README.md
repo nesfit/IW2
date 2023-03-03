@@ -1,4 +1,26 @@
-**Údržba Active Directory**
+- [Údržba Active Directory](#údržba-active-directory)
+  - [Údržba databáze Active Directory](#údržba-databáze-active-directory)
+  - [Ochrana Active Directory](#ochrana-active-directory)
+  - [Záloha a obnova databáze Active Directory](#záloha-a-obnova-databáze-active-directory)
+  - [Záloha databáze Active Directory](#záloha-databáze-active-directory)
+  - [Záloha stavu systému](#záloha-stavu-systému)
+  - [Obnova databáze Active Directory](#obnova-databáze-active-directory)
+  - [Ochrana řadičů domény virtualizací](#ochrana-řadičů-domény-virtualizací)
+  - [Active Directory koš](#active-directory-koš)
+- [AutomatedLab](#automatedlab)
+- [Společné úkoly](#společné-úkoly)
+  - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
+- [Lektorské úkoly](#lektorské-úkoly)
+  - [Lab L01 -- Ochrana Active Directory](#lab-l01----ochrana-active-directory)
+  - [Lab L02 -- Záloha a obnova databáze Active Directory](#lab-l02----záloha-a-obnova-databáze-active-directory)
+- [Studentské úkoly](#studentské-úkoly)
+  - [Lab S01 -- Obnova objektů](#lab-s01----obnova-objektů)
+  - [Lab S02 -- Snímky databáze Active Directory](#lab-s02----snímky-databáze-active-directory)
+  - [Lab S03 -- Auditování změn databáze Active Directory](#lab-s03----auditování-změn-databáze-active-directory)
+  - [Lab S04 -- Údržba databáze Active Directory](#lab-s04----údržba-databáze-active-directory)
+
+
+# Údržba Active Directory
 
 Ani sebelepší konfigurace **Active Directory** nemění nic na faktu, že
 je potřeba pravidelně provádět její údržbu. Také je důležité si
@@ -18,7 +40,7 @@ obsluhovat požadavky klientů, měly by být tedy také pravidelně
 monitorovány. To je jen část úkolů, které lze zařadit do celkové údržby
 **Active Directory**.
 
-**Údržba databáze Active Directory**
+## Údržba databáze Active Directory
 
 Údržba databáze **Active Directory** byla v minulosti značně
 problematická. V předchozích verzích systému Windows Server byla totiž
@@ -49,7 +71,7 @@ alokované místo uvolněno. Pro jeho uvolnění musí být provedeno tzv.
 provádí údržbu své databáze, ale pouze ve formě přesunu záznamů, aby
 byly lépe (rychleji) přístupné, neuvolňuje tedy žádné místo.
 
-**Ochrana Active Directory**
+## Ochrana Active Directory
 
 Ochrana **Active Directory** se samozřejmě týká primárně ochrany dat,
 tedy ochrany objektů uložených v databázi **Active Directory**. Asi
@@ -121,7 +143,7 @@ ochrany nebo následné obnovy dat:
     obsahuje **Windows Server Backup**, jenž lze použít k zálohování
     nebo obnovení databáze **Active Directory**.
 
-**Záloha a obnova databáze Active Directory**
+## Záloha a obnova databáze Active Directory
 
 Obnova objektů nemusí být často ideální metodou pro obnovu dat. Obnovené
 objekty obecně neobsahují veškeré informace a hodnoty atributů, jenž
@@ -164,7 +186,7 @@ nového řadiče domény jako alternativní zdroj dat namísto replikace.
 Tímto se může výrazně snížit množství replikovaných dat při instalaci
 daného řadiče domény.
 
-**Záloha databáze Active Directory**
+## Záloha databáze Active Directory
 
 Oproti předchozím verzím systému Windows Server došlo u Windows Server
 2008 k několika dosti podstatným změnám ohledně zálohování. Navíc také
@@ -232,7 +254,7 @@ automatizovat zálohování pomocí skriptů. Případně lze také využít
 nástroj **Wbadmin.exe**, jenž poskytuje nyní stejné možnosti jako
 **Windows Server Backup**.
 
-**Záloha stavu systému**
+## Záloha stavu systému
 
 Stav systému (*System State*) je sada dat potřebná pro chod systému
 Windows a pro plnění některých rolí. V případě řadiče domény zahrnuje
@@ -240,14 +262,11 @@ stav systému:
 
 -   **Registr**.
 
--   **Databázi registrovaných COM+ tříd** (*COM+ Class Registration
-    > database*).
+-   **Databázi registrovaných COM+ tříd** (*COM+ Class Registration database*).
 
 -   **Bootovací soubory**.
 
--   **Systémové soubory, které jsou pod ochranou zdrojů systému
-    > Windows** (**WRP**, *Windows Resource Protection*). Zde standardně
-    > patří většina systémových souborů systému Windows.
+-   **Systémové soubory, které jsou pod ochranou zdrojů systému Windows** (**WRP**, *Windows Resource Protection*). Zde standardně patří většina systémových souborů systému Windows.
 
 -   **Databázi Active Directory**. Tedy soubor **Ntds.dit**.
 
@@ -281,7 +300,7 @@ rychlejší a vyžadují méně místa. Inkrementální zálohy využívají st
 kopie (*shadow copies*) pro verzování různých verzí souborů namísto
 jednotlivých adresářů pro každou verzi souboru.
 
-**Obnova databáze Active Directory**
+## Obnova databáze Active Directory
 
 I přesto, že od Windows Server 2008 lze roli řadiče domény (**AD DS**
 službu) ovládat jako standardní službu, nelze tuto službu jednoduše
@@ -325,7 +344,7 @@ data označena jako autoritativní. V praxi to znamená nastavení čísla
 že jsou tato data novější než stávající. Navíc u obou typů obnovy nemusí
 být obnovena celá databáze, je možné obnovit pouze její část.
 
-**Ochrana řadičů domény virtualizací**
+## Ochrana řadičů domény virtualizací
 
 Řadiče domény jsou ideální kandidáti pro virtualizaci pomocí
 **Hyper-V**, jelikož poskytují čistě síťové služby. Virtuální stroje je
@@ -349,7 +368,7 @@ oddílů, i když aplikace stále na tyto oddíly zapisují. Je implementován
 jako sada **COM** rozhraní a je k dispozici i u **Server Core**
 instalace.
 
-**Active Directory koš**
+## Active Directory koš
 
 **Active Directory** koš, představený ve Windows Server 2008 R2, značně
 rozšiřuje možnosti uchovávání a obnovy omylem smazaných objektů
@@ -416,45 +435,92 @@ Od Windows Server 2012 je možné zapnout **Active Directory** Koš nejen
 pomocí **Powershellu**, ale také pohodlněji v **Active Directory
 Admninistrativ Center**.
 
-# Společné úkoly {#společné-úkoly .IW_nadpis1}
+---
 
--   Pro přístup na server **file** (a jiné) přes síťové rozhraní
-    *Default switch* je nutné použít jeho plně kvalifikované doménové
-    jméno **file.nepal.local**
+# AutomatedLab
 
--   Přístupové údaje na server **file**: **nepal\\hstudent** heslo:
-    **aaa**
+```
+$labName = 'E10'
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 
--   Rozsah IP adres přidělených z *Default switch* se může od níže
-    uvedeného rozsahu lišit.
+$adminPass = 'root4Lab'
 
-**Lab LS00 -- konfigurace virtuálních stanic**
+Set-LabinstallationCredential -username root -password $adminPass
+Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword $adminPass
+Add-LabDomainDefinition -Name child.testing.local -AdminUser root -AdminPassword $adminPass
+
+
+Add-LabMachineDefinition -Name w2022-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-dc2  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles DC     -DomainName testing.local
+Add-LabMachineDefinition -Name w2022-child-dc1  -Memory 4GB -Processors 8  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles FirstChildDC  -DomainName child.testing.local 
+
+Install-Lab
+
+Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
+
+    New-ADUser -Name student -SamAccountName Student -AccountPassword $password -Enabled $true
+
+    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Description "Members of this group are Simpsons"
+
+    $Homer = New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
+    $Bart = New-ADUser -Name Bart -AccountPassword $password -Enabled $true
+
+    Add-ADGroupMember -Identity $Simpsons -Members $Homer
+    Add-ADGroupMember -Identity $Simpsons -Members $Bart
+    
+    $dcTesting = [ADSI]"LDAP://DC=testing,DC=local"
+    $ouIW2 = $dcTesting.Create("OrganizationalUnit", "OU=IW2")
+    $ouIW2.SetInfo()
+
+    $userA = $ouIW2.Create("user", "CN=UserA")
+    $userA.Put("sAMAccountName", "UserA") 
+    $userA.SetInfo()
+    $userA.SetPassword("aaaAAA111")
+    $userA.SetInfo()
+    $userA.InvokeSet("AccountDisabled", $false)
+    $userA.SetInfo()
+
+    $userA = $ouIW2.Create("user", "CN=UserB")
+    $userA.Put("sAMAccountName", "UserB") 
+    $userA.SetInfo()
+    $userA.SetPassword("aaaAAA111")
+    $userA.SetInfo()
+    $userA.InvokeSet("AccountDisabled", $false)
+    $userA.SetInfo()
+
+    $ouIW2 = [ADSI]"LDAP://OU=IW2,DC=testing,DC=local"
+    $ouIW2.deleteTree()
+
+} -ComputerName w2022-dc1
+
+
+Show-LabDeploymentSummary -Detailed
+```
+
+---
+
+# Společné úkoly
+
+-   Upravte nastavení RAM a CPU dle použitých PC
+
+## Lab LS00 -- konfigurace virtuálních stanic
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** | **LAN3 (-03)** | **LAN4 (-04)** |
-|------------------|--------------|--------------|--------------|--------------|
-| **D+R+C w2016-dc**       | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-repl**     | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
-| **D+R+C w2016-child**    | Nepřipojeno    | Private1       | Nepřipojeno    | Nepřipojeno    |
+
+| **Adaptér (MAC suffix)** | **LAN**  |
+| ------------------------ | -------- |
+| **w2022-dc1**            | Internal |
+| **w2022-dc2**            | Internal |
+| **w2022-child-dc1**      | Internal |
 
 -   V případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.
 
--   Servery **D+R+C w2016-dc** **a D+R+C w2016-repl** je nutné spouštět
-    společně.
+# Lektorské úkoly
 
--   Na stanici **D+R+C w2016-dc** restartujte službu DHCP
-
-    -   DHCP MMC, vyberte w2016-dc.testing.local a z kontextové nabídky
-        All Tasks -- Restart
-
--   Tip: stanice **D+R+C w2016-dc** a **D+R+C w2016-repl** spusťte na
-    začátku cvičení.
-
-# Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
-
-Lab L01 -- Ochrana Active Directory
+## Lab L01 -- Ochrana Active Directory
 
 > **Cíl cvičení**
 >
@@ -462,9 +528,9 @@ Lab L01 -- Ochrana Active Directory
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2** 
 
 Projděte možnosti ochrany objektů databáze **Active Directory**. Nejprve
 ukažte ochranu před smazáním objektů v **ADUC** konzoli (Záložka Object,
@@ -487,7 +553,7 @@ nedoporučuje to provádět. Ukažte možnosti zálohy **GPO** objektů v
 All...) a také obnovy (pravým na kontejner Group Policy Objects → Manage
 backups...).
 
-Lab L02 -- Záloha a obnova databáze Active Directory
+## Lab L02 -- Záloha a obnova databáze Active Directory
 
 > **Cíl cvičení**
 >
@@ -495,30 +561,30 @@ Lab L02 -- Záloha a obnova databáze Active Directory
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2** 
 >
-> **w2016-child** (D+R+C w2016-child)
+> **w2022-child-dc1** 
 >
 > **Další prerekvizity**
 
--   Sdílený adresář **share** na **w2016-child**, do kterého může
-    zapisovat uživatel **administrator**
+-   Sdílený adresář **share** na **w2022-child-dc1**, do kterého může
+    zapisovat uživatel **root**
 
 -   Skupina **Simpsons** v doméně **testing.local**, účty uživatelů
     **homer** a **bart** v doméně **testing.local**
 
-    -   System state záloha **w2016-dc** v **\\\\w2016-child\\share**
+    -   System state záloha **w2022-dc1** v **\\\\w2022-child-dc1\\share**
         (pro urychlení)
 
-1.  Přihlaste se na **w2016-dc** jako **testing\\administrator**
+1.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
 2.  Zálohujte databázi **Active Directory**
 
     a.  Spusťte **Windows Server Backup**
 
-        1.  Start → Administrative Tools → **Windows Server Backup**
+    1.  Start → Administrative Tools → **Windows Server Backup**
 
     b.  V menu vyberte Action a zvolte Backup Once...
 
@@ -532,14 +598,14 @@ Lab L02 -- Záloha a obnova databáze Active Directory
 
     f.  V seznamu věcí pro zálohování vyberte System state a potvrďte OK
 
-        -   Upozorněte, že zálohování stavu systému přes **Windows
+    -   Zálohování stavu systému přes **Windows
             Server Backup** je k dispozici až od Windows Server 2008 R2,
             u starších verzí lze použít **Wbadmin.exe**
 
-        -   Zmiňte, že záloha stavu systému od Windows Server 2008 R2
+    -   Záloha stavu systému od Windows Server 2008 R2
             již inkrementální
 
-        -   Upozorněte, že explicitní vyloučení souborů a adresářů ze
+    -   Explicitní vyloučení souborů a adresářů ze
             zálohy (záložka Exclusions v Advanced Settings) nemá vliv na
             zálohování stavu systému, tedy nelze vyloučit adresáře ani
             soubory patřící ke stavu systému
@@ -550,36 +616,26 @@ Lab L02 -- Záloha a obnova databáze Active Directory
         pokračujte Next \>
 
     i.  V další části Specify Remote Folder zadejte u Location adresář
-        **\\\\w2016-child\\share**, pod Access Control ponechte Inherit
+        **\\\\w2022-child-dc1\\share**, pod Access Control ponechte Inherit
         a pokračujte Next \>
 
-        -   Zobrazí se upozornění, že se již v daném umístění záloha
-            vyskytuje, potvrďte OK
+    -   Zobrazí se upozornění, že se již v daném umístění záloha vyskytuje, potvrďte OK
 
-        ```{=html}
-        <!-- -->
-        ```
-        -   Řekněte, že zálohování do sdíleného adresáře je možné až od
+    -   Zálohování do sdíleného adresáře je možné až od
             Windows Server 2008 R2 a také, že se v tomto případě
             uchovává jen jediná verze
 
-        -   Zdůrazněte, že zadaný sdílený adresář musí být vzdálený,
+    -   Zadaný sdílený adresář musí být vzdálený,
             tedy musí se nacházet na jiném počítači, než který
             zálohujeme, jinak dojde k chybě při zálohování
 
-        -   Upozorněte, že v případě selhání zálohování do sdíleného
+    -   V případě selhání zálohování do sdíleného
             adresáře mohou být ztracena předtím zálohovaná data, jelikož
             se stará verze přepisuje novou
 
     j.  Proveďte zálohu stavu systému pomocí Backup
 
-        -   Zálohu **neprovádějte**, je již předpřipravena v
-            **\\\\w2016-child\\share**
-
-        ```{=html}
-        <!-- -->
-        ```
-        -   Záloha trvá přibližně 15 min
+    -   Záloha trvá přibližně 15 min
 
     k.  Po dokončení zálohování uzavřete průvodce pomocí Close
 
@@ -587,41 +643,34 @@ Lab L02 -- Záloha a obnova databáze Active Directory
 
 4.  Proveďte autoritativní obnovu databáze Active Directory
 
-    a.  Restartujte **w2016-dc** v **DSRM** (*Directory Services Restore
+    a.  Restartujte **w2022-dc1** v **DSRM** (*Directory Services Restore
         Mode*) režimu
 
-        1.  Z příkazové řádky spusťte **shutdown -o -r**
+    1.  Z příkazové řádky spusťte **shutdown -o -r**
 
-            -   Tip: Pokud bude protestovat, že -o je nevalidní,
-                odhlaste se a znova se přihlaste
+        -   Tip: Pokud bude protestovat, že -o je nevalidní, odhlaste se a znova se přihlaste
 
-        2.  Systém se po krátké chvíli restartuje a následně ukáže
+    2.  Systém se po krátké chvíli restartuje a následně ukáže
             nabídku se základními možnostmi spuštění
 
-        3.  V nabídce zvolte Troubleshoot -- Startup Settings a potvrďte
+    3.  V nabídce zvolte Troubleshoot -- Startup Settings a potvrďte
             tlačítkem Restart
 
-            -   Po restartu se zobrazí nabídka **Advanced Boot Options**
+        -   Po restartu se zobrazí nabídka **Advanced Boot Options**
 
-            -   Na starších verzích Windows lze tuto nabídku vyvolat
-                klávesou **F8** na začátku bootování systému Windows
+        -   Na starších verzích Windows lze tuto nabídku vyvolat klávesou **F8** na začátku bootování systému Windows
 
         4.  Vyberte **Directory Services Restore Mode**
 
-        5.  Přihlaste se lokálně jako uživatel **administrator**, heslo
-            **aaa**
+        5.  Přihlaste se lokálně jako uživatel **root**
 
-            -   **w2016-dc\\administrator** nebo **.\\administrator**
-
-            ```{=html}
-            <!-- -->
-            ```
-            -   Zmiňte, že obnova stavu systému se musí provádět v
+        -   **w2022-dc1\\root** nebo **.\\root**
+        -   Obnova stavu systému se musí provádět v
                 **DSRM** režimu
 
     b.  Spusťte **Windows Server Backup**
 
-        1.  Start → Administrative Tools → **Windows Server Backup**
+    6.  Start → Administrative Tools → **Windows Server Backup**
 
     c.  V levém sloupci vyberte uzel Local Backup
 
@@ -634,8 +683,7 @@ Lab L02 -- Záloha a obnova databáze Active Directory
         a pokračujte Next \>
 
     g.  V následující části Specify Remote Folder zadejte adresář
-        **\\\\w2016-child\\share** a pak pokračujte Next \> (při výzvě
-        použijte účet **testing\\administrator**)
+        **\\\\w2022-child-dc1\\share** a pak pokračujte Next \> (při výzvě použijte účet **testing\\root**)
 
     h.  V části Select Backup Date zvolte datum a čas poslední zálohy a
         pokračujte Next \>
@@ -647,26 +695,24 @@ Lab L02 -- Záloha a obnova databáze Active Directory
         ponechte Original Location, zaškrtněte Perform an authoritative
         restore of Active Directory files a pokračujte Next \>
 
-        -   Vysvětlete rozdíl mezi autoritativní a neautoritativní
-            obnovou, a že autoritativní se liší od neautoritativní jen v
+    -   Autoritativní se liší od neautoritativní jen v
             označení obnovených souborů jako novějších
 
     k.  Potvrďte dvakrát OK
 
-    l.  Zahajte autoritativní obnovu pomocí Recover a potvrďte Yes
+    l.  ~~Zahajte autoritativní obnovu pomocí Recover a potvrďte Yes~~
 
-        -   Obnovu **neprovádějte**, místo toho se vraťte zpět do části
+    -   Obnovu **neprovádějte**, místo toho se vraťte zpět do části
             Select Recovery Type a obnovte pouze databázi **Active
             Directory** - zvolte Files and folders, pokračujte Next \>,
             najděte soubor **C:\\Windows\\NTDS\\ntds.dit**, 2x Next \> a
             Recover
 
-5.  Restartujte **w2016-dc** a zkontrolujte, že byly obnoveny objekty
-    smazané v bodě 3
+5.  Restartujte **w2022-dc1** a zkontrolujte, že byly obnoveny objekty smazané v bodě 3
 
-# Studentské úkoly {#studentské-úkoly .IW_nadpis1}
+# Studentské úkoly
 
-Lab S01 -- Obnova objektů
+## Lab S01 -- Obnova objektů
 
 > **Cíl cvičení**
 >
@@ -674,14 +720,13 @@ Lab S01 -- Obnova objektů
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
-> **w2016-repl** (D+R+C w2016-repl)
+> **w2022-dc2** 
 >
 > **Další prerekvizity**
 >
-> Účty uživatelů **bart** a **homer** v doméně **testing.local**, jenž
-> jsou členy skupiny **Simpsons**
+> Účty uživatelů **bart** a **homer** v doméně **testing.local**, jenž jsou členy skupiny **Simpsons**
 
 1.  Vymažte účet uživatele **bart**
 
@@ -693,7 +738,7 @@ Lab S01 -- Obnova objektů
 
     b.  V menu vyberte Connection a pak zvolte Connect...
 
-    c.  Do pole Server zadejte **w2016-dc.testing.local** a připojte se
+    c.  Do pole Server zadejte **w2022-dc1.testing.local** a připojte se
         pomocí OK
 
     d.  V menu opět vyberte Connection a zvolte Bind...
@@ -706,7 +751,7 @@ Lab S01 -- Obnova objektů
     g.  Pod Control Type zvolte Server a pak v Load Predefined seznamu
         vyberte Return deleted objects, potvrďte OK
 
-        -   Ujistěte se, že máte v seznamu Active Controls jen záznam
+    -   Ujistěte se, že máte v seznamu Active Controls jen záznam
             1.2.840.113556.1.4.417, přebytečné odeberte tlačítkem \<\<
             Check Out
 
@@ -718,7 +763,7 @@ Lab S01 -- Obnova objektů
     j.  Lokalizujte účet uživatele **bart**, klikněte na něj pravým a
         zvolte Modify
 
-        -   Účet bude začínat **cn=bart\\0ADEL...**
+    -   Účet bude začínat **cn=bart\\0ADEL...**
 
     k.  Do pole Edit Entry Attribute zadejte **isDeleted**, jako
         Operation zvolte Delete a potvrďte pomocí tlačítka Enter
@@ -745,40 +790,31 @@ Lab S01 -- Obnova objektů
 
     a.  Pomocí **ADAC** (*Active Directory Administrative Center*)
 
-        1.  Otevřete **ADAC**
+    1.  Otevřete **ADAC**
 
-            a.  Start → Administrative Tools → **Active Directory
-                Administrative Center**
+        a.  Start → Administrative Tools → **Active Directory Administrative Center**
 
-        2.  V navigačním panelu (vlevo) zvolte **testing (local)**
+    2.  V navigačním panelu (vlevo) zvolte **testing (local)**
 
-        3.  V panelu úkolů (vpravo), nebo z kontextové nabídky zvolte
+    3.  V panelu úkolů (vpravo), nebo z kontextové nabídky zvolte
             Enable Recycle Bin ... a 2x potvrďte OK
 
-            -   Aby se změna projevila i v konzoli **ADAC**, je vhodné
+        -   Aby se změna projevila i v konzoli **ADAC**, je vhodné
                 ji ukončit a opět otevřít
 
     b.  Pomocí **Powershellu** (lze i ve Windows 2008R2)
 
-        1.  Spusťte jako administrátor **Active Directory Module for
-            Windows PowerShell**
+    1.  Spusťte jako administrátor **Active Directory Module for Windows PowerShell**
 
-            a.  Start → **Administrative Tools**
+        a.  Start → **Administrative Tools**
 
-            b.  Klikněte pravým na **Active Directory Module for Windows
+        b.  Klikněte pravým na **Active Directory Module for Windows
                 PowerShell** a zvolte Run as administrator
 
-        2.  Spusťte příkaz **Enable-ADOptionalFeature -Identity
-            \"CN=Recycle Bin Feature, CN=Optional Features, CN=Directory
-            Service, CN=Windows NT, CN=Services, CN=Configuration,
-            DC=testing, DC=local\" -Scope ForestOrConfigurationSet
-            -Target \"testing.local\"**
+    2.  Spusťte příkaz **Enable-ADOptionalFeature -Identity "CN=Recycle Bin Feature, CN=Optional Features, CN=Directory Service, CN=Windows NT, CN=Services, CN=Configuration, DC=testing, DC=local\" -Scope ForestOrConfigurationSet -Target \"testing.local\"**
 
-        3.  Potvrďte pomocí **Y**
+    3.  Potvrďte pomocí **Y**
 
-```{=html}
-<!-- -->
-```
 1.  Vymažte účet uživatele **homer**
 
     -   Objekt se stane smazaným objektem, nový stav u **Active
@@ -788,40 +824,32 @@ Lab S01 -- Obnova objektů
 
     a.  Pomocí **ADAC** (*Active Directory Administrative Center*)
 
-        1.  Otevřete **ADAC**
+    1.  Otevřete **ADAC**
 
-            a.  Start → Administrative Tools → **Active Directory
+        a.  Start → Administrative Tools → **Active Directory
                 Administrative Center**
 
-        2.  V navigačním panelu (vlevo) zvolte **testing (local)** --
-            **Deleted Objects**
+    2.  V navigačním panelu (vlevo) zvolte **testing (local)** -- **Deleted Objects**
 
-        3.  Vyberte účet **Homer** a z panelu úkolů (nebo kontextové
-            nabídky) zvolte Restore
+    3.  Vyberte účet **Homer** a z panelu úkolů (nebo kontextové nabídky) zvolte Restore
 
-            -   Alternativně lze použít Restore To ... pro obnovení do
-                jiného umístění
+        -   Alternativně lze použít Restore To ... pro obnovení do jiného umístění
 
     b.  Pomocí **Powershellu**
 
-        1.  Spusťte jako administrátor **Active Directory Module for
-            Windows PowerShell**
+    1.  Spusťte jako administrátor **Active Directory Module for Windows PowerShell**
 
-        2.  Spusťte příkaz **Get-ADObject -Filter {sAMAccountName -eq
-            \"homer\"}**
+    2.  Spusťte příkaz **Get-ADObject -Filter {sAMAccountName -eq \"homer\"} -IncludeDeletedObjects | Restore-ADObject**
 
-> **-IncludeDeletedObjects \| Restore-ADObject**
+        -   Objekt lze obnovit také postupem z **bodu** Error! Reference source not found.
 
--   Objekt lze obnovit také postupem z **bodu** Error! Reference source
-    not found.
+    3.  Ověřte, že byl účet uživatele **homer** skutečně obnoven
 
-3.  Ověřte, že byl účet uživatele **homer** skutečně obnoven
-
-    -   Uživatel **homer** bude pořád členem skupiny **Simpsons**,
+        -   Uživatel **homer** bude pořád členem skupiny **Simpsons**,
         jelikož **Active Directory** koš uchovává veškeré informace
         (přímé i nepřímé) u smazaných objektů
 
-Lab S02 -- Snímky databáze Active Directory
+## Lab S02 -- Snímky databáze Active Directory
 
 > **Cíl cvičení**
 >
@@ -829,7 +857,7 @@ Lab S02 -- Snímky databáze Active Directory
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
 > **Další prerekvizity**
 >
@@ -848,8 +876,7 @@ Lab S02 -- Snímky databáze Active Directory
 
     e.  Vytvořte nový snímek příkazem **create**
 
-        -   Snímky se také vytvářejí automaticky pří záloze databáze
-            **Active Directory**
+    -   Snímky se také vytvářejí automaticky pří záloze databáze **Active Directory**
 
 2.  Proveďte nějakou změnu v databázi **Active Directory** u uživatele
     **bart**, např. změňte hodnotu atributu Description
@@ -860,31 +887,28 @@ Lab S02 -- Snímky databáze Active Directory
     a.  Ve správě snímků (snapshot:) v nástroji **ntdsutil** zobrazte
         seznam všech snímků příkazem **list all**
 
-        -   Seznam obsahuje všechny dostupné snímky (manuálně vytvořené
+    -   Seznam obsahuje všechny dostupné snímky (manuálně vytvořené
             či obsažené v zálohách), každý řádek seznamu odpovídá
             jednomu snímku a je ve formátu **\<index\>: \<popis\>
             {\<guid\>}**, kde **\<popis\>** může být datum a čas
             pořízení snímku (zálohy) nebo umístění
 
-    b.  Připojte snímek příkazem **mount \<index\>**, případně **mount
-        \<guid\>**
+    b.  Připojte snímek příkazem **mount \<index\>**, případně **mount \<guid\>**
 
-        -   Použijte **\<index\>** nebo **\<guid\>** posledního snímku
-            ze seznamu snímků, po připojení bude vypsána cesta k
-            připojenému snímku
+    -   Použijte **\<index\>** nebo **\<guid\>** posledního snímku ze seznamu snímků, po připojení bude vypsána cesta k připojenému snímku
 
     c.  Spusťte jako administrátor druhý příkazový řádek
 
     d.  Spusťte příkaz **dsamain -dbpath \<cesta k databázi ve snímku\>
         -ldapport 65000**
 
-        -   Jako cestu k databázi ve snímku použijte cestu k přípojenému
+    -   Jako cestu k databázi ve snímku použijte cestu k přípojenému
             snímku (vrácenou při připojení nástrojem ntdsutil), a
             obcyklou cestou k databázi AD. Výsledná cesta by měla být ve
             formátu **C:\\\$SNAP\_\<datum a
             čas\>\_VOLUMEC\$\\Windows\\NTDS\\ntds.dit**
 
-        -   Zvolený port musí být možné použít, tedy nesmí být již
+    -   Zvolený port musí být možné použít, tedy nesmí být již
             využíván jinou aplikací, nesmí být blokován či rezervován
             (systémem nebo jinak), doporučuje se používat čísla vyšší
             než **50000**
@@ -893,24 +917,23 @@ Lab S02 -- Snímky databáze Active Directory
 
     a.  Otevřete **ADUC** (*Active Directory Users and Computers*)
 
-        1.  Start → Administrative Tools → **Active Directory Users and
+    1.  Start → Administrative Tools → **Active Directory Users and
             Computers**
 
     b.  Klikněte pravým na uzel Active Directory Users and Computers a
         zvolte Change Domain Controller...
 
     c.  Pod Change to zvolte možnost This Domain Controller or AD LDS
-        instance a níže zadejte **w2016-dc:65000**
+        instance a níže zadejte **w2022-dc1:65000**
 
-        -   Pokud bude místo hostitelského jména LDAP serveru zadána
-            jeho IP adresa, nebude možné se k tomuto serveru připojit
+    -   Pokud bude místo hostitelského jména LDAP serveru zadána jeho IP adresa, nebude možné se k tomuto serveru připojit
 
     d.  Potvrďte OK
 
 5.  Ověřte, že snímek neobsahuje změny provedené u uživatele **bart** po
     vytvoření snímku
 
-6.  Zavřete okno ADUC připojené k AD LDS **w2016-dc:65000**
+6.  Zavřete okno ADUC připojené k AD LDS **w2022-dc1:65000**
 
 7.  Ukončete LDAP server
 
@@ -921,12 +944,11 @@ Lab S02 -- Snímky databáze Active Directory
     a.  Vraťte se do prvního okna příkazové řádky s nástrojem
         **ntdsutil**
 
-    b.  V nástroji **ntdsutil** odpojte snímek příkazem **unmount
-        \<index\>**, případně **unmount \<guid\>**
+    b.  V nástroji **ntdsutil** odpojte snímek příkazem **unmount \<index\>**, případně **unmount \<guid\>**
 
     c.  Ukončete nástroj **ntdsutil** příkazy **quit** a **quit**
 
-Lab S03 -- Auditování změn databáze Active Directory
+## Lab S03 -- Auditování změn databáze Active Directory
 
 > **Cíl cvičení**
 >
@@ -934,7 +956,7 @@ Lab S03 -- Auditování změn databáze Active Directory
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
 > **Další prerekvizity**
 >
@@ -944,7 +966,7 @@ Lab S03 -- Auditování změn databáze Active Directory
 
     a.  Otevřete **GPME** (*Group Policy Management Editor*)
 
-        1.  Start → Administrative Tools → **Group Policy Management**
+    1.  Start → Administrative Tools → **Group Policy Management**
 
     b.  Klikněte pravým na GPO objekt Default Domain Controllers Policy
         a zvolte Edit...
@@ -959,7 +981,7 @@ Lab S03 -- Auditování změn databáze Active Directory
     e.  Zaškrtněte Configure the following audit events, pak Success a
         potvrďte OK
 
-        -   Toto nastavení zajistí auditování úspěšných změn v databázi
+    -   Toto nastavení zajistí auditování úspěšných změn v databázi
             **Active Directory**
 
     f.  Vyberte uzel Computer Configuration \\ Policies \\ Windows
@@ -973,15 +995,14 @@ Lab S03 -- Auditování změn databáze Active Directory
     h.  Zaškrtněte Define these policy settings a zvolte Enabled a
         potvrďte OK
 
-        -   Toto nastavení zapíná pokročilé zásady auditování, pokud
+    -   Toto nastavení zapíná pokročilé zásady auditování, pokud
             není tato zásada povolena, ignorují počítače nastavení
             auditování, jenž jsou obsažená pod uzlem Advanced Audit
             Policy Configuration
 
     i.  Zavřete Group Policy Management Editor
 
-    j.  Aktualizujte nastavení zásad skupiny příkazem **gpupdate
-        /force**
+    j.  Aktualizujte nastavení zásad skupiny příkazem **gpupdate /force**
 
 2.  Ověřte, že auditování změn v databázi **Active Directory** bylo
     povoleno
@@ -1004,14 +1025,13 @@ Lab S03 -- Auditování změn databáze Active Directory
 
     a.  Otevřete **Event Viewer**
 
-        1.  Start → Administrative Tools → **Event Viewer**
+    1.  Start → Administrative Tools → **Event Viewer**
 
     b.  Vyberte uzel Windows Logs \\ Security
 
     c.  Lokalizujte a vyberte poslední událost s Event ID **5136**
 
-    d.  Na záložce Details ověřte, že zaznamenána událost se týká
-        členství ve skupině Domain Admins (hodnota ObjectDN je
+    d.  Na záložce Details ověřte, že zaznamenána událost se týká členství ve skupině Domain Admins (hodnota ObjectDN je
         **CN=Domain Admins,CN=Users,DC=testing,DC=local**), že došlo ke
         změně členů této skupiny, neboli že došlo k modifikaci atributu
         member (hodnota AttributeLDAPDisplayName je **member**), a také
@@ -1019,7 +1039,7 @@ Lab S03 -- Auditování změn databáze Active Directory
         **CN=bart,CN=Users,DC=testing,DC=local** a hodnota OperationType
         je **%%14674**)
 
-Lab S04 -- Údržba databáze Active Directory
+## Lab S04 -- Údržba databáze Active Directory
 
 > **Cíl cvičení**
 >
@@ -1027,7 +1047,7 @@ Lab S04 -- Údržba databáze Active Directory
 >
 > **Potřebné virtuální stroje**
 >
-> **w2016-dc** (D+R+C w2016-dc)
+> **w2022-dc1** 
 >
 > **Další prerekvizity**
 >
@@ -1037,10 +1057,9 @@ Lab S04 -- Údržba databáze Active Directory
 
     a.  Otevřete konzoli **Services**
 
-        1.  Start → Administrative Tools → **Services**
+    1.  Start → Administrative Tools → **Services**
 
-    b.  Klikněte pravým na Active Directory Domain Services a zvolte
-        Stop
+    b.  Klikněte pravým na Active Directory Domain Services a zvolte Stop
 
     c.  Potvrďte zastavení ostatních souvisejících služeb pomocí Yes
 
@@ -1050,28 +1069,22 @@ Lab S04 -- Údržba databáze Active Directory
 
     b.  Spusťte nástroj **ntdsutil**
 
-    c.  Vyberte databázi **Active Directory** příkazem **activate
-        instance NTDS**
+    c.  Vyberte databázi **Active Directory** příkazem **activate instance NTDS**
 
     d.  Přejděte do údržby souborů příkazem **files**
 
-    e.  Proveďte *zkompaktnění* databáze příkazem **compact to
-        C:\\share**
+    e.  Proveďte *zkompaktnění* databáze příkazem **compact to C:\\share**
 
-        -   Při *zkompaktňování* se vytváří nová databáze **Active
-            Directory**, která již neobsahuje dříve alokované nepotřebné
-            místo
+    -   Při *zkompaktňování* se vytváří nová databáze **Active Directory**, která již neobsahuje dříve alokované nepotřebné místo
 
     f.  Ukončete nástroj **ntdsutil** příkazy **quit** a **quit**
 
 3.  Nahraďte starou databázi **Active Directory** její *zkompaktněnou
     formou*
 
-    a.  Smažte staré protokoly příkazem **del
-        C:\\Windows\\NTDS\\\*.log**
+    a.  Smažte staré protokoly příkazem **del        C:\\Windows\\NTDS\\\*.log**
 
-    b.  Nahraďte databázi příkazem **copy \"C:\\share\\ntds.dit\"
-        \"C:\\Windows\\NTDS\\ntds.dit\"**
+    b.  Nahraďte databázi příkazem **copy "C:\\share\\ntds.dit\"        \"C:\\Windows\\NTDS\\ntds.dit\"**
 
     c.  Potvrďte přepsání databáze pomocí **Yes**
 
@@ -1079,8 +1092,7 @@ Lab S04 -- Údržba databáze Active Directory
 
     a.  Spusťte nástroj **ntdsutil**
 
-    b.  Vyberte databázi **Active Directory** příkazem **activate
-        instance NTDS**
+    b.  Vyberte databázi **Active Directory** příkazem **activate instance NTDS**
 
     c.  Přejděte do údržby souborů příkazem **files**
 
@@ -1099,7 +1111,7 @@ Lab S04 -- Údržba databáze Active Directory
 
     a.  Otevřete konzoli **Services**
 
-        1.  Start → Administrative Tools → **Services**
+    1.  Start → Administrative Tools → **Services**
 
     b.  Klikněte pravým na Active Directory Domain Services a zvolte
         Start

@@ -680,7 +680,7 @@ tuto informaci **DNS** klientovi.
 ```pwsh
 $labName = 'E04'
 
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 
 Set-LabInstallationCredential -Username root -Password root4Lab
 Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword root4Lab

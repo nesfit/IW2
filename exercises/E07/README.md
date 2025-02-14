@@ -420,7 +420,7 @@ modifikován:
 
 ```
 $labName = 'E07'
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 
 $adminPass = 'root4Lab'
 

@@ -609,7 +609,7 @@ Obrázek 12. Schéma základní topologie sítě
     obrázku 12
 
     a.  Spusťte následující příkaz `netsh interface ip set address
-        name=\"LAN2\" source=static addr=192.168.23.10
+        name="Ethernet 2" source=static addr=192.168.23.10
         mask=255.255.255.0 gateway=192.168.23.2`
 
     -   Název **name** musí odpovídat síťovému rozhraní *Private4*,

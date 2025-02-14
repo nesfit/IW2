@@ -492,7 +492,7 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 3.  Zadejte příkazy:
 
-- `Enable-NetFireWallRule -DisplayName “Windows Management Instrumentation (DCOM-In)`
+- `Enable-NetFireWallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"`
 
 - snap-in Event Viewer `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
 

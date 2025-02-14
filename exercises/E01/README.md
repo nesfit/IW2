@@ -584,9 +584,9 @@ Obrázek 12. Schéma základní topologie sítě
     obrázku 12
 
     a.  Otevřete okno **Network Connections** (Settings -- Network &
-        Internet -- Ethernet -- Change adapter options), zvolte *LAN2* a
+        Internet -- Ethernet -- Change adapter options), zvolte *Ethernet 2* a
         pak *Properties*
-    -   Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
+    -   Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je "Ethernet 2"
 
     b.  Vyberte *Internet Protocol Version 4 (TCP/IPv4)* a zvolte
         *Properties*
@@ -613,7 +613,7 @@ Obrázek 12. Schéma základní topologie sítě
         mask=255.255.255.0 gateway=192.168.23.2`
 
     -   Název **name** musí odpovídat síťovému rozhraní *Private4*,
-        standardně to je **LAN2**
+        standardně to je **Ethernet 2**
 
 3.  Vytvořte VM **router-1** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 
@@ -630,7 +630,7 @@ Obrázek 12. Schéma základní topologie sítě
     c.  Spusťte příkaz `/ip address add interface=ether2
         address=192.168.12.1/24`
 
-5.  Vytvořte VM **router-ě** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
+5.  Vytvořte VM **router-2** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 
 6.  Na **router-2** nastavte pomocí konzolového rozhraní **Mikrotik
     RouterOS** příslušné *IPv4 adresy* a *masky podsítě* na základě

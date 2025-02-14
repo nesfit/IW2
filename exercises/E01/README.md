@@ -574,6 +574,7 @@ vše lze konfigurovat přes příkazový řádek pomocí utility **netsh**
 > Obraz operačního systému pro směrovače **Mikrotik Cloud Hosted Router**,
 > jenž je k dispozici lokálně na jednotlivých stanicích nebo lze stáhnout ze stránek výrobce
 > (**http://www.mikrotik.com/download**)
+> WinBox - Od Mikrotik verze 7 nelze stáhnout bez přístupu na internet
 
 ![](./img/media/image12.png)
 

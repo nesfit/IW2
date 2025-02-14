@@ -489,7 +489,7 @@ tabulkách mají omezenou dobu platnosti a jsou periodicky mazány.
 $labName = 'E01'
 
 New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
-Set-LabInstallationCredential -Username root -Password root4lab
+Set-LabInstallationCredential -Username root -Password root4Lab
 
 Add-LabVirtualNetworkDefinition -Name none
 

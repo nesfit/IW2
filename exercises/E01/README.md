@@ -708,8 +708,6 @@ data zachytávat. Zmiňte taky, že *user-friendly* zobrazení zachycených
 dat obstarávají *parsery*. Vysvětlete rozdíl mezi *capture* a
 *display* filtry.
 
-Instalaci na virtuální stroj proveďte pomocí `winget install -e --id WiresharkFoundation.Wireshark`.
-
 1. Vytvořte session pro zachytávání dat na rozhraní **LAN2**
 
 2. Následně z **w11** pingněte **w2022** a ukončete zachytávání.

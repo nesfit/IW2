@@ -492,7 +492,7 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 3.  Zadejte příkazy:
 
-- `Enable-NetFireWallRule -DisplayName “Windows Management Instrumentation (DCOM-In)`
+- `Enable-NetFireWallRule -DisplayName “Windows Management Instrumentation (DCOM-In)"`
 
 - snap-in Event Viewer `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
 
@@ -500,7 +500,7 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 - snap-in Shared Folders `Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"`
 
-- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup “Remote Scheduled Tasks Management`
+- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup “Remote Scheduled Tasks Management"`
 
 - snap-in Disk Management `Enable-NetFirewallRule -DisplayGroup "Remote Volume Management"`
 

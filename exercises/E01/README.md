@@ -771,8 +771,8 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
 
     a. Spusťte následující příkazy
     `netsh interface ipv6 set address interface="Ethernet 2" address=2001:23::10/64 type=unicast store=persistent`
-    `netsh interface ipv6 set route ::/0 interface=<interface_idx> 2001:23::2`
-    (interface_idx => `netsh interface ipv6 show interfaces`)
+    
+    `netsh interface ipv6 set route ::/0 interface=<interface_idx> 2001:23::2` (interface_idx => `netsh interface ipv6 show interfaces`)
 
     -   Název **interface** musí odpovídat síťovému rozhraní
         *Private4*, standardně to je **LAN2**

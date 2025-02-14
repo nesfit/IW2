@@ -488,7 +488,7 @@ tabulkách mají omezenou dobu platnosti a jsou periodicky mazány.
 ```pwsh
 $labName = 'E01'
 
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
 Set-LabInstallationCredential -Username root -Password root4lab
 
 Add-LabVirtualNetworkDefinition -Name none
@@ -609,7 +609,7 @@ Obrázek 12. Schéma základní topologie sítě
     obrázku 12
 
     a.  Spusťte následující příkaz `netsh interface ip set address
-        name=\"LAN2\" source=static addr=192.168.23.10
+        name=\"Ethernet 2\" source=static addr=192.168.23.10
         mask=255.255.255.0 gateway=192.168.23.2`
 
     -   Název **name** musí odpovídat síťovému rozhraní *Private4*,
@@ -630,7 +630,7 @@ Obrázek 12. Schéma základní topologie sítě
     c.  Spusťte příkaz `/ip address add interface=ether2
         address=192.168.12.1/24`
 
-5.  Vytvořte VM **router-2** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
+5.  Vytvořte VM **router-ě** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 
 6.  Na **router-2** nastavte pomocí konzolového rozhraní **Mikrotik
     RouterOS** příslušné *IPv4 adresy* a *masky podsítě* na základě
@@ -702,7 +702,7 @@ Obrázek 12. Schéma základní topologie sítě
 > **w2022**
 >
 
-Na **w2022** nainstalujte[^8] **Wireskark** a
+Na **w2022** nainstalujte[^8] **Wireshark** a
 předveďte jeho možnosti. Ukažte jak vybrat rozhraní, na kterých se mají
 data zachytávat. Zmiňte taky, že *user-friendly* zobrazení zachycených
 dat obstarávají *parsery*. Vysvětlete rozdíl mezi *capture* a

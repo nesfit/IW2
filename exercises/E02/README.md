@@ -395,9 +395,9 @@ OOBE**.
 >
 > **w2022-core** (w2022-core OOBE)
 
-1.  Přihlaste se k **w11** jako uživatel **student** s heslem
+1.  Přihlaste se k **w11** jako uživatel **root** s heslem
     **root4Lab**
-
+    
 2.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv4 adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na obrázku 1
 
     a.  Otevřete okno **Network Connections** (Settings -- Network & Internet -- Ethernet -- Change adapter options), zvolte LAN2 a pak Properties

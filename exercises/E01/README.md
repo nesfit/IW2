@@ -488,7 +488,7 @@ tabulkách mají omezenou dobu platnosti a jsou periodicky mazány.
 ```pwsh
 $labName = 'E01'
 
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 Set-LabInstallationCredential -Username root -Password root4lab
 
 Add-LabVirtualNetworkDefinition -Name none
@@ -630,7 +630,7 @@ Obrázek 12. Schéma základní topologie sítě
     c.  Spusťte příkaz `/ip address add interface=ether2
         address=192.168.12.1/24`
 
-5.  Vytvořte VM **router-ě** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
+5.  Vytvořte VM **router-2** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 
 6.  Na **router-2** nastavte pomocí konzolového rozhraní **Mikrotik
     RouterOS** příslušné *IPv4 adresy* a *masky podsítě* na základě

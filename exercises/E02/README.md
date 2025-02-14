@@ -761,8 +761,8 @@ některých služeb apod.
 12. V kroku *Network Selection* vyberte rozhraní s IP **10.10.10.1**,
     pro které chceme zpřístupnit překlad adres, pokračujte Next \>
 
-13. V kroku *Name and Address Translation Services* přepněte na I will
-    set up name and address services later, pokračujte Next \>
+13. V kroku *Name and Address Translation Services* přepněte na **I will
+    set up name and address services later**, pokračujte Next \>
 
 14. Ukončete průvodce Finish
 

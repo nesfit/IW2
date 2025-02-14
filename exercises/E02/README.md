@@ -186,7 +186,7 @@ vnější síti.
 $labName = 'E02'
 
 New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
-Set-LabInstallationCredential -Username root -Password root4lab
+Set-LabInstallationCredential -Username root -Password root4Lab
 
 Add-LabVirtualNetworkDefinition -Name none
 Add-LabVirtualNetworkDefinition -Name 'Default Switch'

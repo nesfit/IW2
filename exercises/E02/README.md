@@ -185,7 +185,7 @@ vnější síti.
 ```pwsh
 $labName = 'E02'
 
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 Set-LabInstallationCredential -Username root -Password root4lab
 
 Add-LabVirtualNetworkDefinition -Name none

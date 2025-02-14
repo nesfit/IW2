@@ -751,7 +751,7 @@ některých služeb apod.
 
     f.  Spusťte službu tlačítkem Start a potvrďte OK
 
-    g.  Zopakujte bod 12, pokud chyba nezmizí, server **w2022-core**
+    g.  Zopakujte bod 10, pokud chyba nezmizí, server **w2022-core**
         restartujte
 
 11. V průvodci zvolte Use this public interface to connect to the

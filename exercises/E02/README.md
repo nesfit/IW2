@@ -492,7 +492,7 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 3.  Zadejte příkazy:
 
-- `Enable-NetFireWallRule -DisplayName “Windows Management Instrumentation (DCOM-In)"`
+- `Enable-NetFireWallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"`
 
 - snap-in Event Viewer `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
 
@@ -500,7 +500,7 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 - snap-in Shared Folders `Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"`
 
-- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup “Remote Scheduled Tasks Management"`
+- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup "Remote Scheduled Tasks Management"`
 
 - snap-in Disk Management `Enable-NetFirewallRule -DisplayGroup "Remote Volume Management"`
 
@@ -607,7 +607,7 @@ některých služeb apod.
 
     -   Pozn.: dojde k zatržení služby DirectAccess and VPN (RAS)
 
-    i.  V kroku *Confirmation* zaškrtněte Restart he destination server
+    i.  V kroku *Confirmation* zaškrtněte Restart the destination server
         automatically if required
 
     j.  Všimněte si možnosti exportu nastavení a možnosti specifikace
@@ -761,8 +761,8 @@ některých služeb apod.
 12. V kroku *Network Selection* vyberte rozhraní s IP **10.10.10.1**,
     pro které chceme zpřístupnit překlad adres, pokračujte Next \>
 
-13. V kroku *Name and Address Translation Services* přepněte na I will
-    set up name and address services later, pokračujte Next \>
+13. V kroku *Name and Address Translation Services* přepněte na **I will
+    set up name and address services later**, pokračujte Next \>
 
 14. Ukončete průvodce Finish
 

@@ -395,7 +395,7 @@ OOBE**.
 >
 > **w2022-core** (w2022-core OOBE)
 
-1.  Přihlaste se k **w11** jako uživatel **student** s heslem
+1.  Přihlaste se k **w11** jako uživatel **root** s heslem
     **root4lab**
 
 2.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv4 adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na obrázku 1

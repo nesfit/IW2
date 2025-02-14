@@ -129,7 +129,7 @@ nedostanou k **DHCP** serveru.
 $labName = 'E03'
 
 New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
-Set-LabInstallationCredential -Username root -Password root4lab
+Set-LabInstallationCredential -Username root -Password root4Lab
 
 Add-LabVirtualNetworkDefinition -Name Private1
 

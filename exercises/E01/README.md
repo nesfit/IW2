@@ -770,7 +770,7 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
     adresu* a *prefix* podle schématu na obrázku 13
 
     a.  Spusťte následující příkaz `netsh interface ipv6 set address
-        interface=\"LAN2\" address=2001:23::10/64 type=unicast
+        interface="Ethernet 2" address=2001:23::10/64 type=unicast
         store=persistent`
 
     -   Název **interface** musí odpovídat síťovému rozhraní

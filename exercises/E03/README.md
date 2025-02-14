@@ -189,7 +189,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 >
 > **w2022**
 
-1. Přihlaste se k **w2022** jako uživatel **root** s heslem **root4lab**
+1. Přihlaste se k **w2022** jako uživatel **root** s heslem **root4Lab**
 
 2. Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
 
@@ -287,7 +287,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
       10.  Zvolte Yes, I want to activate this scope now pro aktivaci vytvořeného rozsahu a pokračujte Next \> a Finish
       > :warning: Zmiňte, že rozsah (*scope*) je potřeba aktivovat, aby začal poskytovat IPv4 adresy
 
-1. Přihlaste se k **w11** jako uživatel **student** s heslem **root4lab**
+1. Přihlaste se k **w11** jako uživatel **student** s heslem **root4Lab**
 
 2. Na **w11** vynuťte obnovení IPv4 adresy
 

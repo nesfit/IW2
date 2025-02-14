@@ -555,7 +555,7 @@ některých služeb apod.
     b.  Z kontextové nabídky nad záznamem **w2022-core** vyberte Manage
         As ...
 
-    c.  Zadejte přihlašovaní údaje:  **w2022-core\\administrator** s heslem **root4lab**
+    c.  Zadejte přihlašovaní údaje:  **w2022-core\\administrator** s heslem **root4Lab**
 
     -   **Server Manager** se opět pokusí zkontaktovat server w2022-core,
     tentokrát se správnými přihlašovacími údaji

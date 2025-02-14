@@ -769,10 +769,6 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
 2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv6
     adresu* a *prefix* podle schématu na obrázku 13
 
-    a.  Spusťte následující příkaz `netsh interface ipv6 set address
-        interface="Ethernet 2" address=2001:23::10/64 type=unicast
-        store=persistent`
-
     -   Název **interface** musí odpovídat síťovému rozhraní
         *Private4*, standardně to je **LAN2**
 

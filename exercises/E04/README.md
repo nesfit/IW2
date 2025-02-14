@@ -783,7 +783,7 @@ DHCP.
 > **w2022**
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s
-    heslem **root4lab**
+    heslem **root4Lab**
 
 2.  Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
 
@@ -804,7 +804,7 @@ DHCP.
     e.  Potvrďte OK
 
 3. Přihlaste se k **w11** jako uživatel **root** s heslem
-        **root4lab**
+        **root4Lab**
 
 4.  Na **w11** nastavte statickou IPv4 adresu **192.168.1.10**
 

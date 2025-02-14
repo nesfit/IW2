@@ -128,7 +128,7 @@ nedostanou k **DHCP** serveru.
 ```pwsh
 $labName = 'E03'
 
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 Set-LabInstallationCredential -Username root -Password root4lab
 
 Add-LabVirtualNetworkDefinition -Name Private1

@@ -630,7 +630,7 @@ Obrázek 12. Schéma základní topologie sítě
     c.  Spusťte příkaz `/ip address add interface=ether2
         address=192.168.12.1/24`
 
-5.  Vytvořte VM **router-ě** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
+5.  Vytvořte VM **router-2** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 
 6.  Na **router-2** nastavte pomocí konzolového rozhraní **Mikrotik
     RouterOS** příslušné *IPv4 adresy* a *masky podsítě* na základě
@@ -702,7 +702,7 @@ Obrázek 12. Schéma základní topologie sítě
 > **w2022**
 >
 
-Na **w2022** nainstalujte[^8] **Wireskark** a
+Na **w2022** nainstalujte[^8] **Wireshark** a
 předveďte jeho možnosti. Ukažte jak vybrat rozhraní, na kterých se mají
 data zachytávat. Zmiňte taky, že *user-friendly* zobrazení zachycených
 dat obstarávají *parsery*. Vysvětlete rozdíl mezi *capture* a

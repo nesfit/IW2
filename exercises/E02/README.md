@@ -263,7 +263,7 @@ OOBE**.
 >
 > **w2022**
 
-1.  Přihlaste se k **w2022** jako uživatel `root` s heslem `root4lab`
+1.  Přihlaste se k **w2022** jako uživatel `root` s heslem `root4Lab`
 2.  Popište základy rozhraní a snahu o správu více serverů z jednoho místa
 3.  Nástrojová lišta
     a.  Tools -- možnost spuštění MMC konzolí proti lokálnímu serveru
@@ -298,7 +298,7 @@ OOBE**.
 >
 > **w2022-core** (w2022-core OOBE)
 
-1.  Přihlaste se k **w2022-core** jako uživatel **root** s heslem **root4lab**
+1.  Přihlaste se k **w2022-core** jako uživatel **root** s heslem **root4Lab**
 2.  Zavřete okno příkazového řádku
 3.  Pokuste se znovu otevřít příkazový řádek
 
@@ -396,7 +396,7 @@ OOBE**.
 > **w2022-core** (w2022-core OOBE)
 
 1.  Přihlaste se k **w11** jako uživatel **student** s heslem
-    **root4lab**
+    **root4Lab**
 
 2.  Na **w11** nastavte pomocí grafického rozhraní příslušnou *IPv4 adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na obrázku 1
 
@@ -421,7 +421,7 @@ OOBE**.
 Obrázek 1. Schéma základní topologie sítě
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s
-    heslem **root4lab**
+    heslem **root4Lab**
 
 2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv4 adresu*, *masku podsítě* a *výchozí bránu* na základě schématu na obrázku 1
  
@@ -455,7 +455,7 @@ Obrázek 1. Schéma základní topologie sítě
 > **Další prerekvizity**
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s
-    heslem **root4lab**
+    heslem **root4Lab**
 
 2.  Do souboru `C:\Windows\System32\drivers\etc\hosts` přidejte
     záznam odkazující na server **w2022-core** a soubor uložte: `192.168.200.1 w2022-core`
@@ -469,7 +469,7 @@ a.  Spusťe **PowerShell** a zadejte příkaz: `Set-Item wsman:\localhost\Client
 4.  Uložte alternativní přístupové údaje k serveru **w2022-core**
     -   v případě serverů v doméně není nutné
 
-a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-core /user:w2022-core\administrator /pass:root4lab`
+a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-core /user:w2022-core\administrator /pass:root4Lab`
 
 -   pokud vypustíte parametr /pass:, jednotlivé nástroje by se měly na
     heslo doptat (ale některé se neptají, např. Server Manager)
@@ -486,13 +486,13 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 > **w2022-core**
 
 1.  Přihlaste se k **w2022-core** jako uživatel **root** s
-    heslem **root4lab**
+    heslem **root4Lab**
 
 2.  Spusťte **PowerShell**
 
 3.  Zadejte příkazy:
 
-- `Enable-NetFireWallRule -DisplayName “Windows Management Instrumentation (DCOM-In)`
+- `Enable-NetFireWallRule -DisplayName “Windows Management Instrumentation (DCOM-In)"`
 
 - snap-in Event Viewer `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
 
@@ -500,7 +500,7 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 - snap-in Shared Folders `Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"`
 
-- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup “Remote Scheduled Tasks Management`
+- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup “Remote Scheduled Tasks Management"`
 
 - snap-in Disk Management `Enable-NetFirewallRule -DisplayGroup "Remote Volume Management"`
 
@@ -524,7 +524,7 @@ některých služeb apod.
 >
 > **w2022-core** (w2022-core OOBE)
 
-1.  Přihlaste se k **w2022** jako uživatel **root** s heslem **root4lab**
+1.  Přihlaste se k **w2022** jako uživatel **root** s heslem **root4Lab**
 
 2.  Otevřete **Server Manager**
 
@@ -555,7 +555,7 @@ některých služeb apod.
     b.  Z kontextové nabídky nad záznamem **w2022-core** vyberte Manage
         As ...
 
-    c.  Zadejte přihlašovaní údaje:  **w2022-core\\administrator** s heslem **root4lab**
+    c.  Zadejte přihlašovaní údaje:  **w2022-core\\administrator** s heslem **root4Lab**
 
     -   **Server Manager** se opět pokusí zkontaktovat server w2022-core,
     tentokrát se správnými přihlašovacími údaji
@@ -578,7 +578,7 @@ některých služeb apod.
 >
 > **w2022-core** (w2022-core OOBE)
 
-1.  Přihlaste se k w2022 jako uživatel **root** s heslem **root4lab**
+1.  Přihlaste se k w2022 jako uživatel **root** s heslem **root4Lab**
 
 2.  Spusťte **Server Manager**
 
@@ -637,7 +637,7 @@ některých služeb apod.
     a.  Vyčkejte na dokončení restartu
 
 6.  Přihlaste se lokálně na k **w2022-core** jako uživatel
-    **root** s heslem **root4lab**
+    **root** s heslem **root4Lab**
 
 7.  Spusťte **PowerShell**
 
@@ -660,7 +660,7 @@ některých služeb apod.
 > Dokončené úkoly S06.
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s
-    heslem **root4lab**
+    heslem **root4Lab**
 
 2.  Spusťte **Server Manager**
 
@@ -702,7 +702,7 @@ některých služeb apod.
 > **w2022-core** (w2022-core OOBE)
 
 1.  Přihlaste se k **w2022** jako uživatel **root** s
-    heslem **root4lab**
+    heslem **root4Lab**
 
 2.  Ověřte, že server **w2022** nemůže přistoupit na internet
 

@@ -607,7 +607,7 @@ některých služeb apod.
 
     -   Pozn.: dojde k zatržení služby DirectAccess and VPN (RAS)
 
-    i.  V kroku *Confirmation* zaškrtněte Restart he destination server
+    i.  V kroku *Confirmation* zaškrtněte Restart the destination server
         automatically if required
 
     j.  Všimněte si možnosti exportu nastavení a možnosti specifikace

@@ -394,7 +394,7 @@ Potřeba zkontrolovat a případně doplnit
 
 9.  Přihlaste se na **w11-domain** jako uživatel **homer**
 
-10. Spusťte příkaz **gpupdate /force**, uživatele odhlaste a přihlaste
+10. Spusťte příkaz `gpupdate /force`, uživatele odhlaste a přihlaste
     zpět
 
 11. Ověřte, že uživatel **homer** nemůže měnit barvy, ale témata ano
@@ -551,7 +551,7 @@ Potřeba zkontrolovat a případně doplnit
 4.  Na **w11-domain** se přihlaste jako uživatel **homer** a
     nainstalujte aplikaci
 
-    a.  spusťte **gpupdate /force**
+    a.  spusťte `gpupdate /force`
 
     b.  Otevřete Programs and Features
 
@@ -572,7 +572,7 @@ Potřeba zkontrolovat a případně doplnit
 
 5.  Přesuňte uživatele **homer** do kontejneru Users
 
-6.  Na **w11-domain** spusťte **gpupdate /force**, odhlaste a znovu
+6.  Na **w11-domain** spusťte `gpupdate /force`, odhlaste a znovu
     přihlaste uživatele **homer** a ověřte, že aplikace byla odstraněna
 
 ## Lab S04 -- Instalace aplikací pomocí GPO objektů a WMI filtrů
@@ -672,8 +672,8 @@ Potřeba zkontrolovat a případně doplnit
     b.  Jako název (Name) zvolte **32bit OS** a u Queries zvolte Add
 
     c.  Jmenný prostor (Namespace) ponechte **root\\CIMv2** a do Query
-        zadejte **SELECT \* FROM Win32_OperatingSystem WHERE
-        OSArchitecture=\"32-bit\"**
+        zadejte `SELECT \* FROM Win32_OperatingSystem WHERE
+        OSArchitecture=\"32-bit\"`
 
     d.  Vložte dotaz pomocí OK
 
@@ -689,11 +689,11 @@ Potřeba zkontrolovat a případně doplnit
         potvrďte Yes
 
 8.  Opakujte **body 3 - 6** pro GPO objekt **64bit Apps GPO**,
-    instalační soubor **7z920-x64.msi** a WMI filtr **SELECT \* FROM
-    Win32_OperatingSystem WHERE OSArchitecture=\"64-bit\"**
+    instalační soubor **7z920-x64.msi** a WMI filtr `SELECT \* FROM
+    Win32_OperatingSystem WHERE OSArchitecture=\"64-bit\"`
 
-9.  Na stanicích **w10_x86** a **w11-domain** spusťte **gpupdate
-    /force** a následně je restartujte
+9.  Na stanicích **w10_x86** a **w11-domain** spusťte `gpupdate
+    /force` a následně je restartujte
 
     -   Nastavení počítače se aktualizují při startu počítače, nestačí
         se pouze odhlásit

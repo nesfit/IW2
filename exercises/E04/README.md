@@ -871,7 +871,7 @@ DHCP.
 
     e. V seznamu rolí vyberte DNS Server, potvrďte přidání potřebných funkcí Add Features a pokračujte třikrát Next \>
 
-    f. Zaškrtněte Restart the destination server automatically if required a potvrďte instalaci Install
+    f. Potvrďte instalaci Install
 
     - Trvá cca 3 minuty (restart není potřeba)
 
@@ -1028,7 +1028,7 @@ Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vl
         serveru
 
     -   Všimněte si, že **nslookup** již hlásí jako Default Server
-            **w2022.testing2.local** místo **Unknown** předtím,
+            **w2022.testing2.local** místo **UnKnown** předtím,
             nyní již totiž může díky *reverse lookup* zóně provádět také
             reverzní mapování IPv4 adres na odpovídající doménová jména,
             může tedy zjistit název serveru z jeho IPv4 adresy
@@ -1081,8 +1081,8 @@ také IPv4 adresu primárního **DNS** serveru **192.168.1.2**
 
    - Zóna globálních jmen musí být integrována v Active Directory
 
-    e. V části rozsahu replikace zóny zvolte To all DNS servers running on
-domain controllers in this forest: testing.local
+    e. V části rozsahu replikace zóny zvolte "To all DNS servers running on
+domain controllers in this forest: testing.local"
 
    - Zóna globálních jmen musí být replikována v rámci celého *forestu*
 

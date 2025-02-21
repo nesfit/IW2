@@ -738,7 +738,7 @@ Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
 } -ComputerName w11-domain
 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---
@@ -871,7 +871,7 @@ DHCP.
 
     e. V seznamu rolí vyberte DNS Server, potvrďte přidání potřebných funkcí Add Features a pokračujte třikrát Next \>
 
-    f. Zaškrtněte Restart the destination server automatically if required a potvrďte instalaci Install
+    f. Potvrďte instalaci Install
 
     - Trvá cca 3 minuty (restart není potřeba)
 
@@ -927,7 +927,7 @@ z kontextové nabídky nad jménem serveru zvolte DNS Manager
 6. Na **w11** ověřte správný překlad doménového jména serveru na
 odpovídající IP adresu
 
-    a. Spusťte příkaz **nslookup**
+    a. Spusťte příkaz `nslookup`
 
     b. Zadejte **w2022.testing2.local**
 
@@ -1020,7 +1020,7 @@ Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vl
 3.  Na **w11** ověřte správný překlad IPv4 adresy serveru na
     odpovídající doménové jméno
 
-    a.  Spusťte příkaz **nslookup**
+    a.  Spusťte příkaz `nslookup`
 
     b.  Zadejte **192.168.1.1**
 
@@ -1047,8 +1047,8 @@ Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vl
 
 1. Na **w2022-dc** nastavte statickou IPv4 adresu **192.168.1.2**
 
-    a. Spusťte následující příkaz **netsh interface ip set address
-name=\"LAN2\" source=static addr=192.168.1.2 mask=255.255.255.0**
+    a. Spusťte následující příkaz `netsh interface ip set address
+name=\"LAN2\" source=static addr=192.168.1.2 mask=255.255.255.0`
 
     > Název **name** musí odpovídat síťovému rozhraní *Private1*, standardně
 to je LAN2
@@ -1057,11 +1057,11 @@ to je LAN2
 také IPv4 adresu primárního **DNS** serveru **192.168.1.2**
 
     a. V příkazovém řádku s oprávněním správce spusťte následující příkaz
-    **netsh interface ip set address name=\"LAN2\" source=static
-    addr=192.168.1.200 mask=255.255.255.0**
+    `netsh interface ip set address name=\"LAN2\" source=static
+    addr=192.168.1.200 mask=255.255.255.0`
 
-    b. Spusťte další příkaz **netsh interface ip set dnsservers name=\"LAN2\"
-    source=static address=192.168.1.2**
+    b. Spusťte další příkaz `netsh interface ip set dnsservers name=\"LAN2\"
+    source=static address=192.168.1.2`
 
    - Oba názvy **name** musí odpovídat síťovému rozhraní *Private1*,
    standardně to je LAN2
@@ -1081,8 +1081,8 @@ také IPv4 adresu primárního **DNS** serveru **192.168.1.2**
 
    - Zóna globálních jmen musí být integrována v Active Directory
 
-    e. V části rozsahu replikace zóny zvolte To all DNS servers running on
-domain controllers in this forest: testing.local
+    e. V části rozsahu replikace zóny zvolte "To all DNS servers running on
+domain controllers in this forest: testing.local"
 
    - Zóna globálních jmen musí být replikována v rámci celého *forestu*
 
@@ -1103,7 +1103,7 @@ domain controllers in this forest: testing.local
 
 4. Na **w2022-dc** povolte podporu zóny globálních jmen
 
-    a. Spusťte příkaz **dnscmd /config /enableglobalnamessupport 1**
+    a. Spusťte příkaz `dnscmd /config /enableglobalnamessupport 1`
 
     - Povolení podpory zóny globálních jmen vyžaduje administrátorské
     oprávnění
@@ -1117,8 +1117,8 @@ domain controllers in this forest: testing.local
 5. Přidejte do zóny globálních jmen nový **CNAME** záznam odkazující
 **wdc** na **w2022-dc**
 
-    a. Spusťte příkaz **dnscmd w2022-dc.testing.local /recordadd GlobalNames
-    wdc cname w2022-dc.testing.local**
+    a. Spusťte příkaz `dnscmd w2022-dc.testing.local /recordadd GlobalNames
+    wdc cname w2022-dc.testing.local`
 
     - Přidání záznamu do zóny vyžaduje administrátorské oprávnění
 
@@ -1128,7 +1128,7 @@ jména jsou **NetBIOS** jmény a musí mít tedy délku maximálně 15 znaků
 6. Na **w11-domain** ověřte správný překlad globálních jmen na odpovídající
 doménová jména
 
-    a. Spusťte příkaz **nslookup**
+    a. Spusťte příkaz `nslookup`
 
     b. Zadejte **wdc**
 

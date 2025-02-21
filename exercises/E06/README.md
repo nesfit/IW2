@@ -164,7 +164,7 @@ Add-LabMachineDefinition -Name w11-domain -Memory 4GB -Processors 8  -OperatingS
 
 Install-Lab
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---

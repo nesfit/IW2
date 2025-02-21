@@ -221,7 +221,7 @@ Add-LabMachineDefinition -Name w2022-core -Memory 2GB -NetworkAdapter $w2022_cor
 
 Install-Lab 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 
 ```
 
@@ -266,24 +266,34 @@ OOBE**.
 1.  Přihlaste se k **w2022** jako uživatel `root` s heslem `root4Lab`
 2.  Popište základy rozhraní a snahu o správu více serverů z jednoho místa
 3.  Nástrojová lišta
+   
     a.  Tools -- možnost spuštění MMC konzolí proti lokálnímu serveru
+    
     b.  Manage -- přidávání a odebírání rolí a funkcí na běžící server
         mebo do offline VHD s bitovou kopií Windows Serveru Windows
         serveru (na pozadí je dism / viz IW1)
+    
     c.  Manage -- Add Server
+    
     d.  Manage -- Server Manager Properties (nastavení intervalu obnovy
         a spouštění po přihlášení)
+    
     e.  Notifications (vlaječka)
     -   Zobrazují se zde poinstalační kroky a podobně.
+      
     f.  Dashboard se základním přehledem o serverech a rolích
+    
     g.  Local Server
+    
     h.  All Servers
+    
     i.  Přehled rolí
-4.  Z kontextových nabídek nad jednotlivými servery lze spouštět MMC a
+    
+5.  Z kontextových nabídek nad jednotlivými servery lze spouštět MMC a
     jiné nástroje připojené k danému serveru.
-5.  MMC jde spouštět i samostatně z nabídky Administrative Tools nebo
+6.  MMC jde spouštět i samostatně z nabídky Administrative Tools nebo
     přidáním snap-inů do mmc.exe
-6.  Upozorněte, že Server Manager a některé další nástroje podporují
+7.  Upozorněte, že Server Manager a některé další nástroje podporují
     vzdálenou správu pouze stejné nebo starší verze Windows Serveru.
 
 # **Studentské úkoly**
@@ -431,8 +441,8 @@ Obrázek 1. Schéma základní topologie sítě
 3.  Nyní na firewallech všech tří stanic povolte ICMP Echo Request (ping) - na všech profilech v příchozím i odchozím směru.
 
     a.  Spusťte **PowerShell**
-    -   w2022-core: v příkazové řádce zadejte příkaz **start
-            powershell**
+    -   w2022-core: v příkazové řádce zadejte příkaz `start
+            powershell`
 
     -   w11: spustit jako **administrátor**
 
@@ -464,14 +474,14 @@ Obrázek 1. Schéma základní topologie sítě
     -   bylo by to nutné i v případě místního serveru v doméně a
         samostatného vzdáleného serveru
 
-a.  Spusťe **PowerShell** a zadejte příkaz: `Set-Item wsman:\localhost\Client\TrustedHosts w2022-core -Concatenate -force`
+    a.  Spusťe **PowerShell** a zadejte příkaz: `Set-Item wsman:\localhost\Client\TrustedHosts w2022-core -Concatenate -force`
 
 4.  Uložte alternativní přístupové údaje k serveru **w2022-core**
     -   v případě serverů v doméně není nutné
 
-a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-core /user:w2022-core\administrator /pass:root4Lab`
+    a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-core /user:w2022-core\administrator /pass:root4Lab`
 
--   pokud vypustíte parametr /pass:, jednotlivé nástroje by se měly na
+      -   pokud vypustíte parametr /pass:, jednotlivé nástroje by se měly na
     heslo doptat (ale některé se neptají, např. Server Manager)
 
 ## Lab S04 -- příprava na vzdálenou správu Windows Server pomocí UI -- na spravované stanici
@@ -492,21 +502,21 @@ a.  V příkazovém řádku nebo v **PowerShellu** zadejte: `cmdkey /add:w2022-c
 
 3.  Zadejte příkazy:
 
-- `Enable-NetFireWallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"`
-
-- snap-in Event Viewer `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
-
-- snap-in Services `Enable-NetFirewallRule -DisplayGroup "Remote Service Management"`
-
-- snap-in Shared Folders `Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"`
-
-- snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup "Remote Scheduled Tasks Management"`
-
-- snap-in Disk Management `Enable-NetFirewallRule -DisplayGroup "Remote Volume Management"`
-
-- snap-in Windows Firewall with Advanced Security `Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management"`
-
-- u w2022: `Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management"` (je již povolen)
+    - `Enable-NetFireWallRule -DisplayName "Windows Management Instrumentation (DCOM-In)"`
+    
+    - snap-in Event Viewer `Enable-NetFirewallRule -DisplayGroup "Remote Event Log Management"`
+    
+    - snap-in Services `Enable-NetFirewallRule -DisplayGroup "Remote Service Management"`
+    
+    - snap-in Shared Folders `Enable-NetFirewallRule -DisplayGroup "File and Printer Sharing"`
+    
+    - snap-in Task Scheduler `Enable-NetFirewallRule -DisplayGroup "Performance Logs and Alerts"` and `Enable-NetFireWallRule -DisplayGroup "Remote Scheduled Tasks Management"`
+    
+    - snap-in Disk Management `Enable-NetFirewallRule -DisplayGroup "Remote Volume Management"`
+    
+    - snap-in Windows Firewall with Advanced Security `Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management"`
+    
+    - u w2022: `Enable-NetFirewallRule -DisplayGroup "Windows Defender Firewall Remote Management"` (je již povolen)
 
 Pozn: některé snap-iny vyžadují i další konfiguraci jako spuštění
 některých služeb apod.
@@ -634,7 +644,7 @@ některých služeb apod.
     b.  Z kontextové nabídky serveru **w2022-core** zvolte Restart
         Server a dotaz potvrďte OK
 
-    a.  Vyčkejte na dokončení restartu
+    c.  Vyčkejte na dokončení restartu
 
 6.  Přihlaste se lokálně na k **w2022-core** jako uživatel
     **root** s heslem **root4Lab**

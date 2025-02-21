@@ -3,7 +3,7 @@
 - [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
   - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
-- [Lektorské úkoly {#lektorské-úkoly .IW\_nadpis1}](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
+- [Lektorské úkoly](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
   - [Lab L01 -- ADDT (Active Directory Domains and Trusts)](#lab-l01----addt-active-directory-domains-and-trusts)
   - [Lab L02 -- Vytvoření vztahů důvěry](#lab-l02----vytvoření-vztahů-důvěry)
 - [Studentské úkoly](#studentské-úkoly)
@@ -203,7 +203,7 @@ Add-LabMachineDefinition -Name w2022-t2-dc1  -Memory 4GB -Processors 8  -Operati
 
 Install-Lab
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---

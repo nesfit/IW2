@@ -367,101 +367,57 @@ Existují celkem čtyři rozsahy skupin:
     skupiny jsou jedinou možností jak spravovat přístup ke zdrojům v
     pracovních skupinách. V případě domén ovšem nemají příliš využití.
 
-    -   **Replikace**. Lokální skupiny jsou definovány v lokální **SAM**
-        > databázi, nedochází k replikaci.
+    -   **Replikace**. Lokální skupiny jsou definovány v lokální **SAM** databázi, nedochází k replikaci.
 
     -   **Členství**. Lokální skupina může obsahovat:
 
-        -   Bezpečnostní objekty z domény (uživatele, počítače, globální
-            > nebo doménově lokální skupiny).
+        -   Bezpečnostní objekty z domény (uživatele, počítače, globální nebo doménově lokální skupiny).
 
-        -   Uživatele, počítače a globální skupiny z jakékoliv domény v
-            > daném lese.
+        -   Uživatele, počítače a globální skupiny z jakékoliv domény v daném lese.
 
-        -   Uživatele, počítače a globální skupiny z jakékoliv
-            > důvěryhodné domény.
+        -   Uživatele, počítače a globální skupiny z jakékoliv důvěryhodné domény.
 
-        -   Univerzální skupiny definované v jakékoliv doméně daného
-            > lesa.
+        -   Univerzální skupiny definované v jakékoliv doméně daného lesa.
 
-    -   **Dostupnost**. Lokální skupiny mohou být použity pouze na daném
-        > počítači a pouze tam je lze přidat do ACL. Lokální skupina
-        > nemůže být přidána do žádné jiné skupiny.
+    -   **Dostupnost**. Lokální skupiny mohou být použity pouze na danémpočítači a pouze tam je lze přidat do ACL. Lokální skupinanemůže být přidána do žádné jiné skupiny.
 
 -   **Doménově lokální** (*Domain local*). Doménově lokální skupiny se
     primárně používají ke správě oprávnění pro přístup ke zdrojům.
 
-    -   **Replikace**. Doménově lokální skupiny jsou definovány na
-        > úrovni domény (v tzv. *domain naming context*). Tyto skupiny,
-        > spolu s informacemi o jejich členství (atribut *member*), jsou
-        > replikovány na všechny řadiče domény v dané doméně.
+    -   **Replikace**. Doménově lokální skupiny jsou definovány naúrovni domény (v tzv. *domain naming context*). Tyto skupiny, spolu s informacemi o jejich členství (atribut *member*), jsou replikovány na všechny řadiče domény v dané doméně.
 
     -   **Členství**. Doménově lokální skupina může obsahovat:
 
-        -   Bezpečnostní objekty z domény (uživatele, počítače, globální
-            > nebo doménově lokál-ní skupiny).
+        -   Bezpečnostní objekty z domény (uživatele, počítače, globální nebo doménově lokál-ní skupiny).
 
-        -   Uživatele, počítače a globální skupiny z jakékoliv domény v
-            > daném lese.
+        -   Uživatele, počítače a globální skupiny z jakékoliv domény v daném lese.
 
-        -   Uživatele, počítače a globální skupiny z jakékoliv
-            > důvěryhodné domény.
+        -   Uživatele, počítače a globální skupiny z jakékoliv důvěryhodné domény.
 
-        -   Univerzální skupiny definované v jakékoliv doméně daného
-            > lesa.
+        -   Univerzální skupiny definované v jakékoliv doméně daného lesa.
 
-    -   **Dostupnost**. Doménově lokální skupiny lze přidat do ACL
-        > jakéhokoliv zdroje v doméně. Navíc mohou být doménově lokální
-        > skupiny členy jiných doménově lokálních a lokálních skupin.
-
-> Je vidět, že z hlediska členství není žádný rozdíl mezi lokálními a
-> doménově lokálními skupinami. Ovšem replikace a dostupnost doménově
-> lokálních skupin umožňuje jejich využití v rámci celé domény, proto se
-> doménově lokální skupiny preferují před lokálními skupinami.
+    -   **Dostupnost**. Doménově lokální skupiny lze přidat do ACL jakéhokoliv zdroje v doméně. Navíc mohou být doménově lokální skupiny členy jiných doménově lokálních a lokálních skupin. Je vidět, že z hlediska členství není žádný rozdíl mezi lokálními a doménově lokálními skupinami. Ovšem replikace a dostupnost doménově lokálních skupin umožňuje jejich využití v rámci celé domény, proto se doménově lokální skupiny preferují před lokálními skupinami.
 
 -   **Globální** (*Global*). Globální skupiny se primárně používají pro
     definici kolekce doménových objektů, jenž plní stejnou roli v
     podniku.
 
-    -   **Replikace**. Globální skupiny jsou definovány na úrovni domény
-        > (v tzv. *domain naming context*). Tyto skupiny, spolu s
-        > informacemi o jejich členství (atribut *member*), jsou
-        > replikovány na všechny řadiče domény v dané doméně.
+    -   **Replikace**. Globální skupiny jsou definovány na úrovni domény (v tzv. *domain naming context*). Tyto skupiny, spolu s informacemi o jejich členství (atribut *member*), jsou replikovány na všechny řadiče domény v dané doméně.
 
-    -   **Členství**. Globální skupina může obsahovat pouze uživatele,
-        > počítače a jiné globální skupiny z dané domény.
+    -   **Členství**. Globální skupina může obsahovat pouze uživatele, počítače a jiné globální skupiny z dané domény.
 
-    -   **Dostupnost**. Globální skupiny mohou být použity všemi
-        > příslušníky dané domény (*domain members*), dalšími doménami v
-        > daném lese a také všemi důvěryhodnými externími doménami.
-        > Globální skupiny mohou být členy doménově lokálních
-        > a univerzálních skupin v dané doméně či v daném lese. Také
-        > mohou být členy doménově lokálních skupin z důvěryhodných
-        > domén. Globální skupiny lze přidat do ACL v dané doméně, v
-        > daném lese nebo v důvěryhodné doméně.
-
-> Je vidět, že globální skupiny mají nejvíce omezené členství, ale
-> největší dostupnost v rámci domény, lesa a důvěryhodných domén, proto
-> je lze s výhodou využít pro definici rolí.
+    -   **Dostupnost**. Globální skupiny mohou být použity všemi příslušníky dané domény (*domain members*), dalšími doménami v  daném lese a také všemi důvěryhodnými externími doménami.  Globální skupiny mohou být členy doménově lokálních  a univerzálních skupin v dané doméně či v daném lese. Také mohou být členy doménově lokálních skupin z důvěryhodných domén. Globální skupiny lze přidat do ACL v dané doméně, v daném lese nebo v důvěryhodné doméně. Je vidět, že globální skupiny mají nejvíce omezené členství, ale největší dostupnost v rámci domény, lesa a důvěryhodných domén, proto je lze s výhodou využít pro definici rolí.
 
 -   **Univerzální** (*Universal*). Univerzální skupiny mají využití
     hlavně v lesích obsahujících více domén (*multidomain forests*).
     Umožňují definovat role, nebo spravovat zdroje, které jsou
     rozprostřeny přes více domén.
 
-    -   **Replikace**. Univerzální skupiny jsou definovány v jedné
-        > konkrétní doméně, jsou ovšem replikovány v rámci globálních
-        > katalogů. Objekty uložené v globálním katalogu jsou přístupné
-        > v celém lese.
+    -   **Replikace**. Univerzální skupiny jsou definovány v jedné konkrétní doméně, jsou ovšem replikovány v rámci globálních katalogů. Objekty uložené v globálním katalogu jsou přístupné v celém lese.
 
-    -   **Členství**. Univerzální skupina může obsahovat uživatele,
-        > globální skupiny a jiné univerzální skupiny z kterékoliv
-        > domény z daného lesa.
+    -   **Členství**. Univerzální skupina může obsahovat uživatele, globální skupiny a jiné univerzální skupiny z kterékoliv domény z daného lesa.
 
-    -   **Dostupnost**. Univerzální skupiny mohou být členy jiných
-        > univerzálních skupin nebo doménově lokálních skupin kdekoliv v
-        > daném lese. Univerzální skupiny mohou být také použity ke
-        > správě zdrojů kdekoliv v daném lese.
+    -   **Dostupnost**. Univerzální skupiny mohou být členy jiných  univerzálních skupin nebo doménově lokálních skupin kdekoliv v daném lese. Univerzální skupiny mohou být také použity ke správě zdrojů kdekoliv v daném lese.
 
 Posledním důležitým typem objektů jsou počítače. Často se zapomíná, že i
 počítače jsou bezpečnostní objekty (*security principals*) a tedy mohou
@@ -492,7 +448,7 @@ Add-LabMachineDefinition -Name w11-2 -Memory 8GB  -OperatingSystem 'Windows 11 P
 Install-Lab
 
 Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
-    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
     
     New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
     New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
@@ -501,7 +457,7 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
 } -ComputerName w2022-dc
 
 Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
-    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
 
     Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer,Marge
 
@@ -545,25 +501,11 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 1. Na **w2022** se přihlaste jako uživatel **root**
 
-2. Na **w2022** nastavte statickou IPv4 adresu **192.168.64.5**
-
-    a. Otevřete **Network and Sharing Center**, zvolte LAN2 a pak properties
-
-    b. Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
-
-    c. Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte properties
-
-    d. Zvolte Use the following IP address a jako IP address zadejte **192.168.64.5**
-
-    e. Klikněte do zadávacího pole u Subnet mask, maska podsítě bude doplněna automaticky
-
-    f. Potvrďte OK
-
-3. Spusťte **Server Manager**
+2. Spusťte **Server Manager**
 
     a. Start → **Server Manager**
 
-4. Nainstalujte roli **Active Directory Domain Services**
+3. Nainstalujte roli **Active Directory Domain Services**
 
     a. Vyberte *Add Roles and Features* z nabídky *Manage*
 
@@ -580,7 +522,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
     g. Po dokončení instalace najdete v notifikacích Server Manageru odkaz na *Promote this server to a domain controller*
 
-5. V konfiguračním průvodci (*Active Directory Domain Services Configuration
+4. V konfiguračním průvodci (*Active Directory Domain Services Configuration
 Wizard*)
 
     a. Zvolte *Add a new forest*
@@ -785,7 +727,7 @@ a ukažte, jak se změní jeho DN.
     h.  Potvrďte Next
 
     i.  Při výzvě o zadání účtu použijte účet **homer@testing.local** s
-        heslem **user4Lab**
+        heslem **root4Lab**
 
     -   I běžný uživatel může do domény připojit až 10 zařízení (best practice je však tuto možnost zakázat)
 
@@ -911,7 +853,7 @@ a ukažte, jak se změní jeho DN.
     jednotky **brno**, křestní jméno nastavte na **Lisa** a heslo zvolte
     **root4Lab**
 
-    a.  Spusťte příkaz `dsadd user CN=lisa,OU=brno,DC=testing,DC=local -fn Lisa -pwd aaa`
+    a.  Spusťte příkaz `dsadd user CN=lisa,OU=brno,DC=testing,DC=local -fn Lisa -pwd root4Lab`
 
     b.  Ověřte v **Active Directory Users and Computers**, že uživatel
         byl přidán
@@ -928,7 +870,7 @@ a ukažte, jak se změní jeho DN.
         jednotky **vut**
 
     b.  Spusťte příkaz `dsmove CN=lisa,OU=brno,DC=testing,DC=local
-        -newparent OU=vut,OU= brno,DC=testing,DC=local`
+        -newparent OU=vut,OU=brno,DC=testing,DC=local`
 
 5.  Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce
     **vut** pomocí **dsquery**

@@ -461,10 +461,10 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
 
     New-ADUser -Name student -SamAccountName Student -AccountPassword $password -Enabled $true
 
-    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Description "Members of this group are Simpsons"
+    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Description "Members of this group are Simpsons" -PassThru
 
-    $Homer = New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
-    $Bart = New-ADUser -Name Bart -AccountPassword $password -Enabled $true
+    $Homer = New-ADUser -Name Homer  -AccountPassword $password -Enabled $true -PassThru
+    $Bart = New-ADUser -Name Bart -AccountPassword $password -Enabled $true -PassThru
 
     Add-ADGroupMember -Identity $Simpsons -Members $Homer
     Add-ADGroupMember -Identity $Simpsons -Members $Bart
@@ -495,7 +495,7 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
 } -ComputerName w2022-dc1
 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---

@@ -59,8 +59,7 @@ obrázku 1. Kořenem stromu (označovaný jako *the root*) je prázdný
 Tečky slouží jako oddělovače jednotlivých úrovní stromu. Podle
 specifikace může mít strom až 127 úrovní.
 
-![dns_tree.png](./img/media/image1.png){width="4.167246281714785in"
-height="3.333798118985127in"}
+![dns_tree.png](./img/media/image1.png)
 
 Obrázek 1. Část stromu prostoru doménových jmen
 
@@ -115,8 +114,7 @@ doménové jména je zachycen na obrázku 2. Obdobně pro IPv6 adresy
 existuje speciální doména **ip6.arpa.**, kde jednotlivé uzly tvoří
 čtyřbitová čísla.
 
-![dns_reverse_tree.png](./img/media/image2.png){width="3.2035717410323707in"
-height="3.5161154855643044in"}
+![dns_reverse_tree.png](./img/media/image2.png)
 
 Obrázek 2. Strom pro reverzní překlad IPv4 adres
 
@@ -653,8 +651,7 @@ pomocí rekurzivního dotazu a pokud **DNS** server nedokáže na zaslaný
 dotaz odpovědět, nejprve se zkusí zeptat dalších **DNS** serverů pomocí
 iterativních dotazů. Příklad tohoto přístupu je znázorněn na obrázku 3.
 
-![dns_query_v2.png](./img/media/image3.png){width="6.355053587051619in"
-height="4.583972003499563in"}
+![dns_query_v2.png](./img/media/image3.png)
 
 Obrázek 3. Příklad průběhu DNS dotazu mezi klientem a serverem
 

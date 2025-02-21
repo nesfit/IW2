@@ -148,7 +148,7 @@ Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network 
 
 Install-Lab
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 
 ```
 
@@ -198,15 +198,15 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
     b.  Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je Ethernet
 
-    b.  Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte Properties
+    c.  Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte Properties
 
-    c.  Zvolte Use the following IP address a jako IP address zadejte
+    d.  Zvolte Use the following IP address a jako IP address zadejte
     **192.168.1.1**
 
-    d.  Klikněte do zadávacího pole u Subnet mask, maska podsítě
+    e.  Klikněte do zadávacího pole u Subnet mask, maska podsítě
     **255.255.255.0** bude doplněna automaticky
 
-    e.  Potvrďte OK
+    f.  Potvrďte OK
 
 3. Spusťte **Server Manager**
 
@@ -291,7 +291,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 2. Na **w11** vynuťte obnovení IPv4 adresy
 
-    a. Spusťte příkaz **ipconfig /renew**
+    a. Spusťte příkaz `ipconfig /renew`
 
 3. Ověřte, že **w11** obdržel od **DHCP** serveru IPv4 adresu z
 nastaveného rozsahu

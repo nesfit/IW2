@@ -186,7 +186,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 ## Lektorské úkoly
 
-Lab L01 -- ADAC (Active Directory Administrative Center)
+### Lab L01 -- ADAC (Active Directory Administrative Center)
 
 > **Cíl cvičení**
 >
@@ -215,7 +215,7 @@ stránce/dashboardu.
 Dle dostupných informací **ADAC** postupně nahradí starší **ADUC** a
 pravděpodobně i ostatní konzole týkající se AD.
 
-Lab L02 -- Operační servery (Operations Masters) a globální katalog
+### Lab L02 -- Operační servery (Operations Masters) a globální katalog
 
 > **Cíl cvičení**
 >

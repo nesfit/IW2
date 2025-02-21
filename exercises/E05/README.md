@@ -523,7 +523,7 @@ Add-LabMachineDefinition -Name w11-2 -Memory 0.5GB -NetworkAdapter $netAdapter -
 Install-Lab
 
 Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
-    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
     
     New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
     New-ADUser -Name Homer  -AccountPassword $password -Enabled $true
@@ -532,7 +532,7 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
 } -ComputerName w2022-dc
 
 Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
-    $password = 'user4Lab' | ConvertTo-SecureString -AsPlainText -Force
+    $password = 'root4Lab' | ConvertTo-SecureString -AsPlainText -Force
 
     Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer,Marge
 

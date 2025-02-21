@@ -301,7 +301,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
 7.  Vypište informace o uživateli lisa
 
-    a.  Spusťte příkaz **Get-ADUser -identity lisa**
+    a.  Spusťte příkaz `Get-ADUser -identity lisa`
 
 8.  Vytvořte organizační jednotku **vut** pod organizační jednotkou
     **brno**

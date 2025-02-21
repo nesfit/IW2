@@ -928,7 +928,7 @@ a ukažte, jak se změní jeho DN.
     jednotky **brno**, křestní jméno nastavte na **Lisa** a heslo zvolte
     **root4Lab**
 
-    a.  Spusťte příkaz `dsadd user CN=lisa,OU=brno,DC=testing,DC=local -fn Lisa -pwd aaa`
+    a.  Spusťte příkaz `dsadd user CN=lisa,OU=brno,DC=testing,DC=local -fn Lisa -pwd root4Lab`
 
     b.  Ověřte v **Active Directory Users and Computers**, že uživatel
         byl přidán

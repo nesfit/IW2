@@ -325,7 +325,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 11. Zobrazte jméno, příjmení a stav pro všechny zakázané uživatelské
     účty v Objektu Users
 
-    a.  Spusťte příkaz `Get-ADUser -Filter * -SearchBase "CN=users, DC=testing, DC=local" | where {$_.enabled --eq $false} | select name, surname, enabled`
+    a.  Spusťte příkaz `Get-ADUser -Filter * -SearchBase "CN=users, DC=testing, DC=local" | where {$_.enabled -eq $false} | select name, surname, enabled`
 
 12. Smažte organizační jednotku **vut** i s celým jejím obsahem (bez
     potvrzování)

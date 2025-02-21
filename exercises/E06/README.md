@@ -431,18 +431,18 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
     b.  Vypište seznam všech uživatelů v organizační jednotce **vut**
         příkazem `$ouVut.Children | Format-List -property distinguishedName`
+    
+9.  Změňte uživateli **maggie** příjmení
 
-10.  Změňte uživateli **maggie** příjmení
-   
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
-        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local"`
+        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=brno,DC=testing,DC=local"`
 
     b.  Změňte příjmení uživatele **maggie** příkazem
         `$userMaggie.put("sn", "Simpson")`
 
-    c.  Potvrďte změnu příjmení příkazem `$userMaggie.SetInfo()`
+    c.  Potvrďte změnu příjmení příkazem `$userMaggie.SetInfo()` 
 
-11. Ověřte změnu příjmení
+10. Ověřte změnu příjmení
 
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
         **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local"`
@@ -451,7 +451,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
     c.  Vypište pouze informace o příjmení příkazem `$userMaggie | Format-List -property sn`
 
-12. Smažte organizační jednotku **vut** i s celým jejím obsahem
+11. Smažte organizační jednotku **vut** i s celým jejím obsahem
 
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
         jednotku **vut** pomocí příkazu `$ouVut = [ADSI]"LDAP://OU=vut,OU=brno,DC=testing,DC=local"`
@@ -459,7 +459,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
     b.  Smažte organizační jednotku **vut** příkazem
         `$ouVut.DeleteTree()`
 
-13. Ověřte v **Active Directory Users and Computers**, že organizační
+12. Ověřte v **Active Directory Users and Computers**, že organizační
     jednotka byla smazána
 
 ## Lab S03 -- Přesun operačního serveru (Operations Master)

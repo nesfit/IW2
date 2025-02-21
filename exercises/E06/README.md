@@ -425,13 +425,15 @@ klik na NTDS Settings, vybrat Properties, záložka General).
         příkazem `$userMaggie.MoveTo($ouVut, "CN=maggie")`
 
 8.  Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce **vut**
+
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
         jednotku **vut** pomocí příkazu `$ouVut = [ADSI]"LDAP://OU=vut,OU=brno,DC=testing,DC=local"`
 
     b.  Vypište seznam všech uživatelů v organizační jednotce **vut**
         příkazem `$ouVut.Children | Format-List -property distinguishedName`
 
-9.  Změňte uživateli **maggie** příjmení
+10.  Změňte uživateli **maggie** příjmení
+   
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
         **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local"`
 
@@ -440,7 +442,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
     c.  Potvrďte změnu příjmení příkazem `$userMaggie.SetInfo()`
 
-10. Ověřte změnu příjmení
+11. Ověřte změnu příjmení
 
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
         **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local"`
@@ -449,7 +451,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
     c.  Vypište pouze informace o příjmení příkazem `$userMaggie | Format-List -property sn`
 
-11. Smažte organizační jednotku **vut** i s celým jejím obsahem
+12. Smažte organizační jednotku **vut** i s celým jejím obsahem
 
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
         jednotku **vut** pomocí příkazu `$ouVut = [ADSI]"LDAP://OU=vut,OU=brno,DC=testing,DC=local"`
@@ -457,7 +459,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
     b.  Smažte organizační jednotku **vut** příkazem
         `$ouVut.DeleteTree()`
 
-12. Ověřte v **Active Directory Users and Computers**, že organizační
+13. Ověřte v **Active Directory Users and Computers**, že organizační
     jednotka byla smazána
 
 ## Lab S03 -- Přesun operačního serveru (Operations Master)

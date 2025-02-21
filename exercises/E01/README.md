@@ -709,8 +709,6 @@ data zachytávat. Zmiňte taky, že *user-friendly* zobrazení zachycených
 dat obstarávají *parsery*. Vysvětlete rozdíl mezi *capture* a
 *display* filtry.
 
-Instalaci na virtuální stroj proveďte pomocí `winget install -e --id WiresharkFoundation.Wireshark`.
-
 1. Vytvořte session pro zachytávání dat na rozhraní **LAN2**
 
 2. Následně z **w11** pingněte **w2022** a ukončete zachytávání.
@@ -772,9 +770,10 @@ Obrázek 13. Schéma základní topologie sítě pro IPv6
 2.  Na **w2022** nastavte pomocí příkazové řádky příslušnou *IPv6
     adresu* a *prefix* podle schématu na obrázku 13
 
-    a.  Spusťte následující příkaz `netsh interface ipv6 set address
-        interface=\"LAN2\" address=2001:23::10/64 type=unicast
-        store=persistent`
+    a. Spusťte následující příkazy
+    `netsh interface ipv6 set address interface="Ethernet 2" address=2001:23::10/64 type=unicast store=persistent`
+    
+    `netsh interface ipv6 set route ::/0 interface=<interface_idx> 2001:23::2` (interface_idx => `netsh interface ipv6 show interfaces`)
 
     -   Název **interface** musí odpovídat síťovému rozhraní
         *Private4*, standardně to je **LAN2**

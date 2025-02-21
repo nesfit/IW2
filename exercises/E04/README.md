@@ -927,7 +927,7 @@ z kontextové nabídky nad jménem serveru zvolte DNS Manager
 6. Na **w11** ověřte správný překlad doménového jména serveru na
 odpovídající IP adresu
 
-    a. Spusťte příkaz **nslookup**
+    a. Spusťte příkaz `nslookup`
 
     b. Zadejte **w2022.testing2.local**
 
@@ -1020,7 +1020,7 @@ Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vl
 3.  Na **w11** ověřte správný překlad IPv4 adresy serveru na
     odpovídající doménové jméno
 
-    a.  Spusťte příkaz **nslookup**
+    a.  Spusťte příkaz `nslookup`
 
     b.  Zadejte **192.168.1.1**
 
@@ -1028,7 +1028,7 @@ Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vl
         serveru
 
     -   Všimněte si, že **nslookup** již hlásí jako Default Server
-            **w2022.testing2.local** místo **UnKnown** předtím,
+            **w2022.testing2.local** místo **Unknown** předtím,
             nyní již totiž může díky *reverse lookup* zóně provádět také
             reverzní mapování IPv4 adres na odpovídající doménová jména,
             může tedy zjistit název serveru z jeho IPv4 adresy
@@ -1047,8 +1047,8 @@ Projděte různá nastavení u **DNS** klienta (záložka DNS v pokročilých vl
 
 1. Na **w2022-dc** nastavte statickou IPv4 adresu **192.168.1.2**
 
-    a. Spusťte následující příkaz **netsh interface ip set address
-name=\"LAN2\" source=static addr=192.168.1.2 mask=255.255.255.0**
+    a. Spusťte následující příkaz `netsh interface ip set address
+name=\"LAN2\" source=static addr=192.168.1.2 mask=255.255.255.0`
 
     > Název **name** musí odpovídat síťovému rozhraní *Private1*, standardně
 to je LAN2
@@ -1057,11 +1057,11 @@ to je LAN2
 také IPv4 adresu primárního **DNS** serveru **192.168.1.2**
 
     a. V příkazovém řádku s oprávněním správce spusťte následující příkaz
-    **netsh interface ip set address name=\"LAN2\" source=static
-    addr=192.168.1.200 mask=255.255.255.0**
+    `netsh interface ip set address name=\"LAN2\" source=static
+    addr=192.168.1.200 mask=255.255.255.0`
 
-    b. Spusťte další příkaz **netsh interface ip set dnsservers name=\"LAN2\"
-    source=static address=192.168.1.2**
+    b. Spusťte další příkaz `netsh interface ip set dnsservers name=\"LAN2\"
+    source=static address=192.168.1.2`
 
    - Oba názvy **name** musí odpovídat síťovému rozhraní *Private1*,
    standardně to je LAN2
@@ -1103,7 +1103,7 @@ domain controllers in this forest: testing.local
 
 4. Na **w2022-dc** povolte podporu zóny globálních jmen
 
-    a. Spusťte příkaz **dnscmd /config /enableglobalnamessupport 1**
+    a. Spusťte příkaz `dnscmd /config /enableglobalnamessupport 1`
 
     - Povolení podpory zóny globálních jmen vyžaduje administrátorské
     oprávnění
@@ -1117,8 +1117,8 @@ domain controllers in this forest: testing.local
 5. Přidejte do zóny globálních jmen nový **CNAME** záznam odkazující
 **wdc** na **w2022-dc**
 
-    a. Spusťte příkaz **dnscmd w2022-dc.testing.local /recordadd GlobalNames
-    wdc cname w2022-dc.testing.local**
+    a. Spusťte příkaz `dnscmd w2022-dc.testing.local /recordadd GlobalNames
+    wdc cname w2022-dc.testing.local`
 
     - Přidání záznamu do zóny vyžaduje administrátorské oprávnění
 
@@ -1128,7 +1128,7 @@ jména jsou **NetBIOS** jmény a musí mít tedy délku maximálně 15 znaků
 6. Na **w11-domain** ověřte správný překlad globálních jmen na odpovídající
 doménová jména
 
-    a. Spusťte příkaz **nslookup**
+    a. Spusťte příkaz `nslookup`
 
     b. Zadejte **wdc**
 

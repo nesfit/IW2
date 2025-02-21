@@ -241,8 +241,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
 # Studentské úkoly
 
-## Lab S01 -- Správa Active Directory pomocí Windows PowerShell (s  modulem
-ActiveDirectory)
+## Lab S01 -- Správa Active Directory pomocí Windows PowerShell (s  modulem ActiveDirectory)
 
 > **Cíl cvičení**
 >

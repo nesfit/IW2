@@ -483,38 +483,38 @@ Set-LabInstallationCredential -Username root -Password root4Lab
 Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
 
 
-Add-LabVirtualNetworkDefinition -Name $labName
-Add-LabVirtualNetworkDefinition -Name $labName`1
+Add-LabVirtualNetworkDefinition -Name Private1
+Add-LabVirtualNetworkDefinition -Name Private2
 Add-LabVirtualNetworkDefinition -Name 'Default Switch' -HyperVProperties @{ SwitchType = 'External'; AdapterName = 'Wi-Fi' } # 'Ethernet'/'Wi-Fi'
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w2022-dc -Memory 1GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -NetworkAdapter $netAdapter -DomainName testing.local
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11-domain -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName`1
+New-LabNetworkAdapterDefinition -VirtualSwitch Private2
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w2022 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
 
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11-1 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
 
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11-2 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
@@ -539,7 +539,7 @@ Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
 } -ComputerName w11-domain
 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---

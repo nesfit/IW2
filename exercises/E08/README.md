@@ -227,15 +227,18 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
     New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
     New-ADOrganizationalUnit -Name brnopcs -path "DC=testing,DC=local" 
 
-    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Path "OU=brno,DC=testing,DC=local" -Description "Members of this group are Simpsons"
+    New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Path "OU=brno,DC=testing,DC=local" -Description "Members of this group are Simpsons"
 
-    $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
+    $Simpsons = Get-ADGroup -Identity "Simpsons"
+
+    $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local" -AccountPassword $password -Enabled $true -PassThru
 
     Add-ADGroupMember -Identity $Simpsons -Members $Homer
 
     Move-ADObject "CN=w11-domain,CN=computers,DC=testing,DC=local" -TargetPath "OU=brnopcs,DC=testing,DC=local"
 
     # Lab evaluation prep
+    New-GPO "Enterprise GPO"
     Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "NoAutoUpdate" -Type DWORD -Value 0
     Set-GPRegistryValue -Name "Enterprise GPO" -Key "HKLM\Software\Policies\Microsoft\Windows\WindowsUpdate\AU" -ValueName "AUOptions" -Type DWORD -Value 2
 
@@ -257,14 +260,14 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
     
 } -ComputerName w2022-dc1
 
-Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
+#Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
 
-    Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer
+ #   Add-LocalGroupMember -Group "Remote Desktop Users" -Member Homer
 
-} -ComputerName w11-domain
+#} -ComputerName w11-domain
 
 
-Show-LabDeploymentSummary
+#Show-LabDeploymentSummary
 ```
 
 ---

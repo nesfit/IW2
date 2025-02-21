@@ -577,7 +577,7 @@ Server 2008.
 
     -   Tip: přepněte zobrazení na velké ikony (View by: Large icons)
 
-    -   Pokud jsou zobrazené, spusťte **gpupdate /force**, zavřete a znova otevřete Control Panel
+    -   Pokud jsou zobrazené, spusťte `gpupdate /force`, zavřete a znova otevřete Control Panel
 
 6.  Vytvořte nový GPO objekt **Domain GPO** a rovnou ho připojte k
     doméně **testing.local**

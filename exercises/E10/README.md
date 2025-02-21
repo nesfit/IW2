@@ -283,7 +283,7 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
 } -ComputerName w2022-dc1
 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 # Společné úkoly

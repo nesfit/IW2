@@ -576,25 +576,11 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 1. Na **w2022** se přihlaste jako uživatel **root**
 
-2. Na **w2022** nastavte statickou IPv4 adresu **192.168.64.5**
-
-    a. Otevřete **Network and Sharing Center**, zvolte LAN2 a pak properties
-
-    b. Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
-
-    c. Vyberte Internet Protocol Version 4 (TCP/IPv4) a zvolte properties
-
-    d. Zvolte Use the following IP address a jako IP address zadejte **192.168.64.5**
-
-    e. Klikněte do zadávacího pole u Subnet mask, maska podsítě bude doplněna automaticky
-
-    f. Potvrďte OK
-
-3. Spusťte **Server Manager**
+2. Spusťte **Server Manager**
 
     a. Start → **Server Manager**
 
-4. Nainstalujte roli **Active Directory Domain Services**
+3. Nainstalujte roli **Active Directory Domain Services**
 
     a. Vyberte *Add Roles and Features* z nabídky *Manage*
 
@@ -611,7 +597,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
     g. Po dokončení instalace najdete v notifikacích Server Manageru odkaz na *Promote this server to a domain controller*
 
-5. V konfiguračním průvodci (*Active Directory Domain Services Configuration
+4. V konfiguračním průvodci (*Active Directory Domain Services Configuration
 Wizard*)
 
     a. Zvolte *Add a new forest*

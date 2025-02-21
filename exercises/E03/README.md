@@ -443,10 +443,12 @@ své služby, mají na to pak bodovaný úkol.
     c. Zvolte Add
     
     d. Do Display Name a části ASCII zadejte **ugtest** (Binary část bude automaticky doplněna)
+   
     e. Potvrďte vytvoření pomocí OK
+   
     f. Zavřete okno DHC User Classes
 
-2. Nastavte adresu **192.168.1.4** jako výchozí bránu pro klienta s *user
+3. Nastavte adresu **192.168.1.4** jako výchozí bránu pro klienta s *user
 class* **ugtest**
 
     a. V **DHCP** klikněte pravým na rezervaci **w11** a zvolte Configure
@@ -459,14 +461,14 @@ class* **ugtest**
 
     d. Potvrďte OK
 
-3. Přidejte síťové rozhraní Ethernet na **w11** do *user class* **ugtest**
+4. Přidejte síťové rozhraní Ethernet na **w11** do *user class* **ugtest**
     > :warning: Síťové rozhraní musí odpovídat *Private1*, standardně to je Ethernet
 
     a.  Na **w11** spusťte v příkazovém řádku s administrátosrkými
     oprávněními příkaz `ipconfig /setclassid Ethernet ugtest`
     - Nastavení *user class* pro dané rozhraní vyžaduje administrátorské oprávnění
 
-4.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
+5.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
     **192.168.1.4**
     -   Nastavení pro konkrétní *user class* má vždy přednost před
         nastavením pro všechny

@@ -738,7 +738,7 @@ Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
 } -ComputerName w11-domain
 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---

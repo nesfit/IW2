@@ -802,7 +802,7 @@ a ukažte, jak se změní jeho DN.
     h.  Potvrďte Next
 
     i.  Při výzvě o zadání účtu použijte účet **homer@testing.local** s
-        heslem **user4Lab**
+        heslem **root4Lab**
 
     -   I běžný uživatel může do domény připojit až 10 zařízení (best practice je však tuto možnost zakázat)
 

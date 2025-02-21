@@ -945,7 +945,7 @@ a ukažte, jak se změní jeho DN.
         jednotky **vut**
 
     b.  Spusťte příkaz `dsmove CN=lisa,OU=brno,DC=testing,DC=local
-        -newparent OU=vut,OU= brno,DC=testing,DC=local`
+        -newparent OU=vut,OU=brno,DC=testing,DC=local`
 
 5.  Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce
     **vut** pomocí **dsquery**

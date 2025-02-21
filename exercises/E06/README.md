@@ -282,7 +282,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
 4.  Změňte uživateli **lisa** heslo
 
-    a.  Spusťte příkaz `Set-ADAccountPassword "CN=lisa,OU=brno,DC=testing,DC=local" -Reset -NewPassword (ConvertTo-SecureString -AsPlainText "aaa" -Force)`
+    a.  Spusťte příkaz `Set-ADAccountPassword "CN=lisa,OU=brno,DC=testing,DC=local" -Reset -NewPassword (ConvertTo-SecureString -AsPlainText "root4Lab" -Force)`
 
     -   Místo DN lze použít i jen `-Identity lisa` (viz následující bod)
 
@@ -342,8 +342,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
     d.  Ověřte v **Active Directory Users and Computers**, že
         organizační jednotka byla smazána
 
-## Lab S02 -- Správa Active Directory pomocí Windows PowerShell pomocí
-pokročilých metod
+## Lab S02 -- Správa Active Directory pomocí Windows PowerShell pomocí pokročilých metod
 
 > **Cíl cvičení**
 >
@@ -385,7 +384,7 @@ pokročilých metod
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
         **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=brno,DC=testing,DC=local"`
 
-    b.  Změňte heslo uživatele **maggie** příkazem `$userMaggie.SetPassword("aaa")`
+    b.  Změňte heslo uživatele **maggie** příkazem `$userMaggie.SetPassword("root4Lab")`
 
     c.  Potvrďte změnu hesla příkazem `$userMaggie.SetInfo()`
 
@@ -504,7 +503,7 @@ pokročilých metod
 
     e.  Potvrďte přesunutí role pomocí OK
 
-Lab S04 -- Schéma AD
+## Lab S04 -- Schéma AD
 
 > **Cíl cvičení**
 >

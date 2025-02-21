@@ -276,7 +276,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
       8. V nastavení Domain Name and DNS Servers zadejte jako Parent Domain
         doménu **testing2.local** a do DNS server IP address adresu
-        **192.168.1.1** a pokračujte Next \>
+        **192.168.1.1** -treba potvrdit Add- a pokračujte Next \>
 
             > :warning: Tyto informace jsou zaslány spolu s IPv4 adresou **DHCP** klientovi a slouží k nastavení **DNS** serverů a **DNS** *suffixů* pro dané síťové rozhraní, **DNS** server bude nainstalován později v rámci jiného úkolu
 

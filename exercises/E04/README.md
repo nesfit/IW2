@@ -686,30 +686,30 @@ Set-LabInstallationCredential -Username root -Password root4Lab
 Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
 
 
-Add-LabVirtualNetworkDefinition -Name $labName
+Add-LabVirtualNetworkDefinition -Name Private1
 Add-LabVirtualNetworkDefinition -Name 'Default Switch' -HyperVProperties @{ SwitchType = 'External'; AdapterName = 'Wi-Fi' } # 'Ethernet'/'Wi-Fi'
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w2022-dc -Memory 1GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -NetworkAdapter $netAdapter -DomainName testing.local
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11-domain -Memory 1GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w2022 -Memory 1GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
 
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11 -Memory 1GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'

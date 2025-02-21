@@ -128,8 +128,8 @@ nedostanou k **DHCP** serveru.
 ```pwsh
 $labName = 'E03'
 
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
-Set-LabInstallationCredential -Username root -Password root4lab
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
+Set-LabInstallationCredential -Username root -Password root4Lab
 
 Add-LabVirtualNetworkDefinition -Name Private1
 
@@ -189,7 +189,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 >
 > **w2022**
 
-1. Přihlaste se k **w2022** jako uživatel **root** s heslem **root4lab**
+1. Přihlaste se k **w2022** jako uživatel **root** s heslem **root4Lab**
 
 2. Na **w2022** nastavte statickou IPv4 adresu **192.168.1.1**
 
@@ -276,7 +276,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
       8. V nastavení Domain Name and DNS Servers zadejte jako Parent Domain
         doménu **testing2.local** a do DNS server IP address adresu
-        **192.168.1.1** a pokračujte Next \>
+        **192.168.1.1** -treba potvrdit Add- a pokračujte Next \>
 
             > :warning: Tyto informace jsou zaslány spolu s IPv4 adresou **DHCP** klientovi a slouží k nastavení **DNS** serverů a **DNS** *suffixů* pro dané síťové rozhraní, **DNS** server bude nainstalován později v rámci jiného úkolu
 
@@ -287,7 +287,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
       10.  Zvolte Yes, I want to activate this scope now pro aktivaci vytvořeného rozsahu a pokračujte Next \> a Finish
       > :warning: Zmiňte, že rozsah (*scope*) je potřeba aktivovat, aby začal poskytovat IPv4 adresy
 
-1. Přihlaste se k **w11** jako uživatel **student** s heslem **root4lab**
+1. Přihlaste se k **w11** jako uživatel **root** s heslem **root4Lab**
 
 2. Na **w11** vynuťte obnovení IPv4 adresy
 
@@ -443,10 +443,12 @@ své služby, mají na to pak bodovaný úkol.
     c. Zvolte Add
     
     d. Do Display Name a části ASCII zadejte **ugtest** (Binary část bude automaticky doplněna)
+   
     e. Potvrďte vytvoření pomocí OK
+   
     f. Zavřete okno DHC User Classes
 
-2. Nastavte adresu **192.168.1.4** jako výchozí bránu pro klienta s *user
+3. Nastavte adresu **192.168.1.4** jako výchozí bránu pro klienta s *user
 class* **ugtest**
 
     a. V **DHCP** klikněte pravým na rezervaci **w11** a zvolte Configure
@@ -459,14 +461,14 @@ class* **ugtest**
 
     d. Potvrďte OK
 
-3. Přidejte síťové rozhraní Ethernet na **w11** do *user class* **ugtest**
+4. Přidejte síťové rozhraní Ethernet na **w11** do *user class* **ugtest**
     > :warning: Síťové rozhraní musí odpovídat *Private1*, standardně to je Ethernet
 
     a.  Na **w11** spusťte v příkazovém řádku s administrátosrkými
     oprávněními příkaz `ipconfig /setclassid Ethernet ugtest`
     - Nastavení *user class* pro dané rozhraní vyžaduje administrátorské oprávnění
 
-4.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
+5.  Ověřte, že **w11** má nastavenou jako výchozí bránu IPv4 adresu
     **192.168.1.4**
     -   Nastavení pro konkrétní *user class* má vždy přednost před
         nastavením pro všechny

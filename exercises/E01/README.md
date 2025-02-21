@@ -489,7 +489,7 @@ tabulkách mají omezenou dobu platnosti a jsou periodicky mazány.
 $labName = 'E01'
 
 New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
-Set-LabInstallationCredential -Username root -Password root4lab
+Set-LabInstallationCredential -Username root -Password root4Lab
 
 Add-LabVirtualNetworkDefinition -Name none
 
@@ -574,6 +574,7 @@ vše lze konfigurovat přes příkazový řádek pomocí utility **netsh**
 > Obraz operačního systému pro směrovače **Mikrotik Cloud Hosted Router**,
 > jenž je k dispozici lokálně na jednotlivých stanicích nebo lze stáhnout ze stránek výrobce
 > (**http://www.mikrotik.com/download**)
+> WinBox - Od Mikrotik verze 7 nelze stáhnout bez přístupu na internet
 
 ![](./img/media/image12.png)
 
@@ -584,9 +585,9 @@ Obrázek 12. Schéma základní topologie sítě
     obrázku 12
 
     a.  Otevřete okno **Network Connections** (Settings -- Network &
-        Internet -- Ethernet -- Change adapter options), zvolte *LAN2* a
+        Internet -- Ethernet -- Change adapter options), zvolte *Ethernet 2* a
         pak *Properties*
-    -   Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je LAN2
+    -   Zvolené síťové rozhraní musí odpovídat *Private1*, standardně to je "Ethernet 2"
 
     b.  Vyberte *Internet Protocol Version 4 (TCP/IPv4)* a zvolte
         *Properties*
@@ -609,11 +610,11 @@ Obrázek 12. Schéma základní topologie sítě
     obrázku 12
 
     a.  Spusťte následující příkaz `netsh interface ip set address
-        name="Ethernet 2" source=static addr=192.168.23.10
+        name=\"Ethernet 2\" source=static addr=192.168.23.10
         mask=255.255.255.0 gateway=192.168.23.2`
 
     -   Název **name** musí odpovídat síťovému rozhraní *Private4*,
-        standardně to je **LAN2**
+        standardně to je **Ethernet 2**
 
 3.  Vytvořte VM **router-1** s použitím **VHDX** disku s Mikrotik. Je třeba mít pro každý router vlastní kopii VHDX disku.
 

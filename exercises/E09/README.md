@@ -337,7 +337,7 @@ linek nebo celý proces replikace. Hlavní nastavení se týkají:
 
 ```
 $labName = 'E09'
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 
 $adminPass = 'root4Lab'
 

@@ -184,7 +184,7 @@ povolit u *external* a *forest* vztahů důvěry.
 
 ```
 $labName = 'E12'
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 
 $adminPass = 'root4Lab'
 

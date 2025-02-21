@@ -477,44 +477,44 @@ heslo mění systém Windows automaticky co 30 dní.
 ```pwsh
 $labName = 'E05'
 
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 
 Set-LabInstallationCredential -Username root -Password root4Lab
 Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
 
 
-Add-LabVirtualNetworkDefinition -Name $labName
-Add-LabVirtualNetworkDefinition -Name $labName`1
+Add-LabVirtualNetworkDefinition -Name Private1
+Add-LabVirtualNetworkDefinition -Name Private2
 Add-LabVirtualNetworkDefinition -Name 'Default Switch' -HyperVProperties @{ SwitchType = 'External'; AdapterName = 'Wi-Fi' } # 'Ethernet'/'Wi-Fi'
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w2022-dc -Memory 1GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -NetworkAdapter $netAdapter -DomainName testing.local
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11-domain -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName`1
+New-LabNetworkAdapterDefinition -VirtualSwitch Private2
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w2022 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
 
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11-1 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
 
 
 $netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch $labName
+New-LabNetworkAdapterDefinition -VirtualSwitch Private1
 New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
 )
 Add-LabMachineDefinition -Name w11-2 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
@@ -539,7 +539,7 @@ Invoke-LabCommand -ActivityName 'Add Remote Desktop Users' -ScriptBlock {
 } -ComputerName w11-domain
 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---
@@ -644,7 +644,7 @@ Wizard*)
 
    - Toto varování se týká situace, kdy integrujeme **DNS** server do stávající **DNS** infrastruktury a je potřeba mít správně nastavenou delegaci překladu jmen pro námi vytvářenou doménu.
 
-    g. Zadejte **NetBIOS** název domény (max. 15 znaků[^2]) -- ponechte**TESTING**. Next \>
+    g. Zadejte **NetBIOS** název domény (max. 15 znaků[^2]) -- ponechte **TESTING**. Next \>
 
    - Název musí být unikátní
 
@@ -656,7 +656,7 @@ Wizard*)
 
     j. Prohlédněte si výsledky kontroly prerekvizit.
 
-    > warning: **NEPOKRAČUJTE!!!** Dále se bude využívat už jen **w2022-dc**.
+    > :warning: **NEPOKRAČUJTE!!!** Dále se bude využívat už jen **w2022-dc**.
 
    - Konfigurace trvá cca 3 minuty
 
@@ -818,7 +818,7 @@ a ukažte, jak se změní jeho DN.
     i.  Při výzvě o zadání účtu použijte účet **homer@testing.local** s
         heslem **user4Lab**
 
-    -   I běžný uživatel může do doménu připojit až 10 zařízení (best practice je však tuto možnost zakázat)
+    -   I běžný uživatel může do domény připojit až 10 zařízení (best practice je však tuto možnost zakázat)
 
     j.  Potvrďte OK
 
@@ -900,7 +900,7 @@ a ukažte, jak se změní jeho DN.
     d.  V části Users or Groups zvolte Add...
 
     e.  V Enter the object names to select zadejte **homer** a zvolte
-        Check Names pro ověření validity účtu
+        "Check Names" pro ověření validity účtu
 
     f.  Potvrďte OK a pokračujte Next \>
 
@@ -942,7 +942,7 @@ a ukažte, jak se změní jeho DN.
     jednotky **brno**, křestní jméno nastavte na **Lisa** a heslo zvolte
     **root4Lab**
 
-    a.  Spusťte příkaz **dsadd user CN=lisa,OU=brno,DC=testing,DC=local -fn Lisa -pwd aaa**
+    a.  Spusťte příkaz `dsadd user CN=lisa,OU=brno,DC=testing,DC=local -fn Lisa -pwd aaa`
 
     b.  Ověřte v **Active Directory Users and Computers**, že uživatel
         byl přidán
@@ -950,7 +950,7 @@ a ukažte, jak se změní jeho DN.
 3.  Vytvořte pomocí **dsadd** organizační jednotku **vut** pod
     organizační jednotkou **brno**
 
-    a.  Spusťte příkaz **dsadd ou OU=vut,OU=brno,DC=testing,DC=local**
+    a.  Spusťte příkaz `dsadd ou OU=vut,OU=brno,DC=testing,DC=local`
 
 4.  Ověřte v **Active Directory Users and Computers**, že organizační
     jednotka byla vytvořena
@@ -958,31 +958,31 @@ a ukažte, jak se změní jeho DN.
     a.  Přesuňte pomocí **dsmove** uživatele **lisa** do organizační
         jednotky **vut**
 
-    b.  Spusťte příkaz **dsmove CN=lisa,OU=brno,DC=testing,DC=local
-        -newparent OU=vut,OU= brno,DC=testing,DC=local**
+    b.  Spusťte příkaz `dsmove CN=lisa,OU=brno,DC=testing,DC=local
+        -newparent OU=vut,OU= brno,DC=testing,DC=local`
 
 5.  Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce
     **vut** pomocí **dsquery**
 
-    a.  Spusťte příkaz **dsquery user
-        OU=vut,OU=brno,DC=testing,DC=local**
+    a.  Spusťte příkaz `dsquery user
+        OU=vut,OU=brno,DC=testing,DC=local`
 
 6.  Změňte uživateli **lisa** příjmení pomocí **dsmod**
 
-    a.  Spusťte příkaz **dsmod user
-        CN=lisa,OU=vut,OU=brno,DC=testing,DC=local -ln Simpson**
+    a.  Spusťte příkaz `dsmod user
+        CN=lisa,OU=vut,OU=brno,DC=testing,DC=local -ln Simpson`
 
 7.  Ověřte změnu příjmení vypsáním aktuálního příjmení uživatele
     **lisa** pomocí **dsget**
 
-    a.  Spusťte příkaz **dsget user
-        CN=lisa,OU=vut,OU=brno,DC=testing,DC=local -ln**
+    a.  Spusťte příkaz `dsget user
+        CN=lisa,OU=vut,OU=brno,DC=testing,DC=local -ln`
 
 8.  Smažte organizační jednotku **vut** i s celým jejím obsahem pomocí
     **dsrm**
 
-    a.  Spusťte příkaz **dsrm OU=vut,OU=brno,DC=testing,DC=local
-        -subtree**
+    a.  Spusťte příkaz `dsrm OU=vut,OU=brno,DC=testing,DC=local
+        -subtree`
 
     b.  Potvrďte smazání
 

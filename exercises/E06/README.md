@@ -153,7 +153,7 @@ Schéma AD je společné pro celý les.
 # AutomatedLab
 ```
 $labName = 'E06'
-New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV
+New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:\AutomatedLab-VMs"
 
 set-labinstallationcredential -username root -password root4Lab
 add-labdomaindefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
@@ -164,7 +164,7 @@ Add-LabMachineDefinition -Name w11-domain -Memory 4GB -Processors 8  -OperatingS
 
 Install-Lab
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 ---

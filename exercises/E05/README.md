@@ -482,42 +482,11 @@ New-LabDefinition -Name $labName -DefaultVirtualizationEngine HyperV -VmPath "E:
 Set-LabInstallationCredential -Username root -Password root4Lab
 Add-LabDomainDefinition -Name testing.local -AdminUser root -AdminPassword root4Lab
 
-
-Add-LabVirtualNetworkDefinition -Name Private1
-Add-LabVirtualNetworkDefinition -Name Private2
-Add-LabVirtualNetworkDefinition -Name 'Default Switch' -HyperVProperties @{ SwitchType = 'External'; AdapterName = 'Wi-Fi' } # 'Ethernet'/'Wi-Fi'
-
-$netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch Private1
-New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
-)
-Add-LabMachineDefinition -Name w2022-dc -Memory 1GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC -NetworkAdapter $netAdapter -DomainName testing.local
-
-$netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch Private1
-New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
-)
-Add-LabMachineDefinition -Name w11-domain -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
-
-$netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch Private2
-New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
-)
-Add-LabMachineDefinition -Name w2022 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
-
-
-$netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch Private1
-New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
-)
-Add-LabMachineDefinition -Name w11-1 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
-
-
-$netAdapter = @(
-New-LabNetworkAdapterDefinition -VirtualSwitch Private1
-New-LabNetworkAdapterDefinition -VirtualSwitch 'Default Switch' -UseDhcp
-)
-Add-LabMachineDefinition -Name w11-2 -Memory 0.5GB -NetworkAdapter $netAdapter -OperatingSystem 'Windows 11 Pro'
+Add-LabMachineDefinition -Name w2022-dc -Memory 8GB -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)' -Roles RootDC  -DomainName testing.local
+Add-LabMachineDefinition -Name w11-domain -Memory 8GB  -OperatingSystem 'Windows 11 Pro' -DomainName testing.local
+Add-LabMachineDefinition -Name w2022 -Memory 8GB  -OperatingSystem 'Windows Server 2022 Datacenter Evaluation (Desktop Experience)'
+Add-LabMachineDefinition -Name w11-1 -Memory 8GB  -OperatingSystem 'Windows 11 Pro'
+Add-LabMachineDefinition -Name w11-2 -Memory 8GB  -OperatingSystem 'Windows 11 Pro'
 
 
 Install-Lab
@@ -553,13 +522,13 @@ Show-LabDeploymentSummary
 
 Připojte sítové adaptéry stanic k následujícím virtuálním přepínačům:
 
-| **Adaptér (MAC suffix)** | **LAN1 (-01)** | **LAN2 (-02)** |
-| ------------------------ | -------------- | -------------- |
-| **w11-1**                | Nepřipojeno    | Private1       |
-| **w11-2**                | Nepřipojeno    | Private1       |
-| **w11-domain**           | Nepřipojeno    | Private1       |
-| **w2022**                | Nepřipojeno    | Private2       |
-| **w2022-dc**             | Nepřipojeno    | Private1       |
+| **Adaptér (MAC suffix)** | **LAN1 (-01)** |
+| ------------------------ | -------------- |
+| **w11-1**                | Internal       |
+| **w11-2**                | Internal       |
+| **w11-domain**           | Internal       |
+| **w2022**                | Internal       |
+| **w2022-dc**             | Internal       |
 
 -   v případech, kdy je potřeba přistupovat na externí síť, připojte
     adaptér **LAN1** k přepínači *Default switch*.

@@ -14,7 +14,7 @@
   - [**Lab L00 -- konfigurace virtuálních stanic**](#lab-l00----konfigurace-virtuálních-stanic)
     - [**Lab L01 -- Možnosti konfigurace IPv4 a IPv6**](#lab-l01----možnosti-konfigurace-ipv4-a-ipv6)
     - [**Lab L02 -- Příprava základní topologie sítě**](#lab-l02----příprava-základní-topologie-sítě)
-    - [**Lab L03 -- Wireshark** \[^8\]](#lab-l03----wireshark-8)
+    - [**Lab L03 -- Wireshark**](#lab-l03----wireshark)
     - [**Lab L04 -- Zavedení IPv6 ve vytvořené síti**](#lab-l04----zavedení-ipv6-ve-vytvořené-síti)
   - [**Studentské úkoly**](#studentské-úkoly)
 
@@ -518,7 +518,7 @@ Add-LabMachineDefinition -Name w2022 -Memory 2GB -NetworkAdapter $w2022_network 
 
 Install-Lab 
 
-Show-LabDeploymentSummary -Detailed
+Show-LabDeploymentSummary
 ```
 
 # Úkoly
@@ -574,7 +574,8 @@ vše lze konfigurovat přes příkazový řádek pomocí utility **netsh**
 > Obraz operačního systému pro směrovače **Mikrotik Cloud Hosted Router**,
 > jenž je k dispozici lokálně na jednotlivých stanicích nebo lze stáhnout ze stránek výrobce
 > (**http://www.mikrotik.com/download**)
-> WinBox - Od Mikrotik verze 7 nelze stáhnout bez přístupu na internet
+
+:warning: WinBox - Od Mikrotik verze 7 nelze stáhnout bez přístupu na internet :warning:
 
 ![](./img/media/image12.png)
 
@@ -690,7 +691,7 @@ Obrázek 12. Schéma základní topologie sítě
 
 10. Na **w11** ověřte konektivitu příkazem `ping 192.168.23.10`
 
-### **Lab L03 -- Wireshark** [^8]
+### **Lab L03 -- Wireshark**
 
 > **Cíl cvičení**
 >

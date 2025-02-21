@@ -358,9 +358,9 @@ Invoke-LabCommand -ActivityName 'Create Users' -ScriptBlock {
     New-ADOrganizationalUnit -Name brno -path "DC=testing,DC=local" 
     New-ADOrganizationalUnit -Name brnopcs -path "DC=testing,DC=local" 
 
-    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Path "OU=brno,DC=testing,DC=local" -Description "Members of this group are Simpsons"
+    $Simpsons = New-ADGroup -Name "Simpsons" -SamAccountName Simpsons -GroupCategory Security -GroupScope Global -DisplayName "Simpsons" -Path "OU=brno,DC=testing,DC=local" -Description "Members of this group are Simpsons" -PassThru
 
-    $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true
+    $Homer = New-ADUser -Name Homer -path "OU=brno,DC=testing,DC=local"  -AccountPassword $password -Enabled $true -PassThru
 
     Add-ADGroupMember -Identity $Simpsons -Members $Homer
     

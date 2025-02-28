@@ -186,7 +186,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 ## Lektorské úkoly
 
-Lab L01 -- ADAC (Active Directory Administrative Center)
+### Lab L01 -- ADAC (Active Directory Administrative Center)
 
 > **Cíl cvičení**
 >
@@ -215,7 +215,7 @@ stránce/dashboardu.
 Dle dostupných informací **ADAC** postupně nahradí starší **ADUC** a
 pravděpodobně i ostatní konzole týkající se AD.
 
-Lab L02 -- Operační servery (Operations Masters) a globální katalog
+### Lab L02 -- Operační servery (Operations Masters) a globální katalog
 
 > **Cíl cvičení**
 >
@@ -241,8 +241,7 @@ klik na NTDS Settings, vybrat Properties, záložka General).
 
 # Studentské úkoly
 
-## Lab S01 -- Správa Active Directory pomocí Windows PowerShell (s  modulem
-ActiveDirectory)
+## Lab S01 -- Správa Active Directory pomocí Windows PowerShell (s  modulem ActiveDirectory)
 
 > **Cíl cvičení**
 >
@@ -283,7 +282,7 @@ ActiveDirectory)
 
 4.  Změňte uživateli **lisa** heslo
 
-    a.  Spusťte příkaz `Set-ADAccountPassword "CN=lisa,OU=brno,DC=testing,DC=local" -Reset -NewPassword (ConvertTo-SecureString -AsPlainText "aaa" -Force)`
+    a.  Spusťte příkaz `Set-ADAccountPassword "CN=lisa,OU=brno,DC=testing,DC=local" -Reset -NewPassword (ConvertTo-SecureString -AsPlainText "root4Lab" -Force)`
 
     -   Místo DN lze použít i jen `-Identity lisa` (viz následující bod)
 
@@ -302,7 +301,7 @@ ActiveDirectory)
 
 7.  Vypište informace o uživateli lisa
 
-    a.  Spusťte příkaz **Get-ADUser -identity lisa**
+    a.  Spusťte příkaz `Get-ADUser -identity lisa`
 
 8.  Vytvořte organizační jednotku **vut** pod organizační jednotkou
     **brno**
@@ -326,7 +325,7 @@ ActiveDirectory)
 11. Zobrazte jméno, příjmení a stav pro všechny zakázané uživatelské
     účty v Objektu Users
 
-    a.  Spusťte příkaz `Get-ADUser -Filter * -SearchBase "CN=users, DC=testing, DC=local" | where {$_.enabled --eq $false} | select name, surname, enabled`
+    a.  Spusťte příkaz `Get-ADUser -Filter * -SearchBase "CN=users, DC=testing, DC=local" | where {$_.enabled -eq $false} | select name, surname, enabled`
 
 12. Smažte organizační jednotku **vut** i s celým jejím obsahem (bez
     potvrzování)
@@ -343,8 +342,7 @@ ActiveDirectory)
     d.  Ověřte v **Active Directory Users and Computers**, že
         organizační jednotka byla smazána
 
-## Lab S02 -- Správa Active Directory pomocí Windows PowerShell pomocí
-pokročilých metod
+## Lab S02 -- Správa Active Directory pomocí Windows PowerShell pomocí pokročilých metod
 
 > **Cíl cvičení**
 >
@@ -386,7 +384,7 @@ pokročilých metod
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
         **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=brno,DC=testing,DC=local"`
 
-    b.  Změňte heslo uživatele **maggie** příkazem `$userMaggie.SetPassword("aaa")`
+    b.  Změňte heslo uživatele **maggie** příkazem `$userMaggie.SetPassword("root4Lab")`
 
     c.  Potvrďte změnu hesla příkazem `$userMaggie.SetInfo()`
 
@@ -427,20 +425,22 @@ pokročilých metod
         příkazem `$userMaggie.MoveTo($ouVut, "CN=maggie")`
 
 8.  Ověřte přesunutí vypsáním všech uživatelů v organizační jednotce **vut**
+
     a.  Získejte referenci na objekt, jenž reprezentuje organizační
         jednotku **vut** pomocí příkazu `$ouVut = [ADSI]"LDAP://OU=vut,OU=brno,DC=testing,DC=local"`
 
     b.  Vypište seznam všech uživatelů v organizační jednotce **vut**
         příkazem `$ouVut.Children | Format-List -property distinguishedName`
-
+    
 9.  Změňte uživateli **maggie** příjmení
+
     a.  Získejte referenci na objekt, jenž reprezentuje uživatele
-        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=vut,OU=brno,DC=testing,DC=local"`
+        **maggie** pomocí příkazu `$userMaggie = [ADSI]"LDAP://CN=maggie,OU=brno,DC=testing,DC=local"`
 
     b.  Změňte příjmení uživatele **maggie** příkazem
         `$userMaggie.put("sn", "Simpson")`
 
-    c.  Potvrďte změnu příjmení příkazem `$userMaggie.SetInfo()`
+    c.  Potvrďte změnu příjmení příkazem `$userMaggie.SetInfo()` 
 
 10. Ověřte změnu příjmení
 
@@ -505,7 +505,7 @@ pokročilých metod
 
     e.  Potvrďte přesunutí role pomocí OK
 
-Lab S04 -- Schéma AD
+## Lab S04 -- Schéma AD
 
 > **Cíl cvičení**
 >

@@ -577,7 +577,7 @@ Server 2008.
 
     -   Tip: přepněte zobrazení na velké ikony (View by: Large icons)
 
-    -   Pokud jsou zobrazené, spusťte **gpupdate /force**, zavřete a znova otevřete Control Panel
+    -   Pokud jsou zobrazené, spusťte `gpupdate /force`, zavřete a znova otevřete Control Panel
 
 6.  Vytvořte nový GPO objekt **Domain GPO** a rovnou ho připojte k
     doméně **testing.local**
@@ -597,7 +597,7 @@ Server 2008.
 8.  Na **w11-domain** ověřte, že byla aplikována nastavení zásad z GPO
     objektu **Domain GPO**
 
-    a.  Spusťte příkaz **gpupdate /force**
+    a.  Spusťte příkaz `gpupdate /force`
 
     b.  Ověřte, že Administrative Tools jsou nyní přítomny v Control
         Panel
@@ -617,7 +617,7 @@ Server 2008.
 11. Na **w11-domain** ověřte, že byla aplikována nastavení zásad z GPO
     objektu **Brno GPO**
 
-    a.  Spusťte příkaz **gpupdate /force**
+    a.  Spusťte příkaz `gpupdate /force`
 
     b.  Ověřte, že Administrative Tools i Backup and Restore jsou
         přítomny v Control Panel
@@ -646,7 +646,7 @@ Server 2008.
 15. Na **w11-domain** ověřte, že byla aplikována nastavení zásad z GPO
     objektu **Brno Priority GPO**
 
-    a.  Spusťte příkaz **gpupdate /force**
+    a.  Spusťte příkaz `gpupdate /force`
 
     b.  Ověřte, že Device Manager je nyní přítomen v Control Panel
 
@@ -673,7 +673,7 @@ Server 2008.
 17. Na **w11-domain** ověřte, že došlo k aplikaci nastavení zásad z GPO
     objektů **Brno Priority GPO** a **Domain GPO**
 
-    a.  Spusťte příkaz **gpupdate /force**
+    a.  Spusťte příkaz `gpupdate /force`
 
     b.  Odhlaste a znova přihlaste uživatele **homer** (aby se projevily
         změny v taskbaru)
@@ -695,7 +695,7 @@ Server 2008.
 19. Na **w11-domain** ověřte, že nedošlo k aplikaci nastavení zásad z
     GPO objektu **Domain GPO**
 
-    a.  Spusťte příkaz **gpupdate /force**
+    a.  Spusťte příkaz `gpupdate /force`
 
     b.  Odhlaste a znova přihlaste uživatele **homer** (aby se projevily
         změny v taskbaru)
@@ -712,7 +712,7 @@ Server 2008.
     objektu **Domain GPO** a ty navíc přepsaly konfliktní nastavení z
     GPO objektů **Brno GPO** i **Brno Priority GPO**
 
-    a.  Spusťte příkaz **gpupdate /force**
+    a.  Spusťte příkaz `gpupdate /force`
 
     b.  Odhlaste a znova přihlaste uživatele **homer** (aby se projevily
         změny v taskbaru)
@@ -738,7 +738,7 @@ Server 2008.
     GPO** přepsalo konfliktní nastavení zásad z GPO objektu **Domain
     GPO**
 
-    a.  Spusťte příkaz **gpupdate /force**
+    a.  Spusťte příkaz `gpupdate /force`
 
     b.  Odhlaste a znova přihlaste uživatele **homer** (aby se projevily
         změny v taskbaru)
@@ -771,8 +771,8 @@ na něj po přesunu už nebudou aplikovány GPO objekty **Brno GPO** a
 **Brno Priority GPO**.
 
 Na klientovi ukažte nástroj **gpresult** a jeho použití, nejlépe
-**gpresult /user homer /h homer.html** a ukázat vygenerovaný report.
-Můžete zmínit, že **gpresult** je obdoba Group Policy Results pro
+`gpresult /user homer /h homer.html` a ukázat vygenerovaný report.
+Můžete zmínit, že **gpresult** je obdoba **Group Policy Results** pro
 příkazový řádek.
 
 # Studentské úkoly
@@ -872,9 +872,9 @@ příkazový řádek.
 7.  Na **w11-domain** ověřte, že došlo k aplikaci pouze nastavení zásad
     z **BrnoPCs GPO** objektu
 
-    a.  Spusťte příkaz **gpupdate /target:computer /force**
+    a.  Spusťte příkaz `gpupdate /target:computer /force`
 
-    b.  Spusťte příkaz **gpupdate /force**
+    b.  Spusťte příkaz `gpupdate /force`
 
     c.  Ověřte, že nelze změnit zvuky (Settings -- Personalization --
         Themes -- Sounds), ale změnit tapetu (Settings --
@@ -900,9 +900,9 @@ příkazový řádek.
 9.  Na **w11-domain** ověřte, že došlo k aplikaci jak nastavení zásad z
     GPO objektu **Brno GPO**, tak také z GPO objektu **BrnoPCs GPO**
 
-    a.  Spusťte příkaz **gpupdate /target:computer /force**
+    a.  Spusťte příkaz `gpupdate /target:computer /force`
 
-    b.  Spusťte příkaz **gpupdate /force**
+    b.  Spusťte příkaz `gpupdate /force`
 
     c.  Ověřte, že nelze změnit zvuky (Settings -- Personalization --
         Themes -- Sounds) ani tapetu (Settings -- Personalization --

@@ -1004,7 +1004,7 @@ backups...).
 
     a.  Spusťte příkazovou řádku
 
-    b.  Spusťte příkaz `auditpol.exe /get /category:\"DS Access\"`
+    b.  Spusťte příkaz `auditpol.exe /get /category:"DS Access"`
 
     c.  Ověřte, že u podkategorie Directory Service Changes je nastavení
         **Success**

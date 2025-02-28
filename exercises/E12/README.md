@@ -301,7 +301,7 @@ vztahu důvěry.
     d.  Opakujte **body 1.a -- 1.c** na **w2022-t2-dc1**, tentokrát pro
         doménu **testing.local** a IP adresu <doplnte IP w2022-dc1>
 
-    e.  Pomocí nástroje nslookup ověřte, že je nyní možné přeložit FQDN
+    e.  Pomocí nástroje `nslookup` ověřte, že je nyní možné přeložit FQDN
         z opačné domény
 
 4.  Vytvořte nový *external* vztah důvěry tak, aby doména
@@ -397,8 +397,8 @@ vztahu důvěry.
 
     g.  Potvrďte OK a zavřete Group Policy Management Editor
 
-    h.  Aktualizujte nastavení zásad skupiny příkazem **gpupdate
-        /force**
+    h.  Aktualizujte nastavení zásad skupiny příkazem `gpupdate
+        /force`
 
     -   Pozor: Jde jen o zjednodušení úkolu, protože nemáme
             k dispozici klientskou stanici. V praxi toto
@@ -652,18 +652,18 @@ Lab S01 -- Zabezpečení vztahů důvěry
 
     a.  Na **w2022-dc1** spusťte jako administrátor příkazový řádek
 
-    b.  Spusťte příkaz **netdom trust testing.local /d:testing2.local2
+    b.  Spusťte příkaz `netdom trust testing.local /d:testing2.local2
         /quarantine:no /userD:root@testing2.local2
-        /passwordD:aaa**
+        /passwordD:aaa`
 
 9.  Zapněte doménovou karanténu pro *forest* vztah důvěry mezi
     **testing.local** a **testing2.local2**
 
     a.  Na **w2022-dc1** spusťte jako administrátor příkazový řádek
 
-    b.  Spusťte příkaz **netdom trust testing.local /d:testing2.local2
+    b.  Spusťte příkaz `netdom trust testing.local /d:testing2.local2
         /quarantine:yes** **/userD:root@testing2.local2
-        /passwordD:aaa**
+        /passwordD:aaa`
 
 # Bodované úkoly
 

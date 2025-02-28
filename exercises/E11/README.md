@@ -640,9 +640,10 @@ backups...).
     a.  Restartujte **w2022-dc1** v **DSRM** (*Directory Services Restore
         Mode*) režimu
 
-    1.  Z příkazové řádky spusťte `shutdown -o -r`
+    1.  Z příkazové řádky spusťte `shutdown -o -r`, alternativně `bcdedit /set {bootmgr} displaybootmenu yes` -> restartujte -> F8
 
         -   Tip: Pokud bude protestovat, že -o je nevalidní, odhlaste se a znova se přihlaste
+        -   Tip: Pokud nebude HyperV fungovat, vypněte "Enhanced session" a skuste znova
 
     2.  Systém se po krátké chvíli restartuje a následně ukáže
             nabídku se základními možnostmi spuštění
@@ -654,11 +655,11 @@ backups...).
 
         -   Na starších verzích Windows lze tuto nabídku vyvolat klávesou **F8** na začátku bootování systému Windows
 
-        4.  Vyberte **Directory Services Restore Mode**
+        4.  Vyberte **Directory Services Repair Mode**
 
         5.  Přihlaste se lokálně jako uživatel **root**
 
-        -   **w2022-dc1\\root** nebo **.\\root**
+        -   **w2022-dc1\\administrator** nebo **.\\administrator**
         -   Obnova stavu systému se musí provádět v
                 **DSRM** režimu
 
@@ -699,7 +700,7 @@ backups...).
     -   Obnovu **neprovádějte**, místo toho se vraťte zpět do části
             Select Recovery Type a obnovte pouze databázi **Active
             Directory** - zvolte Files and folders, pokračujte Next \>,
-            najděte soubor **C:\\Windows\\NTDS\\ntds.dit**, 2x Next \> a
+            najděte soubor **C:\\Windows\\NTDS\\ntds.dit**, Next \>, pod **Destination** dejte `C:\Windows\NTDS\`,
             Recover
 
 5.  Restartujte **w2022-dc1** a zkontrolujte, že byly obnoveny objekty smazané v bodě 3

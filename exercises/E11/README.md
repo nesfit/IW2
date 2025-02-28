@@ -806,7 +806,7 @@ backups...).
         b.  Klikněte pravým na **Active Directory Module for Windows
                 PowerShell** a zvolte Run as administrator
 
-    2.  Spusťte příkaz `Enable-ADOptionalFeature -Identity "CN=Recycle Bin Feature, CN=Optional Features, CN=Directory Service, CN=Windows NT, CN=Services, CN=Configuration, DC=testing, DC=local\" -Scope ForestOrConfigurationSet -Target \"testing.local\"`
+    2.  Spusťte příkaz `Enable-ADOptionalFeature -Identity "CN=Recycle Bin Feature, CN=Optional Features, CN=Directory Service, CN=Windows NT, CN=Services, CN=Configuration, DC=testing, DC=local" -Scope ForestOrConfigurationSet -Target "testing.local"`
 
     3.  Potvrďte pomocí **Y**
 
@@ -834,7 +834,7 @@ backups...).
 
     1.  Spusťte jako administrátor **Active Directory Module for Windows PowerShell**
 
-    2.  Spusťte příkaz `Get-ADObject -Filter {sAMAccountName -eq \"homer\"} -IncludeDeletedObjects | Restore-ADObject`
+    2.  Spusťte příkaz `Get-ADObject -Filter {sAMAccountName -eq "homer"} -IncludeDeletedObjects | Restore-ADObject`
 
         -   Objekt lze obnovit také postupem z **bodu** Error! Reference source not found.
 

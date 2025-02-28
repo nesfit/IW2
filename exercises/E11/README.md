@@ -888,13 +888,13 @@ backups...).
             {\<guid\>}**, kde **\<popis\>** může být datum a čas
             pořízení snímku (zálohy) nebo umístění
 
-    b.  Připojte snímek příkazem `mount \<index\>`, případně `mount \<guid\>`
+    b.  Připojte snímek příkazem `mount <index>`, případně `mount <guid>`
 
     -   Použijte **\<index\>** nebo **\<guid\>** posledního snímku ze seznamu snímků, po připojení bude vypsána cesta k připojenému snímku
 
     c.  Spusťte jako administrátor druhý příkazový řádek
 
-    d.  Spusťte příkaz `dsamain -dbpath \<cesta k databázi ve snímku\>
+    d.  Spusťte příkaz `dsamain -dbpath <cesta k databázi ve snímku>
         -ldapport 65000`
 
     -   Jako cestu k databázi ve snímku použijte cestu k přípojenému
@@ -939,7 +939,7 @@ backups...).
     a.  Vraťte se do prvního okna příkazové řádky s nástrojem
         `ntdsutil`
 
-    b.  V nástroji **ntdsutil** odpojte snímek příkazem `unmount \<index\>`, případně `unmount \<guid\>`
+    b.  V nástroji **ntdsutil** odpojte snímek příkazem `unmount <index>`, případně `unmount <guid>`
 
     c.  Ukončete nástroj `ntdsutil` příkazy `quit` a `quit`
 
@@ -1068,7 +1068,7 @@ backups...).
 
     d.  Přejděte do údržby souborů příkazem `files`
 
-    e.  Proveďte *zkompaktnění* databáze příkazem `compact to C:\\share`
+    e.  Proveďte *zkompaktnění* databáze příkazem `compact to C:\share`
 
     -   Při *zkompaktňování* se vytváří nová databáze **Active Directory**, která již neobsahuje dříve alokované nepotřebné místo
 
@@ -1077,9 +1077,9 @@ backups...).
 3.  Nahraďte starou databázi **Active Directory** její *zkompaktněnou
     formou*
 
-    a.  Smažte staré protokoly příkazem `del C:\\Windows\\NTDS\\\*.log`
+    a.  Smažte staré protokoly příkazem `del C:\Windows\NTDS\*.log`
 
-    b.  Nahraďte databázi příkazem `copy C:\\share\\ntds.dit\ C:\\Windows\\NTDS\\ntds.dit\`
+    b.  Nahraďte databázi příkazem `copy C:\share\ntds.dit C:\Windows\NTDS\ntds.dit`
 
     c.  Potvrďte přepsání databáze pomocí `Yes`
 

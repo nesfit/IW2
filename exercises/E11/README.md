@@ -220,21 +220,15 @@ Ve Windows Server lze provádět celkem dva typy záloh:
     Directory** (**AD DS**). Přesněji tento typ zálohy zahrnuje data
     následujících oddílů:
 
-    -   **Systémového oddílu**. Oddíl obsahující kořenový adresář
-        > systému Windows.
+    -   **Systémového oddílu**. Oddíl obsahující kořenový adresář systému Windows.
 
-    -   **Bootovacího oddílu**. Oddíl obsahující soubory nutné pro start
-        > systému Windows. Ve většině případů je tento oddíl totožný s
-        > oddílem systémovým.
+    -   **Bootovacího oddílu**. Oddíl obsahující soubory nutné pro start systému Windows. Ve většině případů je tento oddíl totožný s oddílem systémovým.
 
-    -   **Oddílu, jenž obsahuje databázi Active Directory**. Ve výchozím
-        > nastavení to je systémový oddíl.
+    -   **Oddílu, jenž obsahuje databázi Active Directory**. Ve výchozím nastavení to je systémový oddíl.
 
-    -   **Oddílu zahrnujícího protokoly Active Directory**. Ve výchozím
-        > nastavení opět systémový oddíl.
+    -   **Oddílu zahrnujícího protokoly Active Directory**. Ve výchozím nastavení opět systémový oddíl.
 
-    -   **Oddílu hostujícího adresář SYSVOL**. Ve výchozím nastavení
-        > zase systémový oddíl.
+    -   **Oddílu hostujícího adresář SYSVOL**. Ve výchozím nastavení zase systémový oddíl.
 
 Zálohy nemohou být uloženy na páskové jednotky ani na USB Flash disky,
 pouze na síťové a odnímatelné (externí) disky nebo na média CD a DVD. Od

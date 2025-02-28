@@ -3,7 +3,7 @@
 - [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
   - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
-- [Lektorské úkoly](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
+- [Lektorské úkoly](#lektorské-úkoly)
   - [Lab L01 -- ADDT (Active Directory Domains and Trusts)](#lab-l01----addt-active-directory-domains-and-trusts)
   - [Lab L02 -- Vytvoření vztahů důvěry](#lab-l02----vytvoření-vztahů-důvěry)
 - [Studentské úkoly](#studentské-úkoly)
@@ -229,7 +229,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 ---
 
-# Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
+# Lektorské úkoly
 
 ## Lab L01 -- ADDT (Active Directory Domains and Trusts)
 
@@ -411,7 +411,7 @@ vztahu důvěry.
         důvěryhodnou doménou pro doménu **child.testing.local**
 
 9.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
-    **testing2.local2** provedením postupu z **bodu 5** na **w2022-t2-dc1**
+    **testing2.local2** provedením postupu z **bodu 7** na **w2022-t2-dc1**
 
 10. Přihlaste se na **w2022-t2-dc1** jako uživatel
     **root@child.testing.local**
@@ -662,7 +662,7 @@ Lab S01 -- Zabezpečení vztahů důvěry
     a.  Na **w2022-dc1** spusťte jako administrátor příkazový řádek
 
     b.  Spusťte příkaz `netdom trust testing.local /d:testing2.local2
-        /quarantine:yes** **/userD:root@testing2.local2
+        /quarantine:yes /userD:root@testing2.local2
         /passwordD:aaa`
 
 # Bodované úkoly

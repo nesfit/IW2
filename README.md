@@ -11,16 +11,16 @@ Lectures and computer labs storage for IW2 course at FIT VUT.
 | **L02** | 13.02. | **Systém DNS, Protokol DHCP**                                  |
 | E03     | 13.02. | Systém DHCP                                                    |
 | E04     | 13.02. | Systém DNS                                                     |
-| **L03** |        | **Active Directory - Úvod, Služby, Komponenty, Instalace**     |
-| **L04** |        | **Active Directory - Schéma, Objekty, Operační servery**       |
-| E05     |        | Active Directory - Instalace, UAC                              |
-| E06     |        | Active Directory - Schéma, Objekty, Operační servery           |
-| **L05** |        | **Active Directory - Zásady skupiny (objekty, zpracování)**    |
-| E07     |        | Active Directory - Zásady skupiny (objekty, zpracování)        |
-| **L06** |        | **Active Directory - Zásady skupiny (uložení, šablony)**       |
-| E08     |        | Active Directory - Zásady skupiny (uložení, šablony)           |
-| **L07** |        | **Active Directory - Replikace**                               |
-| E09     |        | Active Directory - Replikace                                   |
+| **L03** | 20.02. | **Active Directory - Úvod, Služby, Komponenty, Instalace**     |
+| **L04** | 20.02. | **Active Directory - Schéma, Objekty, Operační servery**       |
+| E05     | 20.02. | Active Directory - Instalace, UAC                              |
+| E06     | 20.02. | Active Directory - Schéma, Objekty, Operační servery           |
+| **L05** | 20.02. | **Active Directory - Zásady skupiny (objekty, zpracování)**    |
+| E07     | 20.02. | Active Directory - Zásady skupiny (objekty, zpracování)        |
+| **L06** | 20.02. | **Active Directory - Zásady skupiny (uložení, šablony)**       |
+| E08     | 20.02. | Active Directory - Zásady skupiny (uložení, šablony)           |
+| **L07** | 20.02. | **Active Directory - Replikace**                               |
+| E09     | 20.02. | Active Directory - Replikace                                   |
 | **L08** |        | **Active Directory - Read-only řadiče domény**                 |
 | E10     |        | Active Directory - Read-only řadiče domény                     |
 | **L09** |        | **Active Directory - Vztahy důvěry**                           |

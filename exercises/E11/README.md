@@ -580,7 +580,23 @@ backups...).
 
 1.  Přihlaste se na **w2022-dc1** jako **testing\\root**
 
-2.  Zálohujte databázi **Active Directory**
+2. Nainstalujte funkci Windows Server Backup
+
+    a. Spusťte Server Manager (Start → Server Manager)
+
+    b. V menu vyberte Manage a zvolte Add Roles and Features
+
+    c. V části Installation Type vyberte možnost Role-based or feature-based installation a pokračujte tlačítkem Next >
+
+    d. V části Server Selection vyberte příslušný server a pokračujte tlačítkem Next >
+
+    e. V části Server Roles nevybírejte žádnou roli a pokračujte tlačítkem Next >
+
+    f. V části Features zaškrtněte možnost Windows Server Backup a pokračujte tlačítkem Next >
+
+    g. Instalaci dokončete tlačítkem Install
+ 
+3.  Zálohujte databázi **Active Directory**
 
     a.  Spusťte **Windows Server Backup**
 
@@ -639,9 +655,9 @@ backups...).
 
     k.  Po dokončení zálohování uzavřete průvodce pomocí Close
 
-3.  Smažte skupinu **Simpsons** a uživatele **homer** a **bart**
+4.  Smažte skupinu **Simpsons** a uživatele **homer** a **bart**
 
-4.  Proveďte autoritativní obnovu databáze Active Directory
+5.  Proveďte autoritativní obnovu databáze Active Directory
 
     a.  Restartujte **w2022-dc1** v **DSRM** (*Directory Services Restore
         Mode*) režimu
@@ -708,7 +724,7 @@ backups...).
             najděte soubor **C:\\Windows\\NTDS\\ntds.dit**, 2x Next \> a
             Recover
 
-5.  Restartujte **w2022-dc1** a zkontrolujte, že byly obnoveny objekty smazané v bodě 3
+6.  Restartujte **w2022-dc1** a zkontrolujte, že byly obnoveny objekty smazané v bodě 3
 
 # Studentské úkoly
 

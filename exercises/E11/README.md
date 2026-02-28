@@ -220,21 +220,15 @@ Ve Windows Server lze provádět celkem dva typy záloh:
     Directory** (**AD DS**). Přesněji tento typ zálohy zahrnuje data
     následujících oddílů:
 
-    -   **Systémového oddílu**. Oddíl obsahující kořenový adresář
-        > systému Windows.
+    -   **Systémového oddílu**. Oddíl obsahující kořenový adresář systému Windows.
 
-    -   **Bootovacího oddílu**. Oddíl obsahující soubory nutné pro start
-        > systému Windows. Ve většině případů je tento oddíl totožný s
-        > oddílem systémovým.
+    -   **Bootovacího oddílu**. Oddíl obsahující soubory nutné pro start systému Windows. Ve většině případů je tento oddíl totožný s oddílem systémovým.
 
-    -   **Oddílu, jenž obsahuje databázi Active Directory**. Ve výchozím
-        > nastavení to je systémový oddíl.
+    -   **Oddílu, jenž obsahuje databázi Active Directory**. Ve výchozím nastavení to je systémový oddíl.
 
-    -   **Oddílu zahrnujícího protokoly Active Directory**. Ve výchozím
-        > nastavení opět systémový oddíl.
+    -   **Oddílu zahrnujícího protokoly Active Directory**. Ve výchozím nastavení opět systémový oddíl.
 
-    -   **Oddílu hostujícího adresář SYSVOL**. Ve výchozím nastavení
-        > zase systémový oddíl.
+    -   **Oddílu hostujícího adresář SYSVOL**. Ve výchozím nastavení zase systémový oddíl.
 
 Zálohy nemohou být uloženy na páskové jednotky ani na USB Flash disky,
 pouze na síťové a odnímatelné (externí) disky nebo na média CD a DVD. Od
@@ -646,9 +640,10 @@ backups...).
     a.  Restartujte **w2022-dc1** v **DSRM** (*Directory Services Restore
         Mode*) režimu
 
-    1.  Z příkazové řádky spusťte **shutdown -o -r**
+    1.  Z příkazové řádky spusťte `shutdown -o -r`, alternativně `bcdedit /set {bootmgr} displaybootmenu yes` -> restartujte -> F8
 
         -   Tip: Pokud bude protestovat, že -o je nevalidní, odhlaste se a znova se přihlaste
+        -   Tip: Pokud nebude HyperV fungovat, vypněte "Enhanced session" a skuste znova
 
     2.  Systém se po krátké chvíli restartuje a následně ukáže
             nabídku se základními možnostmi spuštění
@@ -660,11 +655,11 @@ backups...).
 
         -   Na starších verzích Windows lze tuto nabídku vyvolat klávesou **F8** na začátku bootování systému Windows
 
-        4.  Vyberte **Directory Services Restore Mode**
+        4.  Vyberte **Directory Services Repair Mode**
 
         5.  Přihlaste se lokálně jako uživatel **root**
 
-        -   **w2022-dc1\\root** nebo **.\\root**
+        -   **w2022-dc1\\administrator** nebo **.\\administrator**
         -   Obnova stavu systému se musí provádět v
                 **DSRM** režimu
 
@@ -705,7 +700,7 @@ backups...).
     -   Obnovu **neprovádějte**, místo toho se vraťte zpět do části
             Select Recovery Type a obnovte pouze databázi **Active
             Directory** - zvolte Files and folders, pokračujte Next \>,
-            najděte soubor **C:\\Windows\\NTDS\\ntds.dit**, 2x Next \> a
+            najděte soubor **C:\\Windows\\NTDS\\ntds.dit**, Next \>, pod **Destination** dejte `C:\Windows\NTDS\`,
             Recover
 
 5.  Restartujte **w2022-dc1** a zkontrolujte, že byly obnoveny objekty smazané v bodě 3
@@ -811,7 +806,7 @@ backups...).
         b.  Klikněte pravým na **Active Directory Module for Windows
                 PowerShell** a zvolte Run as administrator
 
-    2.  Spusťte příkaz **Enable-ADOptionalFeature -Identity "CN=Recycle Bin Feature, CN=Optional Features, CN=Directory Service, CN=Windows NT, CN=Services, CN=Configuration, DC=testing, DC=local\" -Scope ForestOrConfigurationSet -Target \"testing.local\"**
+    2.  Spusťte příkaz `Enable-ADOptionalFeature -Identity "CN=Recycle Bin Feature, CN=Optional Features, CN=Directory Service, CN=Windows NT, CN=Services, CN=Configuration, DC=testing, DC=local" -Scope ForestOrConfigurationSet -Target "testing.local"`
 
     3.  Potvrďte pomocí **Y**
 
@@ -839,7 +834,7 @@ backups...).
 
     1.  Spusťte jako administrátor **Active Directory Module for Windows PowerShell**
 
-    2.  Spusťte příkaz **Get-ADObject -Filter {sAMAccountName -eq \"homer\"} -IncludeDeletedObjects | Restore-ADObject**
+    2.  Spusťte příkaz `Get-ADObject -Filter {sAMAccountName -eq "homer"} -IncludeDeletedObjects | Restore-ADObject`
 
         -   Objekt lze obnovit také postupem z **bodu** Error! Reference source not found.
 
@@ -867,14 +862,14 @@ backups...).
 
     a.  Spusťte jako administrátor příkazovou řádku
 
-    b.  Spusťte nástroj **ntdsutil**
+    b.  Spusťte nástroj `ntdsutil`
 
-    c.  Vyberte databázi **Active Directory** příkazem **activate
-        instance NTDS**
+    c.  Vyberte databázi **Active Directory** příkazem `activate
+        instance NTDS`
 
-    d.  Přejděte do správy snímků příkazem **snapshot**
+    d.  Přejděte do správy snímků příkazem `snapshot`
 
-    e.  Vytvořte nový snímek příkazem **create**
+    e.  Vytvořte nový snímek příkazem `create`
 
     -   Snímky se také vytvářejí automaticky pří záloze databáze **Active Directory**
 
@@ -884,8 +879,8 @@ backups...).
 3.  Vytvořte LDAP server obsahující dříve vytvořený snímek databáze
     **Active Directory**
 
-    a.  Ve správě snímků (snapshot:) v nástroji **ntdsutil** zobrazte
-        seznam všech snímků příkazem **list all**
+    a.  Ve správě snímků (snapshot:) v nástroji `ntdsutil` zobrazte
+        seznam všech snímků příkazem `list all`
 
     -   Seznam obsahuje všechny dostupné snímky (manuálně vytvořené
             či obsažené v zálohách), každý řádek seznamu odpovídá
@@ -893,14 +888,14 @@ backups...).
             {\<guid\>}**, kde **\<popis\>** může být datum a čas
             pořízení snímku (zálohy) nebo umístění
 
-    b.  Připojte snímek příkazem **mount \<index\>**, případně **mount \<guid\>**
+    b.  Připojte snímek příkazem `mount <index>`, případně `mount <guid>`
 
     -   Použijte **\<index\>** nebo **\<guid\>** posledního snímku ze seznamu snímků, po připojení bude vypsána cesta k připojenému snímku
 
     c.  Spusťte jako administrátor druhý příkazový řádek
 
-    d.  Spusťte příkaz **dsamain -dbpath \<cesta k databázi ve snímku\>
-        -ldapport 65000**
+    d.  Spusťte příkaz `dsamain -dbpath <cesta k databázi ve snímku>
+        -ldapport 65000`
 
     -   Jako cestu k databázi ve snímku použijte cestu k přípojenému
             snímku (vrácenou při připojení nástrojem ntdsutil), a
@@ -937,16 +932,16 @@ backups...).
 
 7.  Ukončete LDAP server
 
-    a.  V okně s příkazovou řádkou s **dsamain** stiskněte **Ctrl+C**
+    a.  V okně s příkazovou řádkou s `dsamain` stiskněte **Ctrl+C**
 
 8.  Odpojte snímek
 
     a.  Vraťte se do prvního okna příkazové řádky s nástrojem
-        **ntdsutil**
+        `ntdsutil`
 
-    b.  V nástroji **ntdsutil** odpojte snímek příkazem **unmount \<index\>**, případně **unmount \<guid\>**
+    b.  V nástroji **ntdsutil** odpojte snímek příkazem `unmount <index>`, případně `unmount <guid>`
 
-    c.  Ukončete nástroj **ntdsutil** příkazy **quit** a **quit**
+    c.  Ukončete nástroj `ntdsutil` příkazy `quit` a `quit`
 
 ## Lab S03 -- Auditování změn databáze Active Directory
 
@@ -1002,14 +997,14 @@ backups...).
 
     i.  Zavřete Group Policy Management Editor
 
-    j.  Aktualizujte nastavení zásad skupiny příkazem **gpupdate /force**
+    j.  Aktualizujte nastavení zásad skupiny příkazem `gpupdate /force`
 
 2.  Ověřte, že auditování změn v databázi **Active Directory** bylo
     povoleno
 
     a.  Spusťte příkazovou řádku
 
-    b.  Spusťte příkaz **auditpol.exe /get /category:\"DS Access\"**
+    b.  Spusťte příkaz `auditpol.exe /get /category:"DS Access"`
 
     c.  Ověřte, že u podkategorie Directory Service Changes je nastavení
         **Success**
@@ -1067,45 +1062,45 @@ backups...).
 
     a.  Spusťte jako administrátor příkazovou řádku
 
-    b.  Spusťte nástroj **ntdsutil**
+    b.  Spusťte nástroj `ntdsutil`
 
-    c.  Vyberte databázi **Active Directory** příkazem **activate instance NTDS**
+    c.  Vyberte databázi **Active Directory** příkazem `activate instance NTDS`
 
-    d.  Přejděte do údržby souborů příkazem **files**
+    d.  Přejděte do údržby souborů příkazem `files`
 
-    e.  Proveďte *zkompaktnění* databáze příkazem **compact to C:\\share**
+    e.  Proveďte *zkompaktnění* databáze příkazem `compact to C:\share`
 
     -   Při *zkompaktňování* se vytváří nová databáze **Active Directory**, která již neobsahuje dříve alokované nepotřebné místo
 
-    f.  Ukončete nástroj **ntdsutil** příkazy **quit** a **quit**
+    f.  Ukončete nástroj `ntdsutil` příkazy `quit` a `quit`
 
 3.  Nahraďte starou databázi **Active Directory** její *zkompaktněnou
     formou*
 
-    a.  Smažte staré protokoly příkazem **del        C:\\Windows\\NTDS\\\*.log**
+    a.  Smažte staré protokoly příkazem `del C:\Windows\NTDS\*.log`
 
-    b.  Nahraďte databázi příkazem **copy "C:\\share\\ntds.dit\"        \"C:\\Windows\\NTDS\\ntds.dit\"**
+    b.  Nahraďte databázi příkazem `copy C:\share\ntds.dit C:\Windows\NTDS\ntds.dit`
 
-    c.  Potvrďte přepsání databáze pomocí **Yes**
+    c.  Potvrďte přepsání databáze pomocí `Yes`
 
 4.  Ověřte integritu a sémantiku nové databáze **Active Directory**
 
-    a.  Spusťte nástroj **ntdsutil**
+    a.  Spusťte nástroj `ntdsutil`
 
-    b.  Vyberte databázi **Active Directory** příkazem **activate instance NTDS**
+    b.  Vyberte databázi **Active Directory** příkazem `activate instance NTDS`
 
-    c.  Přejděte do údržby souborů příkazem **files**
+    c.  Přejděte do údržby souborů příkazem `files`
 
-    d.  Spusťte kontrolu integrity databáze příkazem **integrity**
+    d.  Spusťte kontrolu integrity databáze příkazem `integrity`
 
-    e.  Vraťte se zpět příkazem **quit**
+    e.  Vraťte se zpět příkazem `quit`
 
     f.  Přejděte do části ověřování sémantiky databáze příkazem
-        **semantic database analysis**
+        `semantic database analysis`
 
-    g.  Ověřte sémantiku databáze příkazem **go fixup**
+    g.  Ověřte sémantiku databáze příkazem `go fixup`
 
-    h.  Ukončete nástroj **ntdsutil** příkazy **quit** a **quit**
+    h.  Ukončete nástroj `ntdsutil` příkazy `quit` a `quit`
 
 5.  Zapněte doménové služby **Active Directory** (**AD DS**)
 

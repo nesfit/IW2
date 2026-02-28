@@ -3,7 +3,7 @@
 - [AutomatedLab](#automatedlab)
 - [Společné úkoly](#společné-úkoly)
   - [Lab LS00 -- konfigurace virtuálních stanic](#lab-ls00----konfigurace-virtuálních-stanic)
-- [Lektorské úkoly](#lektorské-úkoly-lektorské-úkoly-iw_nadpis1)
+- [Lektorské úkoly](#lektorské-úkoly)
   - [Lab L01 -- ADDT (Active Directory Domains and Trusts)](#lab-l01----addt-active-directory-domains-and-trusts)
   - [Lab L02 -- Vytvoření vztahů důvěry](#lab-l02----vytvoření-vztahů-důvěry)
 - [Studentské úkoly](#studentské-úkoly)
@@ -229,7 +229,7 @@ Připojte sítové adaptéry stanic k následujícím virtuálním přepínačů
 
 ---
 
-# Lektorské úkoly {#lektorské-úkoly .IW_nadpis1}
+# Lektorské úkoly
 
 ## Lab L01 -- ADDT (Active Directory Domains and Trusts)
 
@@ -301,7 +301,7 @@ vztahu důvěry.
     d.  Opakujte **body 1.a -- 1.c** na **w2022-t2-dc1**, tentokrát pro
         doménu **testing.local** a IP adresu <doplnte IP w2022-dc1>
 
-    e.  Pomocí nástroje nslookup ověřte, že je nyní možné přeložit FQDN
+    e.  Pomocí nástroje `nslookup` ověřte, že je nyní možné přeložit FQDN
         z opačné domény
 
 4.  Vytvořte nový *external* vztah důvěry tak, aby doména
@@ -397,8 +397,8 @@ vztahu důvěry.
 
     g.  Potvrďte OK a zavřete Group Policy Management Editor
 
-    h.  Aktualizujte nastavení zásad skupiny příkazem **gpupdate
-        /force**
+    h.  Aktualizujte nastavení zásad skupiny příkazem `gpupdate
+        /force`
 
     -   Pozor: Jde jen o zjednodušení úkolu, protože nemáme
             k dispozici klientskou stanici. V praxi toto
@@ -411,7 +411,7 @@ vztahu důvěry.
         důvěryhodnou doménou pro doménu **child.testing.local**
 
 9.  Povolte všem uživatelům přihlásit se na řadiče domény v doméně
-    **testing2.local2** provedením postupu z **bodu 5** na **w2022-t2-dc1**
+    **testing2.local2** provedením postupu z **bodu 7** na **w2022-t2-dc1**
 
 10. Přihlaste se na **w2022-t2-dc1** jako uživatel
     **root@child.testing.local**
@@ -652,18 +652,18 @@ Lab S01 -- Zabezpečení vztahů důvěry
 
     a.  Na **w2022-dc1** spusťte jako administrátor příkazový řádek
 
-    b.  Spusťte příkaz **netdom trust testing.local /d:testing2.local2
+    b.  Spusťte příkaz `netdom trust testing.local /d:testing2.local2
         /quarantine:no /userD:root@testing2.local2
-        /passwordD:aaa**
+        /passwordD:aaa`
 
 9.  Zapněte doménovou karanténu pro *forest* vztah důvěry mezi
     **testing.local** a **testing2.local2**
 
     a.  Na **w2022-dc1** spusťte jako administrátor příkazový řádek
 
-    b.  Spusťte příkaz **netdom trust testing.local /d:testing2.local2
-        /quarantine:yes** **/userD:root@testing2.local2
-        /passwordD:aaa**
+    b.  Spusťte příkaz `netdom trust testing.local /d:testing2.local2
+        /quarantine:yes /userD:root@testing2.local2
+        /passwordD:aaa`
 
 # Bodované úkoly
 

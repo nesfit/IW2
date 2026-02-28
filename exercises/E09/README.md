@@ -697,7 +697,7 @@ vědět k bodovanému úkolu). Nakonec vytvořte objekt linky s názvem
 13. Promítněte změny do replikační topologie **Active Directory**
 
     a.  Na všech řadičích domény spusťte jako administrátor příkaz
-        **repadmin /kcc**
+        `repadmin /kcc`
 
 14. Na **w2022-dc1** proveďte nějakou změnu v **Active Directory**
     databázi, například u uživatele **homer** změňte hodnotu atributu
